@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Authors>Vahid Jalili</Authors>
+    <Company>Genometric</Company>
+    <Copyright>GPLv3</Copyright>
+    <PackageLicenseUrl>https://github.com/Genometric/GeUtilities/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Genometric/GeUtilities</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Genometric/GeUtilities</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+</Project>
