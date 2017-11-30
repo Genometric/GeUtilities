@@ -4,9 +4,10 @@
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IGeneralFeature : IExtendedMetadata
+    public interface IGeneralFeature : IInterval<int>
     {
         byte Feature { set; get; }
         string Attribute { set; get; }
+        double Value { set; get; }
     }
 }

@@ -4,9 +4,10 @@
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IChIPSeqPeak : IExtendedMetadata
+    public interface IChIPSeqPeak : IInterval<int>
     {
         string Name { set; get; }
         int Summit { set; get; }
+        double Value { set; get; }
     }
 }

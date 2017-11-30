@@ -7,9 +7,8 @@ using System;
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public sealed class BEDParser<I, M> : Parser<I, M>
-        where I : IInterval<int, M>, new()
-        where M : IChIPSeqPeak, new()
+    public sealed class BEDParser<I> : Parser<I>
+        where I : IChIPSeqPeak, new()
     {
         /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
@@ -224,8 +223,8 @@ namespace Genometric.GeUtilities.Parsers
             _dropPeakIfInvalidValue = true;
             _mostStringentPeak = new I();
             _mostPermissivePeak = new I();
-            _mostStringentPeak.Metadata = new M() { Value = 1 };
-            _mostPermissivePeak.Metadata = new M() { Value = 0 };
+            _mostStringentPeak.Value = 1;
+            _mostPermissivePeak.Value = 0;
             _parsingType = ParsingType.ChIPseq;
             _summitToMidRequired = false;
         }
@@ -233,7 +232,6 @@ namespace Genometric.GeUtilities.Parsers
         protected override I ParseLine(string[] line, UInt32 lineCounter, out string intervalName)
         {
             I rtv = new I();
-            rtv.Metadata = new M();
 
             #region .::.     Process p-value         .::.
 
@@ -241,7 +239,7 @@ namespace Genometric.GeUtilities.Parsers
             {
                 if (double.TryParse(line[_valueColumn], out double pValue))
                 {
-                    rtv.Metadata.Value = PValueConvertor(pValue);
+                    rtv.Value = PValueConvertor(pValue);
                 }
                 else if (_dropPeakIfInvalidValue == true)
                 {
@@ -250,18 +248,18 @@ namespace Genometric.GeUtilities.Parsers
                 }
                 else
                 {
-                    rtv.Metadata.Value = _defaultValue;
+                    rtv.Value = _defaultValue;
                     _defaultValueUtilizationCount++;
                 }
 
-                if (!double.IsNaN(rtv.Metadata.Value))
+                if (!double.IsNaN(rtv.Value))
                 {
-                    _pValueSum += rtv.Metadata.Value;
+                    _pValueSum += rtv.Value;
 
-                    if (rtv.Metadata.Value > _mostPermissivePeak.Metadata.Value)
+                    if (rtv.Value > _mostPermissivePeak.Value)
                         _mostPermissivePeak = rtv;
 
-                    if (rtv.Metadata.Value < _mostStringentPeak.Metadata.Value)
+                    if (rtv.Value < _mostStringentPeak.Value)
                         _mostStringentPeak = rtv;
                 }
             }
@@ -274,7 +272,7 @@ namespace Genometric.GeUtilities.Parsers
                 }
                 else
                 {
-                    rtv.Metadata.Value = _defaultValue;
+                    rtv.Value = _defaultValue;
                     _defaultValueUtilizationCount++;
                 }
             }
@@ -282,9 +280,9 @@ namespace Genometric.GeUtilities.Parsers
             #endregion
             #region .::.     Process I Name          .::.
 
-            if (_nameColumn < line.Length) rtv.Metadata.Name = line[_nameColumn];
-            else rtv.Metadata.Name = "null";
-            intervalName = rtv.Metadata.Name;
+            if (_nameColumn < line.Length) rtv.Name = line[_nameColumn];
+            else rtv.Name = "null";
+            intervalName = rtv.Name;
 
             #endregion
             #region .::.     Process Summit          .::.
@@ -292,18 +290,18 @@ namespace Genometric.GeUtilities.Parsers
             int summit = 0;
             if (_summitColumn != -1 && _summitColumn < line.Length)
                 if (int.TryParse(line[_summitColumn], out summit))
-                    rtv.Metadata.Summit = summit;
-                else { rtv.Metadata.Summit = -1; _summitToMidRequired = true; }
-            else { rtv.Metadata.Summit = -1; _summitToMidRequired = true; }
+                    rtv.Summit = summit;
+                else { rtv.Summit = -1; _summitToMidRequired = true; }
+            else { rtv.Summit = -1; _summitToMidRequired = true; }
 
             #endregion
 
             return rtv;
         }
 
-        public ParsedChIPseqPeaks<int, I, M> Parse()
+        public ParsedChIPseqPeaks<I> Parse()
         {
-            var rtv = (ParsedChIPseqPeaks<int, I, M>)PARSE();
+            var rtv = (ParsedChIPseqPeaks<I>)PARSE();
 
             if (_defaultValueUtilizationCount > 0)
                 _messages.Insert(0, "\tDefault p-value used for " + _defaultValueUtilizationCount.ToString() + " times");
@@ -316,8 +314,8 @@ namespace Genometric.GeUtilities.Parsers
                 foreach (var chr in rtv.intervals)
                     foreach (var strand in chr.Value)
                         foreach (var peak in strand.Value)
-                            if (peak.Metadata.Summit == -1)
-                                peak.Metadata.Summit = (int)Math.Round((peak.Left + peak.Right) / 2.0);
+                            if (peak.Summit == -1)
+                                peak.Summit = (int)Math.Round((peak.Left + peak.Right) / 2.0);
 
             Status = "100";
             return rtv;

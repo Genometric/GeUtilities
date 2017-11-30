@@ -10,9 +10,8 @@ using System.Text.RegularExpressions;
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public abstract class Parser<I, M>
-        where I : IInterval<int, M>, new()
-        where M : IExtendedMetadata, new()
+    public abstract class Parser<I>
+        where I : IInterval<int>, new()
     {
         /// <summary>
         /// decimal places/precision of numbers when rounding them. It is used for 
@@ -132,7 +131,7 @@ namespace Genometric.GeUtilities.Parsers
         /// Contains all read information from the input file, and 
         /// will be retured as parser result.
         /// </summary>
-        private ParsedIntervals<int, I, M> _data { set; get; }
+        private ParsedIntervals<I> _data { set; get; }
 
         /// <summary>
         /// Sets and gets chromosome-wide information and statistics of the sample.
@@ -181,19 +180,19 @@ namespace Genometric.GeUtilities.Parsers
             switch (_parsingType)
             {
                 case ParsingType.ChIPseq:
-                    _data = new ParsedChIPseqPeaks<int, I, M>();
+                    _data = new ParsedChIPseqPeaks<I>();
                     break;
 
                 case ParsingType.RefSeq:
-                    _data = new ParsedRefSeqGenes<int, I, M>();
+                    _data = new ParsedRefSeqGenes<I>();
                     break;
 
                 case ParsingType.GeneralFeatures:
-                    _data = new ParsedGeneralFeatures<int, I, M>();
+                    _data = new ParsedGeneralFeatures<I>();
                     break;
 
                 case ParsingType.VCF:
-                    _data = new ParsedVariants<int, I, M>();
+                    _data = new ParsedVariants<I>();
                     break;
             }
 
@@ -219,7 +218,7 @@ namespace Genometric.GeUtilities.Parsers
         /// Reads the regions presented in source file; and generates chromosome-wide statistics.
         /// </summary>
         /// <returns>Returns parsed intervals.</returns>
-        protected ParsedIntervals<int, I, M> PARSE()
+        protected ParsedIntervals<I> PARSE()
         {
             int left = 0;
             int right = 0;
@@ -383,16 +382,17 @@ namespace Genometric.GeUtilities.Parsers
                             #endregion
                             #region .::.     p-value surveys       .::.
 
-                            if (!double.IsNaN(readingInterval.Metadata.Value))
+                            // TODO: p-value may not be available for all the feature types, hence the following should be applied to some feature types within their parser.
+                            /*if (!double.IsNaN(readingInterval.Value))
                             {
-                                if (readingInterval.Metadata.Value > _chrs[chrTitle].pValueMax)
-                                    _chrs[chrTitle].pValueMax = readingInterval.Metadata.Value;
+                                if (readingInterval.Value > _chrs[chrTitle].pValueMax)
+                                    _chrs[chrTitle].pValueMax = readingInterval.Value;
 
-                                if (readingInterval.Metadata.Value < _chrs[chrTitle].pValueMin)
-                                    _chrs[chrTitle].pValueMin = readingInterval.Metadata.Value;
+                                if (readingInterval.Value < _chrs[chrTitle].pValueMin)
+                                    _chrs[chrTitle].pValueMin = readingInterval.Value;
 
-                                _pV__Sum[chrTitle] += readingInterval.Metadata.Value;
-                            }
+                                _pV__Sum[chrTitle] += readingInterval.Value;
+                            }*/
 
                             #endregion
                         }
@@ -452,7 +452,8 @@ namespace Genometric.GeUtilities.Parsers
                     foreach (I interval in strand.Value)
                     {
                         _pw_STDV[entry.Key] += Math.Pow((interval.Right - interval.Left) - _pw_Mean[entry.Key], 2.0);
-                        _pV_STDV[entry.Key] += Math.Pow(interval.Metadata.Value - _pV_Mean[entry.Key], 2.0);
+                        // TODO: p-value is not necessarily given for all the different feature types, hence the following should be performed in feature-specific parsers.
+                        // _pV_STDV[entry.Key] += Math.Pow(interval.Value - _pV_Mean[entry.Key], 2.0);
                     }
 
             foreach (KeyValuePair<string, ChrStatistics> entry in _chrs)

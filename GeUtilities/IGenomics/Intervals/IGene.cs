@@ -4,10 +4,11 @@
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IGene : IExtendedMetadata
+    public interface IGene : IInterval<int>
     {
         char Strand { set; get; }
         string RefSeqID { set; get; }
         string GeneSymbol { set; get; }
+        double Value { set; get; }
     }
 }

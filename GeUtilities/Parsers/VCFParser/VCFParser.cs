@@ -7,9 +7,8 @@ using System;
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public sealed class VCFParser<I, M> : Parser<I, M>
-        where I : IInterval<int, M>, new()
-        where M : IVCF, new()
+    public sealed class VCFParser<I> : Parser<I>
+        where I : IVCF, new()
     {
         public VCFParser(
             string source,
@@ -51,15 +50,12 @@ namespace Genometric.GeUtilities.Parsers
 
         protected override I ParseLine(string[] line, uint lineCounter, out string intervalName)
         {
-            I rtv = new I
-            {
-                Metadata = new M()
-            };
+            I rtv = new I();
             intervalName = "GeUtil_" + new Random().Next(10000, 100000).ToString();
 
             if(_idColumn < line.Length)
             {
-                rtv.Metadata.ID = line[_idColumn];
+                rtv.ID = line[_idColumn];
             }
             else
             {
@@ -69,17 +65,17 @@ namespace Genometric.GeUtilities.Parsers
 
             if (_refbpColumn < line.Length)
             {
-                rtv.Metadata.RefBase = new BasePair[line[_refbpColumn].Length];
+                rtv.RefBase = new BasePair[line[_refbpColumn].Length];
                 for (int i = 0; i < line[_refbpColumn].Length; i++)
                 {
                     switch (line[_refbpColumn][i])
                     {
-                        case 'A': rtv.Metadata.RefBase[i] = BasePair.A; break;
-                        case 'C': rtv.Metadata.RefBase[i] = BasePair.C; break;
-                        case 'G': rtv.Metadata.RefBase[i] = BasePair.G; break;
-                        case 'N': rtv.Metadata.RefBase[i] = BasePair.N; break;
-                        case 'T': rtv.Metadata.RefBase[i] = BasePair.T; break;
-                        case 'U': rtv.Metadata.RefBase[i] = BasePair.U; break;
+                        case 'A': rtv.RefBase[i] = BasePair.A; break;
+                        case 'C': rtv.RefBase[i] = BasePair.C; break;
+                        case 'G': rtv.RefBase[i] = BasePair.G; break;
+                        case 'N': rtv.RefBase[i] = BasePair.N; break;
+                        case 'T': rtv.RefBase[i] = BasePair.T; break;
+                        case 'U': rtv.RefBase[i] = BasePair.U; break;
                         default:
                             _dropLine = true;
                             DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid REF column.");
@@ -96,17 +92,17 @@ namespace Genometric.GeUtilities.Parsers
 
             if (_altbpColumn < line.Length)
             {
-                rtv.Metadata.AltBase = new BasePair[line[_altbpColumn].Length];
+                rtv.AltBase = new BasePair[line[_altbpColumn].Length];
                 for (int i = 0; i < line[_altbpColumn].Length; i++)
                 {
                     switch (line[_altbpColumn][i])
                     {
-                        case 'A': rtv.Metadata.AltBase[i] = BasePair.A; break;
-                        case 'C': rtv.Metadata.AltBase[i] = BasePair.C; break;
-                        case 'G': rtv.Metadata.AltBase[i] = BasePair.G; break;
-                        case 'N': rtv.Metadata.AltBase[i] = BasePair.N; break;
-                        case 'T': rtv.Metadata.AltBase[i] = BasePair.T; break;
-                        case 'U': rtv.Metadata.AltBase[i] = BasePair.U; break;
+                        case 'A': rtv.AltBase[i] = BasePair.A; break;
+                        case 'C': rtv.AltBase[i] = BasePair.C; break;
+                        case 'G': rtv.AltBase[i] = BasePair.G; break;
+                        case 'N': rtv.AltBase[i] = BasePair.N; break;
+                        case 'T': rtv.AltBase[i] = BasePair.T; break;
+                        case 'U': rtv.AltBase[i] = BasePair.U; break;
                         default:
                             _dropLine = true;
                             DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid ALT column.");
@@ -124,7 +120,7 @@ namespace Genometric.GeUtilities.Parsers
             if(_qualityColumn < line.Length)
             {
                 if (double.TryParse(line[_qualityColumn], out double quality))
-                    rtv.Metadata.Quality = quality;
+                    rtv.Quality = quality;
             }
             else
             {
@@ -135,7 +131,7 @@ namespace Genometric.GeUtilities.Parsers
 
             if(_filterColumn < line.Length)
             {
-                rtv.Metadata.Filter = line[_filterColumn];
+                rtv.Filter = line[_filterColumn];
             }
             else
             {
@@ -146,7 +142,7 @@ namespace Genometric.GeUtilities.Parsers
 
             if (_infoColumn < line.Length)
             {
-                rtv.Metadata.Info = line[_infoColumn];
+                rtv.Info = line[_infoColumn];
             }
             else
             {
@@ -157,9 +153,9 @@ namespace Genometric.GeUtilities.Parsers
             return rtv;
         }
 
-        public ParsedVariants<int, I, M> Parse()
+        public ParsedVariants<I> Parse()
         {
-            var rtv = (ParsedVariants<int, I, M>)PARSE();
+            var rtv = (ParsedVariants<I>)PARSE();
             Status = "100";
             return rtv;
         }

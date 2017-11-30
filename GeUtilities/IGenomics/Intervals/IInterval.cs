@@ -4,7 +4,7 @@
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IInterval<C, M>
+    public interface IInterval<C>
     {
         /// <summary>
         /// Sets and gets the left-end of the interval.
@@ -15,14 +15,6 @@ namespace Genometric.GeUtilities.IGenomics
         /// Sets and gets the right-end of the interval.
         /// </summary>
         C Right { set; get; }
-
-        /// <summary>
-        /// Sets and gets the descriptive metadata
-        /// of the interval. It could be a reference
-        /// to a memory object, or a pointer, or 
-        /// an entry ID on database.
-        /// </summary>
-        M Metadata { set; get; }
 
         /// <summary>
         /// Sets and gets the the hashKey of the interval.

@@ -4,7 +4,7 @@
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IVCF : IExtendedMetadata
+    public interface IVCF : IInterval<int>
     {
         string ID { set; get; }
         BasePair[] RefBase { set; get; }
@@ -18,5 +18,6 @@ namespace Genometric.GeUtilities.IGenomics
         string Filter { set; get; }
 
         string Info { set; get; }
+        double Value { set; get; }
     }
 }

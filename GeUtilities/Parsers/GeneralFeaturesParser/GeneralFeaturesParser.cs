@@ -7,9 +7,8 @@ using System.Collections.Generic;
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public sealed class GeneralFeaturesParser<I, M> : Parser<I, M>
-        where I : IInterval<int, M>, new()
-        where M : IGeneralFeature, new()
+    public sealed class GeneralFeaturesParser<I> : Parser<I>
+        where I : IGeneralFeature, new()
     {
         /// <summary>
         /// Parse General Transfer Format (GTF) format.
@@ -107,10 +106,7 @@ namespace Genometric.GeUtilities.Parsers
 
         protected override I ParseLine(string[] line, uint lineCounter, out string intervalName)
         {
-            I rtv = new I
-            {
-                Metadata = new M()
-            };
+            I rtv = new I();
 
             #region .::.     Process Feature         .::.
 
@@ -119,7 +115,7 @@ namespace Genometric.GeUtilities.Parsers
                 if (!determinedFeatures.ContainsKey(line[_featureColumn]))
                     determinedFeatures.Add(line[_featureColumn], new DeterminedFeature(line[_featureColumn], 0, (byte)determinedFeatures.Count));
 
-                rtv.Metadata.Feature = determinedFeatures[line[_featureColumn]].Code;
+                rtv.Feature = determinedFeatures[line[_featureColumn]].Code;
                 determinedFeatures[line[_featureColumn]].Count++;
             }
             else
@@ -131,9 +127,9 @@ namespace Genometric.GeUtilities.Parsers
             #region .::.     Process Attribute       .::.
 
             if (_attributeColumn < line.Length)            
-                rtv.Metadata.Attribute = line[_attributeColumn];            
+                rtv.Attribute = line[_attributeColumn];            
             else            
-                rtv.Metadata.Attribute = null;
+                rtv.Attribute = null;
 
             #endregion
 
@@ -141,9 +137,9 @@ namespace Genometric.GeUtilities.Parsers
             return rtv;
         }
 
-        public ParsedGeneralFeatures<int, I, M> Parse()
+        public ParsedGeneralFeatures<I> Parse()
         {
-            var parsingResult = (ParsedGeneralFeatures<int, I, M>)PARSE();
+            var parsingResult = (ParsedGeneralFeatures<I>)PARSE();
             parsingResult.determinedFeatures = new DeterminedFeature[determinedFeatures.Keys.Count];
             int keyCounter = 0;
             foreach (var key in determinedFeatures)

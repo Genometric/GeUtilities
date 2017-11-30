@@ -6,9 +6,8 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public sealed class RefSeqGenesParser<I, M> : Parser<I, M>
-        where I : IInterval<int, M>, new()
-        where M : IGene, new()
+    public sealed class RefSeqGenesParser<I> : Parser<I>
+        where I : IGene, new()
     {
         /// <summary>
         /// Parse refseq genes presented in tab-delimited text file.
@@ -208,30 +207,27 @@ namespace Genometric.GeUtilities.Parsers
 
         protected override I ParseLine(string[] line, uint lineCounter, out string intervalName)
         {
-            I rtv = new I
-            {
-                Metadata = new M()
-            };
+            I rtv = new I();
 
             #region .::.     Process Refseq ID              .::.
 
             if (_refseqIDColumn < line.Length)
             {
-                rtv.Metadata.RefSeqID = line[_refseqIDColumn];
+                rtv.RefSeqID = line[_refseqIDColumn];
             }
             else if (!_readOnlyCoordinates)
             {
                 _dropLine = true;
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid refseq ID column number");
             }
-            intervalName = rtv.Metadata.RefSeqID;
+            intervalName = rtv.RefSeqID;
 
             #endregion
             #region .::.     Process Official gene symbol   .::.
 
             if (_officialGeneColumn < line.Length)
             {
-                rtv.Metadata.GeneSymbol = line[_officialGeneColumn];
+                rtv.GeneSymbol = line[_officialGeneColumn];
             }
             else if (!_readOnlyCoordinates)
             {
@@ -242,10 +238,10 @@ namespace Genometric.GeUtilities.Parsers
             #endregion
             #region .::.     Process I Strand               .::.
 
-            rtv.Metadata.Strand = '*';
+            rtv.Strand = '*';
             if (_strandColumn != -1 && _strandColumn < line.Length)
                 if (char.TryParse(line[_strandColumn], out char strand))
-                    rtv.Metadata.Strand = strand;
+                    rtv.Strand = strand;
 
             #endregion
 
@@ -256,9 +252,9 @@ namespace Genometric.GeUtilities.Parsers
         /// Reads the regions presented in source file and generates chromosome-wide statistics regarding regions length and p-values. 
         /// </summary>
         /// <returns>Returns an object of Input_BED_Data class</returns>
-        public ParsedRefSeqGenes<int, I, M> Parse()
+        public ParsedRefSeqGenes<I> Parse()
         {
-            var parsingResult = (ParsedRefSeqGenes<int, I, M>)PARSE();
+            var parsingResult = (ParsedRefSeqGenes<I>)PARSE();
             Status = "100";
             return parsingResult;
         }

@@ -6,14 +6,13 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public class ParsedChIPseqPeaks<C, I, M> : ParsedIntervals<C, I, M>
-        where I : IInterval<C, M>, new()
-        where M : IExtendedMetadata, new()
+    public class ParsedChIPseqPeaks<I> : ParsedIntervals<I>
+        where I : IInterval<int>, new()
     {   
         public ParsedChIPseqPeaks()
         {
-            pValueMax = new I() { Left = default(C), Right = default(C), Metadata = new M() };
-            pValueMin = new I() { Left = default(C), Right = default(C), Metadata = new M() };
+            pValueMax = new I();
+            pValueMin = new I();
         }
 
         public I pValueMax;

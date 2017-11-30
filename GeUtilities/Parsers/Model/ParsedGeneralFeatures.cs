@@ -6,9 +6,8 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public class ParsedGeneralFeatures<C, I, M> : ParsedIntervals<C, I, M>
-        where I : IInterval<C, M>, new()
-        where M : IExtendedMetadata, new()
+    public class ParsedGeneralFeatures<I> : ParsedIntervals<I>
+        where I : IInterval<int>, new()
     {
         public DeterminedFeature[] determinedFeatures;
     }

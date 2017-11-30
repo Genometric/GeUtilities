@@ -8,9 +8,8 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public abstract class ParsedIntervals<C, I, M>
-        where I : IInterval<C, M>, new()
-        where M : IExtendedMetadata, new()
+    public abstract class ParsedIntervals<I>
+        where I : IInterval<int>, new()
     {
         public string fileName;
         public string filePath;
