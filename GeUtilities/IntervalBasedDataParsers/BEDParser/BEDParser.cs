@@ -21,61 +21,28 @@ namespace Genometric.GeUtilities.Parsers
             string source,
             Genomes species,
             Assemblies assembly,
-            bool readOnlyValidChrs)
+            bool readOnlyValidChrs = true)
         {
-            InitializeDefaultValues();
             Source = source;
             Genome = species;
             Assembly = assembly;
+            maxLinesToBeRead = uint.MaxValue;
+            ChrColumn = 0;
+            LeftColumn = 1;
+            RightColumn = 2;
+            _nameColumn = 3;
+            _valueColumn = 4;
+            _summitColumn = -1;
+            StrandColumn = -1;
+            _defaultValue = 1E-8;
+            _pValueFormat = PValueFormat.SameAsInput;
+            _dropPeakIfInvalidValue = true;
             ReadOnlyValidChrs = readOnlyValidChrs;
-            Initialize();
-        }
-
-        /// <summary>
-        /// Parse standard Browser Extensible Data (BED) format.
-        /// </summary>
-        /// <param name="source">Full path of source file name.</param>
-        /// <param name="species">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
-        /// <param name="assembly"></param>
-        /// <param name="readOnlyValidChrs"></param>
-        /// <param name="startOffset">If the source file comes with header, the number of headers lines needs to be specified so that
-        /// parser can ignore them. If not specified and header is present, header might be dropped because
-        /// of improper format it might have. </param>
-        /// <param name="chrColumn">The coloumn number of chromosome name.</param>
-        /// <param name="leftEndColumn">The column number of peak left-end position.</param>
-        /// <param name="rightEndColumn">The column number of peak right-end position.</param>
-        /// <param name="nameColumn">The column number of peak name.</param>
-        /// <param name="valueColumn">The column number of peak value.</param>
-        /// <param name="summitColumn">The column number of peak summit. If summit is not available, set this value to -1 so that the summit will the mid point of the interval.</param>
-        /// /// <param name="strandColumn">The column number of peak strand. If input is not stranded this value should be set to -1.</param>
-        public BEDParser(
-            string source,
-            Genomes species,
-            Assemblies assembly,
-            bool readOnlyValidChrs,
-            byte startOffset,
-            sbyte chrColumn,
-            sbyte leftEndColumn,
-            sbyte rightEndColumn,
-            byte nameColumn,
-            byte valueColumn,
-            sbyte summitColumn,
-            sbyte strandColumn)
-        {
-            InitializeDefaultValues();
-            Source = source;
-            Genome = species;
-            Assembly = assembly;
-            ReadOnlyValidChrs = readOnlyValidChrs;
-            StartOffset = startOffset;
-            ChrColumn = chrColumn;
-            LeftColumn = leftEndColumn;
-            RightColumn = rightEndColumn;
-            _nameColumn = nameColumn;
-            _valueColumn = valueColumn;
-            _summitColumn = summitColumn;
-            StrandColumn = strandColumn;
-            Data = new ParsedChIPseqPeaks<I>();
+            _mostStringentPeak = new I();
+            _mostPermissivePeak = new I();
+            _mostStringentPeak.Value = 1;
+            _mostPermissivePeak.Value = 0;
+            _summitToMidRequired = false;
             Initialize();
         }
 
@@ -118,12 +85,12 @@ namespace Genometric.GeUtilities.Parsers
             byte valueColumn,
             sbyte summitColumn,
             sbyte strandColumn,
-            double defaultValue,
-            PValueFormat pValueFormat,
-            bool dropPeakIfInvalidValue, 
-            HashFunction hashFunction)
+            double defaultValue = 1E-8,
+            uint maxLinesToBeRead = uint.MaxValue,
+            PValueFormat pValueFormat = PValueFormat.SameAsInput,
+            bool dropPeakIfInvalidValue = true,
+            HashFunction hashFunction = HashFunction.One_at_a_Time)
         {
-            InitializeDefaultValues();
             Source = source;
             Genome = species;
             Assembly = assembly;
@@ -140,6 +107,12 @@ namespace Genometric.GeUtilities.Parsers
             _pValueFormat = pValueFormat;
             _dropPeakIfInvalidValue = dropPeakIfInvalidValue;
             HashFunction = hashFunction;
+            _mostStringentPeak = new I();
+            _mostPermissivePeak = new I();
+            _mostStringentPeak.Value = 1;
+            _mostPermissivePeak.Value = 0;
+            _summitToMidRequired = false;
+            maxLinesToBeRead = uint.MaxValue;
             Initialize();
         }
 
@@ -207,27 +180,6 @@ namespace Genometric.GeUtilities.Parsers
         private bool _summitToMidRequired;
 
         #endregion
-
-
-        private void InitializeDefaultValues()
-        {
-            maxLinesToBeRead = uint.MaxValue;
-            ChrColumn = 0;
-            LeftColumn = 1;
-            RightColumn = 2;
-            _nameColumn = 3;
-            _valueColumn = 4;
-            _summitColumn = -1;
-            StrandColumn = -1;
-            _defaultValue = 1E-8;
-            _pValueFormat = PValueFormat.SameAsInput;
-            _dropPeakIfInvalidValue = true;
-            _mostStringentPeak = new I();
-            _mostPermissivePeak = new I();
-            _mostStringentPeak.Value = 1;
-            _mostPermissivePeak.Value = 0;
-            _summitToMidRequired = false;
-        }
 
         protected override I BuildInterval(int left, int right, string[] line, uint lineCounter, out string intervalName)
         {
