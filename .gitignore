@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /GeUtilities.Tests
+/GeUtilities/IntervalBasedDataParsers
+/GeUtilities/IGenomics/Statistics

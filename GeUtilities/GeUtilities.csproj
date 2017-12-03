@@ -8,6 +8,7 @@
     <PackageLicenseUrl>https://github.com/Genometric/GeUtilities/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Genometric/GeUtilities</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Genometric/GeUtilities</RepositoryUrl>
+    <RootNamespace>Genometric.GeUtilities</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
