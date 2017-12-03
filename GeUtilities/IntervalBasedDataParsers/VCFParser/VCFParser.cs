@@ -13,13 +13,24 @@ namespace Genometric.GeUtilities.Parsers
         public VCFParser(
             string source,
             Genomes species,
-            Assemblies assembly)
+            Assemblies assembly,
+            uint maxLinesToBeRead = uint.MaxValue)
         {
-            InitializeDefaultValues();
+            maxLinesToBeRead = uint.MaxValue;
+            ChrColumn = 0;
+            LeftColumn = 1;
+            RightColumn = -1;
+            _idColumn = 2;
+            _refbpColumn = 3;
+            _altbpColumn = 4;
+            _qualityColumn = 5;
+            _filterColumn = 6;
+            _infoColumn = 7;
             Source = source;
             Genome = species;
             Assembly = assembly;
             ReadOnlyValidChrs = false;
+
             Initialize();
         }
 
@@ -33,20 +44,6 @@ namespace Genometric.GeUtilities.Parsers
         private byte _infoColumn { set; get; }
 
         #endregion
-
-        private void InitializeDefaultValues()
-        {
-            maxLinesToBeRead = uint.MaxValue;
-            ChrColumn = 0;
-            LeftColumn = 1;
-            RightColumn = -1;
-            _idColumn = 2;
-            _refbpColumn = 3;
-            _altbpColumn = 4;
-            _qualityColumn = 5;
-            _filterColumn = 6;
-            _infoColumn = 7;
-        }
 
         protected override I BuildInterval(int left, int right, string[] line, uint lineCounter, out string intervalName)
         {
