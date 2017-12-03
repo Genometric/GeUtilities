@@ -4,8 +4,6 @@
 
 using Genometric.GeUtilities.IGenomics;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Genometric.GeUtilities.Parsers
 {
