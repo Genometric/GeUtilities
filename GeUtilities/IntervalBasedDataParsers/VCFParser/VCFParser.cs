@@ -16,7 +16,9 @@ namespace Genometric.GeUtilities.Parsers
             Assemblies assembly,
             uint maxLinesToBeRead = uint.MaxValue)
         {
-            maxLinesToBeRead = uint.MaxValue;
+            Source = source;
+            Genome = species;
+            Assembly = assembly;
             ChrColumn = 0;
             LeftColumn = 1;
             RightColumn = -1;
@@ -26,22 +28,52 @@ namespace Genometric.GeUtilities.Parsers
             _qualityColumn = 5;
             _filterColumn = 6;
             _infoColumn = 7;
+            maxLinesToBeRead = uint.MaxValue;
+            ReadOnlyValidChrs = false;
+            Initialize();
+        }
+
+        public VCFParser(
+            string source,
+            Genomes species,
+            Assemblies assembly,
+            sbyte chrColumn,
+            sbyte positionColumn,
+            sbyte idColumn,
+            sbyte refbpColumn,
+            sbyte altbpColumn,
+            sbyte qualityColumn,
+            sbyte filterColumn,
+            sbyte infoColumn,
+            bool readOnlyValidChrs = true,
+            uint maxLinesToBeRead = uint.MaxValue)
+        {
             Source = source;
             Genome = species;
             Assembly = assembly;
-            ReadOnlyValidChrs = false;
+            ChrColumn = chrColumn;
+            LeftColumn = positionColumn;
+            RightColumn = -1;
+            _idColumn = idColumn;
+            _refbpColumn = refbpColumn;
+            _altbpColumn = altbpColumn;
+            _qualityColumn = qualityColumn;
+            _filterColumn = filterColumn;
+            _infoColumn = infoColumn;
+            this.maxLinesToBeRead = maxLinesToBeRead;
+            ReadOnlyValidChrs = readOnlyValidChrs;
 
             Initialize();
         }
 
         #region .::.         private Variables declaration               .::.
 
-        private byte _idColumn { set; get; }
-        private byte _refbpColumn { set; get; }
-        private byte _altbpColumn { set; get; }
-        private byte _qualityColumn { set; get; }
-        private byte _filterColumn { set; get; }
-        private byte _infoColumn { set; get; }
+        private sbyte _idColumn { set; get; }
+        private sbyte _refbpColumn { set; get; }
+        private sbyte _altbpColumn { set; get; }
+        private sbyte _qualityColumn { set; get; }
+        private sbyte _filterColumn { set; get; }
+        private sbyte _infoColumn { set; get; }
 
         #endregion
 
