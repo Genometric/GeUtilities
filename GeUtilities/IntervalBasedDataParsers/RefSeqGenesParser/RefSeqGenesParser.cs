@@ -13,37 +13,38 @@ namespace Genometric.GeUtilities.Parsers
         /// Parse refseq genes presented in tab-delimited text file.
         /// </summary>
         /// <param name="source">Full path of source file name.</param>
-        /// <param name="species">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
+        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
         /// <param name="readOnlyValidChrs"></param>
         public RefSeqGenesParser(
             string source,
-            Genomes species,
+            Genomes genome,
             Assemblies assembly,
-            bool readOnlyValidChrs)
-        {
-            Source = source;
-            Genome = species;
-            Assembly = assembly;
-            ChrColumn = 0;
-            LeftColumn = 1;
-            RightColumn = 2;
-            _refseqIDColumn = 3;
-            _officialGeneColumn = 4;
-            _strandColumn = -1;
-            _readOnlyCoordinates = true;
-            ReadOnlyValidChrs = readOnlyValidChrs;
-            maxLinesToBeRead = uint.MaxValue;
-            HashFunction = HashFunction.One_at_a_Time;
-            Initialize();
-        }
+            bool readOnlyValidChrs=true,
+            uint maxLinesToBeRead = uint.MaxValue) :
+            this(source: source,
+                genome: genome,
+                assembly: assembly,
+                readOnlyValidChrs: readOnlyValidChrs,
+                startOffset: 0,
+                chrColumn: 0,
+                leftEndColumn: 1,
+                rightEndColumn: 2,
+                refseqIDColumn: 3,
+                officialGeneSymbolColumn: 4,
+                strandColumn: -1,
+                maxLinesToRead: maxLinesToBeRead,
+                hashFunction: HashFunction.One_at_a_Time
+                )
+
+        { }
 
 
         /// <summary>
         /// Parse refseq genes presented in tab-delimited text file.
         /// </summary>
         /// <param name="source">Full path of source file name</param>
-        /// <param name="species">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
+        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
         /// <param name="readOnlyValidChrs"></param>
         /// <param name="startOffset">If the source file comes with header, the number of headers lines needs to be specified so that
@@ -54,34 +55,34 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="rightEndColumn">The column number of gene stop position</param>
         public RefSeqGenesParser(
             string source,
-            Genomes species,
+            Genomes genome,
             Assemblies assembly,
-            bool readOnlyValidChrs,
-            byte startOffset,
             sbyte chrColumn,
             sbyte leftEndColumn,
             sbyte rightEndColumn,
             sbyte refseqIDColumn,
             sbyte officialGeneSymbolColumn,
             sbyte strandColumn,
+            byte startOffset = 0,
+            bool readOnlyValidChrs = true,
             uint maxLinesToRead = uint.MaxValue,
-            HashFunction hashFunction = HashFunction.One_at_a_Time)
+            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            base(source: source,
+                genome: genome,
+                assembly: assembly,
+                startOffset: startOffset,
+                chrColumn: chrColumn,
+                leftEndColumn: leftEndColumn,
+                rightEndColumn: rightEndColumn,
+                strandColumn: strandColumn,
+                readOnlyValidChrs: readOnlyValidChrs,
+                maxLinesToBeRead: maxLinesToRead,
+                hashFunction: hashFunction)
         {
-            Source = source;
-            Genome = species;
-            Assembly = assembly;
-            StartOffset = startOffset;
-            ChrColumn = chrColumn;
-            LeftColumn = leftEndColumn;
-            RightColumn = rightEndColumn;
             _refseqIDColumn = refseqIDColumn;
             _officialGeneColumn = officialGeneSymbolColumn;
             _strandColumn = strandColumn;
             _readOnlyCoordinates = true;
-            ReadOnlyValidChrs = readOnlyValidChrs;
-            HashFunction = hashFunction;
-            maxLinesToBeRead = maxLinesToRead;
-            Initialize();
         }
 
 

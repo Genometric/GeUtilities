@@ -20,13 +20,50 @@ namespace Genometric.GeUtilities.Parsers
         /// </summary>
         public byte decimalPlaces;
 
+        private const UInt32 _FNVPrime_32 = 16777619;
+        private const UInt32 _FNVOffsetBasis_32 = 2166136261;
+
         /// <summary>
-        /// Sets the number of lines to be read from input file.
-        /// The default value is 4,294,967,295 (0xFFFFFFFF) which will be used if not set. 
+        /// Full path of source file name.
         /// </summary>
-        public UInt32 maxLinesToBeRead;
-        public List<string> excessChrs;
-        public List<string> missingChrs;
+        private string _source;
+
+        /// <summary>
+        /// This parameter will be used for initializing the chromosome count and sex chromosomes mappings.
+        /// </summary>
+        private Genomes _genome;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Assemblies _assembly;
+
+        /// <summary>
+        /// If the source file comes with header, the number of headers lines needs to be specified so that
+        /// parser can ignore them. If not specified and header is present, header might be dropped because
+        /// of improper format it might have. 
+        /// </summary>
+        private byte _startOffset;
+
+        /// <summary>
+        /// Sets and gets the coloumn number of chromosome name.
+        /// </summary>
+        private sbyte _chrColumn;
+
+        /// <summary>
+        /// Sets and gets column number of peak left position.
+        /// </summary>
+        private sbyte _leftColumn;
+
+        /// <summary>
+        /// Sets and gets the column number of peak right position.
+        /// </summary>
+        private sbyte _rightColumn;
+
+        /// <summary>
+        /// Sets and gets the column number of strand.
+        /// </summary>
+        private sbyte _strandColumn;
 
         /// <summary>
         /// Sets and gets validity of the interval being parsed.
@@ -36,8 +73,13 @@ namespace Genometric.GeUtilities.Parsers
         /// </summary>
         private bool _dropReadingPeak;
 
-        private const UInt32 _FNVPrime_32 = 16777619;
-        private const UInt32 _FNVOffsetBasis_32 = 2166136261;
+        /// <summary>
+        /// Sets the number of lines to be read from input file.
+        /// The default value is 4,294,967,295 (0xFFFFFFFF) which will be used if not set. 
+        /// </summary>
+        private UInt32 _maxLinesToBeRead;
+        private List<string> _excessChrs;
+        private List<string> _missingChrs;
 
         /// <summary>
         /// When read process is finished, this variable contains the number
@@ -56,18 +98,50 @@ namespace Genometric.GeUtilities.Parsers
         /// </summary>
         private Dictionary<string, int> _basePairsCount;
 
+        /// <summary>
+        /// Contains all read information from the input file, and 
+        /// will be retured as parser result.
+        /// </summary>
+        private ParsedIntervals<I, S> _data;
 
-        protected void Initialize()
+        private bool _readOnlyValidChrs;
+
+        private HashFunction _hashFunction;
+
+
+        public Parser(
+            string source,
+            Genomes genome,
+            Assemblies assembly,
+            byte startOffset,
+            sbyte chrColumn,
+            sbyte leftEndColumn,
+            sbyte rightEndColumn,
+            sbyte strandColumn,
+            bool readOnlyValidChrs,
+            uint maxLinesToBeRead,
+            HashFunction hashFunction)
         {
-            Data.FilePath = Path.GetFullPath(Source);
-            Data.FileName = Path.GetFileName(Source);
-            Data.FileHashKey = GetFileHashKey(Data.FilePath);
-            Data.Genome = Genome;
-            Data.Assembly = Assembly;
-            _basePairsCount = GenomeAssemblies.Assembly(Assembly);
+            _source = source;
+            _genome = genome;
+            _assembly = assembly;
+            _startOffset = startOffset;
+            _chrColumn = chrColumn;
+            _leftColumn = leftEndColumn;
+            _rightColumn = rightEndColumn;
+            _strandColumn = strandColumn;
+            _readOnlyValidChrs = readOnlyValidChrs;
+            _maxLinesToBeRead = maxLinesToBeRead;
+            _hashFunction = hashFunction;
+            _data.FilePath = Path.GetFullPath(_source);
+            _data.FileName = Path.GetFileName(_source);
+            _data.FileHashKey = GetFileHashKey(_data.FilePath);
+            _data.Genome = _genome;
+            _data.Assembly = _assembly;
+            _basePairsCount = GenomeAssemblies.Assembly(_assembly);
             _chrs = new Dictionary<string, BEDStats>();
-            excessChrs = new List<string>();
-            missingChrs = new List<string>();
+            _excessChrs = new List<string>();
+            _missingChrs = new List<string>();
         }
 
 
@@ -94,66 +168,11 @@ namespace Genometric.GeUtilities.Parsers
 
         #endregion
 
-        #region .::.         Protected Properties                           .::.
-
-        /// <summary>
-        /// Full path of source file name.
-        /// </summary>
-        protected string Source { set; get; }
-
-        /// <summary>
-        /// This parameter will be used for initializing the chromosome count and sex chromosomes mappings.
-        /// </summary>
-        protected Genomes Genome { set; get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected Assemblies Assembly { set; get; }
-
-        /// <summary>
-        /// If the source file comes with header, the number of headers lines needs to be specified so that
-        /// parser can ignore them. If not specified and header is present, header might be dropped because
-        /// of improper format it might have. 
-        /// </summary>
-        protected byte StartOffset { set; get; }
-
-        /// <summary>
-        /// Sets and gets the coloumn number of chromosome name.
-        /// </summary>
-        protected sbyte ChrColumn { set; get; }
-
-        /// <summary>
-        /// Sets and gets column number of peak left position.
-        /// </summary>
-        protected sbyte LeftColumn { set; get; }
-
-        /// <summary>
-        /// Sets and gets the column number of peak right position.
-        /// </summary>
-        protected sbyte RightColumn { set; get; }
-
-        /// <summary>
-        /// Sets and gets the column number of strand.
-        /// </summary>
-        protected sbyte StrandColumn { set; get; }
 
         /// <summary>
         /// 
         /// </summary>
         protected List<string> Messages { set; get; }
-
-        /// <summary>
-        /// Contains all read information from the input file, and 
-        /// will be retured as parser result.
-        /// </summary>
-        protected ParsedIntervals<I, S> Data { set; get; }
-
-        protected bool ReadOnlyValidChrs { set; get; }
-
-        protected HashFunction HashFunction { set; get; }
-
-        #endregion
 
         /// <summary>
         /// Reads the regions presented in source file; and generates chromosome-wide statistics.
@@ -169,17 +188,17 @@ namespace Genometric.GeUtilities.Parsers
             Messages = new List<string>();
             _dropReadingPeak = false;
 
-            if (File.Exists(Source))
+            if (File.Exists(_source))
             {
-                FileInfo fileInfo = new FileInfo(Source);
+                FileInfo fileInfo = new FileInfo(_source);
                 long fileSize = fileInfo.Length;
                 int lineSize = 0;
                 string chrName = "";
                 char strand = '*';
 
-                using (StreamReader fileReader = new StreamReader(Source))
+                using (StreamReader fileReader = new StreamReader(_source))
                 {
-                    while (StartOffset-- > 0)
+                    while (_startOffset-- > 0)
                     {
                         line = fileReader.ReadLine();
                         lineCounter++;
@@ -191,18 +210,18 @@ namespace Genometric.GeUtilities.Parsers
                         lineSize += fileReader.CurrentEncoding.GetByteCount(line);
                         Status = (Math.Round((lineSize * 100.0) / fileSize, 0)).ToString();
 
-                        if (line.Trim().Length > 0 && lineCounter <= maxLinesToBeRead)
+                        if (line.Trim().Length > 0 && lineCounter <= _maxLinesToBeRead)
                         {
                             _dropReadingPeak = false;
                             string[] splittedLine = line.Split('\t');
 
-                            if (!(LeftColumn < splittedLine.Length && int.TryParse(splittedLine[LeftColumn], out left)))
+                            if (!(_leftColumn < splittedLine.Length && int.TryParse(splittedLine[_leftColumn], out left)))
                             {
                                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid start/position column number");
                                 continue;
                             }
 
-                            if (RightColumn > 0 && !(RightColumn < splittedLine.Length && int.TryParse(splittedLine[RightColumn], out right)))
+                            if (_rightColumn > 0 && !(_rightColumn < splittedLine.Length && int.TryParse(splittedLine[_rightColumn], out right)))
                             {
                                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid stop column number");
                                 continue;
@@ -212,15 +231,15 @@ namespace Genometric.GeUtilities.Parsers
                             if (_dropReadingPeak)
                                 continue;
 
-                            if (ChrColumn < splittedLine.Length)
+                            if (_chrColumn < splittedLine.Length)
                             {
-                                if (Regex.IsMatch(splittedLine[ChrColumn].ToLower(), "chr"))
-                                    chrName = splittedLine[ChrColumn];
-                                else if (int.TryParse(splittedLine[ChrColumn], out int chrNumber))
+                                if (Regex.IsMatch(splittedLine[_chrColumn].ToLower(), "chr"))
+                                    chrName = splittedLine[_chrColumn];
+                                else if (int.TryParse(splittedLine[_chrColumn], out int chrNumber))
                                     chrName = "chr" + chrNumber;
                                 else
                                 {
-                                    DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid chromosome number ( " + splittedLine[ChrColumn].ToString() + " )");
+                                    DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid chromosome number ( " + splittedLine[_chrColumn].ToString() + " )");
                                     continue;
                                 }
                             }
@@ -230,19 +249,19 @@ namespace Genometric.GeUtilities.Parsers
                                 continue;
                             }
 
-                            if (ReadOnlyValidChrs && !_basePairsCount.ContainsKey(chrName))
+                            if (_readOnlyValidChrs && !_basePairsCount.ContainsKey(chrName))
                             {
-                                DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid chromosome number ( " + splittedLine[ChrColumn].ToString() + " )");
+                                DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid chromosome number ( " + splittedLine[_chrColumn].ToString() + " )");
                                 continue;
                             }
 
                             strand = '*';
-                            if (StrandColumn != -1 && StrandColumn < line.Length)
-                                if (char.TryParse(splittedLine[StrandColumn], out strand))
+                            if (_strandColumn != -1 && _strandColumn < line.Length)
+                                if (char.TryParse(splittedLine[_strandColumn], out strand))
                                     if (strand != '+' && strand != '-' && strand != '*')
                                         strand = '*';
 
-                            switch (HashFunction)
+                            switch (_hashFunction)
                             {
                                 case HashFunction.One_at_a_Time:
                                 default:
@@ -254,14 +273,14 @@ namespace Genometric.GeUtilities.Parsers
                                     break;
                             }
 
-                            Data.Add(readingInterval, chrName, strand);
+                            _data.Add(readingInterval, chrName, strand);
                         }
                     }
                 }
 
                 if (_dropedLinesCount > 0)
                     Messages.Insert(0, "\t" + _dropedLinesCount.ToString() + " Lines droped");
-                Data.Messages = Messages;
+                _data.Messages = Messages;
 
                 ReadMissingAndExcessChrs();
             }
@@ -270,7 +289,7 @@ namespace Genometric.GeUtilities.Parsers
                 // throw an exception to inform that the file is not present
             }
 
-            return Data;
+            return _data;
         }
 
         /// <summary>
@@ -289,31 +308,12 @@ namespace Genometric.GeUtilities.Parsers
         {
             foreach (KeyValuePair<string, BEDStats> entry in _chrs)
                 if (!_basePairsCount.ContainsKey(entry.Key)) //FixChrCasing(entry.Key)))
-                    excessChrs.Add(entry.Key); //FixChrCasing(entry.Key));
+                    _excessChrs.Add(entry.Key); //FixChrCasing(entry.Key));
 
             foreach (KeyValuePair<string, int> entry in _basePairsCount)
                 if (!_chrs.ContainsKey(entry.Key.ToLower()))
-                    missingChrs.Add(entry.Key);
+                    _missingChrs.Add(entry.Key);
         }
-
-        /// <summary>
-        /// Returns case-fixed chr title. 
-        /// <para>During parsing process all chr title are changed to
-        /// lower-case. However, it is prefered to have chrX, chrY and 
-        /// chrM in camel casing. This function will do conversion.</para>
-        /// </summary>
-        /// <param name="allLowerCaseChr">camel-cased chr titles.</param>
-        /// <returns></returns>
-        /*private string FixChrCasing(string allLowerCaseChr)
-        {
-            switch (allLowerCaseChr)
-            {
-                case "chrx": return "chrX";
-                case "chry": return "chrY";
-                case "chrm": return "chrM";
-                default: return allLowerCaseChr;
-            }
-        }*/
 
         /// <summary>
         /// 
@@ -346,7 +346,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <returns>Hashkey of the interval.</returns>
         private UInt32 OneAtATimeHashFunction(I readingPeak, UInt32 lineNo)
         {
-            string key = Data.FileHashKey + "_" + readingPeak.Left.ToString() + "_" + readingPeak.Right.ToString() + "_" + lineNo.ToString();
+            string key = _data.FileHashKey + "_" + readingPeak.Left.ToString() + "_" + readingPeak.Right.ToString() + "_" + lineNo.ToString();
             int len = key.Length;
 
             UInt32 hashKey = 0;
@@ -365,7 +365,7 @@ namespace Genometric.GeUtilities.Parsers
         }
         private UInt32 FNVHashFunction(I readingPeak, UInt32 lineNo)
         {
-            string key = Data.FileHashKey + "_" + readingPeak.Left.ToString() + "_" + readingPeak.Right.ToString() + "_" + lineNo.ToString();
+            string key = _data.FileHashKey + "_" + readingPeak.Left.ToString() + "_" + readingPeak.Right.ToString() + "_" + lineNo.ToString();
             UInt32 hash = _FNVOffsetBasis_32;
             for (var i = 0; i < key.Length; i++)
             {

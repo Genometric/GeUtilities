@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeUtilities", "GeUtilities\GeUtilities.csproj", "{A6840AD6-1382-433B-8284-BE4254BB5DCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeUtilities", "GeUtilities\GeUtilities.csproj", "{A6840AD6-1382-433B-8284-BE4254BB5DCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeUtilities.Tests", "GeUtilities.Tests\GeUtilities.Tests.csproj", "{6BEC93C7-A3DD-481E-AF23-8235A6FAC179}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeUtilities.Tests", "GeUtilities.Tests\GeUtilities.Tests.csproj", "{6BEC93C7-A3DD-481E-AF23-8235A6FAC179}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

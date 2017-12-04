@@ -12,30 +12,28 @@ namespace Genometric.GeUtilities.Parsers
     {
         public VCFParser(
             string source,
-            Genomes species,
+            Genomes genome,
             Assemblies assembly,
-            uint maxLinesToBeRead = uint.MaxValue)
-        {
-            Source = source;
-            Genome = species;
-            Assembly = assembly;
-            ChrColumn = 0;
-            LeftColumn = 1;
-            RightColumn = -1;
-            _idColumn = 2;
-            _refbpColumn = 3;
-            _altbpColumn = 4;
-            _qualityColumn = 5;
-            _filterColumn = 6;
-            _infoColumn = 7;
-            maxLinesToBeRead = uint.MaxValue;
-            ReadOnlyValidChrs = false;
-            Initialize();
-        }
+            bool readOnlyValidChrs = true,
+            uint maxLinesToBeRead = uint.MaxValue) :
+            this(source: source,
+                genome: genome,
+                assembly: assembly,
+                chrColumn: 0,
+                positionColumn: 1,
+                idColumn: 2,
+                refbpColumn: 3,
+                altbpColumn: 4,
+                qualityColumn: 5,
+                filterColumn: 6,
+                infoColumn: 7,
+                readOnlyValidChrs: readOnlyValidChrs,
+                maxLinesToBeRead: maxLinesToBeRead)
+        { }
 
         public VCFParser(
             string source,
-            Genomes species,
+            Genomes genome,
             Assemblies assembly,
             sbyte chrColumn,
             sbyte positionColumn,
@@ -45,25 +43,28 @@ namespace Genometric.GeUtilities.Parsers
             sbyte qualityColumn,
             sbyte filterColumn,
             sbyte infoColumn,
+            byte startOffset = 0,
             bool readOnlyValidChrs = true,
-            uint maxLinesToBeRead = uint.MaxValue)
+            uint maxLinesToBeRead = uint.MaxValue,
+            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            base(source: source,
+                genome: genome,
+                assembly: assembly,
+                startOffset: startOffset,
+                chrColumn: chrColumn,
+                leftEndColumn: positionColumn,
+                rightEndColumn: -1,
+                strandColumn: -1,
+                readOnlyValidChrs: readOnlyValidChrs,
+                maxLinesToBeRead: maxLinesToBeRead,
+                hashFunction: hashFunction)
         {
-            Source = source;
-            Genome = species;
-            Assembly = assembly;
-            ChrColumn = chrColumn;
-            LeftColumn = positionColumn;
-            RightColumn = -1;
             _idColumn = idColumn;
             _refbpColumn = refbpColumn;
             _altbpColumn = altbpColumn;
             _qualityColumn = qualityColumn;
             _filterColumn = filterColumn;
             _infoColumn = infoColumn;
-            this.maxLinesToBeRead = maxLinesToBeRead;
-            ReadOnlyValidChrs = readOnlyValidChrs;
-
-            Initialize();
         }
 
         #region .::.         private Variables declaration               .::.

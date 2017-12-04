@@ -14,44 +14,37 @@ namespace Genometric.GeUtilities.Parsers
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="source">Full path of source file name.</param>
-        /// <param name="species">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
+        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
         /// <param name="readOnlyValidChrs"></param>
         public BEDParser(
             string source,
-            Genomes species,
+            Genomes genome,
             Assemblies assembly,
-            bool readOnlyValidChrs = true)
-        {
-            Source = source;
-            Genome = species;
-            Assembly = assembly;
-            maxLinesToBeRead = uint.MaxValue;
-            ChrColumn = 0;
-            LeftColumn = 1;
-            RightColumn = 2;
-            _nameColumn = 3;
-            _valueColumn = 4;
-            _summitColumn = -1;
-            StrandColumn = -1;
-            _defaultValue = 1E-8;
-            _pValueFormat = PValueFormat.SameAsInput;
-            _dropPeakIfInvalidValue = true;
-            ReadOnlyValidChrs = readOnlyValidChrs;
-            _mostStringentPeak = new I();
-            _mostPermissivePeak = new I();
-            _mostStringentPeak.Value = 1;
-            _mostPermissivePeak.Value = 0;
-            _summitToMidRequired = false;
-            Initialize();
-        }
+            bool readOnlyValidChrs = true,
+            uint maxLinesToBeRead = uint.MaxValue) :
+            this(
+                source: source,
+                genome: genome,
+                assembly: assembly,
+                readOnlyValidChrs: readOnlyValidChrs,
+                startOffset: 0,
+                chrColumn: 0,
+                leftEndColumn: 1,
+                rightEndColumn: 2,
+                nameColumn: 3,
+                valueColumn: 4,
+                summitColumn: -1,
+                strandColumn: -1,
+                maxLinesToBeRead: maxLinesToBeRead)
+        { }
 
 
         /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="source">Full path of source file name.</param>
-        /// <param name="species">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
+        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
         /// <param name="readOnlyValidChrs"></param>
         /// <param name="startOffset">If the source file comes with header, the number of headers lines needs to be specified so that
@@ -74,10 +67,8 @@ namespace Genometric.GeUtilities.Parsers
         /// If set to false, a peak with invalid value with take up the default value.</param>
         public BEDParser(
             string source,
-            Genomes species,
+            Genomes genome,
             Assemblies assembly,
-            bool readOnlyValidChrs,
-            byte startOffset,
             sbyte chrColumn,
             sbyte leftEndColumn,
             sbyte rightEndColumn,
@@ -86,34 +77,35 @@ namespace Genometric.GeUtilities.Parsers
             sbyte summitColumn,
             sbyte strandColumn,
             double defaultValue = 1E-8,
-            uint maxLinesToBeRead = uint.MaxValue,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true,
-            HashFunction hashFunction = HashFunction.One_at_a_Time)
+            byte startOffset = 0,
+            bool readOnlyValidChrs = true,
+            uint maxLinesToBeRead = uint.MaxValue,
+            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            base(source: source,
+                genome: genome,
+                assembly: assembly,
+                startOffset: startOffset,
+                chrColumn: chrColumn,
+                leftEndColumn: leftEndColumn,
+                rightEndColumn: rightEndColumn,
+                strandColumn: strandColumn,
+                readOnlyValidChrs: readOnlyValidChrs,
+                maxLinesToBeRead: maxLinesToBeRead,
+                hashFunction: hashFunction)
         {
-            Source = source;
-            Genome = species;
-            Assembly = assembly;
-            ReadOnlyValidChrs = readOnlyValidChrs;
-            StartOffset = startOffset;
-            ChrColumn = chrColumn;
-            LeftColumn = leftEndColumn;
-            RightColumn = rightEndColumn;
             _nameColumn = nameColumn;
             _valueColumn = valueColumn;
             _summitColumn = summitColumn;
-            StrandColumn = strandColumn;
             _defaultValue = defaultValue;
             _pValueFormat = pValueFormat;
             _dropPeakIfInvalidValue = dropPeakIfInvalidValue;
-            HashFunction = hashFunction;
             _mostStringentPeak = new I();
             _mostPermissivePeak = new I();
             _mostStringentPeak.Value = 1;
             _mostPermissivePeak.Value = 0;
             _summitToMidRequired = false;
-            maxLinesToBeRead = uint.MaxValue;
-            Initialize();
         }
 
 

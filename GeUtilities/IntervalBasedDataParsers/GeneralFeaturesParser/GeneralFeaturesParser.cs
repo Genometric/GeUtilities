@@ -14,29 +14,35 @@ namespace Genometric.GeUtilities.Parsers
         /// Parse General Transfer Format (GTF) format.
         /// </summary>
         /// <param name="source">Full path of source file name.</param>
-        /// <param name="species">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
+        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
         /// <param name="readOnlyValidChrs"></param>
         public GeneralFeaturesParser(
             string source,
-            Genomes species,
+            Genomes genome,
             Assemblies assembly,
-            bool readOnlyValidChrs)
-        {
-            InitializeDefaultValues();
-            Source = source;
-            Genome = species;
-            Assembly = assembly;
-            ReadOnlyValidChrs = readOnlyValidChrs;
-            Initialize();
-        }
+            bool readOnlyValidChrs=true,
+            uint maxLinesToBeRead = uint.MaxValue) : 
+            this(source: source, 
+                genome: genome,
+                assembly: assembly,
+                readOnlyValidChrs: readOnlyValidChrs,
+                startOffset: 0,
+                chrColumn: 0,
+                leftEndColumn: 1,
+                rightEndColumn: 2,
+                strandColumn: -1,
+                featureColumn: 3,
+                attributeColumn: 4,
+                maxLinesToBeRead: maxLinesToBeRead)
+        { }
 
 
         /// <summary>
         /// Parse General Transfer Format (GTF) format.
         /// </summary>
         /// <param name="source">Full path of source file name.</param>
-        /// <param name="species">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
+        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
         /// <param name="readOnlyValidChrs"></param>
         /// <param name="startOffset">If the source file comes with header, the number of headers lines needs to be specified so that
@@ -49,30 +55,32 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="attributeColumn">The column number of a semicolon-separated list of tag-value pairs, providing additional information about each feature..</param>
         public GeneralFeaturesParser(
             string source,
-            Genomes species,
+            Genomes genome,
             Assemblies assembly,
-            bool readOnlyValidChrs,
-            byte startOffset,
             sbyte chrColumn,
             sbyte leftEndColumn,
             sbyte rightEndColumn,
+            sbyte strandColumn,
             byte featureColumn,
-            byte attributeColumn, 
-            HashFunction hashFunction)
+            byte attributeColumn,
+            byte startOffset = 0,
+            bool readOnlyValidChrs = true,
+            uint maxLinesToBeRead = uint.MaxValue,
+            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            base(source: source,
+                genome: genome,
+                assembly: assembly,
+                startOffset: startOffset,
+                chrColumn: chrColumn,
+                leftEndColumn: leftEndColumn,
+                rightEndColumn: rightEndColumn,
+                strandColumn: strandColumn,
+                readOnlyValidChrs: readOnlyValidChrs,
+                maxLinesToBeRead: maxLinesToBeRead,
+                hashFunction: hashFunction)
         {
-            InitializeDefaultValues();
-            Source = source;
-            Genome = species;
-            Assembly = assembly;
-            ReadOnlyValidChrs = readOnlyValidChrs;
-            StartOffset = startOffset;
-            ChrColumn = chrColumn;
-            LeftColumn = leftEndColumn;
-            RightColumn = rightEndColumn;
-            HashFunction = hashFunction;
             _featureColumn = featureColumn;
             _attributeColumn = attributeColumn;
-            Initialize();
         }
 
         public Dictionary<string, DeterminedFeature> determinedFeatures { set; get; }
@@ -90,17 +98,6 @@ namespace Genometric.GeUtilities.Parsers
         private byte _attributeColumn;
 
         #endregion
-
-        private void InitializeDefaultValues()
-        {
-            ChrColumn = 0;
-            LeftColumn = 1;
-            RightColumn = 2;
-            _featureColumn = 3;
-            _attributeColumn = 4;
-            maxLinesToBeRead = uint.MaxValue;
-            determinedFeatures = new Dictionary<string, DeterminedFeature>();
-        }
 
         protected override I BuildInterval(int left, int right, string[] line, uint lineCounter, out string intervalName)
         {
