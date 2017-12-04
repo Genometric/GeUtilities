@@ -5,6 +5,7 @@
 using Genometric.GeUtilities.IGenomics;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -19,6 +20,12 @@ namespace Genometric.GeUtilities.Parsers
         /// chromosome-wide stats estimation.
         /// </summary>
         public byte decimalPlaces;
+
+        public ReadOnlyCollection<string> ExcessChrs { get { return _excessChrs.AsReadOnly(); } }
+        private List<string> _excessChrs;
+
+        public ReadOnlyCollection<string> MissingChrs { get { return _missingChrs.AsReadOnly(); } }
+        private List<string> _missingChrs;
 
         private const UInt32 _FNVPrime_32 = 16777619;
         private const UInt32 _FNVOffsetBasis_32 = 2166136261;
@@ -78,8 +85,6 @@ namespace Genometric.GeUtilities.Parsers
         /// The default value is 4,294,967,295 (0xFFFFFFFF) which will be used if not set. 
         /// </summary>
         private UInt32 _maxLinesToBeRead;
-        private List<string> _excessChrs;
-        private List<string> _missingChrs;
 
         /// <summary>
         /// When read process is finished, this variable contains the number
@@ -88,15 +93,10 @@ namespace Genometric.GeUtilities.Parsers
         private UInt16 _dropedLinesCount;
 
         /// <summary>
-        /// Sets and gets chromosome-wide information and statistics of the sample.
-        /// </summary>
-        private Dictionary<string, BEDStats> _chrs;
-
-        /// <summary>
         /// Holds catched information of each chromosome's base pairs count. 
         /// This information will be updated based on the selected species.
         /// </summary>
-        private Dictionary<string, int> _basePairsCount;
+        private Dictionary<string, int> _assemblyData;
 
         /// <summary>
         /// Contains all read information from the input file, and 
@@ -138,8 +138,7 @@ namespace Genometric.GeUtilities.Parsers
             _data.FileHashKey = GetFileHashKey(_data.FilePath);
             _data.Genome = _genome;
             _data.Assembly = _assembly;
-            _basePairsCount = GenomeAssemblies.Assembly(_assembly);
-            _chrs = new Dictionary<string, BEDStats>();
+            _assemblyData = GenomeAssemblies.Assembly(_assembly);
             _excessChrs = new List<string>();
             _missingChrs = new List<string>();
         }
@@ -249,7 +248,7 @@ namespace Genometric.GeUtilities.Parsers
                                 continue;
                             }
 
-                            if (_readOnlyValidChrs && !_basePairsCount.ContainsKey(chrName))
+                            if (_readOnlyValidChrs && !_assemblyData.ContainsKey(chrName))
                             {
                                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid chromosome number ( " + splittedLine[_chrColumn].ToString() + " )");
                                 continue;
@@ -306,12 +305,12 @@ namespace Genometric.GeUtilities.Parsers
 
         private void ReadMissingAndExcessChrs()
         {
-            foreach (KeyValuePair<string, BEDStats> entry in _chrs)
-                if (!_basePairsCount.ContainsKey(entry.Key)) //FixChrCasing(entry.Key)))
-                    _excessChrs.Add(entry.Key); //FixChrCasing(entry.Key));
+            foreach (var chr in _data.Chromosomes)
+                if (!_assemblyData.ContainsKey(chr.Key))
+                    _excessChrs.Add(chr.Key);
 
-            foreach (KeyValuePair<string, int> entry in _basePairsCount)
-                if (!_chrs.ContainsKey(entry.Key.ToLower()))
+            foreach (KeyValuePair<string, int> entry in _assemblyData)
+                if (!_data.Chromosomes.ContainsKey(entry.Key.ToLower()))
                     _missingChrs.Add(entry.Key);
         }
 
