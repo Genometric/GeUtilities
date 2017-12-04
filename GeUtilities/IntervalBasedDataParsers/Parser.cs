@@ -28,6 +28,49 @@ namespace Genometric.GeUtilities.Parsers
         public List<string> excessChrs;
         public List<string> missingChrs;
 
+        /// <summary>
+        /// Sets and gets validity of the interval being parsed.
+        /// In other words, indicates if the required fields of 
+        /// the interval are parsed correctly. For instance, if
+        /// the chromosome attribute of the peak is read.
+        /// </summary>
+        private bool _dropReadingPeak;
+
+        private const UInt32 _FNVPrime_32 = 16777619;
+        private const UInt32 _FNVOffsetBasis_32 = 2166136261;
+
+        /// <summary>
+        /// When read process is finished, this variable contains the number
+        /// of dropped regions.
+        /// </summary>
+        private UInt16 _dropedLinesCount;
+
+        /// <summary>
+        /// Sets and gets chromosome-wide information and statistics of the sample.
+        /// </summary>
+        private Dictionary<string, BEDStats> _chrs;
+
+        /// <summary>
+        /// Holds catched information of each chromosome's base pairs count. 
+        /// This information will be updated based on the selected species.
+        /// </summary>
+        private Dictionary<string, int> _basePairsCount;
+
+
+        protected void Initialize()
+        {
+            Data.FilePath = Path.GetFullPath(Source);
+            Data.FileName = Path.GetFileName(Source);
+            Data.FileHashKey = GetFileHashKey(Data.FilePath);
+            Data.Genome = Genome;
+            Data.Assembly = Assembly;
+            _basePairsCount = GenomeAssemblies.Assembly(Assembly);
+            _chrs = new Dictionary<string, BEDStats>();
+            excessChrs = new List<string>();
+            missingChrs = new List<string>();
+        }
+
+
         #region .::.         Status variable and it's event controlers   .::.
 
         private string _status;
@@ -51,7 +94,7 @@ namespace Genometric.GeUtilities.Parsers
 
         #endregion
 
-        #region .::.         Protected Members                           .::.
+        #region .::.         Protected Properties                           .::.
 
         /// <summary>
         /// Full path of source file name.
@@ -96,14 +139,6 @@ namespace Genometric.GeUtilities.Parsers
         protected sbyte StrandColumn { set; get; }
 
         /// <summary>
-        /// Sets and gets validity of the interval being parsed.
-        /// In other words, indicates if the required fields of 
-        /// the interval are parsed correctly. For instance, if
-        /// the chromosome attribute of the peak is read.
-        /// </summary>
-        private bool _dropReadingPeak;
-
-        /// <summary>
         /// 
         /// </summary>
         protected List<string> Messages { set; get; }
@@ -116,84 +151,9 @@ namespace Genometric.GeUtilities.Parsers
 
         protected bool ReadOnlyValidChrs { set; get; }
 
-        internal HashFunction HashFunction { set; get; }
+        protected HashFunction HashFunction { set; get; }
 
         #endregion
-
-        #region .::.         Private Members                             .::.
-
-        /// <summary>
-        /// Holds catched information of each chromosome's base pairs count. 
-        /// This information will be updated based on the selected species.
-        /// </summary>
-        private Dictionary<string, int> _basePairsCount;
-
-        /// <summary>
-        /// When read process is finished, this variable contains the number
-        /// of dropped regions.
-        /// </summary>
-        private UInt16 _dropedLinesCount;
-
-        /// <summary>
-        /// Sets and gets chromosome-wide information and statistics of the sample.
-        /// </summary>
-        private Dictionary<string, BEDStats> _chrs;
-
-        /// <summary>
-        /// Sets and gets chromosome-wide the sum of width of all read intervals.
-        /// </summary>
-        private Dictionary<string, uint> _pw__Sum;
-
-        /// <summary>
-        /// Sets and gets chromosome-wide the mean of width of all read intervals.
-        /// </summary>
-        private Dictionary<string, double> _pw_Mean;
-
-        /// <summary>
-        /// Sets and gets chromosome-wide the standard deviation of width of all read intervals.
-        /// </summary>
-        private Dictionary<string, double> _pw_STDV;
-
-        /// <summary>
-        /// Holds the p-value sum of all read intervals chromosome wide.
-        /// </summary>
-        private Dictionary<string, double> _pV__Sum;
-
-        /// <summary>
-        /// Holds the p-value mean of all read intervals chromosome wide.
-        /// </summary>
-        private Dictionary<string, double> _pV_Mean;
-
-        /// <summary>
-        /// Hold the p-value standard deviation of all read intervals chromosome wide
-        /// </summary>
-        private Dictionary<string, double> _pV_STDV;
-
-        private const UInt32 _FNVPrime_32 = 16777619;
-        private const UInt32 _FNVOffsetBasis_32 = 2166136261;
-
-        #endregion
-
-
-        protected void Initialize()
-        {
-            Data.FilePath = Path.GetFullPath(Source);
-            Data.FileName = Path.GetFileName(Source);
-            Data.FileHashKey = GetFileHashKey(Data.FilePath);
-            Data.Genome = Genome;
-            Data.Assembly = Assembly;
-            _basePairsCount = GenomeAssemblies.Assembly(Assembly);
-            _chrs = new Dictionary<string, BEDStats>();
-            _pw__Sum = new Dictionary<string, uint>();
-            _pw_Mean = new Dictionary<string, double>();
-            _pw_STDV = new Dictionary<string, double>();
-            _pV__Sum = new Dictionary<string, double>();
-            _pV_Mean = new Dictionary<string, double>();
-            _pV_STDV = new Dictionary<string, double>();
-
-            excessChrs = new List<string>();
-            missingChrs = new List<string>();
-        }
 
         /// <summary>
         /// Reads the regions presented in source file; and generates chromosome-wide statistics.
