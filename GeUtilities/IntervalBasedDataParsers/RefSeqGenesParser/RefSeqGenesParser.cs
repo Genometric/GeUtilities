@@ -22,12 +22,19 @@ namespace Genometric.GeUtilities.Parsers
             Assemblies assembly,
             bool readOnlyValidChrs)
         {
-            InitializeDefaultValues();
             Source = source;
             Genome = species;
             Assembly = assembly;
-            ReadOnlyValidChrs = readOnlyValidChrs;
+            ChrColumn = 0;
+            LeftColumn = 1;
+            RightColumn = 2;
+            _refseqIDColumn = 3;
+            _officialGeneColumn = 4;
+            _strandColumn = -1;
             _readOnlyCoordinates = true;
+            ReadOnlyValidChrs = readOnlyValidChrs;
+            maxLinesToBeRead = uint.MaxValue;
+            HashFunction = HashFunction.One_at_a_Time;
             Initialize();
         }
 
@@ -54,100 +61,15 @@ namespace Genometric.GeUtilities.Parsers
             sbyte chrColumn,
             sbyte leftEndColumn,
             sbyte rightEndColumn,
-            HashFunction hashFunction)
+            sbyte refseqIDColumn,
+            sbyte officialGeneSymbolColumn,
+            sbyte strandColumn,
+            uint maxLinesToRead = uint.MaxValue,
+            HashFunction hashFunction = HashFunction.One_at_a_Time)
         {
-            InitializeDefaultValues();
             Source = source;
             Genome = species;
             Assembly = assembly;
-            ReadOnlyValidChrs = readOnlyValidChrs;
-            StartOffset = startOffset;
-            ChrColumn = chrColumn;
-            LeftColumn = leftEndColumn;
-            RightColumn = rightEndColumn;
-            HashFunction = hashFunction;
-            _readOnlyCoordinates = true;
-            Initialize();
-        }
-
-
-        /// <summary>
-        /// Parse refseq genes presented in tab-delimited text file.
-        /// </summary>
-        /// <param name="source">Full path of source file name</param>
-        /// <param name="species">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
-        /// <param name="assembly"></param>
-        /// <param name="readOnlyValidChrs"></param>
-        /// <param name="startOffset">If the source file comes with header, the number of headers lines needs to be specified so that
-        /// parser can ignore them. If not specified and header is present, header might be dropped because
-        /// of improper format it might have. </param>
-        /// <param name="chrColumn">The coloumn number of chromosome name</param>
-        /// <param name="leftEndColumn">The column number of gene start position</param>
-        /// <param name="rightEndColumn">The column number of gene stop position</param>
-        /// <param name="refseqIDColumn">The column number of gene refseq ID</param>
-        /// <param name="officialGeneSymbolColumn">The column number of official gene symbol</param>
-        public RefSeqGenesParser(
-            string source,
-            Genomes species,
-            Assemblies assembly,
-            bool readOnlyValidChrs,
-            byte startOffset,
-            sbyte chrColumn,
-            sbyte leftEndColumn,
-            sbyte rightEndColumn,
-            byte refseqIDColumn,
-            byte officialGeneSymbolColumn)
-        {
-            InitializeDefaultValues();
-            Source = source;
-            Genome = species;
-            Assembly = assembly;
-            ReadOnlyValidChrs = readOnlyValidChrs;
-            StartOffset = startOffset;
-            ChrColumn = chrColumn;
-            LeftColumn = leftEndColumn;
-            RightColumn = rightEndColumn;
-            _refseqIDColumn = refseqIDColumn;
-            _officialGeneColumn = officialGeneSymbolColumn;
-            _readOnlyCoordinates = false;
-            Initialize();
-        }
-
-
-        /// <summary>
-        /// Parse refseq genes presented in tab-delimited text file.
-        /// </summary>
-        /// <param name="source">Full path of source file name</param>
-        /// <param name="species">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
-        /// <param name="assembly"></param>
-        /// <param name="readOnlyValidChrs"></param>
-        /// <param name="startOffset">If the source file comes with header, the number of headers lines needs to be specified so that
-        /// parser can ignore them. If not specified and header is present, header might be dropped because
-        /// of improper format it might have. </param>
-        /// <param name="chrColumn">The coloumn number of chromosome name</param>
-        /// <param name="leftEndColumn">The column number of gene start position</param>
-        /// <param name="rightEndColumn">The column number of gene stop position</param>
-        /// <param name="refseqIDColumn">The column number of gene refseq ID</param>
-        /// <param name="officialGeneSymbolColumn">The column number of official gene symbol</param>
-        /// <param name="strandColumn">The column number of chromosome strand</param>
-        public RefSeqGenesParser(
-            string source,
-            Genomes species,
-            Assemblies assembly,
-            bool readOnlyValidChrs,
-            byte startOffset,
-            sbyte chrColumn,
-            sbyte leftEndColumn,
-            sbyte rightEndColumn,
-            byte refseqIDColumn,
-            byte officialGeneSymbolColumn,
-            sbyte strandColumn)
-        {
-            InitializeDefaultValues();
-            Source = source;
-            Genome = species;
-            Assembly = assembly;
-            ReadOnlyValidChrs = readOnlyValidChrs;
             StartOffset = startOffset;
             ChrColumn = chrColumn;
             LeftColumn = leftEndColumn;
@@ -155,7 +77,10 @@ namespace Genometric.GeUtilities.Parsers
             _refseqIDColumn = refseqIDColumn;
             _officialGeneColumn = officialGeneSymbolColumn;
             _strandColumn = strandColumn;
-            _readOnlyCoordinates = false;
+            _readOnlyCoordinates = true;
+            ReadOnlyValidChrs = readOnlyValidChrs;
+            HashFunction = hashFunction;
+            maxLinesToBeRead = maxLinesToRead;
             Initialize();
         }
 
@@ -165,12 +90,12 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// Gets and sets the column number of refseq ID.
         /// </summary>
-        private byte _refseqIDColumn { set; get; }
+        private sbyte _refseqIDColumn { set; get; }
 
         /// <summary>
         /// Gets and sets the column number of official gene symbol.
         /// </summary>
-        private byte _officialGeneColumn { set; get; }
+        private sbyte _officialGeneColumn { set; get; }
 
         /// <summary>
         /// Gets and sets the column number of chromosome stand.
@@ -191,18 +116,6 @@ namespace Genometric.GeUtilities.Parsers
         private bool _readOnlyCoordinates { set; get; }
 
         #endregion
-
-        private void InitializeDefaultValues()
-        {
-            maxLinesToBeRead = uint.MaxValue;
-            ChrColumn = 0;
-            LeftColumn = 1;
-            RightColumn = 2;
-            _refseqIDColumn = 3;
-            _officialGeneColumn = 4;
-            _strandColumn = -1;
-            _readOnlyCoordinates = false;
-        }
 
         protected override I BuildInterval(int left, int right, string[] line, uint lineCounter, out string intervalName)
         {
