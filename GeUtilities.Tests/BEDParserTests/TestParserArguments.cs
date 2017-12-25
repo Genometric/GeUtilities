@@ -36,7 +36,7 @@ namespace GeUtilities.Tests
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, dropPeakIfInvalidValue: false, defaultValue: defaultValue);
                 var parsedData = bedParser.Parse();
 
-                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].intervals[0].Value == defaultValue);
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].Value == defaultValue);
             }
         }
 
@@ -52,7 +52,7 @@ namespace GeUtilities.Tests
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, pValueFormat: pvalueFormat);
                 var parsedData = bedParser.Parse();
 
-                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].intervals[0].Value == originalValue);
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].Value == originalValue);
             }
         }
 
@@ -68,7 +68,7 @@ namespace GeUtilities.Tests
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, maxLinesToBeRead: numberOfPeaksToRead);
                 var parsedData = bedParser.Parse();
 
-                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].intervals.Count == Math.Min(numberOfPeaksToWrite, numberOfPeaksToRead));
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals.Count == Math.Min(numberOfPeaksToWrite, numberOfPeaksToRead));
             }
         }
 
@@ -81,6 +81,20 @@ namespace GeUtilities.Tests
                 var parsedData = bedParser.Parse();
 
                 Assert.True(parsedData.Chromosomes.Count == 0);
+            }
+        }
+
+        [Theory]
+        [InlineData(HashFunction.FNV)]
+        [InlineData(HashFunction.One_at_a_Time)]
+        public void HashFunctions(HashFunction hashFunction)
+        {
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr))
+            {
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, hashFunction: hashFunction);
+                var parsedData = bedParser.Parse();
+
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].HashKey != 0);
             }
         }
     }

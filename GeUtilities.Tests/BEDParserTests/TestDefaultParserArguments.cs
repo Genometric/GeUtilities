@@ -84,7 +84,7 @@ namespace GeUtilities.Tests
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
 
-                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].intervals[0].Left == left);
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].Left == left);
             }
         }
 
@@ -110,7 +110,7 @@ namespace GeUtilities.Tests
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
 
-                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].intervals[0].Right == right);
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].Right == right);
             }
         }
 
@@ -137,7 +137,7 @@ namespace GeUtilities.Tests
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
 
-                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].intervals[0].Name == name);
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].Name == name);
             }
         }
 
@@ -151,7 +151,7 @@ namespace GeUtilities.Tests
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
 
-                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].intervals[0].Value == value);
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].Value == value);
             }
         }
 

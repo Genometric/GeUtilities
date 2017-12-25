@@ -4,22 +4,27 @@
 
 using Genometric.GeUtilities.IGenomics;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Genometric.GeUtilities.Parsers
 {
     public class Strand<I>
         where I : IInterval<int>, new()
     {
-        public List<I> intervals;
+        private List<I> _intervals;
+        public ReadOnlyCollection<I> Intervals
+        {
+            get { return _intervals.AsReadOnly(); }
+        }
 
         public Strand()
         {
-            intervals = new List<I>();
+            _intervals = new List<I>();
         }
 
         public void Add(I interval)
         {
-            intervals.Add(interval);
+            _intervals.Add(interval);
         }
     }
 }
