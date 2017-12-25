@@ -23,8 +23,7 @@ namespace Genometric.GeUtilities.Parsers
             Assemblies assembly = Assemblies.Unknown,
             bool readOnlyValidChrs=true,
             uint maxLinesToBeRead = uint.MaxValue) : 
-            this(source: source, 
-                genome: genome,
+            this(source: source,
                 assembly: assembly,
                 readOnlyValidChrs: readOnlyValidChrs,
                 startOffset: 0,
@@ -62,13 +61,11 @@ namespace Genometric.GeUtilities.Parsers
             byte featureColumn,
             byte attributeColumn,
             byte startOffset = 0,
-            Genomes genome = Genomes.Unknown,
             Assemblies assembly = Assemblies.Unknown,
             bool readOnlyValidChrs = true,
             uint maxLinesToBeRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             base(source: source,
-                genome: genome,
                 assembly: assembly,
                 startOffset: startOffset,
                 chrColumn: chrColumn,

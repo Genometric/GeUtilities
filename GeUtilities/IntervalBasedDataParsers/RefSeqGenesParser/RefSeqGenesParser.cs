@@ -18,12 +18,10 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="readOnlyValidChrs"></param>
         public RefSeqGenesParser(
             string source,
-            Genomes genome = Genomes.Unknown,
             Assemblies assembly = Assemblies.Unknown,
             bool readOnlyValidChrs=true,
             uint maxLinesToBeRead = uint.MaxValue) :
             this(source: source,
-                genome: genome,
                 assembly: assembly,
                 readOnlyValidChrs: readOnlyValidChrs,
                 startOffset: 0,
@@ -61,14 +59,12 @@ namespace Genometric.GeUtilities.Parsers
             sbyte refseqIDColumn,
             sbyte officialGeneSymbolColumn,
             sbyte strandColumn,
-            Genomes genome = Genomes.Unknown,
             Assemblies assembly = Assemblies.Unknown,
             byte startOffset = 0,
             bool readOnlyValidChrs = true,
             uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             base(source: source,
-                genome: genome,
                 assembly: assembly,
                 startOffset: startOffset,
                 chrColumn: chrColumn,

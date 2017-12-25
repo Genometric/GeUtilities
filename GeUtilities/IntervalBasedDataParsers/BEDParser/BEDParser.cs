@@ -19,7 +19,6 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="readOnlyValidChrs"></param>
         public BEDParser(
             string source,
-            Genomes genome = Genomes.Unknown,
             Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
@@ -37,7 +36,6 @@ namespace Genometric.GeUtilities.Parsers
                 valueColumn: 4,
                 strandColumn: -1,
                 summitColumn: -1,
-                genome: genome,
                 assembly: assembly,
                 defaultValue: defaultValue,
                 pValueFormat: pValueFormat,
@@ -83,7 +81,6 @@ namespace Genometric.GeUtilities.Parsers
             byte valueColumn,
             sbyte strandColumn,
             sbyte summitColumn = -1,
-            Genomes genome = Genomes.Unknown,
             Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
@@ -102,7 +99,6 @@ namespace Genometric.GeUtilities.Parsers
                 maxLinesToBeRead: maxLinesToBeRead,
                 hashFunction: hashFunction,
                 data: new ParsedChIPseqPeaks<I>(),
-                genome: genome,
                 assembly: assembly)
         {
             _nameColumn = nameColumn;

@@ -12,12 +12,10 @@ namespace Genometric.GeUtilities.Parsers
     {
         public VCFParser(
             string source,
-            Genomes genome = Genomes.Unknown,
             Assemblies assembly = Assemblies.Unknown,
             bool readOnlyValidChrs = true,
             uint maxLinesToBeRead = uint.MaxValue) :
             this(source: source,
-                genome: genome,
                 assembly: assembly,
                 chrColumn: 0,
                 positionColumn: 1,
@@ -41,14 +39,12 @@ namespace Genometric.GeUtilities.Parsers
             sbyte qualityColumn,
             sbyte filterColumn,
             sbyte infoColumn,
-            Genomes genome = Genomes.Unknown,
             Assemblies assembly = Assemblies.Unknown,
             byte startOffset = 0,
             bool readOnlyValidChrs = true,
             uint maxLinesToBeRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             base(source: source,
-                genome: genome,
                 assembly: assembly,
                 startOffset: startOffset,
                 chrColumn: chrColumn,

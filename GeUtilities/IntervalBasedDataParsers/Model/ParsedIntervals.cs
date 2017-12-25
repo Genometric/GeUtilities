@@ -18,7 +18,6 @@ namespace Genometric.GeUtilities.Parsers
         public int IntervalsCount { set; get; }
         public List<string> Messages { set; get; }
         public Dictionary<string, Chromosome<I, S>> Chromosomes { set; get; }
-        public Genomes Genome { set; get; }
         public Assemblies Assembly { set; get; }
         public S Statistics { set; get; }
 

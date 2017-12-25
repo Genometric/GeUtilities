@@ -36,11 +36,6 @@ namespace Genometric.GeUtilities.Parsers
         private string _source;
 
         /// <summary>
-        /// This parameter will be used for initializing the chromosome count and sex chromosomes mappings.
-        /// </summary>
-        private Genomes _genome;
-
-        /// <summary>
         /// 
         /// </summary>
         private Assemblies _assembly;
@@ -121,11 +116,9 @@ namespace Genometric.GeUtilities.Parsers
             uint maxLinesToBeRead,
             HashFunction hashFunction,
             ParsedIntervals<I, S> data,
-            Genomes genome = Genomes.Unknown,
             Assemblies assembly = Assemblies.Unknown)
         {
             _source = source;
-            _genome = genome;
             _assembly = assembly;
             _startOffset = startOffset;
             _chrColumn = chrColumn;
@@ -139,7 +132,6 @@ namespace Genometric.GeUtilities.Parsers
             _data.FilePath = Path.GetFullPath(_source);
             _data.FileName = Path.GetFileName(_source);
             _data.FileHashKey = GetFileHashKey(_data.FilePath);
-            _data.Genome = _genome;
             _data.Assembly = _assembly;
             _assemblyData = GenomeAssemblies.Assembly(_assembly);
             _excessChrs = new List<string>();
