@@ -14,8 +14,8 @@ namespace Genometric.GeUtilities.Parsers
             {
                 case Assemblies.hg19: return hg19.Data();
                 case Assemblies.mm10: return mm10.Data();
+                default: return new Dictionary<string, int>();
             }
-            return null;
         }
         public static Dictionary<Genomes, GenomeInfo> AllGenomeAssemblies()
         {

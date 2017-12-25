@@ -125,7 +125,7 @@ namespace Genometric.GeUtilities.Parsers
             _leftColumn = leftEndColumn;
             _rightColumn = rightEndColumn;
             _strandColumn = strandColumn;
-            _readOnlyValidChrs = readOnlyValidChrs;
+            _readOnlyValidChrs = assembly == Assemblies.Unknown ? false : readOnlyValidChrs;
             _maxLinesToBeRead = maxLinesToBeRead;
             _hashFunction = hashFunction;
             _data = data;
@@ -275,7 +275,8 @@ namespace Genometric.GeUtilities.Parsers
                     Messages.Insert(0, "\t" + _dropedLinesCount.ToString() + " Lines droped");
                 _data.Messages = Messages;
 
-                ReadMissingAndExcessChrs();
+                if (_assembly != Assemblies.Unknown)
+                    ReadMissingAndExcessChrs();
             }
             else
             {
