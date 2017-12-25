@@ -21,22 +21,31 @@ namespace Genometric.GeUtilities.Parsers
             string source,
             Genomes genome,
             Assemblies assembly,
+            double defaultValue = 1E-8,
+            PValueFormat pValueFormat = PValueFormat.SameAsInput,
+            bool dropPeakIfInvalidValue = true,
+            byte startOffset = 0,
             bool readOnlyValidChrs = true,
-            uint maxLinesToBeRead = uint.MaxValue) :
+            uint maxLinesToBeRead = uint.MaxValue,
+            HashFunction hashFunction = HashFunction.One_at_a_Time) :
             this(
                 source: source,
                 genome: genome,
                 assembly: assembly,
-                readOnlyValidChrs: readOnlyValidChrs,
-                startOffset: 0,
                 chrColumn: 0,
                 leftEndColumn: 1,
                 rightEndColumn: 2,
                 nameColumn: 3,
                 valueColumn: 4,
-                summitColumn: -1,
                 strandColumn: -1,
-                maxLinesToBeRead: maxLinesToBeRead)
+                summitColumn: -1,
+                defaultValue: defaultValue,
+                pValueFormat: pValueFormat,
+                dropPeakIfInvalidValue: dropPeakIfInvalidValue,
+                startOffset: startOffset,
+                readOnlyValidChrs: readOnlyValidChrs,
+                maxLinesToBeRead: maxLinesToBeRead,
+                hashFunction: hashFunction)
         { }
 
 
@@ -74,8 +83,8 @@ namespace Genometric.GeUtilities.Parsers
             sbyte rightEndColumn,
             byte nameColumn,
             byte valueColumn,
-            sbyte summitColumn,
             sbyte strandColumn,
+            sbyte summitColumn = -1,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true,
