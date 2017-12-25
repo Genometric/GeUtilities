@@ -2,9 +2,11 @@
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
+using System;
+
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IGene : IInterval<int>
+    public interface IGene : IInterval<int>, IComparable<IGene>
     {
         char Strand { set; get; }
         string RefSeqID { set; get; }

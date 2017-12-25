@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using System;
+using System.Linq;
 
 namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
 {
@@ -18,5 +20,35 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
         public string Filter { set; get; }
         public string Info { set; get; }
         public uint HashKey { set; get; }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+            if (obj is VCF)
+                return CompareTo(obj as VCF);
+            else
+                throw new NotImplementedException();
+        }
+
+        public int CompareTo(IVCF other)
+        {
+            int compareResult = Left.CompareTo(other.Left);
+            if (compareResult != 0) return compareResult;
+            compareResult = Right.CompareTo(other.Right);
+            if (compareResult != 0) return compareResult;
+            compareResult = Value.CompareTo(other.Value);
+            if (compareResult != 0) return compareResult;
+            compareResult = ID.CompareTo(other.ID);
+            if (compareResult != 0) return compareResult;
+            compareResult = Quality.CompareTo(other.Quality);
+            if (compareResult != 0) return compareResult;
+            compareResult = Filter.CompareTo(other.Filter);
+            if (compareResult != 0) return compareResult;
+            compareResult = Info.CompareTo(other.Info);
+            if (compareResult != 0) return compareResult;
+            if (!RefBase.SequenceEqual(other.RefBase)) return 1;
+            if (!AltBase.SequenceEqual(other.AltBase)) return 1;
+            return 0;
+        }
     }
 }
