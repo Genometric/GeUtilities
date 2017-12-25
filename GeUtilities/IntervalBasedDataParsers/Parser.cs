@@ -91,7 +91,7 @@ namespace Genometric.GeUtilities.Parsers
         /// Holds catched information of each chromosome's base pairs count. 
         /// This information will be updated based on the selected species.
         /// </summary>
-        private Dictionary<string, int> _assemblyData;
+        private ReadOnlyDictionary<string, int> _assemblyData;
 
         /// <summary>
         /// Contains all read information from the input file, and 
