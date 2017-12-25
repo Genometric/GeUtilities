@@ -10,6 +10,8 @@ namespace GeUtilities.Tests
 {
     public class TestDefaultParserArguments
     {
+        private string _chr = "chr1";
+
         [Theory]
         [InlineData(0, 0)]
         [InlineData(1, 1)]
@@ -64,67 +66,64 @@ namespace GeUtilities.Tests
         [Fact]
         public void ReadStrand()
         {
-            string chr = "chr1";
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: chr))
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
 
-                Assert.True(parsedData.Chromosomes[chr].Strands.ContainsKey('*'));
+                Assert.True(parsedData.Chromosomes[_chr].Strands.ContainsKey('*'));
             }
         }
 
         [Fact]
         public void ReadLeft()
         {
-            string chr = "chr1";
             int left = 10;
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: chr, left: left.ToString()))
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, left: left.ToString()))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
 
-                Assert.True(parsedData.Chromosomes[chr].Strands['*'].intervals[0].Left == left);
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].intervals[0].Left == left);
             }
         }
 
         [Fact]
         public void FailReadLeft()
         {
-            string chr = "chr1", left = "10V";
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: chr, left: left))
+            string left = "10V";
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, left: left))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
 
-                Assert.False(parsedData.Chromosomes.ContainsKey(chr));
+                Assert.False(parsedData.Chromosomes.ContainsKey(_chr));
             }
         }
 
         [Fact]
         public void ReadRight()
         {
-            string chr = "chr1";
             int right = 20;
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: chr, right: right.ToString()))
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, right: right.ToString()))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
 
-                Assert.True(parsedData.Chromosomes[chr].Strands['*'].intervals[0].Right == right);
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].intervals[0].Right == right);
             }
         }
 
         [Fact]
         public void FailReadRight()
         {
-            string chr = "chr1", right = "20V";
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: chr, right: right.ToString()))
+            string right = "20V";
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, right: right.ToString()))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
 
-                Assert.False(parsedData.Chromosomes.ContainsKey(chr));
+                Assert.False(parsedData.Chromosomes.ContainsKey(_chr));
             }
         }
 
@@ -132,14 +131,13 @@ namespace GeUtilities.Tests
         [Fact]
         public void ReadName()
         {
-            string chr = "chr1";
             string name = "GeUtilities_01";
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: chr, name: name))
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, name: name))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
 
-                Assert.True(parsedData.Chromosomes[chr].Strands['*'].intervals[0].Name == name);
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].intervals[0].Name == name);
             }
         }
 
@@ -147,14 +145,13 @@ namespace GeUtilities.Tests
         [Fact]
         public void ReadValue()
         {
-            string chr = "chr1";
             double value = 123.45;
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: chr, value: value.ToString()))
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, value: value.ToString()))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
 
-                Assert.True(parsedData.Chromosomes[chr].Strands['*'].intervals[0].Value == value);
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].intervals[0].Value == value);
             }
         }
 
@@ -162,13 +159,13 @@ namespace GeUtilities.Tests
         [Fact]
         public void FailReadValue()
         {
-            string chr = "chr1", value = "123..45";
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: chr, value: value.ToString()))
+            string value = "123..45";
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, value: value.ToString()))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
 
-                Assert.False(parsedData.Chromosomes.ContainsKey(chr));
+                Assert.False(parsedData.Chromosomes.ContainsKey(_chr));
             }
         }
     }
