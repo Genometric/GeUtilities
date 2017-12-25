@@ -8,7 +8,6 @@ namespace Genometric.GeUtilities.IGenomics
 {
     public interface IGene : IInterval<int>, IComparable<IGene>
     {
-        char Strand { set; get; }
         string RefSeqID { set; get; }
         string GeneSymbol { set; get; }
         double Value { set; get; }

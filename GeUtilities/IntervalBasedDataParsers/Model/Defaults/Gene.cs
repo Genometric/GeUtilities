@@ -12,7 +12,6 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
         public int Left { set; get; }
         public int Right { set; get; }
         public double Value { set; get; }
-        public char Strand { set; get; }
         public string RefSeqID { set; get; }
         public string GeneSymbol { set; get; }
         public uint HashKey { set; get; }
@@ -33,8 +32,6 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
             compareResult = Right.CompareTo(other.Right);
             if (compareResult != 0) return compareResult;
             compareResult = Value.CompareTo(other.Value);
-            if (compareResult != 0) return compareResult;
-            compareResult = Strand.CompareTo(other.Strand);
             if (compareResult != 0) return compareResult;
             compareResult = RefSeqID.CompareTo(other.RefSeqID);
             if (compareResult != 0) return compareResult;

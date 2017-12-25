@@ -147,14 +147,6 @@ namespace Genometric.GeUtilities.Parsers
             }
 
             #endregion
-            #region .::.     Process I Strand               .::.
-
-            rtv.Strand = '*';
-            if (_strandColumn != -1 && _strandColumn < line.Length)
-                if (char.TryParse(line[_strandColumn], out char strand))
-                    rtv.Strand = strand;
-
-            #endregion
 
             return rtv;
         }
