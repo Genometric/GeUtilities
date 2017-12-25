@@ -13,6 +13,19 @@ namespace GeUtilities.Tests
         private string _chr = "chr1";
 
         [Fact]
+        public void DropPeaksHavingInvalidPValue()
+        {
+            string value = "123..45";
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, value: value))
+            {
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, dropPeakIfInvalidValue: true);
+                var parsedData = bedParser.Parse();
+
+                Assert.False(parsedData.Chromosomes.ContainsKey(_chr));
+            }
+        }
+
+        [Fact]
         public void DefaultPValue()
         {
             string value = "123..45";
