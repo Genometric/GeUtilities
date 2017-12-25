@@ -18,7 +18,8 @@ namespace GeUtilities.Tests
             string right = "20",
             string name = "GeUtilities_00",
             string value = "100.0",
-            int headerLineCount = 0)
+            int headerLineCount = 0,
+            int peaksCount = 1)
         {
             _testFile = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
             using (FileStream fs = File.Create(_testFile))
@@ -26,7 +27,16 @@ namespace GeUtilities.Tests
             {
                 while (headerLineCount-- > 0)
                     sw.WriteLine("chr\tLeft\tRight\tName\tValue");
-                sw.WriteLine(chr + "\t" + left + "\t" + right + "\t" + name + "\t" + value);
+
+                while (peaksCount-- > 0)
+                {
+                    sw.WriteLine(chr + "\t" + left + "\t" + right + "\t" + name + "\t" + value);
+                    if (int.TryParse(left, out int cLeft) && int.TryParse(right, out int cRight))
+                    {
+                        left = (cRight + 10).ToString();
+                        right = (cRight + 20).ToString();
+                    }
+                }
             }
         }
 

@@ -4,6 +4,7 @@
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
+using System;
 using Xunit;
 
 namespace GeUtilities.Tests
@@ -52,6 +53,34 @@ namespace GeUtilities.Tests
                 var parsedData = bedParser.Parse();
 
                 Assert.True(parsedData.Chromosomes[_chr].Strands['*'].intervals[0].Value == originalValue);
+            }
+        }
+
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(4, 1)]
+        [InlineData(1, 4)]
+        [InlineData(4, 4)]
+        public void MaxLinesToBeRead(int numberOfPeaksToWrite, uint numberOfPeaksToRead)
+        {
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, peaksCount: numberOfPeaksToWrite))
+            {
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, maxLinesToBeRead: numberOfPeaksToRead);
+                var parsedData = bedParser.Parse();
+
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].intervals.Count == Math.Min(numberOfPeaksToWrite, numberOfPeaksToRead));
+            }
+        }
+
+        [Fact]
+        public void ReadNoPeak()
+        {
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, peaksCount: 4))
+            {
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, maxLinesToBeRead: 0);
+                var parsedData = bedParser.Parse();
+
+                Assert.True(parsedData.Chromosomes.Count == 0);
             }
         }
     }
