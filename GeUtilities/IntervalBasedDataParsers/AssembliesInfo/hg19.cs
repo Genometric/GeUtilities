@@ -3,14 +3,13 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Genometric.GeUtilities.Parsers
 {
     internal static class hg19
     {
-        internal static Dictionary<string, int> Data()
-        {
-            Dictionary<string, int> rtv = new Dictionary<string, int>
+        private static Dictionary<string, int> _data = new Dictionary<string, int>
             {
                 { "chr1", 249250621 },
                 { "chr2", 243199373 },
@@ -38,7 +37,10 @@ namespace Genometric.GeUtilities.Parsers
                 { "chrY", 59373566 },
                 { "chrM", 16569 }
             };
-            return rtv;
+
+        internal static ReadOnlyDictionary<string, int> Data
+        {
+            get { return new ReadOnlyDictionary<string, int>(_data); }
         }
     }
 }

@@ -3,12 +3,13 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Genometric.GeUtilities.Parsers
 {
     public static class GenomeAssemblies
     {
-        internal static Dictionary<string, int> Assembly(Assemblies assembly)
+        internal static ReadOnlyDictionary<string, int> Assembly(Assemblies assembly)
         {
             switch (assembly)
             {
