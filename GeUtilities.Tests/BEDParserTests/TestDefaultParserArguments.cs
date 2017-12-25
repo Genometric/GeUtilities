@@ -8,7 +8,7 @@ using Xunit;
 
 namespace GeUtilities.Tests
 {
-    public class BEDParserTest
+    public class TestDefaultParserArguments
     {
         [Theory]
         [InlineData(0, 0)]
