@@ -36,9 +36,9 @@ namespace Genometric.GeUtilities.Parsers
                 { "chrM", 16299 }
             };
 
-        internal static ReadOnlyDictionary<string, int> Data()
+        internal static ReadOnlyDictionary<string, int> Data
         {
-            return new ReadOnlyDictionary<string, int>(_data);
+            get { return new ReadOnlyDictionary<string, int>(_data); }
         }
     }
 }
