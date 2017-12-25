@@ -16,12 +16,16 @@ namespace GeUtilities.Tests
         [Fact]
         public void TestDefaultBEDColumnOrder()
         {
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr))
+            int left = 10, right = 20;
+            string name = "GeUtilities_00";
+            double value = 100.0;
+            string peak = _chr + "\t" + left + "\t" + right + "\t" + name + "\t" + value;
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(peak))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, dropPeakIfInvalidValue: true);
-                var parsedData = bedParser.Parse();
+                var parsedPeak = bedParser.Parse().Chromosomes[_chr].Strands['*'].Intervals[0];
 
-                Assert.True(parsedData.Chromosomes.ContainsKey(_chr));
+                Assert.True(parsedPeak.Left == left && parsedPeak.Right == right && parsedPeak.Name == name && parsedPeak.Value == value);
             }
         }
     }
