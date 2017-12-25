@@ -19,8 +19,8 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="readOnlyValidChrs"></param>
         public BEDParser(
             string source,
-            Genomes genome,
-            Assemblies assembly,
+            Genomes genome = Genomes.Unknown,
+            Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true,
@@ -30,8 +30,6 @@ namespace Genometric.GeUtilities.Parsers
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             this(
                 source: source,
-                genome: genome,
-                assembly: assembly,
                 chrColumn: 0,
                 leftEndColumn: 1,
                 rightEndColumn: 2,
@@ -39,6 +37,8 @@ namespace Genometric.GeUtilities.Parsers
                 valueColumn: 4,
                 strandColumn: -1,
                 summitColumn: -1,
+                genome: genome,
+                assembly: assembly,
                 defaultValue: defaultValue,
                 pValueFormat: pValueFormat,
                 dropPeakIfInvalidValue: dropPeakIfInvalidValue,
@@ -76,8 +76,6 @@ namespace Genometric.GeUtilities.Parsers
         /// If set to false, a peak with invalid value with take up the default value.</param>
         public BEDParser(
             string source,
-            Genomes genome,
-            Assemblies assembly,
             sbyte chrColumn,
             sbyte leftEndColumn,
             sbyte rightEndColumn,
@@ -85,6 +83,8 @@ namespace Genometric.GeUtilities.Parsers
             byte valueColumn,
             sbyte strandColumn,
             sbyte summitColumn = -1,
+            Genomes genome = Genomes.Unknown,
+            Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true,
@@ -93,8 +93,6 @@ namespace Genometric.GeUtilities.Parsers
             uint maxLinesToBeRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             base(source: source,
-                genome: genome,
-                assembly: assembly,
                 startOffset: startOffset,
                 chrColumn: chrColumn,
                 leftEndColumn: leftEndColumn,
@@ -103,7 +101,9 @@ namespace Genometric.GeUtilities.Parsers
                 readOnlyValidChrs: readOnlyValidChrs,
                 maxLinesToBeRead: maxLinesToBeRead,
                 hashFunction: hashFunction,
-                data: new ParsedChIPseqPeaks<I>())
+                data: new ParsedChIPseqPeaks<I>(),
+                genome: genome,
+                assembly: assembly)
         {
             _nameColumn = nameColumn;
             _valueColumn = valueColumn;

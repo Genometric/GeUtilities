@@ -112,8 +112,6 @@ namespace Genometric.GeUtilities.Parsers
 
         public Parser(
             string source,
-            Genomes genome,
-            Assemblies assembly,
             byte startOffset,
             sbyte chrColumn,
             sbyte leftEndColumn,
@@ -122,7 +120,9 @@ namespace Genometric.GeUtilities.Parsers
             bool readOnlyValidChrs,
             uint maxLinesToBeRead,
             HashFunction hashFunction,
-            ParsedIntervals<I, S> data)
+            ParsedIntervals<I, S> data,
+            Genomes genome = Genomes.Unknown,
+            Assemblies assembly = Assemblies.Unknown)
         {
             _source = source;
             _genome = genome;

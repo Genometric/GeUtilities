@@ -9,6 +9,8 @@ namespace Genometric.GeUtilities.Parsers
     /// </summary>
     public enum Assemblies
     {
+        Unknown,
+
         /// <summary>
         /// hg19
         /// <para>Assembly : GRCh37.p13</para>
@@ -29,6 +31,8 @@ namespace Genometric.GeUtilities.Parsers
     /// </summary>
     public enum Genomes
     {
+        Unknown,
+
         /// <summary>
         /// 
         /// </summary>

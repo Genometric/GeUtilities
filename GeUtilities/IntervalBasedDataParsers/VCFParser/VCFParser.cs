@@ -12,8 +12,8 @@ namespace Genometric.GeUtilities.Parsers
     {
         public VCFParser(
             string source,
-            Genomes genome,
-            Assemblies assembly,
+            Genomes genome = Genomes.Unknown,
+            Assemblies assembly = Assemblies.Unknown,
             bool readOnlyValidChrs = true,
             uint maxLinesToBeRead = uint.MaxValue) :
             this(source: source,
@@ -32,9 +32,7 @@ namespace Genometric.GeUtilities.Parsers
         { }
 
         public VCFParser(
-            string source,
-            Genomes genome,
-            Assemblies assembly,
+            string source,            
             sbyte chrColumn,
             sbyte positionColumn,
             sbyte idColumn,
@@ -43,6 +41,8 @@ namespace Genometric.GeUtilities.Parsers
             sbyte qualityColumn,
             sbyte filterColumn,
             sbyte infoColumn,
+            Genomes genome = Genomes.Unknown,
+            Assemblies assembly = Assemblies.Unknown,
             byte startOffset = 0,
             bool readOnlyValidChrs = true,
             uint maxLinesToBeRead = uint.MaxValue,

@@ -19,8 +19,8 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="readOnlyValidChrs"></param>
         public GeneralFeaturesParser(
             string source,
-            Genomes genome,
-            Assemblies assembly,
+            Genomes genome = Genomes.Unknown,
+            Assemblies assembly = Assemblies.Unknown,
             bool readOnlyValidChrs=true,
             uint maxLinesToBeRead = uint.MaxValue) : 
             this(source: source, 
@@ -55,8 +55,6 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="attributeColumn">The column number of a semicolon-separated list of tag-value pairs, providing additional information about each feature..</param>
         public GeneralFeaturesParser(
             string source,
-            Genomes genome,
-            Assemblies assembly,
             sbyte chrColumn,
             sbyte leftEndColumn,
             sbyte rightEndColumn,
@@ -64,6 +62,8 @@ namespace Genometric.GeUtilities.Parsers
             byte featureColumn,
             byte attributeColumn,
             byte startOffset = 0,
+            Genomes genome = Genomes.Unknown,
+            Assemblies assembly = Assemblies.Unknown,
             bool readOnlyValidChrs = true,
             uint maxLinesToBeRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
