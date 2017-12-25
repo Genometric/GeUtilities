@@ -77,7 +77,8 @@ namespace Genometric.GeUtilities.Parsers
                 strandColumn: strandColumn,
                 readOnlyValidChrs: readOnlyValidChrs,
                 maxLinesToBeRead: maxLinesToBeRead,
-                hashFunction: hashFunction)
+                hashFunction: hashFunction,
+                data: new ParsedGeneralFeatures<I>())
         {
             _featureColumn = featureColumn;
             _attributeColumn = attributeColumn;
@@ -99,9 +100,13 @@ namespace Genometric.GeUtilities.Parsers
 
         #endregion
 
-        protected override I BuildInterval(int left, int right, string[] line, uint lineCounter, out string intervalName)
+        protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
         {
-            I rtv = new I();
+            I rtv = new I
+            {
+                Left = left,
+                Right = right
+            };
 
             #region .::.     Process Feature         .::.
 
@@ -127,7 +132,6 @@ namespace Genometric.GeUtilities.Parsers
 
             #endregion
 
-            intervalName = "Hamed";
             return rtv;
         }
 

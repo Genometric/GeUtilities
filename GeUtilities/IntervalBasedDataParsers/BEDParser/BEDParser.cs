@@ -93,7 +93,8 @@ namespace Genometric.GeUtilities.Parsers
                 strandColumn: strandColumn,
                 readOnlyValidChrs: readOnlyValidChrs,
                 maxLinesToBeRead: maxLinesToBeRead,
-                hashFunction: hashFunction)
+                hashFunction: hashFunction,
+                data: new ParsedChIPseqPeaks<I>())
         {
             _nameColumn = nameColumn;
             _valueColumn = valueColumn;
@@ -105,7 +106,6 @@ namespace Genometric.GeUtilities.Parsers
             _mostPermissivePeak = new I();
             _mostStringentPeak.Value = 1;
             _mostPermissivePeak.Value = 0;
-            _summitToMidRequired = false;
         }
 
 
@@ -164,18 +164,15 @@ namespace Genometric.GeUtilities.Parsers
         /// </summary>
         private double _pValueSum;
 
-        /// <summary>
-        /// The variable is set to true if at least one peak misses summit. 
-        /// In that case, the function will go through all the peaks after 
-        /// they are parsed, and replaces -1 summit by mid-point.
-        /// </summary>
-        private bool _summitToMidRequired;
-
         #endregion
 
-        protected override I BuildInterval(int left, int right, string[] line, uint lineCounter, out string intervalName)
+        protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
         {
-            I rtv = new I();
+            I rtv = new I
+            {
+                Left = left,
+                Right = right
+            };
 
             #region .::.     Process p-value         .::.
 
@@ -224,18 +221,16 @@ namespace Genometric.GeUtilities.Parsers
 
             if (_nameColumn < line.Length) rtv.Name = line[_nameColumn];
             else rtv.Name = "null";
-            intervalName = rtv.Name;
 
             #endregion
+
             #region .::.     Process Summit          .::.
 
-            int summit = 0;
-            if (_summitColumn != -1 && _summitColumn < line.Length)
-                if (int.TryParse(line[_summitColumn], out summit))
-                    rtv.Summit = summit;
-                else { rtv.Summit = -1; _summitToMidRequired = true; }
-            else { rtv.Summit = -1; _summitToMidRequired = true; }
-
+            if ((_summitColumn != -1 && _summitColumn < line.Length) && int.TryParse(line[_summitColumn], out int summit))
+                rtv.Summit = summit;
+            else
+                rtv.Summit = (int)Math.Round((left + right) / 2.0);
+            
             #endregion
 
             return rtv;
@@ -251,13 +246,6 @@ namespace Genometric.GeUtilities.Parsers
             rtv.pValueMean = _pValueSum / rtv.IntervalsCount;
             rtv.pValueMin = _mostStringentPeak;
             rtv.pValueMax = _mostPermissivePeak;
-
-            if (_summitToMidRequired)
-                foreach (var chr in rtv.Chromosomes)
-                    foreach (var strand in chr.Value.Strands)
-                        foreach (var peak in strand.Value.intervals)
-                            if (peak.Summit == -1)
-                                peak.Summit = (int)Math.Round((peak.Left + peak.Right) / 2.0);
 
             Status = "100";
             return rtv;

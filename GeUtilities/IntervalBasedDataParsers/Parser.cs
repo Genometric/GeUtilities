@@ -102,6 +102,7 @@ namespace Genometric.GeUtilities.Parsers
         /// Contains all read information from the input file, and 
         /// will be retured as parser result.
         /// </summary>
+        protected ParsedIntervals<I, S> Data { set { _data = value; } get { return _data; } }
         private ParsedIntervals<I, S> _data;
 
         private bool _readOnlyValidChrs;
@@ -120,7 +121,8 @@ namespace Genometric.GeUtilities.Parsers
             sbyte strandColumn,
             bool readOnlyValidChrs,
             uint maxLinesToBeRead,
-            HashFunction hashFunction)
+            HashFunction hashFunction,
+            ParsedIntervals<I, S> data)
         {
             _source = source;
             _genome = genome;
@@ -133,6 +135,7 @@ namespace Genometric.GeUtilities.Parsers
             _readOnlyValidChrs = readOnlyValidChrs;
             _maxLinesToBeRead = maxLinesToBeRead;
             _hashFunction = hashFunction;
+            _data = data;
             _data.FilePath = Path.GetFullPath(_source);
             _data.FileName = Path.GetFileName(_source);
             _data.FileHashKey = GetFileHashKey(_data.FilePath);
@@ -183,7 +186,6 @@ namespace Genometric.GeUtilities.Parsers
             int right = 0;
             string line;
             UInt32 lineCounter = 0;
-            string intervalName = "";
             Messages = new List<string>();
             _dropReadingPeak = false;
 
@@ -226,7 +228,7 @@ namespace Genometric.GeUtilities.Parsers
                                 continue;
                             }
 
-                            I readingInterval = BuildInterval(left, right, splittedLine, lineCounter, out intervalName);
+                            I readingInterval = BuildInterval(left, right, splittedLine, lineCounter);
                             if (_dropReadingPeak)
                                 continue;
 
@@ -300,7 +302,7 @@ namespace Genometric.GeUtilities.Parsers
         /// </summary>
         /// <param name="line">The splitted line read from input.</param>
         /// <returns>The interval this line delegates.</returns>
-        protected abstract I BuildInterval(int left, int right, string[] line, UInt32 lineCounter, out string intervalName);
+        protected abstract I BuildInterval(int left, int right, string[] line, UInt32 lineCounter);
 
 
         private void ReadMissingAndExcessChrs()

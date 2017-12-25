@@ -57,7 +57,8 @@ namespace Genometric.GeUtilities.Parsers
                 strandColumn: -1,
                 readOnlyValidChrs: readOnlyValidChrs,
                 maxLinesToBeRead: maxLinesToBeRead,
-                hashFunction: hashFunction)
+                hashFunction: hashFunction,
+                data: new ParsedVariants<I>())
         {
             _idColumn = idColumn;
             _refbpColumn = refbpColumn;
@@ -78,15 +79,13 @@ namespace Genometric.GeUtilities.Parsers
 
         #endregion
 
-        protected override I BuildInterval(int left, int right, string[] line, uint lineCounter, out string intervalName)
+        protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
         {
             I rtv = new I
             {
                 Left = left,
                 Right = left + 1
             };
-
-            intervalName = "GeUtil_" + new Random().Next(10000, 100000).ToString();
 
             if(_idColumn < line.Length)
             {

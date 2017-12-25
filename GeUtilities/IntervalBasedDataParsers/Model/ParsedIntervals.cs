@@ -26,6 +26,7 @@ namespace Genometric.GeUtilities.Parsers
         {
             Messages = new List<string>();
             Chromosomes = new Dictionary<string, Chromosome<I, S>>();
+            Statistics = new S();
         }
 
         public void Add(I interval, string chr, char strand)

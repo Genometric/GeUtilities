@@ -77,7 +77,8 @@ namespace Genometric.GeUtilities.Parsers
                 strandColumn: strandColumn,
                 readOnlyValidChrs: readOnlyValidChrs,
                 maxLinesToBeRead: maxLinesToRead,
-                hashFunction: hashFunction)
+                hashFunction: hashFunction,
+                data: new ParsedRefSeqGenes<I>())
         {
             _refseqIDColumn = refseqIDColumn;
             _officialGeneColumn = officialGeneSymbolColumn;
@@ -118,9 +119,13 @@ namespace Genometric.GeUtilities.Parsers
 
         #endregion
 
-        protected override I BuildInterval(int left, int right, string[] line, uint lineCounter, out string intervalName)
+        protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
         {
-            I rtv = new I();
+            I rtv = new I
+            {
+                Left = left,
+                Right = right
+            };
 
             #region .::.     Process Refseq ID              .::.
 
@@ -132,7 +137,6 @@ namespace Genometric.GeUtilities.Parsers
             {
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid refseq ID column number");
             }
-            intervalName = rtv.RefSeqID;
 
             #endregion
             #region .::.     Process Official gene symbol   .::.
