@@ -21,7 +21,7 @@ namespace GeUtilities.Tests
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, dropPeakIfInvalidValue: true);
                 var parsedData = bedParser.Parse();
 
-                Assert.False(parsedData.Chromosomes.ContainsKey(_chr));
+                Assert.True(parsedData.Chromosomes.ContainsKey(_chr));
             }
         }
     }

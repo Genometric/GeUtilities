@@ -12,6 +12,14 @@ namespace GeUtilities.Tests
         private string _testFile;
         public string TestFilePath { get { return _testFile; } }
 
+        public TestBEDFileCreator(string peak)
+        {
+            _testFile = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+            using (FileStream fs = File.Create(_testFile))
+            using (StreamWriter sw = new StreamWriter(fs))
+                sw.WriteLine(peak);
+        }
+
         public TestBEDFileCreator(
             string chr = "chr1",
             string left = "10",
