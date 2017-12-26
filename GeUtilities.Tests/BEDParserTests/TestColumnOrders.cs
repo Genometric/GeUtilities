@@ -170,5 +170,32 @@ namespace GeUtilities.Tests
                 Assert.True(bedParser.Parse().Chromosomes[_chr].Strands.ContainsKey(strand));
             }
         }
+
+        [Fact]
+        public void TestMultiStrand()
+        {
+            string[] peaks = new string[]
+            {
+                "chr1\t10\t20\t*\tGeUtilities_00\t100.0",
+                "chr1\t30\t40\t+\tGeUtilities_01\t110.0",
+                "chr1\t50\t60\t-\tGeUtilities_02\t111.0",
+            };
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(peaks))
+            {
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
+                    testFile.TestFilePath,
+                    chrColumn: 0,
+                    leftEndColumn: 1,
+                    rightEndColumn: 2,
+                    strandColumn: 3,
+                    nameColumn: 4,
+                    valueColumn: 5);
+
+                Assert.True(
+                    bedParser.Parse().Chromosomes[_chr].Strands.ContainsKey('*') &&
+                    bedParser.Parse().Chromosomes[_chr].Strands.ContainsKey('+') &&
+                    bedParser.Parse().Chromosomes[_chr].Strands.ContainsKey('-'));
+            }
+        }
     }
 }

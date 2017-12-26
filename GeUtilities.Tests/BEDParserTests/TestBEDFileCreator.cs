@@ -20,6 +20,15 @@ namespace GeUtilities.Tests
                 sw.WriteLine(peak);
         }
 
+        public TestBEDFileCreator(string[] peaks)
+        {
+            _testFile = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+            using (FileStream fs = File.Create(_testFile))
+            using (StreamWriter sw = new StreamWriter(fs))
+                foreach (var peak in peaks)
+                    sw.WriteLine(peak);
+        }
+
         public TestBEDFileCreator(
             string chr = "chr1",
             string left = "10",
