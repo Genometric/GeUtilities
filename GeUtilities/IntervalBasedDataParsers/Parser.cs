@@ -214,7 +214,7 @@ namespace Genometric.GeUtilities.Parsers
                                 continue;
                             }
 
-                            if (_rightColumn > 0 && !(_rightColumn < splittedLine.Length && int.TryParse(splittedLine[_rightColumn], out right)))
+                            if (_rightColumn >= 0 && !(_rightColumn < splittedLine.Length && int.TryParse(splittedLine[_rightColumn], out right)))
                             {
                                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid stop column number");
                                 continue;
