@@ -31,6 +31,10 @@ namespace GeUtilities.Tests
 
         [Theory]
         [InlineData(0, 1, 2, 3, 4)]
+        [InlineData(1, 0, 2, 3, 4)]
+        [InlineData(1, 2, 0, 3, 4)]
+        [InlineData(1, 2, 3, 0, 4)]
+        [InlineData(1, 2, 3, 4, 0)]
         [InlineData(4, 3, 2, 1, 0)]
         [InlineData(2, 1, 0, 4, 3)]
         [InlineData(5, 6, 7, 8, 9)]
