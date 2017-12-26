@@ -129,6 +129,7 @@ namespace GeUtilities.Tests
         [InlineData(9, '*')]
         [InlineData(1, '+')]
         [InlineData(2, '-')]
+        [InlineData(-1, '*')]
         public void TestStrand(sbyte strandColumn, char strand)
         {
             int left = 10, right = 20;
