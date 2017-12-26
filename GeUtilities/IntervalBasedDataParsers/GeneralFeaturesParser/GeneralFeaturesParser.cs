@@ -132,7 +132,7 @@ namespace Genometric.GeUtilities.Parsers
             return rtv;
         }
 
-        public ParsedGeneralFeatures<I> Parse()
+        public new ParsedGeneralFeatures<I> Parse()
         {
             var parsingResult = (ParsedGeneralFeatures<I>)base.Parse();
             parsingResult.determinedFeatures = new DeterminedFeature[determinedFeatures.Keys.Count];

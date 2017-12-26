@@ -241,7 +241,7 @@ namespace Genometric.GeUtilities.Parsers
             return rtv;
         }
 
-        public ParsedChIPseqPeaks<I> Parse()
+        public new ParsedChIPseqPeaks<I> Parse()
         {
             var rtv = (ParsedChIPseqPeaks<I>)base.Parse();
 

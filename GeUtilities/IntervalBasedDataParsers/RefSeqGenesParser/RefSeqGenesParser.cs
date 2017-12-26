@@ -155,7 +155,7 @@ namespace Genometric.GeUtilities.Parsers
         /// Reads the regions presented in source file and generates chromosome-wide statistics regarding regions length and p-values. 
         /// </summary>
         /// <returns>Returns an object of Input_BED_Data class</returns>
-        public ParsedRefSeqGenes<I> Parse()
+        public new ParsedRefSeqGenes<I> Parse()
         {
             var parsingResult = (ParsedRefSeqGenes<I>)base.Parse();
             Status = "100";

@@ -175,7 +175,7 @@ namespace Genometric.GeUtilities.Parsers
             return rtv;
         }
 
-        public ParsedVariants<I> Parse()
+        public new ParsedVariants<I> Parse()
         {
             var rtv = (ParsedVariants<I>)base.Parse();
             Status = "100";
