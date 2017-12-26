@@ -134,7 +134,7 @@ namespace Genometric.GeUtilities.Parsers
 
         public ParsedGeneralFeatures<I> Parse()
         {
-            var parsingResult = (ParsedGeneralFeatures<I>)PARSE();
+            var parsingResult = (ParsedGeneralFeatures<I>)base.Parse();
             parsingResult.determinedFeatures = new DeterminedFeature[determinedFeatures.Keys.Count];
             int keyCounter = 0;
             foreach (var key in determinedFeatures)

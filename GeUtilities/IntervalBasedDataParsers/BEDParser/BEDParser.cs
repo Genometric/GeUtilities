@@ -243,7 +243,7 @@ namespace Genometric.GeUtilities.Parsers
 
         public ParsedChIPseqPeaks<I> Parse()
         {
-            var rtv = (ParsedChIPseqPeaks<I>)PARSE();
+            var rtv = (ParsedChIPseqPeaks<I>)base.Parse();
 
             if (_defaultValueUtilizationCount > 0)
                 Messages.Insert(0, "\tDefault p-value used for " + _defaultValueUtilizationCount.ToString() + " times");

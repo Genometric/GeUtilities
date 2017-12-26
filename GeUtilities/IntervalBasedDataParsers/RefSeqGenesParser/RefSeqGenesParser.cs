@@ -157,7 +157,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <returns>Returns an object of Input_BED_Data class</returns>
         public ParsedRefSeqGenes<I> Parse()
         {
-            var parsingResult = (ParsedRefSeqGenes<I>)PARSE();
+            var parsingResult = (ParsedRefSeqGenes<I>)base.Parse();
             Status = "100";
             return parsingResult;
         }

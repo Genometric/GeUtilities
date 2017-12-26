@@ -172,7 +172,7 @@ namespace Genometric.GeUtilities.Parsers
         /// Reads the regions presented in source file; and generates chromosome-wide statistics.
         /// </summary>
         /// <returns>Returns parsed intervals.</returns>
-        protected ParsedIntervals<I, S> PARSE()
+        protected ParsedIntervals<I, S> Parse()
         {
             int left = 0;
             int right = 0;
