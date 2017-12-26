@@ -121,5 +121,54 @@ namespace GeUtilities.Tests
                 Assert.True(parsedPeak.Summit == summit);
             }
         }
+
+
+        [Theory]
+        [InlineData(0, '*')]
+        [InlineData(3, '*')]
+        [InlineData(9, '*')]
+        [InlineData(1, '+')]
+        [InlineData(2, '-')]
+        public void TestStrand(sbyte strandColumn, char strand)
+        {
+            int left = 10, right = 20;
+            string name = "GeUtilities_00", peak = "";
+            double value = 100.0;
+            sbyte chrColumn = -1, leftColumn = -1, rightColumn = -1, nameColumn = -1, valueColumn = -1;
+            for (sbyte i = 0; i < Math.Max((sbyte)6, strandColumn); i++)
+            {
+                if (i == strandColumn) continue;
+                else if (chrColumn == -1) chrColumn = i;
+                else if (leftColumn == -1) leftColumn = i;
+                else if (rightColumn == -1) rightColumn = i;
+                else if (nameColumn == -1) nameColumn = i;
+                else if (valueColumn == -1) valueColumn = i;
+            }
+
+            for (int i = 0; i <= Math.Max((sbyte)5, strandColumn); i++)
+            {
+                if (chrColumn == i) peak += _chr + "\t";
+                else if (leftColumn == i) peak += left + "\t";
+                else if (rightColumn == i) peak += right + "\t";
+                else if (nameColumn == i) peak += name + "\t";
+                else if (valueColumn == i) peak += value + "\t";
+                else if (strandColumn == i) peak += strand + "\t";
+                else peak += "AbCd\t";
+            }
+
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(peak))
+            {
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
+                    testFile.TestFilePath,
+                    chrColumn: chrColumn,
+                    leftEndColumn: leftColumn,
+                    rightEndColumn: rightColumn,
+                    nameColumn: (byte)nameColumn,
+                    valueColumn: (byte)valueColumn,
+                    strandColumn: strandColumn);
+
+                Assert.True(bedParser.Parse().Chromosomes[_chr].Strands.ContainsKey(strand));
+            }
+        }
     }
 }
