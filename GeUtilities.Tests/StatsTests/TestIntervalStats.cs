@@ -10,22 +10,6 @@ namespace GeUtilities.Tests.StatsTests
 {
     public class TestIntervalStats
     {
-        private ChIPSeqPeak[] CreatePeaks(int count)
-        {
-            var rtv = new ChIPSeqPeak[count];
-            for (int i = 0; i < count; i++)
-                rtv[i] = new ChIPSeqPeak()
-                {
-                    HashKey = (uint)i,
-                    Left = 10 * i,
-                    Right = (10 * i) + 8,
-                    Name = "GeUtilities_" + i,
-                    Summit = (10 * i) + ((((10 * i) + 8) - (10 * i)) / 2),
-                    Value = 100.0
-                };
-            return rtv;
-        }
-
         private ChIPSeqPeak[] CreatePeaks(int[] width)
         {
             var rtv = new ChIPSeqPeak[width.Length / 2];
@@ -43,16 +27,17 @@ namespace GeUtilities.Tests.StatsTests
         }
 
         [Theory]
-        [InlineData(0)]
-        [InlineData(1)]
-        [InlineData(9)]
-        public void TestCount(int count)
+        [InlineData(new int[0])]
+        [InlineData(new int[] { 10, 20 })]
+        [InlineData(new int[] { 10, 20, 30, 32 })]
+        [InlineData(new int[] { 10, 20, 30, 32, 40, 80 })]
+        public void TestCount(int[] width)
         {
             var stats = new BEDStats();
-            foreach (var peak in CreatePeaks(count))
+            foreach (var peak in CreatePeaks(width))
                 stats.Update(peak);
 
-            Assert.True(stats.Count == count);
+            Assert.True(stats.Count == width.Length / 2);
         }
 
         [Theory]
