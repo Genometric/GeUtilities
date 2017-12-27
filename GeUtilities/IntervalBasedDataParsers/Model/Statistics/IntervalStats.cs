@@ -9,9 +9,9 @@ namespace Genometric.GeUtilities.Parsers
 {
     public class IntervalStats : IStats<int>
     {
-        private byte _decimalPlaces = 6;
-        private uint _widthSum;
-        private double _withSTDVTemp;
+        private uint _sumWidth;
+        private double _sumSqrdWidth;
+
         public int Count { private set; get; }
         public uint WidthMax { private set; get; }
         public uint WidthMin { private set; get; }
@@ -28,12 +28,12 @@ namespace Genometric.GeUtilities.Parsers
         {
             Count++;
             uint intervalWidth = (uint)(interval.Right - interval.Left);
-            _widthSum += intervalWidth;
             WidthMax = Math.Max(WidthMax, intervalWidth);
             WidthMin = Math.Min(WidthMin, intervalWidth);
-            WidthMean = Math.Round(_widthSum / (double)Count, _decimalPlaces);
-            _withSTDVTemp += Math.Pow(intervalWidth - WidthMean, 2.0);
-            WidthSTDV = Math.Sqrt(_withSTDVTemp / Count);
+            _sumWidth += intervalWidth;
+            WidthMean = _sumWidth / Count;
+            _sumSqrdWidth += Math.Pow(intervalWidth, 2);
+            WidthSTDV = Math.Sqrt((_sumSqrdWidth / Count) - Math.Pow(_sumWidth / Count, 2));
         }
     }
 }
