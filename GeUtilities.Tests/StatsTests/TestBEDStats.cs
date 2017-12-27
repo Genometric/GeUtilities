@@ -72,7 +72,7 @@ namespace GeUtilities.Tests
             foreach (var peak in CreatePeaks(pValues))
                 stats.Update(peak);
 
-            Assert.True(Math.Round(stats.PValueSTDV, 9) == stdv);
+            Assert.True(Math.Round(stats.PValuePSTDV, 9) == stdv);
         }
     }
 }

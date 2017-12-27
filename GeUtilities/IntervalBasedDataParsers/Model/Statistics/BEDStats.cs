@@ -15,7 +15,18 @@ namespace Genometric.GeUtilities.Parsers
         public double PValueHighest { private set; get; }
         public double PValueLowest { private set; get; }
         public double PValueMean { private set; get; }
-        public double PValueSTDV { private set; get; }
+
+        /// <summary>
+        /// Gets the population standard deviation of p-values.
+        /// <para />
+        /// The value is computed as a new p-value is given 
+        /// (aka, streaming). Due to overflow/rounding at each
+        /// step, there could be an epsilon difference between 
+        /// this value, and a population standard deviation 
+        /// computed by averaging all the data first and then
+        /// subtracting average from each p-value.
+        /// </summary>
+        public double PValuePSTDV { private set; get; }
 
         public BEDStats() : base()
         {
@@ -41,7 +52,7 @@ namespace Genometric.GeUtilities.Parsers
                 _sumPValue += peak.Value;
                 PValueMean = _sumPValue / Count;
                 _sumSqrdPValue += Math.Pow(peak.Value, 2);
-                PValueSTDV = Math.Sqrt((_sumSqrdPValue / Count) - Math.Pow(_sumPValue / Count, 2));
+                PValuePSTDV = Math.Sqrt((_sumSqrdPValue / Count) - Math.Pow(_sumPValue / Count, 2));
             }
         }
     }
