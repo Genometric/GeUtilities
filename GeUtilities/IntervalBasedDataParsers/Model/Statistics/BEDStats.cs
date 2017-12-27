@@ -27,12 +27,12 @@ namespace Genometric.GeUtilities.Parsers
         {
             base.Update(interval);
 
-            // You can use `as` for safe casting as the following:
+            // Can use `as` for safe casting as the following:
             // IChIPSeqPeak peak = interval as IChIPSeqPeak;
-            // however, casting error must not appear here unless
-            // a there is an issue in initializing these classes.
-            // Therefore, I think an "unsafe" casting will help 
-            // spotting such issues.
+            // however, casting errors must not occur here unless
+            // there is an issue initializing these classes.
+            // Therefore, an "unsafe" casting might help  
+            // spotting such issues with initializations.
             IChIPSeqPeak peak = (IChIPSeqPeak)interval;
 
             if (!double.IsNaN(peak.Value))

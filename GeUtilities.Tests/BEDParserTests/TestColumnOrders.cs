@@ -122,7 +122,6 @@ namespace GeUtilities.Tests
             }
         }
 
-
         [Theory]
         [InlineData(0, '*')]
         [InlineData(3, '*')]
