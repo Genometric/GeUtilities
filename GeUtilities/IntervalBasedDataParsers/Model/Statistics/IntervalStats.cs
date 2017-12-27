@@ -31,9 +31,9 @@ namespace Genometric.GeUtilities.Parsers
             WidthMax = Math.Max(WidthMax, intervalWidth);
             WidthMin = Math.Min(WidthMin, intervalWidth);
             _sumWidth += intervalWidth;
-            WidthMean = _sumWidth / Count;
+            WidthMean = _sumWidth / (double)Count;
             _sumSqrdWidth += Math.Pow(intervalWidth, 2);
-            WidthSTDV = Math.Sqrt((_sumSqrdWidth / Count) - Math.Pow(_sumWidth / Count, 2));
+            WidthSTDV = Math.Sqrt((_sumSqrdWidth / Count) - Math.Pow(_sumWidth / (double)Count, 2));
         }
     }
 }

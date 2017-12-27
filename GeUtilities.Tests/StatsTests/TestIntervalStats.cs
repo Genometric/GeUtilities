@@ -4,6 +4,7 @@
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
+using System;
 using Xunit;
 
 namespace GeUtilities.Tests.StatsTests
@@ -66,6 +67,20 @@ namespace GeUtilities.Tests.StatsTests
                 stats.Update(peak);
 
             Assert.True(stats.WidthMin == minWidth);
+        }
+
+        [Theory]
+        [InlineData(new int[0], 0)]
+        [InlineData(new int[] { 10, 20 }, 10)]
+        [InlineData(new int[] { 10, 20, 30, 32 }, 6)]
+        [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 17.333)]
+        public void TestWidthMean(int[] intersCoord, double mean)
+        {
+            var stats = new BEDStats();
+            foreach (var peak in CreatePeaks(intersCoord))
+                stats.Update(peak);
+
+            Assert.True(Math.Round(stats.WidthMean, 3) == mean);
         }
     }
 }
