@@ -29,7 +29,7 @@ namespace GeUtilities.Tests
         [Theory]
         [InlineData(new double[] { 0.001 }, 0.001)]
         [InlineData(new double[] { 0.1, 0.001, 0.0001}, 0.1)]
-        public void TestPValueMax(double[] pValues, double maxPValue)
+        public void TestPValueHighest(double[] pValues, double maxPValue)
         {
             var stats = new BEDStats();
             foreach (var peak in CreatePeaks(pValues))
