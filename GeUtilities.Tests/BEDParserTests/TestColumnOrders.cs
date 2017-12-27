@@ -20,7 +20,7 @@ namespace GeUtilities.Tests
             string name = "GeUtilities_00";
             double value = 100.0;
             string peak = _chr + "\t" + left + "\t" + right + "\t" + name + "\t" + value;
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(peak))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(peak))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, dropPeakIfInvalidValue: true);
                 var parsedPeak = bedParser.Parse().Chromosomes[_chr].Strands['*'].Intervals[0];
@@ -53,7 +53,7 @@ namespace GeUtilities.Tests
                 else peak += "AbCd\t";
             }
 
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(peak))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(peak))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
                     testFile.TestFilePath,
@@ -105,7 +105,7 @@ namespace GeUtilities.Tests
                 else peak += "AbCd\t";
             }
 
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(peak))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(peak))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
                     testFile.TestFilePath,
@@ -156,7 +156,7 @@ namespace GeUtilities.Tests
                 else peak += "AbCd\t";
             }
 
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(peak))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(peak))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
                     testFile.TestFilePath,
@@ -180,7 +180,7 @@ namespace GeUtilities.Tests
                 "chr1\t30\t40\t+\tGeUtilities_01\t110.0",
                 "chr1\t50\t60\t-\tGeUtilities_02\t111.0",
             };
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(peaks))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(peaks))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
                     testFile.TestFilePath,

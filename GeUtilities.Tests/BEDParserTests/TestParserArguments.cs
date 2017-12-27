@@ -17,7 +17,7 @@ namespace GeUtilities.Tests
         public void DropPeaksHavingInvalidPValue()
         {
             string value = "123..45";
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, value: value))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr, value: value))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, dropPeakIfInvalidValue: true);
                 var parsedData = bedParser.Parse();
@@ -31,7 +31,7 @@ namespace GeUtilities.Tests
         {
             string value = "123..45";
             double defaultValue = 1122.33;
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, value: value))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr, value: value))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, dropPeakIfInvalidValue: false, defaultValue: defaultValue);
                 var parsedData = bedParser.Parse();
@@ -47,7 +47,7 @@ namespace GeUtilities.Tests
         [InlineData(0.001, 300, PValueFormat.minus100_Log10_pValue)]
         public void PValueConversion(double originalValue, double convertedValue, PValueFormat pvalueFormat)
         {
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, value: convertedValue.ToString()))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr, value: convertedValue.ToString()))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, pValueFormat: pvalueFormat);
                 var parsedData = bedParser.Parse();
@@ -63,7 +63,7 @@ namespace GeUtilities.Tests
         [InlineData(4, 4)]
         public void MaxLinesToBeRead(int numberOfPeaksToWrite, uint numberOfPeaksToRead)
         {
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, peaksCount: numberOfPeaksToWrite))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr, peaksCount: numberOfPeaksToWrite))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, maxLinesToBeRead: numberOfPeaksToRead);
                 var parsedData = bedParser.Parse();
@@ -75,7 +75,7 @@ namespace GeUtilities.Tests
         [Fact]
         public void ReadNoPeak()
         {
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, peaksCount: 4))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr, peaksCount: 4))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, maxLinesToBeRead: 0);
                 var parsedData = bedParser.Parse();
@@ -89,7 +89,7 @@ namespace GeUtilities.Tests
         [InlineData(HashFunction.One_at_a_Time)]
         public void HashFunctions(HashFunction hashFunction)
         {
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, hashFunction: hashFunction);
                 var parsedData = bedParser.Parse();

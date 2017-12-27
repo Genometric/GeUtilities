@@ -20,7 +20,7 @@ namespace GeUtilities.Tests
         [InlineData(2, 2)]
         public void AvoidHeader(int headerCount, byte startOffset)
         {
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(headerLineCount: headerCount))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(headerLineCount: headerCount))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, startOffset: startOffset);
                 var parsedData = bedParser.Parse();
@@ -39,7 +39,7 @@ namespace GeUtilities.Tests
         [InlineData("ChrX")]
         public void ReadChr(string chr)
         {
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: chr))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: chr))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
@@ -54,7 +54,7 @@ namespace GeUtilities.Tests
         [InlineData("chrX")]
         public void FailReadChr(string chr)
         {
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: "chr1"))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: "chr1"))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
@@ -66,7 +66,7 @@ namespace GeUtilities.Tests
         [Fact]
         public void ReadStrand()
         {
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
@@ -79,7 +79,7 @@ namespace GeUtilities.Tests
         public void ReadLeft()
         {
             int left = 10;
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, left: left.ToString()))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr, left: left.ToString()))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
@@ -92,7 +92,7 @@ namespace GeUtilities.Tests
         public void FailReadLeft()
         {
             string left = "10V";
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, left: left))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr, left: left))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
@@ -105,7 +105,7 @@ namespace GeUtilities.Tests
         public void ReadRight()
         {
             int right = 20;
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, right: right.ToString()))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr, right: right.ToString()))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
@@ -118,7 +118,7 @@ namespace GeUtilities.Tests
         public void FailReadRight()
         {
             string right = "20V";
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, right: right.ToString()))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr, right: right.ToString()))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
@@ -132,7 +132,7 @@ namespace GeUtilities.Tests
         public void ReadName()
         {
             string name = "GeUtilities_01";
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, name: name))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr, name: name))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
@@ -146,7 +146,7 @@ namespace GeUtilities.Tests
         public void ReadValue()
         {
             double value = 123.45;
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, value: value.ToString()))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr, value: value.ToString()))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();
@@ -160,7 +160,7 @@ namespace GeUtilities.Tests
         public void FailReadValue()
         {
             string value = "123..45";
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(chr: _chr, value: value.ToString()))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr, value: value.ToString()))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath);
                 var parsedData = bedParser.Parse();

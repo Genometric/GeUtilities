@@ -7,12 +7,12 @@ using System.IO;
 
 namespace GeUtilities.Tests
 {
-    class TestBEDFileCreator : IDisposable
+    class TempBEDFileCreator : IDisposable
     {
         private string _testFile;
         public string TestFilePath { get { return _testFile; } }
 
-        public TestBEDFileCreator(string peak)
+        public TempBEDFileCreator(string peak)
         {
             _testFile = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
             using (FileStream fs = File.Create(_testFile))
@@ -20,7 +20,7 @@ namespace GeUtilities.Tests
                 sw.WriteLine(peak);
         }
 
-        public TestBEDFileCreator(string[] peaks)
+        public TempBEDFileCreator(string[] peaks)
         {
             _testFile = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
             using (FileStream fs = File.Create(_testFile))
@@ -29,7 +29,7 @@ namespace GeUtilities.Tests
                     sw.WriteLine(peak);
         }
 
-        public TestBEDFileCreator(
+        public TempBEDFileCreator(
             string chr = "chr1",
             string left = "10",
             string right = "20",

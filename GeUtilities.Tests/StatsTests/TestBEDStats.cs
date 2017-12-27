@@ -86,7 +86,7 @@ namespace GeUtilities.Tests
                 "chr2\t10\t20\tGeUtilities_00\t0.2",
             };
 
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(peaks))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(peaks))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, pValueFormat: PValueFormat.SameAsInput);
                 var parsedData = bedParser.Parse();
@@ -106,7 +106,7 @@ namespace GeUtilities.Tests
                 "chr2\t10\t20\tGeUtilities_00\t0.2",
             };
 
-            using (TestBEDFileCreator testFile = new TestBEDFileCreator(peaks))
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(peaks))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, pValueFormat: PValueFormat.SameAsInput);
                 var parsedData = bedParser.Parse();
