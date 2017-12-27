@@ -9,8 +9,8 @@ namespace Genometric.GeUtilities.Parsers
 {
     public sealed class BEDStats : IntervalStats
     {
-        private double _pValueSum;
-        private double _pValueSTDVTemp;
+        private double _sumPValue;
+        private double _sumSqrdPValue;
 
         public double PValueHighest { private set; get; }
         public double PValueLowest { private set; get; }
@@ -36,12 +36,12 @@ namespace Genometric.GeUtilities.Parsers
 
             if (!double.IsNaN(peak.Value))
             {
-                _pValueSum += peak.Value;
                 PValueHighest = Math.Max(PValueHighest, peak.Value);
                 PValueLowest = Math.Min(PValueLowest, peak.Value);
-                PValueMean = _pValueSum / Count;
-                _pValueSTDVTemp += Math.Pow(peak.Value - PValueMean, 2.0);
-                PValueSTDV = Math.Sqrt(_pValueSTDVTemp / Count);
+                _sumPValue += peak.Value;
+                PValueMean = _sumPValue / Count;
+                _sumSqrdPValue += Math.Pow(peak.Value, 2);
+                PValueSTDV = Math.Sqrt((_sumSqrdPValue / Count) - Math.Pow(_sumPValue / Count, 2));
             }
         }
     }

@@ -61,5 +61,17 @@ namespace GeUtilities.Tests
 
             Assert.True(stats.PValueMean == mean);
         }
+
+        [Theory]
+        [InlineData(new double[] { 0.001 }, 0.0)]
+        [InlineData(new double[] { 0.1, 0.001, 0.0001 }, 0.046882619)]
+        public void TestPValueSTDV(double[] pValues, double stdv)
+        {
+            var stats = new BEDStats();
+            foreach (var peak in CreatePeaks(pValues))
+                stats.Update(peak);
+
+            Assert.True(stats.PValueSTDV == stdv);
+        }
     }
 }
