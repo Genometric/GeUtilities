@@ -49,5 +49,17 @@ namespace GeUtilities.Tests
 
             Assert.True(stats.PValueLowest == pValueLowest);
         }
+
+        [Theory]
+        [InlineData(new double[] { 0.001 }, 0.001)]
+        [InlineData(new double[] { 0.1, 0.001, 0.0001 }, 0.0337)]
+        public void TestPValueMean(double[] pValues, double mean)
+        {
+            var stats = new BEDStats();
+            foreach (var peak in CreatePeaks(pValues))
+                stats.Update(peak);
+
+            Assert.True(stats.PValueMean == mean);
+        }
     }
 }
