@@ -12,7 +12,6 @@ namespace Genometric.GeUtilities.Parsers
         private double _pValueSum;
         private double _pValueSTDVTemp;
 
-        public string Percentage { set; get; }
         public double PValueMax { set; get; }
         public double PValueMin { set; get; }
         public double PValueMean { set; get; }
