@@ -16,7 +16,7 @@ namespace Genometric.GeUtilities.Parsers
         public uint WidthMax { private set; get; }
         public uint WidthMin { private set; get; }
         public double WidthMean { private set; get; }
-        public double WidthSTDV { private set; get; }
+        public double WidthPSTDV { private set; get; }
         public float Coverage { private set; get; }
 
         public IntervalStats()
@@ -33,7 +33,7 @@ namespace Genometric.GeUtilities.Parsers
             _sumWidth += intervalWidth;
             WidthMean = _sumWidth / (double)Count;
             _sumSqrdWidth += Math.Pow(intervalWidth, 2);
-            WidthSTDV = Math.Sqrt((_sumSqrdWidth / Count) - Math.Pow(_sumWidth / (double)Count, 2));
+            WidthPSTDV = Math.Sqrt((_sumSqrdWidth / Count) - Math.Pow(_sumWidth / (double)Count, 2));
         }
     }
 }

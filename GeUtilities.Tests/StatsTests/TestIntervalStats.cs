@@ -82,5 +82,19 @@ namespace GeUtilities.Tests.StatsTests
 
             Assert.True(Math.Round(stats.WidthMean, 3) == mean);
         }
+
+        [Theory]
+        [InlineData(new int[0], 0)]
+        [InlineData(new int[] { 10, 20 }, 0)]
+        [InlineData(new int[] { 10, 20, 30, 32 }, 4)]
+        [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 16.3571)]
+        public void TestWidthPSTDV(int[] intersCoord, double pstdv)
+        {
+            var stats = new BEDStats();
+            foreach (var peak in CreatePeaks(intersCoord))
+                stats.Update(peak);
+
+            Assert.True(Math.Round(stats.WidthPSTDV, 4) == pstdv);
+        }
     }
 }
