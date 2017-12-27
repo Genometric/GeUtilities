@@ -53,5 +53,19 @@ namespace GeUtilities.Tests.StatsTests
 
             Assert.True(stats.WidthMax == maxWidth);
         }
+
+        [Theory]
+        [InlineData(new int[0], 0)]
+        [InlineData(new int[] { 10, 20 }, 10)]
+        [InlineData(new int[] { 10, 20, 30, 32 }, 2)]
+        [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 2)]
+        public void TestWidthMin(int[] width, int minWidth)
+        {
+            var stats = new BEDStats();
+            foreach (var peak in CreatePeaks(width))
+                stats.Update(peak);
+
+            Assert.True(stats.WidthMin == minWidth);
+        }
     }
 }
