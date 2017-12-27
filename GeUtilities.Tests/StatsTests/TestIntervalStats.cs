@@ -26,6 +26,22 @@ namespace GeUtilities.Tests.StatsTests
             return rtv;
         }
 
+        private ChIPSeqPeak[] CreatePeaks(int[] width)
+        {
+            var rtv = new ChIPSeqPeak[width.Length / 2];
+            for (int i = 0; i < width.Length; i += 2)
+                rtv[i / 2] = new ChIPSeqPeak()
+                {
+                    HashKey = (uint)i,
+                    Left = width[i],
+                    Right = width[i + 1],
+                    Name = "GeUtilities_" + i,
+                    Summit = width[i] + ((width[i + 1] - width[i])) / 2,
+                    Value = 100.0
+                };
+            return rtv;
+        }
+
         [Theory]
         [InlineData(0)]
         [InlineData(1)]
@@ -37,6 +53,20 @@ namespace GeUtilities.Tests.StatsTests
                 stats.Update(peak);
 
             Assert.True(stats.Count == count);
+        }
+
+        [Theory]
+        [InlineData(new int[0], 0)]
+        [InlineData(new int[] { 10, 20 }, 10)]
+        [InlineData(new int[] { 10, 20, 30, 32 }, 10)]
+        [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 40)]
+        public void TestWidthMax(int[] width, int maxWidth)
+        {
+            var stats = new BEDStats();
+            foreach (var peak in CreatePeaks(width))
+                stats.Update(peak);
+
+            Assert.True(stats.WidthMax == maxWidth);
         }
     }
 }
