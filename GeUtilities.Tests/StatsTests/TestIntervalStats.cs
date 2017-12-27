@@ -55,11 +55,11 @@ namespace GeUtilities.Tests.StatsTests
         }
 
         [Theory]
-        [InlineData(new int[0], 0)]
+        [InlineData(new int[0], uint.MaxValue)]
         [InlineData(new int[] { 10, 20 }, 10)]
         [InlineData(new int[] { 10, 20, 30, 32 }, 2)]
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 2)]
-        public void TestWidthMin(int[] intersCoord, int minWidth)
+        public void TestWidthMin(int[] intersCoord, uint minWidth)
         {
             var stats = new BEDStats();
             foreach (var peak in CreatePeaks(intersCoord))
