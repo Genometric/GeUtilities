@@ -24,7 +24,7 @@ namespace Genometric.GeUtilities.Parsers
             WidthMin = uint.MaxValue;
         }
 
-        public void Update(IInterval<int> interval)
+        public virtual void Update(IInterval<int> interval)
         {
             Count++;
             uint intervalWidth = (uint)(interval.Right - interval.Left);

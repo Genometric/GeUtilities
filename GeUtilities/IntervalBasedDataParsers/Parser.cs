@@ -180,6 +180,7 @@ namespace Genometric.GeUtilities.Parsers
             UInt32 lineCounter = 0;
             Messages = new List<string>();
             _dropReadingPeak = false;
+            byte startOffset = _startOffset;
 
             if (File.Exists(_source))
             {
@@ -191,7 +192,7 @@ namespace Genometric.GeUtilities.Parsers
 
                 using (StreamReader fileReader = new StreamReader(_source))
                 {
-                    while (_startOffset-- > 0)
+                    while (startOffset-- > 0)
                     {
                         line = fileReader.ReadLine();
                         lineCounter++;

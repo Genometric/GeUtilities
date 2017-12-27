@@ -33,7 +33,7 @@ namespace Genometric.GeUtilities.Parsers
             PValueLowest = 1;
         }
 
-        public new void Update(IInterval<int> interval)
+        public override void Update(IInterval<int> interval)
         {
             base.Update(interval);
 

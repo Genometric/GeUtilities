@@ -74,5 +74,45 @@ namespace GeUtilities.Tests
 
             Assert.True(Math.Round(stats.PValuePSTDV, 9) == stdv);
         }
+
+        [Fact]
+        private void TestPValueHighestInParsedDataPerChr()
+        {
+            string[] peaks = new string[]
+            {
+                "chr1\t10\t20\tGeUtilities_00\t0.1",
+                "chr1\t30\t40\tGeUtilities_01\t0.01",
+                "chr1\t50\t60\tGeUtilities_02\t0.001",
+                "chr2\t10\t20\tGeUtilities_00\t0.2",
+            };
+
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(peaks))
+            {
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, pValueFormat: PValueFormat.SameAsInput);
+                var parsedData = bedParser.Parse();
+
+                Assert.True(parsedData.Chromosomes["chr1"].Statistics.PValueHighest == 0.1);
+            }
+        }
+
+        [Fact]
+        private void TestPValueHighestInParsedData()
+        {
+            string[] peaks = new string[]
+            {
+                "chr1\t10\t20\tGeUtilities_00\t0.1",
+                "chr1\t30\t40\tGeUtilities_01\t0.01",
+                "chr1\t50\t60\tGeUtilities_02\t0.001",
+                "chr2\t10\t20\tGeUtilities_00\t0.2",
+            };
+
+            using (TestBEDFileCreator testFile = new TestBEDFileCreator(peaks))
+            {
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, pValueFormat: PValueFormat.SameAsInput);
+                var parsedData = bedParser.Parse();
+
+                Assert.True(parsedData.Statistics.PValueHighest == 0.2);
+            }
+        }
     }
 }
