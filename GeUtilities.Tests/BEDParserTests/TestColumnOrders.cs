@@ -192,10 +192,12 @@ namespace GeUtilities.Tests
                     nameColumn: 4,
                     valueColumn: 5);
 
+                var parsedData = bedParser.Parse();
+
                 Assert.True(
-                    bedParser.Parse().Chromosomes[_chr].Strands.ContainsKey('*') &&
-                    bedParser.Parse().Chromosomes[_chr].Strands.ContainsKey('+') &&
-                    bedParser.Parse().Chromosomes[_chr].Strands.ContainsKey('-'));
+                    parsedData.Chromosomes[_chr].Strands.ContainsKey('*') &&
+                    parsedData.Chromosomes[_chr].Strands.ContainsKey('+') &&
+                    parsedData.Chromosomes[_chr].Strands.ContainsKey('-'));
             }
         }
     }
