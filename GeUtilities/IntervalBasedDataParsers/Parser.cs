@@ -48,7 +48,7 @@ namespace Genometric.GeUtilities.Parsers
         private byte _startOffset;
 
         /// <summary>
-        /// Sets and gets the coloumn number of chromosome name.
+        /// Sets and gets the column number of chromosome name.
         /// </summary>
         private sbyte _chrColumn;
 
@@ -88,14 +88,14 @@ namespace Genometric.GeUtilities.Parsers
         private UInt16 _dropedLinesCount;
 
         /// <summary>
-        /// Holds catched information of each chromosome's base pairs count. 
+        /// Holds cached information of each chromosome's base pairs count. 
         /// This information will be updated based on the selected species.
         /// </summary>
         private ReadOnlyDictionary<string, int> _assemblyData;
 
         /// <summary>
         /// Contains all read information from the input file, and 
-        /// will be retured as parser result.
+        /// will be returned as parser result.
         /// </summary>
         protected ParsedIntervals<I, S> Data { set { _data = value; } get { return _data; } }
         private ParsedIntervals<I, S> _data;
@@ -139,7 +139,7 @@ namespace Genometric.GeUtilities.Parsers
         }
 
 
-        #region .::.         Status variable and it's event controlers   .::.
+        #region .::.         Status variable and it's event controllers   .::.
 
         private string _status;
         public string Status
@@ -273,7 +273,7 @@ namespace Genometric.GeUtilities.Parsers
                 }
 
                 if (_dropedLinesCount > 0)
-                    Messages.Insert(0, "\t" + _dropedLinesCount.ToString() + " Lines droped");
+                    Messages.Insert(0, "\t" + _dropedLinesCount.ToString() + " Lines dropped");
                 _data.Messages = Messages;
 
                 if (_assembly != Assemblies.Unknown)
@@ -294,7 +294,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <para>Set the parameter _dropLine to true if
         /// parsing is unsuccessful.</para>
         /// </summary>
-        /// <param name="line">The splitted line read from input.</param>
+        /// <param name="line">The spitted line read from input.</param>
         /// <returns>The interval this line delegates.</returns>
         protected abstract I BuildInterval(int left, int right, string[] line, UInt32 lineCounter);
 

@@ -57,7 +57,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="startOffset">If the source file comes with header, the number of headers lines needs to be specified so that
         /// parser can ignore them. If not specified and header is present, header might be dropped because
         /// of improper format it might have. </param>
-        /// <param name="chrColumn">The coloumn number of chromosome name.</param>
+        /// <param name="chrColumn">The column number of chromosome name.</param>
         /// <param name="leftEndColumn">The column number of peak left-end position.</param>
         /// <param name="rightEndColumn">The column number of peak right-end position.</param>
         /// <param name="nameColumn">The column number of peak name.</param>
@@ -66,11 +66,11 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="strandColumn">The column number of peak strand. If input is not stranded this value should be set to -1.</param>
         /// <param name="defaultValue">Default value of a peak. It will be used in case 
         /// invalid value is read from source.</param>
-        /// <param name="pValueFormat">It specifies the value convertion option:
-        /// <para>0 : no convertion.</para>
+        /// <param name="pValueFormat">It specifies the value conversion option:
+        /// <para>0 : no conversion.</para>
         /// <para>1 : value = (-10)Log10(value)</para>
         /// <para>2 : value =  (-1)Log10(value)</para>
-        /// <param name="dropPeakIfInvalidValue">If set to true, a peak with invalid value will be droped. 
+        /// <param name="dropPeakIfInvalidValue">If set to true, a peak with invalid value will be dropped. 
         /// If set to false, a peak with invalid value with take up the default value.</param>
         public BEDParser(
             string source,
@@ -143,7 +143,7 @@ namespace Genometric.GeUtilities.Parsers
         private PValueFormat _pValueFormat;
 
         /// <summary>
-        /// If set to true, any peak that has invalid p-value will be droped. 
+        /// If set to true, any peak that has invalid p-value will be dropped. 
         /// </summary>
         private bool _dropPeakIfInvalidValue;
 
@@ -262,7 +262,7 @@ namespace Genometric.GeUtilities.Parsers
         /// The conversion is done based on conversion option which specifies whether the input is in (-1)Log10(p-value) or (-10)Log10(p-value) format.
         /// </summary>
         /// <param name="value">The p-value in (-1)Log10 or (-10)Log10 format</param>
-        /// <returns>The coverted p-value if the converstion type is valid, otherwise it returns 0</returns>
+        /// <returns>The converted p-value if the conversion type is valid, otherwise it returns 0</returns>
         private double PValueConvertor(double value)
         {
             switch (_pValueFormat)

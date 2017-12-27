@@ -47,7 +47,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="startOffset">If the source file comes with header, the number of headers lines needs to be specified so that
         /// parser can ignore them. If not specified and header is present, header might be dropped because
         /// of improper format it might have. </param>
-        /// <param name="chrColumn">The coloumn number of chromosome name.</param>
+        /// <param name="chrColumn">The column number of chromosome name.</param>
         /// <param name="leftEndColumn">The column number of feature start position.</param>
         /// <param name="rightEndColumn">The column number of feature stop position.</param>
         /// <param name="featureColumn">The column number of feature.</param>

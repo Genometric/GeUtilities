@@ -13,7 +13,7 @@ namespace Genometric.GeUtilities.IGenomics
         BasePair[] AltBase { set; get; }
 
         /// <summary>
-        /// phred-scaled quality score for the assertion made in altered-base.
+        /// Phred-scaled quality score for the assertion made in altered-base.
         /// </summary>
         double Quality { set; get; }
 

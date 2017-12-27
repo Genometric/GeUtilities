@@ -48,7 +48,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="startOffset">If the source file comes with header, the number of headers lines needs to be specified so that
         /// parser can ignore them. If not specified and header is present, header might be dropped because
         /// of improper format it might have. </param>
-        /// <param name="chrColumn">The coloumn number of chromosome name</param>
+        /// <param name="chrColumn">The column number of chromosome name</param>
         /// <param name="leftEndColumn">The column number of gene start position</param>
         /// <param name="rightEndColumn">The column number of gene stop position</param>
         public RefSeqGenesParser(
@@ -102,11 +102,11 @@ namespace Genometric.GeUtilities.Parsers
 
         /// <summary>
         /// If the input file contains refseq ID and official gene symbol, then the 
-        /// constructures will set this variable to FALSE which leads to registering
+        /// constructors will set this variable to FALSE which leads to registering
         /// error messages if refseq ID and/or official gene symbol is missing.
         /// <para>
         /// If the input file does NOT contain refseq ID and official gene symbol then
-        /// a constructure that does not specifies these columns needs to be used. In 
+        /// a constructor that does not specifies these columns needs to be used. In 
         /// that case, this variable will be set to TRUE which avoids registering error
         /// messages for missing refseq ID and official gene symbol.
         /// </para>

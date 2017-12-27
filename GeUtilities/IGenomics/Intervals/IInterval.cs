@@ -19,7 +19,7 @@ namespace Genometric.GeUtilities.IGenomics
         C Right { set; get; }
 
         /// <summary>
-        /// Sets and gets the the hashKey of the interval.
+        /// Sets and gets the hashKey of the interval.
         /// </summary>
         uint HashKey { set; get; }
     }
