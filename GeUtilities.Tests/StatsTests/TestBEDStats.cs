@@ -29,13 +29,25 @@ namespace GeUtilities.Tests
         [Theory]
         [InlineData(new double[] { 0.001 }, 0.001)]
         [InlineData(new double[] { 0.1, 0.001, 0.0001}, 0.1)]
-        public void TestPValueHighest(double[] pValues, double maxPValue)
+        public void TestPValueHighest(double[] pValues, double pValueHighest)
         {
             var stats = new BEDStats();
             foreach (var peak in CreatePeaks(pValues))
                 stats.Update(peak);
 
-            Assert.True(stats.PValueHighest == maxPValue);
+            Assert.True(stats.PValueHighest == pValueHighest);
+        }
+
+        [Theory]
+        [InlineData(new double[] { 0.001 }, 0.001)]
+        [InlineData(new double[] { 0.1, 0.001, 0.0001 }, 0.0001)]
+        public void TestPValueLowest(double[] pValues, double pValueLowest)
+        {
+            var stats = new BEDStats();
+            foreach (var peak in CreatePeaks(pValues))
+                stats.Update(peak);
+
+            Assert.True(stats.PValueLowest == pValueLowest);
         }
     }
 }
