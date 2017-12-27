@@ -12,14 +12,14 @@ namespace Genometric.GeUtilities.Parsers
         private double _pValueSum;
         private double _pValueSTDVTemp;
 
-        public double PValueMax { private set; get; }
-        public double PValueMin { private set; get; }
+        public double PValueHighest { private set; get; }
+        public double PValueLowest { private set; get; }
         public double PValueMean { private set; get; }
         public double PValueSTDV { private set; get; }
 
         public BEDStats() : base()
         {
-            PValueMin = 1;
+            PValueLowest = 1;
         }
 
         public new void Update(IInterval<int> interval)
@@ -37,8 +37,8 @@ namespace Genometric.GeUtilities.Parsers
             if (!double.IsNaN(peak.Value))
             {
                 _pValueSum += peak.Value;
-                PValueMax = Math.Max(PValueMax, peak.Value);
-                PValueMin = Math.Min(PValueMin, peak.Value);
+                PValueHighest = Math.Max(PValueHighest, peak.Value);
+                PValueLowest = Math.Min(PValueLowest, peak.Value);
                 PValueMean = _pValueSum / Count;
                 _pValueSTDVTemp += Math.Pow(peak.Value - PValueMean, 2.0);
                 PValueSTDV = Math.Sqrt(_pValueSTDVTemp / Count);

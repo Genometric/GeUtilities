@@ -35,7 +35,7 @@ namespace GeUtilities.Tests
             foreach (var peak in CreatePeaks(pValues))
                 stats.Update(peak);
 
-            Assert.True(stats.PValueMax == maxPValue);
+            Assert.True(stats.PValueHighest == maxPValue);
         }
     }
 }
