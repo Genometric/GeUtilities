@@ -12,10 +12,10 @@ namespace Genometric.GeUtilities.Parsers
         private double _pValueSum;
         private double _pValueSTDVTemp;
 
-        public double PValueMax { set; get; }
-        public double PValueMin { set; get; }
-        public double PValueMean { set; get; }
-        public double PValueSTDV { set; get; }
+        public double PValueMax { private set; get; }
+        public double PValueMin { private set; get; }
+        public double PValueMean { private set; get; }
+        public double PValueSTDV { private set; get; }
 
         public BEDStats() : base()
         {
