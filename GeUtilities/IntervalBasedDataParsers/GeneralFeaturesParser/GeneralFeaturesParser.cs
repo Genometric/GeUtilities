@@ -123,7 +123,7 @@ namespace Genometric.GeUtilities.Parsers
             if (_scoreColumn != -1 && _scoreColumn < line.Length && double.TryParse(line[_scoreColumn], out double score))
                 rtv.Score = score;
             else
-                rtv.Source = null;
+                rtv.Score = double.NaN;
 
             if (_frameColumn != -1 && _frameColumn < line.Length)
                 rtv.Frame = line[_frameColumn];
