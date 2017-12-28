@@ -29,7 +29,6 @@ namespace GeUtilities.Tests
             }
         }
 
-
         [Theory]
         [InlineData("chr1")]
         [InlineData("Chr1")]
@@ -47,7 +46,6 @@ namespace GeUtilities.Tests
                 Assert.True(parsedData.Chromosomes.ContainsKey(chr));
             }
         }
-
 
         [Theory]
         [InlineData("chr2")]
@@ -127,7 +125,6 @@ namespace GeUtilities.Tests
             }
         }
 
-
         [Fact]
         public void ReadName()
         {
@@ -141,7 +138,6 @@ namespace GeUtilities.Tests
             }
         }
 
-
         [Fact]
         public void ReadValue()
         {
@@ -154,7 +150,6 @@ namespace GeUtilities.Tests
                 Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].Value == value);
             }
         }
-
 
         [Fact]
         public void FailReadValue()
