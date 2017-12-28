@@ -196,5 +196,28 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
                 Assert.True(parsedFeature.Frame == frame);
             }
         }
+
+        [Theory]
+        [InlineData(0, "a=1;b=B")]
+        [InlineData(3, "a1=A1")]
+        [InlineData(3, "aa1=1;bBb=2")]
+        [InlineData(10, "AA1=AA;BbB=3")]
+        [InlineData(10, "aAb=1;bBa=2")]
+        [InlineData(-1, null)]
+        public void TestAttributeColumn(sbyte attributeColumn, string attribute)
+        {
+            var gtfColumns = new GTFColumns
+            {
+                AttributeColumn = attributeColumn
+            };
+
+            using (TempGeneralFeatureFileCreator testFile = new TempGeneralFeatureFileCreator(gtfColumns: gtfColumns, attribute: attribute))
+            {
+                var parsedGTF = ParseGTF(testFile.TempFilePath, gtfColumns);
+                var parsedFeature = parsedGTF.Chromosomes[_chr].Strands['*'].Intervals[0];
+
+                Assert.True(parsedFeature.Attribute == attribute);
+            }
+        }
     }
 }

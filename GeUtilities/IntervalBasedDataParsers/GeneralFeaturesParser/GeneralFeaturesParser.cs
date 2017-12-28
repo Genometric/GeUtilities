@@ -145,8 +145,8 @@ namespace Genometric.GeUtilities.Parsers
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid feature column number");
                 }
 
-            if (_attributeColumn < line.Length)            
-                rtv.Attribute = line[_attributeColumn];            
+            if (_attributeColumn != -1 && _attributeColumn < line.Length)
+                rtv.Attribute = line[_attributeColumn];
             else
                 rtv.Attribute = null;
 
