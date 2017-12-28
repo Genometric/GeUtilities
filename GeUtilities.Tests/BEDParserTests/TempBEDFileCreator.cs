@@ -5,7 +5,7 @@
 using System;
 using System.IO;
 
-namespace GeUtilities.Tests
+namespace GeUtilities.Tests.BEDParserTests
 {
     class TempBEDFileCreator : IDisposable
     {
