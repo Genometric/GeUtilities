@@ -142,7 +142,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
                 FeatureColumn = featureColumn
             };
 
-            using (TempGeneralFeatureFileCreator testFile = new TempGeneralFeatureFileCreator(gtfColumns:gtfColumns, feature: feature))
+            using (TempGeneralFeatureFileCreator testFile = new TempGeneralFeatureFileCreator(gtfColumns: gtfColumns, feature: feature))
             {
                 var parsedGTF = ParseGTF(testFile.TempFilePath, gtfColumns);
                 var parsedFeature = parsedGTF.Chromosomes[_chr].Strands['*'].Intervals[0];
@@ -171,6 +171,29 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
                 var parsedFeature = parsedGTF.Chromosomes[_chr].Strands['*'].Intervals[0];
 
                 Assert.True(double.IsNaN(score) ? double.IsNaN(parsedFeature.Score) : parsedFeature.Score == score);
+            }
+        }
+
+        [Theory]
+        [InlineData(0, "1")]
+        [InlineData(3, "2")]
+        [InlineData(3, "3")]
+        [InlineData(10, "4")]
+        [InlineData(10, "5")]
+        [InlineData(-1, null)]
+        public void TestFrameColumn(sbyte frameColumn, string frame)
+        {
+            var gtfColumns = new GTFColumns
+            {
+                FrameColumn = frameColumn
+            };
+
+            using (TempGeneralFeatureFileCreator testFile = new TempGeneralFeatureFileCreator(gtfColumns: gtfColumns, frame: frame))
+            {
+                var parsedGTF = ParseGTF(testFile.TempFilePath, gtfColumns);
+                var parsedFeature = parsedGTF.Chromosomes[_chr].Strands['*'].Intervals[0];
+
+                Assert.True(parsedFeature.Frame == frame);
             }
         }
     }
