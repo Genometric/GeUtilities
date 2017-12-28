@@ -13,12 +13,12 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
-        /// <param name="source">Full path of source file name.</param>
+        /// <param name="sourceFilePath">Full path of source file name.</param>
         /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
         /// <param name="readOnlyValidChrs"></param>
         public BEDParser(
-            string source,
+            string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
@@ -28,7 +28,7 @@ namespace Genometric.GeUtilities.Parsers
             uint maxLinesToBeRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             this(
-                source: source,
+                sourceFilePath: sourceFilePath,
                 chrColumn: 0,
                 leftEndColumn: 1,
                 rightEndColumn: 2,
@@ -50,7 +50,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
-        /// <param name="source">Full path of source file name.</param>
+        /// <param name="sourceFilePath">Full path of source file name.</param>
         /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
         /// <param name="readOnlyValidChrs"></param>
@@ -73,7 +73,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="dropPeakIfInvalidValue">If set to true, a peak with invalid value will be dropped. 
         /// If set to false, a peak with invalid value with take up the default value.</param>
         public BEDParser(
-            string source,
+            string sourceFilePath,
             sbyte chrColumn,
             sbyte leftEndColumn,
             sbyte rightEndColumn,
@@ -89,7 +89,7 @@ namespace Genometric.GeUtilities.Parsers
             bool readOnlyValidChrs = true,
             uint maxLinesToBeRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
-            base(source: source,
+            base(sourceFilePath: sourceFilePath,
                 startOffset: startOffset,
                 chrColumn: chrColumn,
                 leftEndColumn: leftEndColumn,

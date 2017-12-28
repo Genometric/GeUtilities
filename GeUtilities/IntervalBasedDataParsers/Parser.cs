@@ -33,7 +33,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// Full path of source file name.
         /// </summary>
-        private string _source;
+        private string _sourceFilePath;
 
         /// <summary>
         /// 
@@ -106,7 +106,7 @@ namespace Genometric.GeUtilities.Parsers
 
 
         public Parser(
-            string source,
+            string sourceFilePath,
             byte startOffset,
             sbyte chrColumn,
             sbyte leftEndColumn,
@@ -118,7 +118,7 @@ namespace Genometric.GeUtilities.Parsers
             ParsedIntervals<I, S> data,
             Assemblies assembly = Assemblies.Unknown)
         {
-            _source = source;
+            _sourceFilePath = sourceFilePath;
             _assembly = assembly;
             _startOffset = startOffset;
             _chrColumn = chrColumn;
@@ -129,8 +129,8 @@ namespace Genometric.GeUtilities.Parsers
             _maxLinesToBeRead = maxLinesToBeRead;
             _hashFunction = hashFunction;
             _data = data;
-            _data.FilePath = Path.GetFullPath(_source);
-            _data.FileName = Path.GetFileName(_source);
+            _data.FilePath = Path.GetFullPath(_sourceFilePath);
+            _data.FileName = Path.GetFileName(_sourceFilePath);
             _data.FileHashKey = GetFileHashKey(_data.FilePath);
             _data.Assembly = _assembly;
             _assemblyData = GenomeAssemblies.Assembly(_assembly);
@@ -182,15 +182,15 @@ namespace Genometric.GeUtilities.Parsers
             _dropReadingPeak = false;
             byte startOffset = _startOffset;
 
-            if (File.Exists(_source))
+            if (File.Exists(_sourceFilePath))
             {
-                FileInfo fileInfo = new FileInfo(_source);
+                FileInfo fileInfo = new FileInfo(_sourceFilePath);
                 long fileSize = fileInfo.Length;
                 int lineSize = 0;
                 string chrName = "";
                 char strand = '*';
 
-                using (StreamReader fileReader = new StreamReader(_source))
+                using (StreamReader fileReader = new StreamReader(_sourceFilePath))
                 {
                     while (startOffset-- > 0)
                     {
@@ -313,16 +313,16 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="file"></param>
+        /// <param name="filePath"></param>
         /// <returns></returns>
-        private UInt32 GetFileHashKey(string file)
+        private UInt32 GetFileHashKey(string filePath)
         {
-            int len = file.Length;
+            int len = filePath.Length;
 
             UInt32 hashKey = 0;
             for (int i = 0; i < len; i++)
             {
-                hashKey += file[i];
+                hashKey += filePath[i];
                 hashKey += (hashKey << 10);
                 hashKey ^= (hashKey >> 6);
             }

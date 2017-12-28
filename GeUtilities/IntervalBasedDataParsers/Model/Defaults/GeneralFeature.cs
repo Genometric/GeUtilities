@@ -8,10 +8,12 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
 {
     public class GeneralFeature : IGeneralFeature
     {
+        public string Source { set; get; }
+        public string Feature { set; get; }
         public int Left { set; get; }
         public int Right { set; get; }
-        public double Value { set; get; }
-        public byte Feature { set; get; }
+        public double Score { set; get; }
+        public string Frame { set; get; }
         public string Attribute { set; get; }
         public uint HashKey { set; get; }
 
@@ -26,13 +28,17 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
 
         public int CompareTo(IGeneralFeature other)
         {
-            int compareResult = Left.CompareTo(other.Left);
+            int compareResult = Source.CompareTo(other.Source);
+            if (compareResult != 0) return compareResult;
+            compareResult = Feature.CompareTo(other.Feature);
+            if (compareResult != 0) return compareResult;
+            compareResult = Left.CompareTo(other.Left);
             if (compareResult != 0) return compareResult;
             compareResult = Right.CompareTo(other.Right);
             if (compareResult != 0) return compareResult;
-            compareResult = Value.CompareTo(other.Value);
+            compareResult = Score.CompareTo(other.Score);
             if (compareResult != 0) return compareResult;
-            compareResult = Feature.CompareTo(other.Feature);
+            compareResult = Frame.CompareTo(other.Frame);
             if (compareResult != 0) return compareResult;
             return Attribute.CompareTo(other.Attribute);
         }

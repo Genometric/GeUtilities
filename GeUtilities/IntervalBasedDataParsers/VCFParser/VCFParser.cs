@@ -11,11 +11,11 @@ namespace Genometric.GeUtilities.Parsers
         where I : IVCF, new()
     {
         public VCFParser(
-            string source,
+            string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
             bool readOnlyValidChrs = true,
             uint maxLinesToBeRead = uint.MaxValue) :
-            this(source: source,
+            this(sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 chrColumn: 0,
                 positionColumn: 1,
@@ -30,7 +30,7 @@ namespace Genometric.GeUtilities.Parsers
         { }
 
         public VCFParser(
-            string source,            
+            string sourceFilePath,            
             sbyte chrColumn,
             sbyte positionColumn,
             sbyte idColumn,
@@ -44,7 +44,7 @@ namespace Genometric.GeUtilities.Parsers
             bool readOnlyValidChrs = true,
             uint maxLinesToBeRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
-            base(source: source,
+            base(sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 startOffset: startOffset,
                 chrColumn: chrColumn,

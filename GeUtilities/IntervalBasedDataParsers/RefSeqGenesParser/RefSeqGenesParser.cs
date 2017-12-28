@@ -12,16 +12,16 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// Parse refseq genes presented in tab-delimited text file.
         /// </summary>
-        /// <param name="source">Full path of source file name.</param>
+        /// <param name="sourceFilePath">Full path of source file name.</param>
         /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
         /// <param name="readOnlyValidChrs"></param>
         public RefSeqGenesParser(
-            string source,
+            string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
             bool readOnlyValidChrs=true,
             uint maxLinesToBeRead = uint.MaxValue) :
-            this(source: source,
+            this(sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 readOnlyValidChrs: readOnlyValidChrs,
                 startOffset: 0,
@@ -41,7 +41,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// Parse refseq genes presented in tab-delimited text file.
         /// </summary>
-        /// <param name="source">Full path of source file name</param>
+        /// <param name="sourceFilePath">Full path of source file name</param>
         /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
         /// <param name="readOnlyValidChrs"></param>
@@ -52,7 +52,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="leftEndColumn">The column number of gene start position</param>
         /// <param name="rightEndColumn">The column number of gene stop position</param>
         public RefSeqGenesParser(
-            string source,            
+            string sourceFilePath,            
             sbyte chrColumn,
             sbyte leftEndColumn,
             sbyte rightEndColumn,
@@ -64,7 +64,7 @@ namespace Genometric.GeUtilities.Parsers
             bool readOnlyValidChrs = true,
             uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
-            base(source: source,
+            base(sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 startOffset: startOffset,
                 chrColumn: chrColumn,

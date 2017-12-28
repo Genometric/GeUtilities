@@ -22,7 +22,7 @@ namespace GeUtilities.Tests
             string peak = _chr + "\t" + left + "\t" + right + "\t" + name + "\t" + value;
             using (TempBEDFileCreator testFile = new TempBEDFileCreator(peak))
             {
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TestFilePath, dropPeakIfInvalidValue: true);
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, dropPeakIfInvalidValue: true);
                 var parsedPeak = bedParser.Parse().Chromosomes[_chr].Strands['*'].Intervals[0];
 
                 Assert.True(parsedPeak.Left == left && parsedPeak.Right == right && parsedPeak.Name == name && parsedPeak.Value == value);
@@ -56,7 +56,7 @@ namespace GeUtilities.Tests
             using (TempBEDFileCreator testFile = new TempBEDFileCreator(peak))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
-                    testFile.TestFilePath,
+                    testFile.TempFilePath,
                     chrColumn: chrColumn,
                     leftEndColumn: leftColumn,
                     rightEndColumn: rightColumn,
@@ -108,7 +108,7 @@ namespace GeUtilities.Tests
             using (TempBEDFileCreator testFile = new TempBEDFileCreator(peak))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
-                    testFile.TestFilePath,
+                    testFile.TempFilePath,
                     chrColumn: chrColumn,
                     leftEndColumn: leftColumn,
                     rightEndColumn: rightColumn,
@@ -159,7 +159,7 @@ namespace GeUtilities.Tests
             using (TempBEDFileCreator testFile = new TempBEDFileCreator(peak))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
-                    testFile.TestFilePath,
+                    testFile.TempFilePath,
                     chrColumn: chrColumn,
                     leftEndColumn: leftColumn,
                     rightEndColumn: rightColumn,
@@ -183,7 +183,7 @@ namespace GeUtilities.Tests
             using (TempBEDFileCreator testFile = new TempBEDFileCreator(peaks))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
-                    testFile.TestFilePath,
+                    testFile.TempFilePath,
                     chrColumn: 0,
                     leftEndColumn: 1,
                     rightEndColumn: 2,

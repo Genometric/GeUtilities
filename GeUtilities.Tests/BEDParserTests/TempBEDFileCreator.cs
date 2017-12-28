@@ -9,21 +9,21 @@ namespace GeUtilities.Tests
 {
     class TempBEDFileCreator : IDisposable
     {
-        private string _testFile;
-        public string TestFilePath { get { return _testFile; } }
+        private string _tempFilePath;
+        public string TempFilePath { get { return _tempFilePath; } }
 
         public TempBEDFileCreator(string peak)
         {
-            _testFile = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
-            using (FileStream fs = File.Create(_testFile))
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+            using (FileStream fs = File.Create(_tempFilePath))
             using (StreamWriter sw = new StreamWriter(fs))
                 sw.WriteLine(peak);
         }
 
         public TempBEDFileCreator(string[] peaks)
         {
-            _testFile = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
-            using (FileStream fs = File.Create(_testFile))
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+            using (FileStream fs = File.Create(_tempFilePath))
             using (StreamWriter sw = new StreamWriter(fs))
                 foreach (var peak in peaks)
                     sw.WriteLine(peak);
@@ -38,8 +38,8 @@ namespace GeUtilities.Tests
             int headerLineCount = 0,
             int peaksCount = 1)
         {
-            _testFile = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
-            using (FileStream fs = File.Create(_testFile))
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+            using (FileStream fs = File.Create(_tempFilePath))
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 while (headerLineCount-- > 0)
@@ -59,7 +59,7 @@ namespace GeUtilities.Tests
 
         public void Dispose()
         {
-            File.Delete(_testFile);
+            File.Delete(_tempFilePath);
         }
     }
 }

@@ -11,36 +11,55 @@ namespace Genometric.GeUtilities.Parsers
         where I : IGeneralFeature, new()
     {
         /// <summary>
+        /// Sets and gets the column number of feature.
+        /// </summary>
+        private sbyte _featureColumn;
+
+        /// <summary>
+        /// Sets and gets the column number of attribute.
+        /// </summary>
+        private sbyte _attributeColumn;
+
+        private sbyte _sourceColumn;
+        private sbyte _scoreColumn;
+        private sbyte _frameColumn;
+        private Dictionary<string, int> _features;
+        /// <summary>
         /// Parse General Transfer Format (GTF) format.
         /// </summary>
-        /// <param name="source">Full path of source file name.</param>
+        /// <param name="sourceFilePath">Full path of source file name.</param>
         /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
         /// <param name="readOnlyValidChrs"></param>
         public GeneralFeaturesParser(
-            string source,
-            Genomes genome = Genomes.Unknown,
+            string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
-            bool readOnlyValidChrs=true,
-            uint maxLinesToBeRead = uint.MaxValue) : 
-            this(source: source,
+            bool readOnlyValidChrs = true,
+            uint maxLinesToBeRead = uint.MaxValue,
+            byte startOffset = 0,
+            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            this(sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 readOnlyValidChrs: readOnlyValidChrs,
-                startOffset: 0,
+                startOffset: startOffset,
                 chrColumn: 0,
-                leftEndColumn: 1,
-                rightEndColumn: 2,
-                strandColumn: -1,
-                featureColumn: 3,
-                attributeColumn: 4,
-                maxLinesToBeRead: maxLinesToBeRead)
+                sourceColumn: 1,
+                featureColumn: 2,
+                leftEndColumn: 3,
+                rightEndColumn: 4,
+                scoreColumn: 5,
+                strandColumn: 6,
+                frameColumn: 7,
+                attributeColumn: 8,
+                maxLinesToBeRead: maxLinesToBeRead,
+                hashFunction: hashFunction)
         { }
 
 
         /// <summary>
         /// Parse General Transfer Format (GTF) format.
         /// </summary>
-        /// <param name="source">Full path of source file name.</param>
+        /// <param name="sourceFilePath">Full path of source file name.</param>
         /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
         /// <param name="readOnlyValidChrs"></param>
@@ -53,19 +72,22 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="featureColumn">The column number of feature.</param>
         /// <param name="attributeColumn">The column number of a semicolon-separated list of tag-value pairs, providing additional information about each feature..</param>
         public GeneralFeaturesParser(
-            string source,
+            string sourceFilePath,
             sbyte chrColumn,
+            sbyte sourceColumn,
+            sbyte featureColumn,
             sbyte leftEndColumn,
             sbyte rightEndColumn,
+            sbyte scoreColumn,
             sbyte strandColumn,
-            byte featureColumn,
-            byte attributeColumn,
-            byte startOffset = 0,
+            sbyte frameColumn,
+            sbyte attributeColumn,
             Assemblies assembly = Assemblies.Unknown,
             bool readOnlyValidChrs = true,
             uint maxLinesToBeRead = uint.MaxValue,
+            byte startOffset = 0,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
-            base(source: source,
+            base(sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 startOffset: startOffset,
                 chrColumn: chrColumn,
@@ -77,25 +99,13 @@ namespace Genometric.GeUtilities.Parsers
                 hashFunction: hashFunction,
                 data: new ParsedGeneralFeatures<I>())
         {
+            _sourceColumn = sourceColumn;
             _featureColumn = featureColumn;
+            _scoreColumn = scoreColumn;
+            _frameColumn = frameColumn;
             _attributeColumn = attributeColumn;
+            _features = new Dictionary<string, int>();
         }
-
-        public Dictionary<string, DeterminedFeature> determinedFeatures { set; get; }
-
-        #region .::.         private Variables declaration               .::.
-
-        /// <summary>
-        /// Sets and gets the column number of feature.
-        /// </summary>
-        private byte _featureColumn;
-
-        /// <summary>
-        /// Sets and gets the column number of attribute.
-        /// </summary>
-        private byte _attributeColumn;
-
-        #endregion
 
         protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
         {
@@ -105,43 +115,50 @@ namespace Genometric.GeUtilities.Parsers
                 Right = right
             };
 
-            #region .::.     Process Feature         .::.
-
-            if (_featureColumn < line.Length)
-            {
-                if (!determinedFeatures.ContainsKey(line[_featureColumn]))
-                    determinedFeatures.Add(line[_featureColumn], new DeterminedFeature(line[_featureColumn], 0, (byte)determinedFeatures.Count));
-
-                rtv.Feature = determinedFeatures[line[_featureColumn]].Code;
-                determinedFeatures[line[_featureColumn]].Count++;
-            }
+            if (_sourceColumn != -1 && _sourceColumn < line.Length)
+                rtv.Source = line[_sourceColumn];
             else
-            {
-                DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid feature column number");
-            }
-            #endregion
-            #region .::.     Process Attribute       .::.
+                rtv.Source = null;
+
+            if (_scoreColumn != -1 && _scoreColumn < line.Length && double.TryParse(line[_scoreColumn], out double score))
+                rtv.Score = score;
+            else
+                rtv.Source = null;
+
+            if (_frameColumn != -1 && _frameColumn < line.Length)
+                rtv.Frame = line[_frameColumn];
+            else
+                rtv.Frame = null;
+
+            if (_featureColumn != -1)
+                if (_featureColumn < line.Length)
+                {
+                    rtv.Feature = line[_featureColumn];
+
+                    if (!_features.ContainsKey(rtv.Feature))
+                        _features.Add(rtv.Feature, 1);
+                    else
+                        _features[rtv.Feature]++;
+                }
+                else
+                {
+                    DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid feature column number");
+                }
 
             if (_attributeColumn < line.Length)            
                 rtv.Attribute = line[_attributeColumn];            
-            else            
+            else
                 rtv.Attribute = null;
-
-            #endregion
 
             return rtv;
         }
 
         public new ParsedGeneralFeatures<I> Parse()
         {
-            var parsingResult = (ParsedGeneralFeatures<I>)base.Parse();
-            parsingResult.determinedFeatures = new DeterminedFeature[determinedFeatures.Keys.Count];
-            int keyCounter = 0;
-            foreach (var key in determinedFeatures)
-                parsingResult.determinedFeatures[keyCounter] = key.Value;
-
+            var parsedData = (ParsedGeneralFeatures<I>)base.Parse();
+            parsedData.DeterminedFeatures = new Dictionary<string, int>(_features);
             Status = "100";
-            return parsingResult;
+            return parsedData;
         }
     }
 }

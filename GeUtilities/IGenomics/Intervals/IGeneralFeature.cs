@@ -8,8 +8,10 @@ namespace Genometric.GeUtilities.IGenomics
 {
     public interface IGeneralFeature : IInterval<int>, IComparable<IGeneralFeature>
     {
-        byte Feature { set; get; }
+        string Source { set; get; }
+        string Feature { set; get; }
+        double Score { set; get; }
+        string Frame { set; get; }
         string Attribute { set; get; }
-        double Value { set; get; }
     }
 }

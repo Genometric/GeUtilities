@@ -3,12 +3,13 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using System.Collections.Generic;
 
 namespace Genometric.GeUtilities.Parsers
 {
     public class ParsedGeneralFeatures<I> : ParsedIntervals<I, IntervalStats>
         where I : IGeneralFeature, new()
     {
-        public DeterminedFeature[] determinedFeatures;
+        public Dictionary<string, int> DeterminedFeatures { set; get; }
     }
 }
