@@ -130,8 +130,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
                 Math.Max(RightColumn,
                 Math.Max(ScoreColumn,
                 Math.Max(StrandColumn,
-                Math.Max(StrandColumn,
-                Math.Max(FrameColumn, AttributeColumn)))))))));
+                Math.Max(FrameColumn, AttributeColumn))))))));
         }
     }
 }
