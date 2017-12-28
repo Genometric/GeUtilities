@@ -54,6 +54,94 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
             }
         }
 
+        public TempGeneralFeatureFileCreator(
+            GTFColumns gtfColumns,
+            string chr = "chr1",
+            string source = "Di4",
+            string feature = "Gene",
+            string left = "10",
+            string right = "20",
+            double score = 100.0,
+            char strand = '*',
+            string frame = "0",
+            string attribute = "att1=1;att2=v2",
+            int headerLineCount = 0,
+            int peaksCount = 1)
+        {
+            string line = "", header = "";
+            for (sbyte i = 0; i <= gtfColumns.MaxColumnIndex(); i++)
+            {
+                if (gtfColumns.ChrColumn == i)
+                {
+                    line += chr + "\t";
+                    header += "chr\t";
+                }
+                else if (gtfColumns.SourceColumn == i)
+                {
+                    line += source + "\t";
+                    header += "Source\t";
+                }
+                else if (gtfColumns.FeatureColumn == i)
+                {
+                    line += feature + "\t";
+                    header += "Feature\t";
+                }
+                else if (gtfColumns.LeftColumn == i)
+                {
+                    line += left + "\t";
+                    header += "Left\t";
+                }
+                else if (gtfColumns.RightColumn == i)
+                {
+                    line += right + "\t";
+                    header += "Right\t";
+                }
+                else if (gtfColumns.ScoreColumn == i)
+                {
+                    line += score + "\t";
+                    header += "Score\t";
+                }
+                else if (gtfColumns.StrandColumn == i)
+                {
+                    line += strand + "\t";
+                    header += "Strand\t";
+                }
+                else if (gtfColumns.FrameColumn == i)
+                {
+                    line += frame + "\t";
+                    header += "Frame\t";
+                }
+                else if (gtfColumns.AttributeColumn == i)
+                {
+                    line += attribute + "\t";
+                    header += "Attribute\t";
+                }
+                else
+                {
+                    line += "AbCd\t";
+                    header += "aBcD\t";
+                }
+            }
+
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
+            using (FileStream fs = File.Create(_tempFilePath))
+            using (StreamWriter sw = new StreamWriter(fs))
+            {
+                while (headerLineCount-- > 0)
+                    sw.WriteLine(header);
+
+                while (peaksCount-- > 0)
+                {
+                    sw.WriteLine(line);
+                    if (int.TryParse(left, out int cLeft) && int.TryParse(right, out int cRight))
+                    {
+                        left = (cRight + 10).ToString();
+                        right = (cRight + 20).ToString();
+                    }
+                }
+            }
+        }
+
         public void Dispose()
         {
             File.Delete(_tempFilePath);

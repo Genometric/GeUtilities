@@ -12,36 +12,6 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
     {
         private string _chr = "chr1";
 
-        [Fact]
-        public void TestDefaultColumnOrder()
-        {
-            int left = 10, right = 20;
-            string source = "Di4", feature = "Gene", frame = "0";
-            double score = 100.0;
-            char strand = '*';
-            string att1 = "att1", v1 = "v1", att2 = "att2", v2 = "v2";
-            string attribute = att1 + "=" + v1 + ";" + att2 + "=" + v2;
-            string line =
-                _chr + "\t" + source + "\t" + feature + "\t" + left + "\t" + right +
-                "\t" + score + "\t" + strand + "\t" + frame + "\t" + attribute;
-
-            using (TempGeneralFeatureFileCreator testFile = new TempGeneralFeatureFileCreator(line))
-            {
-                GeneralFeaturesParser<GeneralFeature> gtfParser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedFeature = gtfParser.Parse().Chromosomes[_chr].Strands['*'].Intervals[0];
-
-                Assert.True(
-                    parsedFeature.Source == source &&
-                    parsedFeature.Feature == feature &&
-                    parsedFeature.Left == left &&
-                    parsedFeature.Right == right &&
-                    parsedFeature.Score == score &&
-                    parsedFeature.Frame == frame &&
-                    parsedFeature.Attribute == attribute);
-            }
-        }
-
-
         [Theory]
         [InlineData(0, 0)]
         [InlineData(1, 1)]

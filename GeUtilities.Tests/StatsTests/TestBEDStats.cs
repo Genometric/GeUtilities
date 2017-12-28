@@ -7,7 +7,7 @@ using Genometric.GeUtilities.Parsers;
 using System;
 using Xunit;
 
-namespace GeUtilities.Tests
+namespace GeUtilities.Tests.BEDParserTests
 {
     public class TestBEDStats
     {
