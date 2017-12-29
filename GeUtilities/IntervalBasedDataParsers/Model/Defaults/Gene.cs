@@ -27,6 +27,7 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
 
         public int CompareTo(IGene other)
         {
+            if (other == null) return 1;
             int compareResult = Left.CompareTo(other.Left);
             if (compareResult != 0) return compareResult;
             compareResult = Right.CompareTo(other.Right);
