@@ -32,6 +32,7 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
 
         public int CompareTo(IVCF other)
         {
+            if (other == null) return 1;
             int compareResult = Left.CompareTo(other.Left);
             if (compareResult != 0) return compareResult;
             compareResult = Right.CompareTo(other.Right);
@@ -46,9 +47,9 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
             if (compareResult != 0) return compareResult;
             compareResult = Info.CompareTo(other.Info);
             if (compareResult != 0) return compareResult;
-            if (!RefBase.SequenceEqual(other.RefBase)) return 1;
-            if (!AltBase.SequenceEqual(other.AltBase)) return 1;
-            return 0;
+            compareResult = (string.Join("", RefBase)).CompareTo(string.Join("", other.RefBase));
+            if (compareResult != 0) return compareResult;
+            return (string.Join("", AltBase)).CompareTo(string.Join("", other.AltBase));
         }
     }
 }
