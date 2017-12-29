@@ -11,7 +11,23 @@ namespace GeUtilities.Tests.ModelTests.Defaults
 {
     public class TestVCF
     {
-        private BasePair[] ConvertStringToBasePair(string input)
+        internal static VCF GetTempVCF()
+        {
+            return new VCF()
+            {
+                Left = 10,
+                Right = 20,
+                Value = 100.0,
+                ID = "ID",
+                RefBase = ConvertStringToBasePair("ACG"),
+                AltBase = ConvertStringToBasePair("GCA"),
+                Quality = 123.4,
+                Filter = "Filter",
+                Info = "Info"
+            };
+        }
+
+        private static BasePair[] ConvertStringToBasePair(string input)
         {
             var rtv = new BasePair[input.Length];
             for (int i = 0; i < input.Length; i++)
@@ -85,18 +101,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void ComparisonTestWithNullObject()
         {
-            var variant = new VCF()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                ID = "ID",
-                RefBase = ConvertStringToBasePair("ACG"),
-                AltBase = ConvertStringToBasePair("GCA"),
-                Quality = 123.4,
-                Filter = "Filter",
-                Info = "Info"
-            };
+            var variant = GetTempVCF();
 
             Assert.True(variant.CompareTo(null) == 1);
         }
@@ -104,18 +109,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void ComparisonTestWithNullObject2()
         {
-            var variant = new VCF()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                ID = "ID",
-                RefBase = ConvertStringToBasePair("ACG"),
-                AltBase = ConvertStringToBasePair("GCA"),
-                Quality = 123.4,
-                Filter = "Filter",
-                Info = "Info"
-            };
+            var variant = GetTempVCF();
 
             Assert.True(variant.CompareTo((object)null) == 1);
         }
@@ -123,31 +117,8 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void ComparisonTestWithAPeakAsObject()
         {
-            var aVariant = new VCF()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                ID = "ID",
-                RefBase = ConvertStringToBasePair("ACG"),
-                AltBase = ConvertStringToBasePair("GCA"),
-                Quality = 123.4,
-                Filter = "Filter",
-                Info = "Info"
-            };
-
-            var bVariant = new VCF()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                ID = "ID",
-                RefBase = ConvertStringToBasePair("ACG"),
-                AltBase = ConvertStringToBasePair("GCA"),
-                Quality = 123.4,
-                Filter = "Filter",
-                Info = "Info"
-            };
+            var aVariant = GetTempVCF();
+            var bVariant = GetTempVCF();
 
             Assert.True(aVariant.CompareTo((object)bVariant) == 0);
         }
@@ -155,27 +126,8 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void CheckNotImplementedComparison()
         {
-            var aVariant = new VCF()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                ID = "ID",
-                RefBase = ConvertStringToBasePair("ACG"),
-                AltBase = ConvertStringToBasePair("GCA"),
-                Quality = 123.4,
-                Filter = "Filter",
-                Info = "Info"
-            };
-
-            var aPeak = new ChIPSeqPeak()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                Summit = 15,
-                Name = "GeUtilities"
-            };
+            var aVariant = GetTempVCF();
+            var aPeak = TestChIPSeqPeak.GetTempChIPSeqPeak();
 
             Exception exception = Assert.Throws<NotImplementedException>(() => aVariant.CompareTo(aPeak));
 

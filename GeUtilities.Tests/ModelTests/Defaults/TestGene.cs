@@ -10,6 +10,18 @@ namespace GeUtilities.Tests.ModelTests.Defaults
 {
     public class TestGene
     {
+        internal static Gene GetTempGene()
+        {
+            return new Gene()
+            {
+                Left = 10,
+                Right = 20,
+                Value = 100.0,
+                RefSeqID = "RefSeqID",
+                GeneSymbol = "GeneSymbol"
+            };
+        }
+
         [Theory]
         [InlineData(0, 10, 20, 100.0, "RefSeqID", "GeneSymbol", 10, 20, 100.0, "RefSeqID", "GeneSymbol")]
         [InlineData(-1, 8, 20, 100.0, "RefSeqID", "GeneSymbol", 10, 20, 100.0, "RefSeqID", "GeneSymbol")]
@@ -51,14 +63,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void ComparisonTestWithNullObject()
         {
-            var gene = new Gene()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                RefSeqID = "RefSeqID",
-                GeneSymbol = "GeneSymbol"
-            };
+            var gene = GetTempGene();
 
             Assert.True(gene.CompareTo(null) == 1);
         }
@@ -66,14 +71,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void ComparisonTestWithNullObject2()
         {
-            var gene = new Gene()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                RefSeqID = "RefSeqID",
-                GeneSymbol = "GeneSymbol"
-            };
+            var gene = GetTempGene();
 
             Assert.True(gene.CompareTo((object)null) == 1);
         }
@@ -81,23 +79,8 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void ComparisonTestWithAPeakAsObject()
         {
-            var aGene = new Gene()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                RefSeqID = "RefSeqID",
-                GeneSymbol = "GeneSymbol"
-            };
-
-            var bGene = new Gene()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                RefSeqID = "RefSeqID",
-                GeneSymbol = "GeneSymbol"
-            };
+            var aGene = GetTempGene();
+            var bGene = GetTempGene();
 
             Assert.True(aGene.CompareTo((object)bGene) == 0);
         }
@@ -105,23 +88,8 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void CheckNotImplementedComparison()
         {
-            var aGene = new Gene()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                RefSeqID = "RefSeqID",
-                GeneSymbol = "GeneSymbol"
-            };
-
-            var aPeak = new ChIPSeqPeak()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                Summit = 15,
-                Name = "GeUtilities"
-            };
+            var aGene = GetTempGene();
+            var aPeak = TestChIPSeqPeak.GetTempChIPSeqPeak();
 
             Exception exception = Assert.Throws<NotImplementedException>(() => aGene.CompareTo(aPeak));
 

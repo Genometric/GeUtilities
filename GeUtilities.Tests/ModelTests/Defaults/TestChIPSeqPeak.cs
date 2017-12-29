@@ -10,6 +10,18 @@ namespace GeUtilities.Tests.ModelTests.Defaults
 {
     public class TestChIPSeqPeak
     {
+        internal static ChIPSeqPeak GetTempChIPSeqPeak()
+        {
+            return new ChIPSeqPeak()
+            {
+                Left = 10,
+                Right = 20,
+                Value = 100.0,
+                Summit = 15,
+                Name = "GeUtilities"
+            };
+        }
+
         [Theory]
         [InlineData(0, 10, 20, 100.0, 15, "GeUtilities", 10, 20, 100.0, 15, "GeUtilities")]
         [InlineData(-1, 8, 20, 100.0, 15, "GeUtilities", 10, 20, 100.0, 15, "GeUtilities")]
@@ -51,14 +63,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void ComparisonTestWithNullObject()
         {
-            var peak = new ChIPSeqPeak()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                Summit = 15,
-                Name = "GeUtilities"
-            };
+            var peak = GetTempChIPSeqPeak();
 
             Assert.True(peak.CompareTo(null) == 1);
         }
@@ -66,14 +71,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void ComparisonTestWithNullObject2()
         {
-            var peak = new ChIPSeqPeak()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                Summit = 15,
-                Name = "GeUtilities"
-            };
+            var peak = GetTempChIPSeqPeak();
 
             Assert.True(peak.CompareTo((object)null) == 1);
         }
@@ -81,23 +79,8 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void ComparisonTestWithAPeakAsObject()
         {
-            var aPeak = new ChIPSeqPeak()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                Summit = 15,
-                Name = "GeUtilities"
-            };
-
-            var bPeak = new ChIPSeqPeak()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                Summit = 15,
-                Name = "GeUtilities"
-            };
+            var aPeak = GetTempChIPSeqPeak();
+            var bPeak = GetTempChIPSeqPeak();
 
             Assert.True(aPeak.CompareTo((object)bPeak) == 0);
         }
@@ -105,23 +88,8 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void CheckNotImplementedComparison()
         {
-            var aPeak = new ChIPSeqPeak()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                Summit = 15,
-                Name = "GeUtilities"
-            };
-
-            var aGene = new Gene()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                RefSeqID = "RefSeqID",
-                GeneSymbol = "GeneSymbol"
-            };
+            var aPeak = GetTempChIPSeqPeak();
+            var aGene = TestGene.GetTempGene();
 
             Exception exception = Assert.Throws<NotImplementedException>(() => aPeak.CompareTo(aGene));
 

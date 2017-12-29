@@ -10,6 +10,20 @@ namespace GeUtilities.Tests.ModelTests.Defaults
 {
     public class TestGeneralFeature
     {
+        internal static GeneralFeature GetTempGeneralFeature()
+        {
+            return new GeneralFeature()
+            {
+                Source = "Source",
+                Feature = "Feature",
+                Left = 10,
+                Right = 20,
+                Score = 100.0,
+                Frame = "Frame",
+                Attribute = "Attribute"
+            };
+        }
+
         [Theory]
         [InlineData(0, "So", "Fe", 10, 20, 100.0, "Fr", "At", "So", "Fe", 10, 20, 100.0, "Fr", "At")]
         [InlineData(-1, "S", "Fe", 10, 20, 100.0, "Fr", "At", "So", "Fe", 10, 20, 100.0, "Fr", "At")]
@@ -59,16 +73,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void ComparisonTestWithNullObject()
         {
-            var gf = new GeneralFeature()
-            {
-                Source = "Source",
-                Feature = "Feature",
-                Left = 10,
-                Right = 20,
-                Score = 100.0,
-                Frame = "Frame",
-                Attribute = "Attribute"
-            };
+            var gf = GetTempGeneralFeature();
 
             Assert.True(gf.CompareTo(null) == 1);
         }
@@ -76,16 +81,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void ComparisonTestWithNullObject2()
         {
-            var gf = new GeneralFeature()
-            {
-                Source = "Source",
-                Feature = "Feature",
-                Left = 10,
-                Right = 20,
-                Score = 100.0,
-                Frame = "Frame",
-                Attribute = "Attribute"
-            };
+            var gf = GetTempGeneralFeature();
 
             Assert.True(gf.CompareTo((object)null) == 1);
         }
@@ -93,27 +89,8 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void ComparisonTestWithAPeakAsObject()
         {
-            var aGF = new GeneralFeature()
-            {
-                Source = "Source",
-                Feature = "Feature",
-                Left = 10,
-                Right = 20,
-                Score = 100.0,
-                Frame = "Frame",
-                Attribute = "Attribute"
-            };
-
-            var bGF = new GeneralFeature()
-            {
-                Source = "Source",
-                Feature = "Feature",
-                Left = 10,
-                Right = 20,
-                Score = 100.0,
-                Frame = "Frame",
-                Attribute = "Attribute"
-            };
+            var aGF = GetTempGeneralFeature();
+            var bGF = GetTempGeneralFeature();
 
             Assert.True(aGF.CompareTo((object)bGF) == 0);
         }
@@ -121,25 +98,8 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         [Fact]
         public void CheckNotImplementedComparison()
         {
-            var aGF = new GeneralFeature()
-            {
-                Source = "Source",
-                Feature = "Feature",
-                Left = 10,
-                Right = 20,
-                Score = 100.0,
-                Frame = "Frame",
-                Attribute = "Attribute"
-            };
-
-            var aPeak = new ChIPSeqPeak()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                Summit = 15,
-                Name = "GeUtilities"
-            };
+            var aGF = GetTempGeneralFeature();
+            var aPeak = TestChIPSeqPeak.GetTempChIPSeqPeak();
 
             Exception exception = Assert.Throws<NotImplementedException>(() => aGF.CompareTo(aPeak));
 
