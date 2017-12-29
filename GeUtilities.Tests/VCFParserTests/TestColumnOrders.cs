@@ -109,5 +109,24 @@ namespace GeUtilities.Tests.VCFParserTests
                     parsedVariant.Info == info);
             }
         }
+
+        [Theory]
+        [InlineData(0, 10)]
+        [InlineData(10, 0)]
+        public void TestPosition(sbyte positionColumn, int position)
+        {
+            VCFColumns vcfColumns = new VCFColumns()
+            {
+                PositionColumn = positionColumn
+            };
+
+            using (TempVCFFileCreator testFile = new TempVCFFileCreator(vcfColumns: vcfColumns, position: position.ToString()))
+            {
+                var parsedVCF = ParseVCF(testFile.TempFilePath, vcfColumns);
+                var parsedVariant = parsedVCF.Chromosomes[_chr].Strands['*'].Intervals[0];
+
+                Assert.True(parsedVariant.Left == position);
+            }
+        }
     }
 }
