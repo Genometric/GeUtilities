@@ -28,6 +28,7 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
 
         public int CompareTo(IGeneralFeature other)
         {
+            if (other == null) return 1;
             int compareResult = Source.CompareTo(other.Source);
             if (compareResult != 0) return compareResult;
             compareResult = Feature.CompareTo(other.Feature);
