@@ -8,13 +8,13 @@ namespace GeUtilities.Tests.VCFParserTests
 {
     public class VCFColumns
     {
-        private sbyte _chrColumn = 0;
-        public sbyte ChrColumn
+        private byte _chrColumn = 0;
+        public byte ChrColumn
         {
             get { return _chrColumn; }
             set
             {
-                Swap(value, _chrColumn);
+                Swap((sbyte)value, (sbyte)_chrColumn);
                 _chrColumn = value;
             }
         }
@@ -30,68 +30,68 @@ namespace GeUtilities.Tests.VCFParserTests
             }
         }
 
-        private sbyte _idColumn = 2;
-        public sbyte IDColumn
+        private byte _idColumn = 2;
+        public byte IDColumn
         {
             get { return _idColumn; }
             set
             {
-                Swap(value, _idColumn);
+                Swap((sbyte)value, (sbyte)_idColumn);
                 _idColumn = value;
             }
         }
 
-        private sbyte _refbpColumn = 3;
-        public sbyte RefbbpColumn
+        private byte _refbpColumn = 3;
+        public byte RefbbpColumn
         {
             get { return _refbpColumn; }
             set
             {
-                Swap(value, _refbpColumn);
+                Swap((sbyte)value, (sbyte)_refbpColumn);
                 _refbpColumn = value;
             }
         }
 
-        private sbyte _altbpColumn = 4;
-        public sbyte AltbpColumn
+        private byte _altbpColumn = 4;
+        public byte AltbpColumn
         {
             get { return _altbpColumn; }
             set
             {
-                Swap(value, _altbpColumn);
+                Swap((sbyte)value, (sbyte)_altbpColumn);
                 _altbpColumn = value;
             }
         }
 
-        private sbyte _qualityColumn = 5;
-        public sbyte QualityColumn
+        private byte _qualityColumn = 5;
+        public byte QualityColumn
         {
             get { return _qualityColumn; }
             set
             {
-                Swap(value, _qualityColumn);
+                Swap((sbyte)value, (sbyte)_qualityColumn);
                 _qualityColumn = value;
             }
         }
 
-        private sbyte _filterColumn = 6;
-        public sbyte FilterColumn
+        private byte _filterColumn = 6;
+        public byte FilterColumn
         {
             get { return _filterColumn; }
             set
             {
-                Swap(value, _filterColumn);
+                Swap((sbyte)value, (sbyte)_filterColumn);
                 _filterColumn = value;
             }
         }
 
-        private sbyte _infoColumn = 7;
-        public sbyte InfoColumn
+        private byte _infoColumn = 7;
+        public byte InfoColumn
         {
             get { return _infoColumn; }
             set
             {
-                Swap(value, _infoColumn);
+                Swap((sbyte)value, (sbyte)_infoColumn);
                 _infoColumn = value;
             }
         }
@@ -109,28 +109,28 @@ namespace GeUtilities.Tests.VCFParserTests
 
         private void Swap(sbyte oldValue, sbyte newValue)
         {
-            if (_chrColumn == oldValue) _chrColumn = newValue;
+            if (_chrColumn == oldValue) _chrColumn = (byte)newValue;
             else if (_positionColumn == oldValue) _positionColumn = (byte)newValue;
-            else if (_idColumn == oldValue) _idColumn = newValue;
-            else if (_refbpColumn == oldValue) _refbpColumn = newValue;
-            else if (_altbpColumn == oldValue) _altbpColumn = newValue;
-            else if (_qualityColumn == oldValue) _qualityColumn = newValue;
-            else if (_filterColumn == oldValue) _filterColumn = newValue;
-            else if (_infoColumn == oldValue) _infoColumn = newValue;
+            else if (_idColumn == oldValue) _idColumn = (byte)newValue;
+            else if (_refbpColumn == oldValue) _refbpColumn = (byte)newValue;
+            else if (_altbpColumn == oldValue) _altbpColumn = (byte)newValue;
+            else if (_qualityColumn == oldValue) _qualityColumn = (byte)newValue;
+            else if (_filterColumn == oldValue) _filterColumn = (byte)newValue;
+            else if (_infoColumn == oldValue) _infoColumn = (byte)newValue;
             else if (_strandColumn == oldValue) _strandColumn = newValue;
         }
 
         public sbyte MaxColumnIndex()
         {
             return
-                Math.Max(ChrColumn,
+                Math.Max((sbyte)ChrColumn,
                 Math.Max((sbyte)PositionColumn,
-                Math.Max(IDColumn,
-                Math.Max(RefbbpColumn,
-                Math.Max(AltbpColumn,
-                Math.Max(QualityColumn,
-                Math.Max(FilterColumn,
-                Math.Max(InfoColumn, StrandColumn))))))));
+                Math.Max((sbyte)IDColumn,
+                Math.Max((sbyte)RefbbpColumn,
+                Math.Max((sbyte)AltbpColumn,
+                Math.Max((sbyte)QualityColumn,
+                Math.Max((sbyte)FilterColumn,
+                Math.Max((sbyte)InfoColumn, StrandColumn))))))));
         }
     }
 }

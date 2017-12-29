@@ -30,15 +30,15 @@ namespace Genometric.GeUtilities.Parsers
         { }
 
         public VCFParser(
-            string sourceFilePath,            
-            sbyte chrColumn,
+            string sourceFilePath,
+            byte chrColumn,
             byte positionColumn,
-            sbyte idColumn,
-            sbyte refbpColumn,
-            sbyte altbpColumn,
-            sbyte qualityColumn,
-            sbyte filterColumn,
-            sbyte infoColumn,
+            byte idColumn,
+            byte refbpColumn,
+            byte altbpColumn,
+            byte qualityColumn,
+            byte filterColumn,
+            byte infoColumn,
             sbyte strandColumn,
             Assemblies assembly = Assemblies.Unknown,
             byte startOffset = 0,
@@ -48,7 +48,7 @@ namespace Genometric.GeUtilities.Parsers
             base(sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 startOffset: startOffset,
-                chrColumn: chrColumn,
+                chrColumn: (sbyte)chrColumn,
                 leftEndColumn: positionColumn,
                 rightEndColumn: -1,
                 strandColumn: strandColumn,
@@ -67,12 +67,12 @@ namespace Genometric.GeUtilities.Parsers
 
         #region .::.         private Variables declaration               .::.
 
-        private sbyte _idColumn { set; get; }
-        private sbyte _refbpColumn { set; get; }
-        private sbyte _altbpColumn { set; get; }
-        private sbyte _qualityColumn { set; get; }
-        private sbyte _filterColumn { set; get; }
-        private sbyte _infoColumn { set; get; }
+        private byte _idColumn { set; get; }
+        private byte _refbpColumn { set; get; }
+        private byte _altbpColumn { set; get; }
+        private byte _qualityColumn { set; get; }
+        private byte _filterColumn { set; get; }
+        private byte _infoColumn { set; get; }
 
         #endregion
 
@@ -84,95 +84,68 @@ namespace Genometric.GeUtilities.Parsers
                 Right = left + 1
             };
 
-            if(_idColumn < line.Length)
-            {
+            if (_idColumn < line.Length)
                 rtv.ID = line[_idColumn];
-            }
             else
-            {
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid ID column.");
-            }
 
             if (_refbpColumn < line.Length)
             {
-                rtv.RefBase = new BasePair[line[_refbpColumn].Length];
-                for (int i = 0; i < line[_refbpColumn].Length; i++)
-                {
-                    switch (line[_refbpColumn][i])
-                    {
-                        case 'A': rtv.RefBase[i] = BasePair.A; break;
-                        case 'C': rtv.RefBase[i] = BasePair.C; break;
-                        case 'G': rtv.RefBase[i] = BasePair.G; break;
-                        case 'N': rtv.RefBase[i] = BasePair.N; break;
-                        case 'T': rtv.RefBase[i] = BasePair.T; break;
-                        case 'U': rtv.RefBase[i] = BasePair.U; break;
-                        default:
-                            DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid REF column.");
-                            break;
-                    }
-                }
+                rtv.RefBase = ParseBasePairs(line[_refbpColumn]);
+                if (rtv.RefBase == null)
+                    DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid REF column.");
             }
             else
             {
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid REF column.");
             }
 
-
             if (_altbpColumn < line.Length)
             {
-                rtv.AltBase = new BasePair[line[_altbpColumn].Length];
-                for (int i = 0; i < line[_altbpColumn].Length; i++)
-                {
-                    switch (line[_altbpColumn][i])
-                    {
-                        case 'A': rtv.AltBase[i] = BasePair.A; break;
-                        case 'C': rtv.AltBase[i] = BasePair.C; break;
-                        case 'G': rtv.AltBase[i] = BasePair.G; break;
-                        case 'N': rtv.AltBase[i] = BasePair.N; break;
-                        case 'T': rtv.AltBase[i] = BasePair.T; break;
-                        case 'U': rtv.AltBase[i] = BasePair.U; break;
-                        default:
-                            DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid ALT column.");
-                            break;
-                    }
-                }
+                rtv.AltBase = ParseBasePairs(line[_altbpColumn]);
+                if (rtv.AltBase == null)
+                    DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid ALT column.");
             }
             else
             {
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid ALT column.");
             }
 
-
-            if(_qualityColumn < line.Length)
-            {
-                if (double.TryParse(line[_qualityColumn], out double quality))
-                    rtv.Quality = quality;
-            }
+            if (_qualityColumn < line.Length && double.TryParse(line[_qualityColumn], out double quality))
+                rtv.Quality = quality;
             else
-            {
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid quality column.");
-            }
 
-
-            if(_filterColumn < line.Length)
-            {
+            if (_filterColumn < line.Length)
                 rtv.Filter = line[_filterColumn];
-            }
             else
-            {
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid filter column.");
-            }
-
 
             if (_infoColumn < line.Length)
-            {
                 rtv.Info = line[_infoColumn];
-            }
             else
-            {
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid info column.");
-            }
 
+            return rtv;
+        }
+
+        private BasePair[] ParseBasePairs(string field)
+        {
+            BasePair[] rtv = new BasePair[field.Length];
+            for (int i = 0; i < field.Length; i++)
+            {
+                switch (field[i])
+                {
+                    case 'A': rtv[i] = BasePair.A; break;
+                    case 'C': rtv[i] = BasePair.C; break;
+                    case 'G': rtv[i] = BasePair.G; break;
+                    case 'N': rtv[i] = BasePair.N; break;
+                    case 'T': rtv[i] = BasePair.T; break;
+                    case 'U': rtv[i] = BasePair.U; break;
+                    default:
+                        return null;
+                }
+            }
             return rtv;
         }
 

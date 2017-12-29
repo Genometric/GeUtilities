@@ -69,8 +69,8 @@ namespace GeUtilities.Tests.VCFParserTests
         [InlineData(5, 6, 8, 7, 0, 2, 1, 4, 3)]
         [InlineData(10, 11, 12, 13, 14, 15, 16, 17, 18)]
         public void TestColumnsShuffle(
-            sbyte chrColumn, byte positionColumn, sbyte idColumn, sbyte refBPColumn, sbyte altBPColumn,
-            sbyte qualityColumn, sbyte filterColumn, sbyte infoColumn, sbyte strandColumn)
+            byte chrColumn, byte positionColumn, byte idColumn, byte refBPColumn, byte altBPColumn,
+            byte qualityColumn, byte filterColumn, byte infoColumn, sbyte strandColumn)
         {
             VCFColumns vcfColumns = new VCFColumns()
             {
@@ -126,6 +126,24 @@ namespace GeUtilities.Tests.VCFParserTests
                 var parsedVariant = parsedVCF.Chromosomes[_chr].Strands['*'].Intervals[0];
 
                 Assert.True(parsedVariant.Left == position);
+            }
+        }
+
+        [Fact]
+        public void FailToReadID()
+        {
+            VCFColumns vcfColumns = new VCFColumns()
+            {
+                IDColumn = 20
+            };
+
+            string line = "chr1\t10\tAAC\tCCA\t123.456\tFilter\tInfo\t*";
+
+            using (TempVCFFileCreator testFile = new TempVCFFileCreator(line))
+            {
+                var parsedVCF = ParseVCF(testFile.TempFilePath, vcfColumns);
+
+                Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
             }
         }
     }

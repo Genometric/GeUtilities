@@ -27,7 +27,7 @@ namespace GeUtilities.Tests.VCFParserTests
             string id = "20",
             string refBP = "ACGNTU",
             string altBP = "UTNGCA",
-            string quality = "quality",
+            string quality = "123.456",
             string filter = "filter",
             string info = "info",
             string strand = "*",
