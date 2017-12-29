@@ -32,7 +32,7 @@ namespace Genometric.GeUtilities.Parsers
         public VCFParser(
             string sourceFilePath,            
             sbyte chrColumn,
-            sbyte positionColumn,
+            byte positionColumn,
             sbyte idColumn,
             sbyte refbpColumn,
             sbyte altbpColumn,

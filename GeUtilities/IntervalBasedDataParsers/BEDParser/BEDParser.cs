@@ -75,7 +75,7 @@ namespace Genometric.GeUtilities.Parsers
         public BEDParser(
             string sourceFilePath,
             sbyte chrColumn,
-            sbyte leftEndColumn,
+            byte leftEndColumn,
             sbyte rightEndColumn,
             byte nameColumn,
             byte valueColumn,

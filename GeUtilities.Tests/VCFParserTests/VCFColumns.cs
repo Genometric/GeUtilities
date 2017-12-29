@@ -19,13 +19,13 @@ namespace GeUtilities.Tests.VCFParserTests
             }
         }
 
-        private sbyte _positionColumn = 1;
-        public sbyte PositionColumn
+        private byte _positionColumn = 1;
+        public byte PositionColumn
         {
             get { return _positionColumn; }
             set
             {
-                Swap(value, _positionColumn);
+                Swap((sbyte)value, (sbyte)_positionColumn);
                 _positionColumn = value;
             }
         }
@@ -110,7 +110,7 @@ namespace GeUtilities.Tests.VCFParserTests
         private void Swap(sbyte oldValue, sbyte newValue)
         {
             if (_chrColumn == oldValue) _chrColumn = newValue;
-            else if (_positionColumn == oldValue) _positionColumn = newValue;
+            else if (_positionColumn == oldValue) _positionColumn = (byte)newValue;
             else if (_idColumn == oldValue) _idColumn = newValue;
             else if (_refbpColumn == oldValue) _refbpColumn = newValue;
             else if (_altbpColumn == oldValue) _altbpColumn = newValue;
@@ -124,7 +124,7 @@ namespace GeUtilities.Tests.VCFParserTests
         {
             return
                 Math.Max(ChrColumn,
-                Math.Max(PositionColumn,
+                Math.Max((sbyte)PositionColumn,
                 Math.Max(IDColumn,
                 Math.Max(RefbbpColumn,
                 Math.Max(AltbpColumn,

@@ -69,7 +69,7 @@ namespace GeUtilities.Tests.VCFParserTests
         [InlineData(5, 6, 8, 7, 0, 2, 1, 4, 3)]
         [InlineData(10, 11, 12, 13, 14, 15, 16, 17, 18)]
         public void TestColumnsShuffle(
-            sbyte chrColumn, sbyte positionColumn, sbyte idColumn, sbyte refBPColumn, sbyte altBPColumn,
+            sbyte chrColumn, byte positionColumn, sbyte idColumn, sbyte refBPColumn, sbyte altBPColumn,
             sbyte qualityColumn, sbyte filterColumn, sbyte infoColumn, sbyte strandColumn)
         {
             VCFColumns vcfColumns = new VCFColumns()
@@ -113,7 +113,7 @@ namespace GeUtilities.Tests.VCFParserTests
         [Theory]
         [InlineData(0, 10)]
         [InlineData(10, 0)]
-        public void TestPosition(sbyte positionColumn, int position)
+        public void TestPosition(byte positionColumn, int position)
         {
             VCFColumns vcfColumns = new VCFColumns()
             {

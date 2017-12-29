@@ -41,13 +41,13 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
             }
         }
 
-        private sbyte _leftColumn = 3;
-        public sbyte LeftColumn
+        private byte _leftColumn = 3;
+        public byte LeftColumn
         {
             get { return _leftColumn; }
             set
             {
-                Swap(value, _leftColumn);
+                Swap((sbyte)value, (sbyte)_leftColumn);
                 _leftColumn = value;
             }
         }
@@ -112,7 +112,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
             if (_chrColumn == oldValue) _chrColumn = newValue;
             else if (_sourceColumn == oldValue) _sourceColumn = newValue;
             else if (_featureColumn == oldValue) _featureColumn = newValue;
-            else if (_leftColumn == oldValue) _leftColumn = newValue;
+            else if (_leftColumn == oldValue) _leftColumn = (byte)newValue;
             else if (_rightColumn == oldValue) _rightColumn = newValue;
             else if (_scoreColumn == oldValue) _scoreColumn = newValue;
             else if (_strandColumn == oldValue) _strandColumn = newValue;
@@ -126,7 +126,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
                 Math.Max(ChrColumn,
                 Math.Max(SourceColumn,
                 Math.Max(FeatureColumn,
-                Math.Max(LeftColumn,
+                Math.Max((sbyte)LeftColumn,
                 Math.Max(RightColumn,
                 Math.Max(ScoreColumn,
                 Math.Max(StrandColumn,

@@ -55,7 +55,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// Sets and gets column number of peak left position.
         /// </summary>
-        private sbyte _leftColumn;
+        private byte _leftColumn;
 
         /// <summary>
         /// Sets and gets the column number of peak right position.
@@ -109,7 +109,7 @@ namespace Genometric.GeUtilities.Parsers
             string sourceFilePath,
             byte startOffset,
             sbyte chrColumn,
-            sbyte leftEndColumn,
+            byte leftEndColumn,
             sbyte rightEndColumn,
             sbyte strandColumn,
             bool readOnlyValidChrs,

@@ -54,7 +54,7 @@ namespace Genometric.GeUtilities.Parsers
         public RefSeqGenesParser(
             string sourceFilePath,
             sbyte chrColumn,
-            sbyte leftEndColumn,
+            byte leftEndColumn,
             sbyte rightEndColumn,
             sbyte refseqIDColumn,
             sbyte officialGeneSymbolColumn,

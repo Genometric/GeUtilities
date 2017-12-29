@@ -76,7 +76,7 @@ namespace Genometric.GeUtilities.Parsers
             sbyte chrColumn,
             sbyte sourceColumn,
             sbyte featureColumn,
-            sbyte leftEndColumn,
+            byte leftEndColumn,
             sbyte rightEndColumn,
             sbyte scoreColumn,
             sbyte strandColumn,
