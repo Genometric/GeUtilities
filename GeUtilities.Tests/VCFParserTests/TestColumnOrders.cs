@@ -110,22 +110,20 @@ namespace GeUtilities.Tests.VCFParserTests
             }
         }
 
-        [Theory]
-        [InlineData(0, 10)]
-        [InlineData(10, 0)]
-        public void TestPosition(byte positionColumn, int position)
+        [Fact]
+        public void FailToReadPosition()
         {
             VCFColumns vcfColumns = new VCFColumns()
             {
-                PositionColumn = positionColumn
+                PositionColumn = 20
             };
 
-            using (TempVCFFileCreator testFile = new TempVCFFileCreator(vcfColumns: vcfColumns, position: position.ToString()))
+            string line = "chr1\tXYZ\tAAC\tCCA\t123.456\tFilter\tInfo\t*";
+            using (TempVCFFileCreator testFile = new TempVCFFileCreator(line))
             {
                 var parsedVCF = ParseVCF(testFile.TempFilePath, vcfColumns);
-                var parsedVariant = parsedVCF.Chromosomes[_chr].Strands['*'].Intervals[0];
 
-                Assert.True(parsedVariant.Left == position);
+                Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
             }
         }
 
@@ -138,7 +136,142 @@ namespace GeUtilities.Tests.VCFParserTests
             };
 
             string line = "chr1\t10\tAAC\tCCA\t123.456\tFilter\tInfo\t*";
+            using (TempVCFFileCreator testFile = new TempVCFFileCreator(line))
+            {
+                var parsedVCF = ParseVCF(testFile.TempFilePath, vcfColumns);
 
+                Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
+            }
+        }
+
+        [Fact]
+        public void FailToReadRefbpInvalidColumn()
+        {
+            VCFColumns vcfColumns = new VCFColumns()
+            {
+                RefbbpColumn = 20
+            };
+
+            string line = "chr1\t10\tAAC\tCCA\t123.456\tFilter\tInfo\t*";
+            using (TempVCFFileCreator testFile = new TempVCFFileCreator(line))
+            {
+                var parsedVCF = ParseVCF(testFile.TempFilePath, vcfColumns);
+
+                Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
+            }
+        }
+
+        [Fact]
+        public void FailToReadRefbpInvalidValue()
+        {
+            VCFColumns vcfColumns = new VCFColumns()
+            {
+                RefbbpColumn = 2
+            };
+
+            string line = "chr1\t10\tXYZ\tCCA\t123.456\tFilter\tInfo\t*";
+            using (TempVCFFileCreator testFile = new TempVCFFileCreator(line))
+            {
+                var parsedVCF = ParseVCF(testFile.TempFilePath, vcfColumns);
+
+                Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
+            }
+        }
+
+        [Fact]
+        public void FailToReadAltbpInvalidColumn()
+        {
+            VCFColumns vcfColumns = new VCFColumns()
+            {
+                AltbpColumn = 20
+            };
+
+            string line = "chr1\t10\tAAC\tCCA\t123.456\tFilter\tInfo\t*";
+            using (TempVCFFileCreator testFile = new TempVCFFileCreator(line))
+            {
+                var parsedVCF = ParseVCF(testFile.TempFilePath, vcfColumns);
+
+                Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
+            }
+        }
+
+        [Fact]
+        public void FailToReadAltbpInvalidValue()
+        {
+            VCFColumns vcfColumns = new VCFColumns()
+            {
+                AltbpColumn = 3
+            };
+
+            string line = "chr1\t10\tACC\tXYZ\t123.456\tFilter\tInfo\t*";
+            using (TempVCFFileCreator testFile = new TempVCFFileCreator(line))
+            {
+                var parsedVCF = ParseVCF(testFile.TempFilePath, vcfColumns);
+
+                Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
+            }
+        }
+
+        [Fact]
+        public void FailToReadQualityInvalidColumn()
+        {
+            VCFColumns vcfColumns = new VCFColumns()
+            {
+                QualityColumn = 20
+            };
+
+            string line = "chr1\t10\tACC\tCCA\t123.456\tFilter\tInfo\t*";
+            using (TempVCFFileCreator testFile = new TempVCFFileCreator(line))
+            {
+                var parsedVCF = ParseVCF(testFile.TempFilePath, vcfColumns);
+
+                Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
+            }
+        }
+
+        [Fact]
+        public void FailToReadQualityInvalidValue()
+        {
+            VCFColumns vcfColumns = new VCFColumns()
+            {
+                QualityColumn = 4
+            };
+
+            string line = "chr1\t10\tACC\tCCA\t12.3.456\tFilter\tInfo\t*";
+            using (TempVCFFileCreator testFile = new TempVCFFileCreator(line))
+            {
+                var parsedVCF = ParseVCF(testFile.TempFilePath, vcfColumns);
+
+                Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
+            }
+        }
+
+        [Fact]
+        public void FailToReadFilter()
+        {
+            VCFColumns vcfColumns = new VCFColumns()
+            {
+                FilterColumn = 20
+            };
+
+            string line = "chr1\t10\tACC\tCCA\t123.456\tFilter\tInfo\t*";
+            using (TempVCFFileCreator testFile = new TempVCFFileCreator(line))
+            {
+                var parsedVCF = ParseVCF(testFile.TempFilePath, vcfColumns);
+
+                Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
+            }
+        }
+
+        [Fact]
+        public void FailToReadInfo()
+        {
+            VCFColumns vcfColumns = new VCFColumns()
+            {
+                InfoColumn = 20
+            };
+
+            string line = "chr1\t10\tACC\tCCA\t123.456\tFilter\tInfo\t*";
             using (TempVCFFileCreator testFile = new TempVCFFileCreator(line))
             {
                 var parsedVCF = ParseVCF(testFile.TempFilePath, vcfColumns);
