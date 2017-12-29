@@ -4,7 +4,6 @@
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
-using System;
 using Xunit;
 
 namespace GeUtilities.Tests.GeneralFeatureParserTests

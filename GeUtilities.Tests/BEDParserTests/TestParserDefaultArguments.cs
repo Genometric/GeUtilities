@@ -8,7 +8,7 @@ using Xunit;
 
 namespace GeUtilities.Tests.BEDParserTests
 {
-    public class TestDefaultParserArguments
+    public class TestParserDefaultArguments
     {
         private string _chr = "chr1";
 

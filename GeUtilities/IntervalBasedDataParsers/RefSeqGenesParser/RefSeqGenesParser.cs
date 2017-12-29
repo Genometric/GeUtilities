@@ -19,7 +19,7 @@ namespace Genometric.GeUtilities.Parsers
         public RefSeqGenesParser(
             string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
-            bool readOnlyValidChrs=true,
+            bool readOnlyValidChrs = true,
             uint maxLinesToBeRead = uint.MaxValue) :
             this(sourceFilePath: sourceFilePath,
                 assembly: assembly,
@@ -52,7 +52,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="leftEndColumn">The column number of gene start position</param>
         /// <param name="rightEndColumn">The column number of gene stop position</param>
         public RefSeqGenesParser(
-            string sourceFilePath,            
+            string sourceFilePath,
             sbyte chrColumn,
             sbyte leftEndColumn,
             sbyte rightEndColumn,
