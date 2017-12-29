@@ -18,12 +18,4 @@ namespace Genometric.GeUtilities.Parsers
         /// </summary>
         FNV
     };
-
-    internal enum ParsingType : byte
-    {
-        ChIPseq,
-        RefSeq,
-        GeneralFeatures,
-        VCF
-    };
 }
