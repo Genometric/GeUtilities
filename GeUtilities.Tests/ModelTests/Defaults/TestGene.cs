@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
+using System;
 using Xunit;
 
 namespace GeUtilities.Tests.ModelTests.Defaults
@@ -99,6 +100,32 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             };
 
             Assert.True(aGene.CompareTo((object)bGene) == 0);
+        }
+
+        [Fact]
+        public void CheckNotImplementedComparison()
+        {
+            var aGene = new Gene()
+            {
+                Left = 10,
+                Right = 20,
+                Value = 100.0,
+                RefSeqID = "RefSeqID",
+                GeneSymbol = "GeneSymbol"
+            };
+
+            var aPeak = new ChIPSeqPeak()
+            {
+                Left = 10,
+                Right = 20,
+                Value = 100.0,
+                Summit = 15,
+                Name = "GeUtilities"
+            };
+
+            Exception exception = Assert.Throws<NotImplementedException>(() => aGene.CompareTo(aPeak));
+
+            Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
         }
     }
 }

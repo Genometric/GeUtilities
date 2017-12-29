@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using System;
 
 namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
 {
@@ -23,7 +24,7 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
             if (obj is GeneralFeature)
                 return CompareTo(obj as GeneralFeature);
             else
-                throw new System.NotImplementedException();
+                throw new NotImplementedException("Comparison with other object types is not implemented.");
         }
 
         public int CompareTo(IGeneralFeature other)

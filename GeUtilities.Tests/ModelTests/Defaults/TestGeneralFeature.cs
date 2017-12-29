@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
+using System;
 using Xunit;
 
 namespace GeUtilities.Tests.ModelTests.Defaults
@@ -115,6 +116,34 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             };
 
             Assert.True(aGF.CompareTo((object)bGF) == 0);
+        }
+
+        [Fact]
+        public void CheckNotImplementedComparison()
+        {
+            var aGF = new GeneralFeature()
+            {
+                Source = "Source",
+                Feature = "Feature",
+                Left = 10,
+                Right = 20,
+                Score = 100.0,
+                Frame = "Frame",
+                Attribute = "Attribute"
+            };
+
+            var aPeak = new ChIPSeqPeak()
+            {
+                Left = 10,
+                Right = 20,
+                Value = 100.0,
+                Summit = 15,
+                Name = "GeUtilities"
+            };
+
+            Exception exception = Assert.Throws<NotImplementedException>(() => aGF.CompareTo(aPeak));
+
+            Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
             if (obj is Gene)
                 return CompareTo(obj as Gene);
             else
-                throw new NotImplementedException();
+                throw new NotImplementedException("Comparison with other object types is not implemented.");
         }
 
         public int CompareTo(IGene other)
