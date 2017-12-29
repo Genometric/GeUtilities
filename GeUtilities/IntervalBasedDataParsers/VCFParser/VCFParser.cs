@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using System;
 
 namespace Genometric.GeUtilities.Parsers
 {
@@ -25,6 +24,7 @@ namespace Genometric.GeUtilities.Parsers
                 qualityColumn: 5,
                 filterColumn: 6,
                 infoColumn: 7,
+                strandColumn: -1,
                 readOnlyValidChrs: readOnlyValidChrs,
                 maxLinesToBeRead: maxLinesToBeRead)
         { }
@@ -39,6 +39,7 @@ namespace Genometric.GeUtilities.Parsers
             sbyte qualityColumn,
             sbyte filterColumn,
             sbyte infoColumn,
+            sbyte strandColumn,
             Assemblies assembly = Assemblies.Unknown,
             byte startOffset = 0,
             bool readOnlyValidChrs = true,
@@ -50,7 +51,7 @@ namespace Genometric.GeUtilities.Parsers
                 chrColumn: chrColumn,
                 leftEndColumn: positionColumn,
                 rightEndColumn: -1,
-                strandColumn: -1,
+                strandColumn: strandColumn,
                 readOnlyValidChrs: readOnlyValidChrs,
                 maxLinesToBeRead: maxLinesToBeRead,
                 hashFunction: hashFunction,
