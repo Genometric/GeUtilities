@@ -40,6 +40,44 @@ namespace GeUtilities.Tests.BEDParserTests
             }
         }
 
+        [Fact]
+        public void TestDropPeakIfInvalidPValueColumn()
+        {
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator("chr1\t10\t20\tName"))
+            {
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
+                    testFile.TempFilePath,
+                    chrColumn: 0,
+                    leftEndColumn: 1,
+                    rightEndColumn: 2,
+                    nameColumn: 3,
+                    valueColumn: 9,
+                    dropPeakIfInvalidValue: true);
+                var parsedData = bedParser.Parse();
+
+                Assert.False(parsedData.Chromosomes.ContainsKey("chr1"));
+            }
+        }
+
+        [Fact]
+        public void TestUseDefaultValueIfInvalidPValueColumn()
+        {
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator("chr1\t10\t20\tName"))
+            {
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
+                    testFile.TempFilePath,
+                    chrColumn: 0,
+                    leftEndColumn: 1,
+                    rightEndColumn: 2,
+                    nameColumn: 3,
+                    valueColumn: 9,
+                    dropPeakIfInvalidValue: false);
+                var parsedData = bedParser.Parse();
+
+                Assert.True(parsedData.Chromosomes.ContainsKey("chr1"));
+            }
+        }
+
         [Theory]
         [InlineData(0.001, 0.001, PValueFormat.SameAsInput)]
         [InlineData(0.001, 3, PValueFormat.minus1_Log10_pValue)]

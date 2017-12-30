@@ -79,7 +79,7 @@ namespace Genometric.GeUtilities.Parsers
             sbyte rightEndColumn,
             byte nameColumn,
             byte valueColumn,
-            sbyte strandColumn,
+            sbyte strandColumn = -1,
             sbyte summitColumn = -1,
             Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
