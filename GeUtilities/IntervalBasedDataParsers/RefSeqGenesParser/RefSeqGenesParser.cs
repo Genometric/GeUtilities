@@ -22,19 +22,6 @@ namespace Genometric.GeUtilities.Parsers
         /// </summary>
         private sbyte _officialGeneColumn { set; get; }
 
-        /// <summary>
-        /// If the input file contains refseq ID and official gene symbol, then the 
-        /// constructors will set this variable to FALSE which leads to registering
-        /// error messages if refseq ID and/or official gene symbol is missing.
-        /// <para>
-        /// If the input file does NOT contain refseq ID and official gene symbol then
-        /// a constructor that does not specifies these columns needs to be used. In 
-        /// that case, this variable will be set to TRUE which avoids registering error
-        /// messages for missing refseq ID and official gene symbol.
-        /// </para>
-        /// </summary>
-        private bool _readOnlyCoordinates { set; get; }
-
         #endregion
 
         /// <summary>
@@ -106,7 +93,6 @@ namespace Genometric.GeUtilities.Parsers
         {
             _refseqIDColumn = refseqIDColumn;
             _officialGeneColumn = officialGeneSymbolColumn;
-            _readOnlyCoordinates = true;
         }
 
         protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
@@ -117,30 +103,21 @@ namespace Genometric.GeUtilities.Parsers
                 Right = right
             };
 
-            #region .::.     Process Refseq ID              .::.
-
-            if (_refseqIDColumn < line.Length)
+            if (_refseqIDColumn >= 0)
             {
-                rtv.RefSeqID = line[_refseqIDColumn];
-            }
-            else if (!_readOnlyCoordinates)
-            {
-                DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid refseq ID column number");
+                if (_refseqIDColumn < line.Length)
+                    rtv.RefSeqID = line[_refseqIDColumn];
+                else
+                    DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid refseq ID column number");
             }
 
-            #endregion
-            #region .::.     Process Official gene symbol   .::.
-
-            if (_officialGeneColumn < line.Length)
+            if (_officialGeneColumn >= 0)
             {
-                rtv.GeneSymbol = line[_officialGeneColumn];
+                if (_officialGeneColumn < line.Length)
+                    rtv.GeneSymbol = line[_officialGeneColumn];
+                else
+                    DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid official gene symbol column number");
             }
-            else if (!_readOnlyCoordinates)
-            {
-                DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid official gene symbol column number");
-            }
-
-            #endregion
 
             return rtv;
         }
