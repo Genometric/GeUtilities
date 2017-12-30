@@ -17,7 +17,6 @@ namespace Genometric.GeUtilities.Parsers
         public uint WidthMin { private set; get; }
         public double WidthMean { private set; get; }
         public double WidthPSTDV { private set; get; }
-        public float Coverage { private set; get; }
 
         public IntervalStats()
         {
