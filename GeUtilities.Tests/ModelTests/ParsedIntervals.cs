@@ -15,6 +15,19 @@ namespace GeUtilities.Tests.ModelTests
     public class ParsedIntervals
     {
         [Fact]
+        public void TestFileHashKey()
+        {
+            string peak = "chr1\t10\t20\tName\t100.0";
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(peak))
+            {
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parsedBED = bedParser.Parse();
+
+                Assert.True(parsedBED.FileHashKey != 0);
+            }
+        }
+
+        [Fact]
         public void TestFileName()
         {
             string peak = "chr1\t10\t20\tName\t100.0";
