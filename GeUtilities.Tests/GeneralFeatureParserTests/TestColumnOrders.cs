@@ -143,8 +143,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
                 FeatureColumn = 10
             };
 
-            // No feature column is written. 
-            using (TempGeneralFeatureFileCreator testFile = new TempGeneralFeatureFileCreator("chr1\tDi4\t10\t20\t100.0\t*\t0\tatt1=1;att2=v2"))
+            using (TempGeneralFeatureFileCreator testFile = new TempGeneralFeatureFileCreator("chr1\tDi4\t.\t10\t20\t100.0\t*\t0\tatt1=1;att2=v2"))
             {
                 var parsedGTF = GeneralTests.ParseGTF(testFile.TempFilePath, gtfColumns);
 
