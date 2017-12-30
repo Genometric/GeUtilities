@@ -72,7 +72,7 @@ namespace GeUtilities.Tests.RefSeqGenesParserTests
                     chrColumn: 0,
                     leftEndColumn: 1,
                     rightEndColumn: 2,
-                    refseqIDColumn: 3,
+                    refSeqIDColumn: 3,
                     officialGeneSymbolColumn: 4,
                     strandColumn: 5);
                 var parsedData = genesParser.Parse();

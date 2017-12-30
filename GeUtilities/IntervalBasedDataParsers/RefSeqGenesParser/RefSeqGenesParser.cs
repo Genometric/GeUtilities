@@ -15,7 +15,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// Gets and sets the column number of refseq ID.
         /// </summary>
-        private sbyte _refseqIDColumn { set; get; }
+        private sbyte _refSeqIDColumn { set; get; }
 
         /// <summary>
         /// Gets and sets the column number of official gene symbol.
@@ -43,7 +43,7 @@ namespace Genometric.GeUtilities.Parsers
                 chrColumn: 0,
                 leftEndColumn: 1,
                 rightEndColumn: 2,
-                refseqIDColumn: 3,
+                refSeqIDColumn: 3,
                 officialGeneSymbolColumn: 4,
                 strandColumn: -1,
                 maxLinesToRead: maxLinesToBeRead,
@@ -71,7 +71,7 @@ namespace Genometric.GeUtilities.Parsers
             byte chrColumn,
             byte leftEndColumn,
             sbyte rightEndColumn,
-            sbyte refseqIDColumn,
+            sbyte refSeqIDColumn,
             sbyte officialGeneSymbolColumn,
             sbyte strandColumn,
             Assemblies assembly = Assemblies.Unknown,
@@ -91,7 +91,7 @@ namespace Genometric.GeUtilities.Parsers
                 hashFunction: hashFunction,
                 data: new ParsedRefSeqGenes<I>())
         {
-            _refseqIDColumn = refseqIDColumn;
+            _refSeqIDColumn = refSeqIDColumn;
             _officialGeneColumn = officialGeneSymbolColumn;
         }
 
@@ -103,10 +103,10 @@ namespace Genometric.GeUtilities.Parsers
                 Right = right
             };
 
-            if (_refseqIDColumn >= 0)
+            if (_refSeqIDColumn >= 0)
             {
-                if (_refseqIDColumn < line.Length)
-                    rtv.RefSeqID = line[_refseqIDColumn];
+                if (_refSeqIDColumn < line.Length)
+                    rtv.RefSeqID = line[_refSeqIDColumn];
                 else
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid refseq ID column number");
             }
