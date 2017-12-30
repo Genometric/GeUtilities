@@ -23,11 +23,6 @@ namespace Genometric.GeUtilities.Parsers
         private sbyte _officialGeneColumn { set; get; }
 
         /// <summary>
-        /// Gets and sets the column number of chromosome stand.
-        /// </summary>
-        private sbyte _strandColumn { set; get; }
-
-        /// <summary>
         /// If the input file contains refseq ID and official gene symbol, then the 
         /// constructors will set this variable to FALSE which leads to registering
         /// error messages if refseq ID and/or official gene symbol is missing.
@@ -111,7 +106,6 @@ namespace Genometric.GeUtilities.Parsers
         {
             _refseqIDColumn = refseqIDColumn;
             _officialGeneColumn = officialGeneSymbolColumn;
-            _strandColumn = strandColumn;
             _readOnlyCoordinates = true;
         }
 
