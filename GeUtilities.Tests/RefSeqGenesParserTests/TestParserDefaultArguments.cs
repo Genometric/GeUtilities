@@ -106,5 +106,17 @@ namespace GeUtilities.Tests.RefSeqGenesParserTests
                 Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].GeneSymbol == geneSymbol);
             }
         }
+
+        [Fact]
+        public void AssignHashKey()
+        {
+            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator(chr: _chr))
+            {
+                RefSeqGenesParser<Gene> genesParser = new RefSeqGenesParser<Gene>(testFile.TempFilePath);
+                var parsedData = genesParser.Parse();
+
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].HashKey != 0);
+            }
+        }
     }
 }

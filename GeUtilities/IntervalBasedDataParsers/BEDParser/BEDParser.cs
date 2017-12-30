@@ -235,7 +235,7 @@ namespace Genometric.GeUtilities.Parsers
                 rtv.Summit = summit;
             else
                 rtv.Summit = (int)Math.Round((left + right) / 2.0);
-            
+
             #endregion
 
             return rtv;
@@ -267,11 +267,11 @@ namespace Genometric.GeUtilities.Parsers
         {
             switch (_pValueFormat)
             {
-                case PValueFormat.SameAsInput: return value;
                 case PValueFormat.minus1_Log10_pValue: return Math.Pow(10.0, value / (-1.0));
                 case PValueFormat.minus10_Log10_pValue: return Math.Pow(10.0, value / (-10.0));
                 case PValueFormat.minus100_Log10_pValue: return Math.Pow(10.0, value / (-100.0));
-                default: return 0;
+                case PValueFormat.SameAsInput:
+                default: return value;
             }
         }
     }

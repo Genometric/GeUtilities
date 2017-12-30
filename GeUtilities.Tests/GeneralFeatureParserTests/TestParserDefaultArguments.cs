@@ -176,5 +176,17 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
                 Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].Attribute == attribute);
             }
         }
+
+        [Fact]
+        public void AssignHashKey()
+        {
+            using (TempGeneralFeatureFileCreator testFile = new TempGeneralFeatureFileCreator(chr: _chr))
+            {
+                GeneralFeaturesParser<GeneralFeature> gtfParser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
+                var parsedData = gtfParser.Parse();
+
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].HashKey != 0);
+            }
+        }
     }
 }

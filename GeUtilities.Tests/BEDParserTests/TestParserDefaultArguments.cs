@@ -163,5 +163,17 @@ namespace GeUtilities.Tests.BEDParserTests
                 Assert.False(parsedData.Chromosomes.ContainsKey(_chr));
             }
         }
+
+        [Fact]
+        public void AssignHashKey()
+        {
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator(chr: _chr))
+            {
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parsedData = bedParser.Parse();
+
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].HashKey != 0);
+            }
+        }
     }
 }

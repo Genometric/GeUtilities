@@ -14,6 +14,16 @@ namespace GeUtilities.Tests.VCFParserTests
     {
         private string _chr = "chr1";
 
-        
+        [Fact]
+        public void AssignHashKey()
+        {
+            using (TempVCFFileCreator testFile = new TempVCFFileCreator(new VCFColumns(), chr: _chr))
+            {
+                VCFParser<VCF> vcfParser = new VCFParser<VCF>(testFile.TempFilePath);
+                var parsedData = vcfParser.Parse();
+
+                Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].HashKey != 0);
+            }
+        }
     }
 }
