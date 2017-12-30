@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Genometric.GeUtilities.Parsers
+namespace Genometric.GeUtilities.ReferenceGenomes
 {
     internal static class mm10
     {

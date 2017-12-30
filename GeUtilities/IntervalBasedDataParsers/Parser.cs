@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.ReferenceGenomes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -133,7 +134,7 @@ namespace Genometric.GeUtilities.Parsers
             _data.FileName = Path.GetFileName(_sourceFilePath);
             _data.FileHashKey = GetFileHashKey(_data.FilePath);
             _data.Assembly = _assembly;
-            _assemblyData = GenomeAssemblies.Assembly(_assembly);
+            _assemblyData = References.GetGenomeSizes(_assembly);
             _excessChrs = new List<string>();
             _missingChrs = new List<string>();
         }

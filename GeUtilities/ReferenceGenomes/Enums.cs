@@ -2,7 +2,7 @@
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
-namespace Genometric.GeUtilities.Parsers
+namespace Genometric.GeUtilities.ReferenceGenomes
 {
     /// <summary>
     /// 
@@ -24,23 +24,5 @@ namespace Genometric.GeUtilities.Parsers
         /// <para>Gencode version : GENCODE M2</para>
         /// </summary>
         mm10
-    };
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum Genomes
-    {
-        Unknown,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        HomoSapiens,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        MusMusculus
     };
 }
