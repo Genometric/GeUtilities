@@ -38,7 +38,7 @@ namespace GeUtilities.Tests.BEDParserTests
         [InlineData(4, 3, 2, 1, 0)]
         [InlineData(2, 1, 0, 4, 3)]
         [InlineData(5, 6, 7, 8, 9)]
-        public void TestColumnsShuffle(sbyte chrColumn, byte leftColumn, sbyte rightColumn, byte nameColumn, byte valueColumn)
+        public void TestColumnsShuffle(byte chrColumn, byte leftColumn, sbyte rightColumn, byte nameColumn, byte valueColumn)
         {
             int left = 10, right = 20;
             string name = "GeUtilities_00", peak = "";
@@ -109,7 +109,7 @@ namespace GeUtilities.Tests.BEDParserTests
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
                     testFile.TempFilePath,
-                    chrColumn: chrColumn,
+                    chrColumn: (byte)chrColumn,
                     leftEndColumn: (byte)leftColumn,
                     rightEndColumn: rightColumn,
                     nameColumn: (byte)nameColumn,
@@ -160,7 +160,7 @@ namespace GeUtilities.Tests.BEDParserTests
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
                     testFile.TempFilePath,
-                    chrColumn: chrColumn,
+                    chrColumn: (byte)chrColumn,
                     leftEndColumn: (byte)leftColumn,
                     rightEndColumn: rightColumn,
                     nameColumn: (byte)nameColumn,

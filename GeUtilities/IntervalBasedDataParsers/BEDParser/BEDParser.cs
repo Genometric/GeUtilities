@@ -10,6 +10,63 @@ namespace Genometric.GeUtilities.Parsers
     public sealed class BEDParser<I> : Parser<I, BEDStats>
         where I : IChIPSeqPeak, new()
     {
+        #region .::.         private properties         .::.
+
+        /// <summary>
+        /// Sets and gets the column number of peak name.
+        /// </summary>
+        private byte _nameColumn;
+
+        /// <summary>
+        /// Sets and gets the column number of p-value.
+        /// </summary>
+        private byte _valueColumn;
+
+        /// <summary>
+        /// Sets and gets the column number of peak summit.
+        /// </summary>
+        private sbyte _summitColumn;
+
+        /// <summary>
+        /// Sets and gets the default p-value that Will be used as region's p-value if the 
+        /// region in source file has an invalid p-value and 'drop_Peak_if_no_p_Value_is_given = false'
+        /// </summary>
+        private double _defaultValue;
+
+        /// <summary>
+        /// Sets and gets the p-value conversion will be based on this parameter.
+        /// </summary>
+        private PValueFormat _pValueFormat;
+
+        /// <summary>
+        /// If set to true, any peak that has invalid p-value will be dropped. 
+        /// </summary>
+        private bool _dropPeakIfInvalidValue;
+
+        /// <summary>
+        /// When read process is finished, this variable contains the number
+        /// of regions that contained invalid p-value and replaced by default p-value. 
+        /// </summary>
+        private UInt16 _defaultValueUtilizationCount;
+
+        /// <summary>
+        /// Sets and gets the most stringent peak of the sample.
+        /// </summary>
+        private I _mostStringentPeak;
+
+        /// <summary>
+        /// Sets and gets the most permissive peak of the sample.
+        /// </summary>
+        private I _mostPermissivePeak;
+
+        /// <summary>
+        /// Sets and gets the sum of all determined p-values. 
+        /// It will be used to estimate average p-value of the sample.
+        /// </summary>
+        private double _pValueSum;
+
+        #endregion
+
         /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
@@ -74,7 +131,7 @@ namespace Genometric.GeUtilities.Parsers
         /// If set to false, a peak with invalid value with take up the default value.</param>
         public BEDParser(
             string sourceFilePath,
-            sbyte chrColumn,
+            byte chrColumn,
             byte leftEndColumn,
             sbyte rightEndColumn,
             byte nameColumn,
@@ -112,64 +169,6 @@ namespace Genometric.GeUtilities.Parsers
             _mostStringentPeak.Value = 1;
             _mostPermissivePeak.Value = 0;
         }
-
-
-        #region .::.         private Variables declaration               .::.
-
-        /// <summary>
-        /// Sets and gets the column number of peak name.
-        /// </summary>
-        private byte _nameColumn;
-
-        /// <summary>
-        /// Sets and gets the column number of p-value.
-        /// </summary>
-        private byte _valueColumn;
-
-        /// <summary>
-        /// Sets and gets the column number of peak summit.
-        /// </summary>
-        private sbyte _summitColumn;
-
-        /// <summary>
-        /// Sets and gets the default p-value that Will be used as region's p-value if the 
-        /// region in source file has an invalid p-value and 'drop_Peak_if_no_p_Value_is_given = false'
-        /// </summary>
-        private double _defaultValue;
-
-        /// <summary>
-        /// Sets and gets the p-value conversion will be based on this parameter.
-        /// </summary>
-        private PValueFormat _pValueFormat;
-
-        /// <summary>
-        /// If set to true, any peak that has invalid p-value will be dropped. 
-        /// </summary>
-        private bool _dropPeakIfInvalidValue;
-
-        /// <summary>
-        /// When read process is finished, this variable contains the number
-        /// of regions that contained invalid p-value and replaced by default p-value. 
-        /// </summary>
-        private UInt16 _defaultValueUtilizationCount;
-
-        /// <summary>
-        /// Sets and gets the most stringent peak of the sample.
-        /// </summary>
-        private I _mostStringentPeak;
-
-        /// <summary>
-        /// Sets and gets the most permissive peak of the sample.
-        /// </summary>
-        private I _mostPermissivePeak;
-
-        /// <summary>
-        /// Sets and gets the sum of all determined p-values. 
-        /// It will be used to estimate average p-value of the sample.
-        /// </summary>
-        private double _pValueSum;
-
-        #endregion
 
         protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
         {

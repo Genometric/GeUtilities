@@ -9,6 +9,38 @@ namespace Genometric.GeUtilities.Parsers
     public sealed class RefSeqGenesParser<I> : Parser<I, IntervalStats>
         where I : IGene, new()
     {
+        #region .::.         private properties         .::.
+
+        /// <summary>
+        /// Gets and sets the column number of refseq ID.
+        /// </summary>
+        private sbyte _refseqIDColumn { set; get; }
+
+        /// <summary>
+        /// Gets and sets the column number of official gene symbol.
+        /// </summary>
+        private sbyte _officialGeneColumn { set; get; }
+
+        /// <summary>
+        /// Gets and sets the column number of chromosome stand.
+        /// </summary>
+        private sbyte _strandColumn { set; get; }
+
+        /// <summary>
+        /// If the input file contains refseq ID and official gene symbol, then the 
+        /// constructors will set this variable to FALSE which leads to registering
+        /// error messages if refseq ID and/or official gene symbol is missing.
+        /// <para>
+        /// If the input file does NOT contain refseq ID and official gene symbol then
+        /// a constructor that does not specifies these columns needs to be used. In 
+        /// that case, this variable will be set to TRUE which avoids registering error
+        /// messages for missing refseq ID and official gene symbol.
+        /// </para>
+        /// </summary>
+        private bool _readOnlyCoordinates { set; get; }
+
+        #endregion
+
         /// <summary>
         /// Parse refseq genes presented in tab-delimited text file.
         /// </summary>
@@ -53,7 +85,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="rightEndColumn">The column number of gene stop position</param>
         public RefSeqGenesParser(
             string sourceFilePath,
-            sbyte chrColumn,
+            byte chrColumn,
             byte leftEndColumn,
             sbyte rightEndColumn,
             sbyte refseqIDColumn,
@@ -81,39 +113,6 @@ namespace Genometric.GeUtilities.Parsers
             _strandColumn = strandColumn;
             _readOnlyCoordinates = true;
         }
-
-
-        #region .::.         private Variables declaration               .::.
-
-        /// <summary>
-        /// Gets and sets the column number of refseq ID.
-        /// </summary>
-        private sbyte _refseqIDColumn { set; get; }
-
-        /// <summary>
-        /// Gets and sets the column number of official gene symbol.
-        /// </summary>
-        private sbyte _officialGeneColumn { set; get; }
-
-        /// <summary>
-        /// Gets and sets the column number of chromosome stand.
-        /// </summary>
-        private sbyte _strandColumn { set; get; }
-
-        /// <summary>
-        /// If the input file contains refseq ID and official gene symbol, then the 
-        /// constructors will set this variable to FALSE which leads to registering
-        /// error messages if refseq ID and/or official gene symbol is missing.
-        /// <para>
-        /// If the input file does NOT contain refseq ID and official gene symbol then
-        /// a constructor that does not specifies these columns needs to be used. In 
-        /// that case, this variable will be set to TRUE which avoids registering error
-        /// messages for missing refseq ID and official gene symbol.
-        /// </para>
-        /// </summary>
-        private bool _readOnlyCoordinates { set; get; }
-
-        #endregion
 
         protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
         {

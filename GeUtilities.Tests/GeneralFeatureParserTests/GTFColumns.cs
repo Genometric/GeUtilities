@@ -8,13 +8,13 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
 {
     public class GTFColumns
     {
-        private sbyte _chrColumn = 0;
-        public sbyte ChrColumn
+        private byte _chrColumn = 0;
+        public byte ChrColumn
         {
             get { return _chrColumn; }
             set
             {
-                Swap(value, _chrColumn);
+                Swap((sbyte)value, (sbyte)_chrColumn);
                 _chrColumn = value;
             }
         }
@@ -109,7 +109,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
 
         private void Swap(sbyte oldValue, sbyte newValue)
         {
-            if (_chrColumn == oldValue) _chrColumn = newValue;
+            if (_chrColumn == oldValue) _chrColumn = (byte)newValue;
             else if (_sourceColumn == oldValue) _sourceColumn = newValue;
             else if (_featureColumn == oldValue) _featureColumn = newValue;
             else if (_leftColumn == oldValue) _leftColumn = (byte)newValue;
@@ -123,7 +123,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
         public sbyte MaxColumnIndex()
         {
             return
-                Math.Max(ChrColumn,
+                Math.Max((sbyte)ChrColumn,
                 Math.Max(SourceColumn,
                 Math.Max(FeatureColumn,
                 Math.Max((sbyte)LeftColumn,

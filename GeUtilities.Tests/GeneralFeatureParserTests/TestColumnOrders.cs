@@ -65,7 +65,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
         [InlineData(5, 6, 8, 7, 0, 2, 1, 4, 3)]
         [InlineData(10, 11, 12, 13, 14, 15, 16, 17, 18)]
         public void TestColumnsShuffle(
-            sbyte chrColumn, sbyte sourceColumn, sbyte featureColumn, byte leftColumn, sbyte rightColumn,
+            byte chrColumn, sbyte sourceColumn, sbyte featureColumn, byte leftColumn, sbyte rightColumn,
             sbyte scoreColumn, sbyte strandColumn, sbyte frameColumn, sbyte attributeColumn)
         {
             GTFColumns gtfColumns = new GTFColumns()

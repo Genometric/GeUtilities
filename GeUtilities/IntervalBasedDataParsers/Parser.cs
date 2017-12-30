@@ -50,7 +50,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// Sets and gets the column number of chromosome name.
         /// </summary>
-        private sbyte _chrColumn;
+        private byte _chrColumn;
 
         /// <summary>
         /// Sets and gets column number of peak left position.
@@ -108,7 +108,7 @@ namespace Genometric.GeUtilities.Parsers
         public Parser(
             string sourceFilePath,
             byte startOffset,
-            sbyte chrColumn,
+            byte chrColumn,
             byte leftEndColumn,
             sbyte rightEndColumn,
             sbyte strandColumn,

@@ -73,7 +73,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="attributeColumn">The column number of a semicolon-separated list of tag-value pairs, providing additional information about each feature..</param>
         public GeneralFeaturesParser(
             string sourceFilePath,
-            sbyte chrColumn,
+            byte chrColumn,
             sbyte sourceColumn,
             sbyte featureColumn,
             byte leftEndColumn,

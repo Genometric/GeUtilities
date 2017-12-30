@@ -9,6 +9,17 @@ namespace Genometric.GeUtilities.Parsers
     public sealed class VCFParser<I> : Parser<I, IntervalStats>
         where I : IVCF, new()
     {
+        #region .::.         private properties         .::.
+
+        private byte _idColumn;
+        private byte _refbpColumn;
+        private byte _altbpColumn;
+        private byte _qualityColumn;
+        private byte _filterColumn;
+        private byte _infoColumn;
+
+        #endregion
+
         public VCFParser(
             string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
@@ -48,7 +59,7 @@ namespace Genometric.GeUtilities.Parsers
             base(sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 startOffset: startOffset,
-                chrColumn: (sbyte)chrColumn,
+                chrColumn: chrColumn,
                 leftEndColumn: positionColumn,
                 rightEndColumn: -1,
                 strandColumn: strandColumn,
@@ -64,17 +75,6 @@ namespace Genometric.GeUtilities.Parsers
             _filterColumn = filterColumn;
             _infoColumn = infoColumn;
         }
-
-        #region .::.         private Variables declaration               .::.
-
-        private byte _idColumn { set; get; }
-        private byte _refbpColumn { set; get; }
-        private byte _altbpColumn { set; get; }
-        private byte _qualityColumn { set; get; }
-        private byte _filterColumn { set; get; }
-        private byte _infoColumn { set; get; }
-
-        #endregion
 
         protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
         {
