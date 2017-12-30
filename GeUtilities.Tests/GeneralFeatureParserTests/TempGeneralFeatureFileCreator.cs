@@ -31,7 +31,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
             string frame = "0",
             string attribute = "att1=1;att2=v2",
             int headerLineCount = 0,
-            int peaksCount = 1)
+            int featuresCount = 1)
         {
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
             using (FileStream fs = File.Create(_tempFilePath))
@@ -40,7 +40,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
                 while (headerLineCount-- > 0)
                     sw.WriteLine("chr\tSource\tFeature\tLeft\tRight\tScore\tStrand\tFrame\tAttribute");
 
-                while (peaksCount-- > 0)
+                while (featuresCount-- > 0)
                 {
                     sw.WriteLine(
                         chr + "\t" + source + "\t" + feature + "\t" + left + "\t" + right + "\t" +
@@ -66,7 +66,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
             string frame = "0",
             string attribute = "att1=1;att2=v2",
             int headerLineCount = 0,
-            int peaksCount = 1)
+            int featuresCount = 1)
         {
             string line = "", header = "";
             for (sbyte i = 0; i <= gtfColumns.MaxColumnIndex(); i++)
@@ -130,7 +130,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
                 while (headerLineCount-- > 0)
                     sw.WriteLine(header);
 
-                while (peaksCount-- > 0)
+                while (featuresCount-- > 0)
                 {
                     sw.WriteLine(line);
                     if (int.TryParse(left, out int cLeft) && int.TryParse(right, out int cRight))

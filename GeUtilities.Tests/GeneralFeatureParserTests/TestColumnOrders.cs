@@ -12,22 +12,6 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
     {
         private string _chr = "chr1";
 
-        private ParsedGeneralFeatures<GeneralFeature> ParseGTF(string filePath, GTFColumns gtfColumns)
-        {
-            GeneralFeaturesParser<GeneralFeature> gtfParser = new GeneralFeaturesParser<GeneralFeature>(
-                    filePath,
-                    chrColumn: gtfColumns.ChrColumn,
-                    sourceColumn: gtfColumns.SourceColumn,
-                    featureColumn: gtfColumns.FeatureColumn,
-                    leftEndColumn: gtfColumns.LeftColumn,
-                    rightEndColumn: gtfColumns.RightColumn,
-                    scoreColumn: gtfColumns.ScoreColumn,
-                    strandColumn: gtfColumns.StrandColumn,
-                    frameColumn: gtfColumns.FrameColumn,
-                    attributeColumn: gtfColumns.AttributeColumn);
-            return gtfParser.Parse();
-        }
-
         [Fact]
         public void TestDefaultColumnOrder()
         {
@@ -90,7 +74,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
                 chr: chr,
                  source: source, feature: feature, left: left.ToString(), right: right.ToString(), score: score, strand: strand, frame: frame, attribute: attribute))
             {
-                var parsedGTF = ParseGTF(testFile.TempFilePath, gtfColumns);
+                var parsedGTF = GeneralTests.ParseGTF(testFile.TempFilePath, gtfColumns);
                 var parsedFeature = parsedGTF.Chromosomes[chr].Strands[strand].Intervals[0];
 
                 Assert.True(
@@ -120,7 +104,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
 
             using (TempGeneralFeatureFileCreator testFile = new TempGeneralFeatureFileCreator(gtfColumns: gtfColumns, source: source))
             {
-                var parsedGTF = ParseGTF(testFile.TempFilePath, gtfColumns);
+                var parsedGTF = GeneralTests.ParseGTF(testFile.TempFilePath, gtfColumns);
                 var parsedFeature = parsedGTF.Chromosomes[_chr].Strands['*'].Intervals[0];
 
                 Assert.True(parsedFeature.Source == source);
@@ -143,10 +127,28 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
 
             using (TempGeneralFeatureFileCreator testFile = new TempGeneralFeatureFileCreator(gtfColumns: gtfColumns, feature: feature))
             {
-                var parsedGTF = ParseGTF(testFile.TempFilePath, gtfColumns);
+                var parsedGTF = GeneralTests.ParseGTF(testFile.TempFilePath, gtfColumns);
                 var parsedFeature = parsedGTF.Chromosomes[_chr].Strands['*'].Intervals[0];
 
                 Assert.True(parsedFeature.Feature == feature);
+            }
+        }
+
+        [Fact]
+        public void TestInvalidFeatureColumn()
+        {
+            var gtfColumns = new GTFColumns
+            {
+                // a column number which is more than the number of columns written to the test file.
+                FeatureColumn = 10
+            };
+
+            // No feature column is written. 
+            using (TempGeneralFeatureFileCreator testFile = new TempGeneralFeatureFileCreator("chr1\tDi4\t10\t20\t100.0\t*\t0\tatt1=1;att2=v2"))
+            {
+                var parsedGTF = GeneralTests.ParseGTF(testFile.TempFilePath, gtfColumns);
+
+                Assert.False(parsedGTF.Chromosomes.ContainsKey(_chr));
             }
         }
 
@@ -166,7 +168,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
 
             using (TempGeneralFeatureFileCreator testFile = new TempGeneralFeatureFileCreator(gtfColumns: gtfColumns, score: score))
             {
-                var parsedGTF = ParseGTF(testFile.TempFilePath, gtfColumns);
+                var parsedGTF = GeneralTests.ParseGTF(testFile.TempFilePath, gtfColumns);
                 var parsedFeature = parsedGTF.Chromosomes[_chr].Strands['*'].Intervals[0];
 
                 Assert.True(double.IsNaN(score) ? double.IsNaN(parsedFeature.Score) : parsedFeature.Score == score);
@@ -189,7 +191,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
 
             using (TempGeneralFeatureFileCreator testFile = new TempGeneralFeatureFileCreator(gtfColumns: gtfColumns, frame: frame))
             {
-                var parsedGTF = ParseGTF(testFile.TempFilePath, gtfColumns);
+                var parsedGTF = GeneralTests.ParseGTF(testFile.TempFilePath, gtfColumns);
                 var parsedFeature = parsedGTF.Chromosomes[_chr].Strands['*'].Intervals[0];
 
                 Assert.True(parsedFeature.Frame == frame);
@@ -212,7 +214,7 @@ namespace GeUtilities.Tests.GeneralFeatureParserTests
 
             using (TempGeneralFeatureFileCreator testFile = new TempGeneralFeatureFileCreator(gtfColumns: gtfColumns, attribute: attribute))
             {
-                var parsedGTF = ParseGTF(testFile.TempFilePath, gtfColumns);
+                var parsedGTF = GeneralTests.ParseGTF(testFile.TempFilePath, gtfColumns);
                 var parsedFeature = parsedGTF.Chromosomes[_chr].Strands['*'].Intervals[0];
 
                 Assert.True(parsedFeature.Attribute == attribute);
