@@ -122,6 +122,25 @@ namespace GeUtilities.Tests.BEDParserTests
             }
         }
 
+        [Fact]
+        public void InvalidNameColumn()
+        {
+            using (TempBEDFileCreator testFile = new TempBEDFileCreator("chr1\t10\t20\t100.0"))
+            {
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
+                    testFile.TempFilePath,
+                    chrColumn: 0,
+                    leftEndColumn: 1,
+                    rightEndColumn: 2,
+                    nameColumn: 12,
+                    valueColumn: 3,
+                    dropPeakIfInvalidValue: false);
+                var parsedData = bedParser.Parse();
+
+                Assert.True(parsedData.Chromosomes["chr1"].Strands['*'].Intervals[0].Name == null);
+            }
+        }
+
         [Theory]
         [InlineData(HashFunction.FNV)]
         [InlineData(HashFunction.One_at_a_Time)]

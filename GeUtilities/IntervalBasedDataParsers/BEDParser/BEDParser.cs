@@ -224,7 +224,7 @@ namespace Genometric.GeUtilities.Parsers
             #region .::.     Process I Name          .::.
 
             if (_nameColumn < line.Length) rtv.Name = line[_nameColumn];
-            else rtv.Name = "null";
+            else rtv.Name = null;
 
             #endregion
 
