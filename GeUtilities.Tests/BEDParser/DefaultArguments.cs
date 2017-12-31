@@ -99,7 +99,7 @@ namespace GeUtilities.Tests.BEDParser
                 var parsedData = bedParser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Left == columns.Left);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Left == columns.Peak.Left);
             }
         }
 
@@ -130,7 +130,7 @@ namespace GeUtilities.Tests.BEDParser
                 var parsedData = bedParser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Right == columns.Right);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Right == columns.Peak.Right);
             }
         }
 
@@ -161,7 +161,7 @@ namespace GeUtilities.Tests.BEDParser
                 var parsedData = bedParser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Name == columns.Name);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Name == columns.Peak.Name);
             }
         }
 
@@ -177,7 +177,7 @@ namespace GeUtilities.Tests.BEDParser
                 var parsedData = bedParser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Value == columns.Value);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Value == columns.Peak.Value);
             }
         }
 

@@ -2,6 +2,7 @@
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
+using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using System;
 
 /// <summary>
@@ -89,12 +90,9 @@ namespace GeUtilities.Tests.BEDParser
         }
 
         public string Chr { set; get; }
-        public int Left { set; get; }
-        public int Right { set; get; }
-        public int Summit { set; get; }
-        public string Name { set; get; }
-        public double Value { set; get; }
         public char Strand { set; get; }
+
+        public ChIPSeqPeak Peak { set; get; }
 
         /// <summary>
         /// <para>NOTE 1: the default values of these columns must match the 
@@ -122,12 +120,15 @@ namespace GeUtilities.Tests.BEDParser
             sbyte summitColumn = -1)
         {
             Chr = chr;
-            Left = left;
-            Right = right;
-            Summit = summit;
-            Name = name;
-            Value = value;
             Strand = strand;
+            Peak = new ChIPSeqPeak()
+            {
+                Left = left,
+                Right = right,
+                Summit = summit,
+                Name = name,
+                Value = value
+            };
             _chrColumn = chrColumn;
             _leftColumn = leftColumn;
             _rightColumn = rightColumn;
@@ -185,12 +186,12 @@ namespace GeUtilities.Tests.BEDParser
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
                 if (ChrColumn == i) line += Chr + "\t";
-                else if (LeftColumn == i) line += Left + "\t";
-                else if (RightColumn == i) line += Right + "\t";
-                else if (NameColumn == i) line += Name + "\t";
-                else if (ValueColumn == i) line += Value + "\t";
+                else if (LeftColumn == i) line += Peak.Left + "\t";
+                else if (RightColumn == i) line += Peak.Right + "\t";
+                else if (NameColumn == i) line += Peak.Name + "\t";
+                else if (ValueColumn == i) line += Peak.Value + "\t";
                 else if (StrandColumn == i) line += Strand + "\t";
-                else if (SummitColumn == i) line += Summit + "\t";
+                else if (SummitColumn == i) line += Peak.Summit + "\t";
                 else line += "AbCd\t";
 
             return line;

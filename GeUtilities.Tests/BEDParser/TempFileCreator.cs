@@ -48,8 +48,8 @@ namespace GeUtilities.Tests.BEDParser
                     sw.WriteLine(columns.GetSampleLine());
                     if (peaksCount > 0)
                     {
-                        columns.Left = columns.Right + 10;
-                        columns.Right = columns.Right + 20;
+                        columns.Peak.Left = columns.Peak.Right + 10;
+                        columns.Peak.Right = columns.Peak.Right + 20;
                     }
                 }
             }

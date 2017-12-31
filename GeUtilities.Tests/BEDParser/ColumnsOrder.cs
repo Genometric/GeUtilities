@@ -25,11 +25,7 @@ namespace GeUtilities.Tests.BEDParser
                 var parsedPeak = bedParser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(
-                    parsedPeak.Left == columns.Left &&
-                    parsedPeak.Right == columns.Right &&
-                    parsedPeak.Name == columns.Name &&
-                    parsedPeak.Value == columns.Value);
+                Assert.True(parsedPeak.CompareTo(columns.Peak) == 0);
             }
         }
 
@@ -60,11 +56,7 @@ namespace GeUtilities.Tests.BEDParser
                 var parsedPeak = bedParser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(
-                    parsedPeak.Left == columns.Left &&
-                    parsedPeak.Right == columns.Right &&
-                    parsedPeak.Name == columns.Name &&
-                    parsedPeak.Value == columns.Value);
+                Assert.True(parsedPeak.CompareTo(columns.Peak) == 0);
             }
         }
 
@@ -80,7 +72,7 @@ namespace GeUtilities.Tests.BEDParser
         {
             // Arrange
             var columns = new Columns { SummitColumn = summitColumn };
-            columns.Summit = summit == -1 ? columns.Left + ((columns.Right - columns.Left) / 2) : summit;
+            columns.Peak.Summit = summit == -1 ? columns.Peak.Left + ((columns.Peak.Right - columns.Peak.Left) / 2) : summit;
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -96,7 +88,7 @@ namespace GeUtilities.Tests.BEDParser
                 var parsedPeak = bedParser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedPeak.Summit == columns.Summit);
+                Assert.True(parsedPeak.Summit == columns.Peak.Summit);
             }
         }
 
