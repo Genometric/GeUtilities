@@ -37,7 +37,8 @@ namespace GeUtilities.Tests.RefSeqGenesParserTests
         [InlineData("ChrX")]
         public void ReadChr(string chr)
         {
-            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator(chr: chr))
+            var columns = new RefSeqColumns();
+            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator(columns, chr: chr))
             {
                 RefSeqGenesParser<Gene> genesParser = new RefSeqGenesParser<Gene>(testFile.TempFilePath);
                 var parsedData = genesParser.Parse();
@@ -51,7 +52,8 @@ namespace GeUtilities.Tests.RefSeqGenesParserTests
         [InlineData("chrX")]
         public void FailReadChr(string chr)
         {
-            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator(chr: "chr1"))
+            var columns = new RefSeqColumns();
+            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator(columns, chr: "chr1"))
             {
                 RefSeqGenesParser<Gene> genesParser = new RefSeqGenesParser<Gene>(testFile.TempFilePath);
                 var parsedData = genesParser.Parse();
@@ -65,16 +67,17 @@ namespace GeUtilities.Tests.RefSeqGenesParserTests
         [InlineData('+')]
         public void ReadStrand(char strand)
         {
-            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator(chr: _chr, strand: Convert.ToString(strand)))
+            var columns = new RefSeqColumns() { StrandColumn = 5 };
+            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator(columns, chr: _chr, strand: Convert.ToString(strand)))
             {
                 RefSeqGenesParser<Gene> genesParser = new RefSeqGenesParser<Gene>(
                     testFile.TempFilePath,
-                    chrColumn: 0,
-                    leftEndColumn: 1,
-                    rightEndColumn: 2,
-                    refSeqIDColumn: 3,
-                    officialGeneSymbolColumn: 4,
-                    strandColumn: 5);
+                    chrColumn: columns.ChrColumn,
+                    leftEndColumn: columns.LeftColumn,
+                    rightEndColumn: columns.RightColumn,
+                    refSeqIDColumn: columns.RefSeqIDColumn,
+                    officialGeneSymbolColumn: columns.OfficialGeneSymbolColumn,
+                    strandColumn: columns.StrandColumn);
                 var parsedData = genesParser.Parse();
 
                 Assert.True(parsedData.Chromosomes[_chr].Strands.ContainsKey(strand));
@@ -84,8 +87,9 @@ namespace GeUtilities.Tests.RefSeqGenesParserTests
         [Fact]
         public void ReadRefSeqID()
         {
+            var columns = new RefSeqColumns();
             string refSeqID = "ref_seq_id_001";
-            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator(chr: _chr, refSeqID: refSeqID))
+            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator(columns, chr: _chr, refSeqID: refSeqID))
             {
                 RefSeqGenesParser<Gene> genesParser = new RefSeqGenesParser<Gene>(testFile.TempFilePath);
                 var parsedData = genesParser.Parse();
@@ -97,8 +101,9 @@ namespace GeUtilities.Tests.RefSeqGenesParserTests
         [Fact]
         public void ReadGeneSymbol()
         {
+            var columns = new RefSeqColumns();
             string geneSymbol = "symbol_001";
-            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator(chr: _chr, geneSymbol: geneSymbol))
+            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator(columns, chr: _chr, geneSymbol: geneSymbol))
             {
                 RefSeqGenesParser<Gene> genesParser = new RefSeqGenesParser<Gene>(testFile.TempFilePath);
                 var parsedData = genesParser.Parse();
@@ -110,7 +115,8 @@ namespace GeUtilities.Tests.RefSeqGenesParserTests
         [Fact]
         public void AssignHashKey()
         {
-            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator(chr: _chr))
+            var columns = new RefSeqColumns();
+            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator(columns, chr: _chr))
             {
                 RefSeqGenesParser<Gene> genesParser = new RefSeqGenesParser<Gene>(testFile.TempFilePath);
                 var parsedData = genesParser.Parse();

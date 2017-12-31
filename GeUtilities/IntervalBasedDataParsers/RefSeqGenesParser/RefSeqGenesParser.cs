@@ -73,7 +73,7 @@ namespace Genometric.GeUtilities.Parsers
             sbyte rightEndColumn,
             sbyte refSeqIDColumn,
             sbyte officialGeneSymbolColumn,
-            sbyte strandColumn,
+            sbyte strandColumn = -1,
             Assemblies assembly = Assemblies.Unknown,
             byte startOffset = 0,
             bool readOnlyValidChrs = true,

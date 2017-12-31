@@ -21,6 +21,7 @@ namespace GeUtilities.Tests.RefSeqGenesParserTests
         }
 
         public TempRefSeqGenesFileCreator(
+            RefSeqColumns refSeqColumns,
             string chr = "chr1",
             string left = "10",
             string right = "20",
@@ -30,22 +31,16 @@ namespace GeUtilities.Tests.RefSeqGenesParserTests
             int headerLineCount = 0,
             int genesCount = 1)
         {
+            refSeqColumns.GetRefSeqLine(out string line, out string header, chr, left, right, refSeqID, geneSymbol, strand);
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
             using (FileStream fs = File.Create(_tempFilePath))
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 while (headerLineCount-- > 0)
-                    sw.WriteLine("chr\tLeft\tRight\tRefseqID\tOfficialGeneSymbol\tStrand");
+                    sw.WriteLine(header);
 
                 while (genesCount-- > 0)
-                {
-                    sw.WriteLine(chr + "\t" + left + "\t" + right + "\t" + refSeqID + "\t" + geneSymbol + "\t" + strand);
-                    if (int.TryParse(left, out int cLeft) && int.TryParse(right, out int cRight))
-                    {
-                        left = (cRight + 10).ToString();
-                        right = (cRight + 20).ToString();
-                    }
-                }
+                    sw.WriteLine(line);
             }
         }
 
