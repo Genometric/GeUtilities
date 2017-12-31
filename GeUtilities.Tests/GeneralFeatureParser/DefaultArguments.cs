@@ -98,7 +98,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Left == columns.Left);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Left == columns.GFeature.Left);
             }
         }
 
@@ -129,7 +129,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Right == columns.Right);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Right == columns.GFeature.Right);
             }
         }
 
@@ -160,7 +160,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Source == columns.Source);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Source == columns.GFeature.Source);
             }
         }
 
@@ -176,7 +176,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Feature == columns.Feature);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Feature == columns.GFeature.Feature);
             }
         }
 
@@ -192,7 +192,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Score == columns.Score);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Score == columns.GFeature.Score);
             }
         }
 
@@ -208,7 +208,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Attribute == columns.Attribute);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Attribute == columns.GFeature.Attribute);
             }
         }
 

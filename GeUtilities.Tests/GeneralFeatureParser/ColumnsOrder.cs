@@ -22,14 +22,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
                 var parsedFeature = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(
-                    parsedFeature.Source == columns.Source &&
-                    parsedFeature.Feature == columns.Feature &&
-                    parsedFeature.Left == columns.Left &&
-                    parsedFeature.Right == columns.Right &&
-                    parsedFeature.Score == columns.Score &&
-                    parsedFeature.Frame == columns.Frame &&
-                    parsedFeature.Attribute == columns.Attribute);
+                Assert.True(parsedFeature.CompareTo(columns.GFeature) == 0);
             }
         }
 
@@ -67,14 +60,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
                 var parsedFeature = parsedGTF.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(
-                    parsedFeature.Source == columns.Source &&
-                    parsedFeature.Feature == columns.Feature &&
-                    parsedFeature.Left == columns.Left &&
-                    parsedFeature.Right == columns.Right &&
-                    parsedFeature.Score == columns.Score &&
-                    parsedFeature.Frame == columns.Frame &&
-                    parsedFeature.Attribute == columns.Attribute);
+                Assert.True(parsedFeature.CompareTo(columns.GFeature) == 0);
             }
         }
 

@@ -95,6 +95,7 @@ namespace GeUtilities.Tests.RefSeqGenesParser
             sbyte strandColumn = -1)
         {
             Chr = chr;
+            Strand = strand;
             Gene = new Gene()
             {
                 Left = left,
@@ -102,8 +103,6 @@ namespace GeUtilities.Tests.RefSeqGenesParser
                 RefSeqID = refSeqID,
                 GeneSymbol = geneSymbol,
             };
-            
-            Strand = strand;
             _chrColumn = chrColumn;
             _leftColumn = leftColumn;
             _rightColumn = rightColumn;

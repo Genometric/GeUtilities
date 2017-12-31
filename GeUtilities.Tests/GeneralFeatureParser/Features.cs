@@ -38,7 +38,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
                 var parsedGTF = ParseGTF(testFile.TempFilePath, columns);
 
                 // Assert
-                Assert.True(parsedGTF.DeterminedFeatures[columns.Feature] == featureCount);
+                Assert.True(parsedGTF.DeterminedFeatures[columns.GFeature.Feature] == featureCount);
             }
         }
     }

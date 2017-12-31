@@ -2,6 +2,7 @@
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
+using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using System;
 
 namespace GeUtilities.Tests.GeneralFeatureParser
@@ -108,14 +109,8 @@ namespace GeUtilities.Tests.GeneralFeatureParser
         }
 
         public string Chr { set; get; }
-        public string Source { set; get; }
-        public string Feature { set; get; }
-        public int Left { set; get; }
-        public int Right { set; get; }
-        public double Score { set; get; }
         public char Strand { set; get; }
-        public string Frame { set; get; }
-        public string Attribute { set; get; }
+        public GeneralFeature GFeature { set; get; }
 
         public Columns(
             string source = "Source",
@@ -138,15 +133,18 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             sbyte attributeColumn = 8
             )
         {
-            Source = source;
-            Feature = feature;
             Chr = chr;
-            Left = left;
-            Right = right;
-            Score = score;
             Strand = strand;
-            Frame = frame;
-            Attribute = attribute;
+            GFeature = new GeneralFeature()
+            {
+                Source = source,
+                Feature = feature,
+                Left = left,
+                Right = right,
+                Score = score,
+                Frame = frame,
+                Attribute = attribute,
+            };
             _chrColumn = chrColumn;
             _sourceColumn = sourceColumn;
             _featureColumn = featureColumn;
@@ -212,14 +210,14 @@ namespace GeUtilities.Tests.GeneralFeatureParser
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
                 if (ChrColumn == i) line += Chr + "\t";
-                else if (SourceColumn == i) line += Source + "\t";
-                else if (FeatureColumn == i) line += Feature + "\t";
-                else if (LeftColumn == i) line += Left + "\t";
-                else if (RightColumn == i) line += Right + "\t";
-                else if (ScoreColumn == i) line += Score + "\t";
+                else if (SourceColumn == i) line += GFeature.Source + "\t";
+                else if (FeatureColumn == i) line += GFeature.Feature + "\t";
+                else if (LeftColumn == i) line += GFeature.Left + "\t";
+                else if (RightColumn == i) line += GFeature.Right + "\t";
+                else if (ScoreColumn == i) line += GFeature.Score + "\t";
                 else if (StrandColumn == i) line += Strand + "\t";
-                else if (FrameColumn == i) line += Frame + "\t";
-                else if (AttributeColumn == i) line += Attribute + "\t";
+                else if (FrameColumn == i) line += GFeature.Frame + "\t";
+                else if (AttributeColumn == i) line += GFeature.Attribute + "\t";
                 else line += "AbCd\t";
 
             return line;

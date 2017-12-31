@@ -142,6 +142,7 @@ namespace GeUtilities.Tests.VCFParser
             )
         {
             Chr = chr;
+            Strand = strand;
             Variant = new Variant()
             {
                 Left = position,
@@ -152,9 +153,7 @@ namespace GeUtilities.Tests.VCFParser
                 AltBase = altBase ?? (new Base[] { Base.U, Base.T, Base.N }),
                 RefBase = refBase ?? (new Base[] { Base.A, Base.C, Base.G })
             };
-
             ChrColumn = chrColumn;
-            Strand = strand;
             PositionColumn = positionColumn;
             IDColumn = idColumn;
             RefbColumn = refbColumn;
