@@ -99,6 +99,18 @@ namespace GeUtilities.Tests.RefSeqGenesParserTests
         }
 
         [Fact]
+        public void FailReadRefSeqID()
+        {
+            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator("chr1\t10\t20\tRefSeq\tGeneSymbol"))
+            {
+                RefSeqGenesParser<Gene> genesParser = new RefSeqGenesParser<Gene>(testFile.TempFilePath, 0, 1, 2, 10, 4);
+                var parsedData = genesParser.Parse();
+
+                Assert.False(parsedData.Chromosomes.ContainsKey(_chr));
+            }
+        }
+
+        [Fact]
         public void ReadGeneSymbol()
         {
             var columns = new RefSeqColumns();
@@ -109,6 +121,18 @@ namespace GeUtilities.Tests.RefSeqGenesParserTests
                 var parsedData = genesParser.Parse();
 
                 Assert.True(parsedData.Chromosomes[_chr].Strands['*'].Intervals[0].GeneSymbol == geneSymbol);
+            }
+        }
+
+        [Fact]
+        public void FailReadGeneSymbol()
+        {
+            using (TempRefSeqGenesFileCreator testFile = new TempRefSeqGenesFileCreator("chr1\t10\t20\tRefSeq\tGeneSymbol"))
+            {
+                RefSeqGenesParser<Gene> genesParser = new RefSeqGenesParser<Gene>(testFile.TempFilePath, 0, 1, 2, 3, 10);
+                var parsedData = genesParser.Parse();
+
+                Assert.False(parsedData.Chromosomes.ContainsKey(_chr));
             }
         }
 
