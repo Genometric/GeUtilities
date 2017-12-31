@@ -7,12 +7,12 @@ using System.IO;
 
 namespace GeUtilities.Tests.RefSeqGenesParserTests
 {
-    public class TempRefSeqGenesFileCreator : IDisposable
+    public class TempFileCreator : IDisposable
     {
         private string _tempFilePath;
         public string TempFilePath { get { return _tempFilePath; } }
 
-        public TempRefSeqGenesFileCreator(string line)
+        public TempFileCreator(string line)
         {
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
             using (FileStream fs = File.Create(_tempFilePath))
@@ -20,27 +20,17 @@ namespace GeUtilities.Tests.RefSeqGenesParserTests
                 sw.WriteLine(line);
         }
 
-        public TempRefSeqGenesFileCreator(
-            RefSeqColumns refSeqColumns,
-            string chr = "chr1",
-            string left = "10",
-            string right = "20",
-            string refSeqID = "refSeqID_01",
-            string geneSymbol = "geneSymbol_01",
-            string strand = "*",
-            int headerLineCount = 0,
-            int genesCount = 1)
+        public TempFileCreator(Columns columns, int headerLineCount = 0, int genesCount = 1)
         {
-            refSeqColumns.GetRefSeqLine(out string line, out string header, chr, left, right, refSeqID, geneSymbol, strand);
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
             using (FileStream fs = File.Create(_tempFilePath))
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 while (headerLineCount-- > 0)
-                    sw.WriteLine(header);
+                    sw.WriteLine(columns.GetSampleHeader());
 
                 while (genesCount-- > 0)
-                    sw.WriteLine(line);
+                    sw.WriteLine(columns.GetSampleLine());
             }
         }
 

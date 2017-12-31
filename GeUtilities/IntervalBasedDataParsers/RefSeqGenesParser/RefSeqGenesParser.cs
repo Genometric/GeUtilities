@@ -15,12 +15,12 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// Gets and sets the column number of refseq ID.
         /// </summary>
-        private sbyte _refSeqIDColumn { set; get; }
+        private byte _refSeqIDColumn { set; get; }
 
         /// <summary>
         /// Gets and sets the column number of official gene symbol.
         /// </summary>
-        private sbyte _officialGeneColumn { set; get; }
+        private byte _geneColumn { set; get; }
 
         #endregion
 
@@ -44,7 +44,7 @@ namespace Genometric.GeUtilities.Parsers
                 leftEndColumn: 1,
                 rightEndColumn: 2,
                 refSeqIDColumn: 3,
-                officialGeneSymbolColumn: 4,
+                geneSymbolColumn: 4,
                 strandColumn: -1,
                 maxLinesToRead: maxLinesToBeRead,
                 hashFunction: HashFunction.One_at_a_Time
@@ -71,8 +71,8 @@ namespace Genometric.GeUtilities.Parsers
             byte chrColumn,
             byte leftEndColumn,
             sbyte rightEndColumn,
-            sbyte refSeqIDColumn,
-            sbyte officialGeneSymbolColumn,
+            byte refSeqIDColumn,
+            byte geneSymbolColumn,
             sbyte strandColumn = -1,
             Assemblies assembly = Assemblies.Unknown,
             byte startOffset = 0,
@@ -92,7 +92,7 @@ namespace Genometric.GeUtilities.Parsers
                 data: new ParsedRefSeqGenes<I>())
         {
             _refSeqIDColumn = refSeqIDColumn;
-            _officialGeneColumn = officialGeneSymbolColumn;
+            _geneColumn = geneSymbolColumn;
         }
 
         protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
@@ -111,10 +111,10 @@ namespace Genometric.GeUtilities.Parsers
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid refseq ID column number");
             }
 
-            if (_officialGeneColumn >= 0)
+            if (_geneColumn >= 0)
             {
-                if (_officialGeneColumn < line.Length)
-                    rtv.GeneSymbol = line[_officialGeneColumn];
+                if (_geneColumn < line.Length)
+                    rtv.GeneSymbol = line[_geneColumn];
                 else
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid official gene symbol column number");
             }

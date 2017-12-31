@@ -10,6 +10,5 @@ namespace Genometric.GeUtilities.IGenomics
     {
         string RefSeqID { set; get; }
         string GeneSymbol { set; get; }
-        double Value { set; get; }
     }
 }

@@ -16,34 +16,30 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             {
                 Left = 10,
                 Right = 20,
-                Value = 100.0,
                 RefSeqID = "RefSeqID",
                 GeneSymbol = "GeneSymbol"
             };
         }
 
         [Theory]
-        [InlineData(0, 10, 20, 100.0, "RefSeqID", "GeneSymbol", 10, 20, 100.0, "RefSeqID", "GeneSymbol")]
-        [InlineData(-1, 8, 20, 100.0, "RefSeqID", "GeneSymbol", 10, 20, 100.0, "RefSeqID", "GeneSymbol")]
-        [InlineData(-1, 10, 16, 100.0, "RefSeqID", "GeneSymbol", 10, 20, 100.0, "RefSeqID", "GeneSymbol")]
-        [InlineData(-1, 10, 20, 90.0, "RefSeqID", "GeneSymbol", 10, 20, 100.0, "RefSeqID", "GeneSymbol")]
-        [InlineData(-1, 10, 20, 100.0, "RefSeq", "GeneSymbol", 10, 20, 100.0, "RefSeqID", "GeneSymbol")]
-        [InlineData(-1, 10, 20, 100.0, "RefSeqID", "Gene", 10, 20, 100.0, "RefSeqID", "GeneSymbol")]
-        [InlineData(1, 10, 20, 100.0, "RefSeqID", "GeneSymbol", 8, 20, 100.0, "RefSeqID", "GeneSymbol")]
-        [InlineData(1, 10, 20, 100.0, "RefSeqID", "GeneSymbol", 10, 18, 100.0, "RefSeqID", "GeneSymbol")]
-        [InlineData(1, 10, 20, 100.0, "RefSeqID", "GeneSymbol", 10, 20, 90.0, "RefSeqID", "GeneSymbol")]
-        [InlineData(1, 10, 20, 100.0, "RefSeqID", "GeneSymbol", 10, 20, 100.0, "RefSeq", "GeneSymbol")]
-        [InlineData(1, 10, 20, 100.0, "RefSeqID", "GeneSymbol", 10, 20, 100.0, "RefSeqID", "Gene")]
+        [InlineData(0, 10, 20, "RefSeqID", "GeneSymbol", 10, 20, "RefSeqID", "GeneSymbol")]
+        [InlineData(-1, 8, 20, "RefSeqID", "GeneSymbol", 10, 20, "RefSeqID", "GeneSymbol")]
+        [InlineData(-1, 10, 16, "RefSeqID", "GeneSymbol", 10, 20, "RefSeqID", "GeneSymbol")]
+        [InlineData(-1, 10, 20, "RefSeq", "GeneSymbol", 10, 20, "RefSeqID", "GeneSymbol")]
+        [InlineData(-1, 10, 20, "RefSeqID", "Gene", 10, 20, "RefSeqID", "GeneSymbol")]
+        [InlineData(1, 10, 20, "RefSeqID", "GeneSymbol", 8, 20, "RefSeqID", "GeneSymbol")]
+        [InlineData(1, 10, 20, "RefSeqID", "GeneSymbol", 10, 18, "RefSeqID", "GeneSymbol")]
+        [InlineData(1, 10, 20, "RefSeqID", "GeneSymbol", 10, 20, "RefSeq", "GeneSymbol")]
+        [InlineData(1, 10, 20, "RefSeqID", "GeneSymbol", 10, 20, "RefSeqID", "Gene")]
         public void ComparisonTest(
             int comparisonResult,
-            int aLeft, int aRight, double aValue, string aRefSeqID, string aGeneSymbol,
-            int bLeft, int bRight, double bValue, string bRefSeqID, string bGeneSymbol)
+            int aLeft, int aRight, string aRefSeqID, string aGeneSymbol,
+            int bLeft, int bRight, string bRefSeqID, string bGeneSymbol)
         {
             var aGene = new Gene()
             {
                 Left = aLeft,
                 Right = aRight,
-                Value = aValue,
                 RefSeqID = aRefSeqID,
                 GeneSymbol = aGeneSymbol
             };
@@ -52,7 +48,6 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             {
                 Left = bLeft,
                 Right = bRight,
-                Value = bValue,
                 RefSeqID = bRefSeqID,
                 GeneSymbol = bGeneSymbol
             };
