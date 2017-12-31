@@ -13,12 +13,15 @@ namespace GeUtilities.Tests.VCFParser
         [Fact]
         public void AssignHashKey()
         {
+            // Arrange
             var columns = new Columns();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
+                // Act
                 VCFParser<Variant> parser = new VCFParser<Variant>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
+                // Assert
                 Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].HashKey != 0);
             }
         }
