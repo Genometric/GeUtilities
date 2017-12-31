@@ -16,8 +16,6 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             return new Variant()
             {
                 Left = 10,
-                Right = 20,
-                Value = 100.0,
                 ID = "ID",
                 RefBase = ConvertStringToBasePair("ACG"),
                 AltBase = ConvertStringToBasePair("GCA"),
@@ -45,35 +43,29 @@ namespace GeUtilities.Tests.ModelTests.Defaults
         }
 
         [Theory]
-        [InlineData(0, 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(-1, 8, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(-1, 10, 15, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(-1, 10, 20, 90, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(-1, 10, 20, 100.0, "I", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(-1, 10, 20, 100.0, "ID", "A", "TGCA", 123.4, "Filter", "Info", 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(-1, 10, 20, 100.0, "ID", "ACGT", "A", 123.4, "Filter", "Info", 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(-1, 10, 20, 100.0, "ID", "ACGT", "TGCA", 23.4, "Filter", "Info", 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(-1, 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "F", "Info", 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(-1, 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "I", 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(1, 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 8, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(1, 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, 15, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(1, 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, 20, 90.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(1, 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, 20, 100.0, "I", "ACGT", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(1, 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, 20, 100.0, "ID", "A", "TGCA", 123.4, "Filter", "Info")]
-        [InlineData(1, 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, 20, 100.0, "ID", "ACGT", "A", 123.4, "Filter", "Info")]
-        [InlineData(1, 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, 20, 100.0, "ID", "ACGT", "TGCA", 23.4, "Filter", "Info")]
-        [InlineData(1, 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "F", "Info")]
-        [InlineData(1, 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, 20, 100.0, "ID", "ACGT", "TGCA", 123.4, "Filter", "I")]
+        [InlineData(0, 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
+        [InlineData(-1, 8, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
+        [InlineData(-1, 10, "I", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
+        [InlineData(-1, 10, "ID", "A", "TGCA", 123.4, "Filter", "Info", 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
+        [InlineData(-1, 10, "ID", "ACGT", "A", 123.4, "Filter", "Info", 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
+        [InlineData(-1, 10, "ID", "ACGT", "TGCA", 23.4, "Filter", "Info", 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
+        [InlineData(-1, 10, "ID", "ACGT", "TGCA", 123.4, "F", "Info", 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
+        [InlineData(-1, 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "I", 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
+        [InlineData(1, 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 8, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info")]
+        [InlineData(1, 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, "I", "ACGT", "TGCA", 123.4, "Filter", "Info")]
+        [InlineData(1, 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, "ID", "A", "TGCA", 123.4, "Filter", "Info")]
+        [InlineData(1, 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, "ID", "ACGT", "A", 123.4, "Filter", "Info")]
+        [InlineData(1, 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, "ID", "ACGT", "TGCA", 23.4, "Filter", "Info")]
+        [InlineData(1, 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, "ID", "ACGT", "TGCA", 123.4, "F", "Info")]
+        [InlineData(1, 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "Info", 10, "ID", "ACGT", "TGCA", 123.4, "Filter", "I")]
         public void ComparisonTest(
             int comparisonResult,
-            int aLeft, int aRight, double aValue, string aID, string aRefbp, string aAltbp, double aQuality, string aFilter, string aInfo,
-            int bLeft, int bRight, double bValue, string bID, string bRefbp, string bAltbp, double bQuality, string bFilter, string bInfo)
+            int aLeft, string aID, string aRefbp, string aAltbp, double aQuality, string aFilter, string aInfo,
+            int bLeft, string bID, string bRefbp, string bAltbp, double bQuality, string bFilter, string bInfo)
         {
             var aVariant = new Variant()
             {
                 Left = aLeft,
-                Right = aRight,
-                Value = aValue,
                 ID = aID,
                 RefBase = ConvertStringToBasePair(aRefbp),
                 AltBase = ConvertStringToBasePair(aAltbp),
@@ -85,8 +77,6 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             var bVariant = new Variant()
             {
                 Left = bLeft,
-                Right = bRight,
-                Value = bValue,
                 ID = bID,
                 RefBase = ConvertStringToBasePair(bRefbp),
                 AltBase = ConvertStringToBasePair(bAltbp),

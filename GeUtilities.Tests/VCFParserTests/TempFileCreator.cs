@@ -33,7 +33,7 @@ namespace GeUtilities.Tests.VCFParser
                 {
                     sw.WriteLine(columns.GetSampleLine());
                     if (variantsCount > 0)
-                        columns.Position += 10;
+                        columns.Variant.Left += 10;
                 }
             }
         }

@@ -35,14 +35,7 @@ namespace GeUtilities.Tests.VCFParser
                 VCFParser<Variant> parser = new VCFParser<Variant>(testFile.TempFilePath);
                 var parsedVariant = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
-                Assert.True(
-                    parsedVariant.Left == columns.Position &&
-                    parsedVariant.ID == columns.ID &&
-                    string.Equals(string.Join("", parsedVariant.RefBase), string.Join("", columns.RefBase)) &&
-                    string.Equals(string.Join("", parsedVariant.AltBase), string.Join("", columns.AltBase)) &&
-                    parsedVariant.Quality == columns.Quality &&
-                    parsedVariant.Filter == columns.Filter &&
-                    parsedVariant.Info == columns.Info);
+                Assert.True(parsedVariant.CompareTo(columns.Variant) == 0);
             }
         }
 
@@ -77,14 +70,7 @@ namespace GeUtilities.Tests.VCFParser
                 var parsedVCF = ParseVCF(testFile.TempFilePath, columns);
                 var parsedVariant = parsedVCF.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
-                Assert.True(
-                    parsedVariant.Left == columns.Position &&
-                    parsedVariant.ID == columns.ID &&
-                    string.Equals(string.Join("", parsedVariant.RefBase), string.Join("", columns.RefBase)) &&
-                    string.Equals(string.Join("", parsedVariant.AltBase), string.Join("", columns.AltBase)) &&
-                    parsedVariant.Quality == columns.Quality &&
-                    parsedVariant.Filter == columns.Filter &&
-                    parsedVariant.Info == columns.Info);
+                Assert.True(parsedVariant.CompareTo(columns.Variant) == 0);
             }
         }
 

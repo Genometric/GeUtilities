@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using System;
 
 namespace GeUtilities.Tests.VCFParser
@@ -109,15 +110,9 @@ namespace GeUtilities.Tests.VCFParser
         }
 
         public string Chr { set; get; }
-        public int Position { set; get; }
-        public double Value { set; get; }
-        public string ID { set; get; }
-        public Base[] RefBase { set; get; }
-        public Base[] AltBase { set; get; }
-        public double Quality { set; get; }
-        public string Filter { set; get; }
-        public string Info { set; get; }
         public char Strand { set; get; }
+
+        public Variant Variant { set; get; }
 
         /// <summary>
         /// NOTE: The only option for an array default value is 'null'.
@@ -128,7 +123,6 @@ namespace GeUtilities.Tests.VCFParser
         public Columns(
             string chr = "chr1",
             int position = 10,
-            double value = 123.456,
             string id = "id_001",
             Base[] refBase = null,
             Base[] altBase = null,
@@ -148,16 +142,19 @@ namespace GeUtilities.Tests.VCFParser
             )
         {
             Chr = chr;
-            Position = position;
-            Value = value;
-            ID = id;
-            RefBase = refBase ?? (new Base[] { Base.A, Base.C, Base.G });
-            AltBase = altBase ?? (new Base[] { Base.U, Base.T, Base.N });
-            Quality = quality;
-            Filter = filter;
-            Info = info;
-            Strand = strand;
+            Variant = new Variant()
+            {
+                Left = position,
+                ID = id,
+                Quality = quality,
+                Filter = filter,
+                Info = info,
+                AltBase = altBase ?? (new Base[] { Base.U, Base.T, Base.N }),
+                RefBase = refBase ?? (new Base[] { Base.A, Base.C, Base.G })
+            };
+
             ChrColumn = chrColumn;
+            Strand = strand;
             PositionColumn = positionColumn;
             IDColumn = idColumn;
             RefbColumn = refbColumn;
@@ -222,13 +219,13 @@ namespace GeUtilities.Tests.VCFParser
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
                 if (ChrColumn == i) line += Chr + "\t";
-                else if (PositionColumn == i) line += Position + "\t";
-                else if (IDColumn == i) line += ID + "\t";
-                else if (RefbColumn == i) line += string.Join("", RefBase) + "\t";
-                else if (AltbColumn == i) line += string.Join("", AltBase) + "\t";
-                else if (QualityColumn == i) line += Quality + "\t";
-                else if (FilterColumn == i) line += Filter + "\t";
-                else if (InfoColumn == i) line += Info + "\t";
+                else if (PositionColumn == i) line += Variant.Left + "\t";
+                else if (IDColumn == i) line += Variant.ID + "\t";
+                else if (RefbColumn == i) line += string.Join("", Variant.RefBase) + "\t";
+                else if (AltbColumn == i) line += string.Join("", Variant.AltBase) + "\t";
+                else if (QualityColumn == i) line += Variant.Quality + "\t";
+                else if (FilterColumn == i) line += Variant.Filter + "\t";
+                else if (InfoColumn == i) line += Variant.Info + "\t";
                 else if (StrandColumn == i) line += Strand + "\t";
                 else line += "AbCd\t";
 

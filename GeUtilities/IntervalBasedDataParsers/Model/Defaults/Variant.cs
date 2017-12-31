@@ -11,7 +11,6 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
     {
         public int Left { set; get; }
         public int Right { set; get; }
-        public double Value { set; get; }
         public string ID { set; get; }
         public Base[] RefBase { set; get; }
         public Base[] AltBase { set; get; }
@@ -33,10 +32,6 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
         {
             if (other == null) return 1;
             int compareResult = Left.CompareTo(other.Left);
-            if (compareResult != 0) return compareResult;
-            compareResult = Right.CompareTo(other.Right);
-            if (compareResult != 0) return compareResult;
-            compareResult = Value.CompareTo(other.Value);
             if (compareResult != 0) return compareResult;
             compareResult = ID.CompareTo(other.ID);
             if (compareResult != 0) return compareResult;

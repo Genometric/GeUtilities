@@ -20,6 +20,5 @@ namespace Genometric.GeUtilities.IGenomics
         string Filter { set; get; }
 
         string Info { set; get; }
-        double Value { set; get; }
     }
 }
