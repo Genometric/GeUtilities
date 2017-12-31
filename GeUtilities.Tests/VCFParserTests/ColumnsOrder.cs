@@ -10,9 +10,9 @@ namespace GeUtilities.Tests.VCFParser
 {
     public class ColumnsOrder
     {
-        private ParsedVariants<VCF> ParseVCF(string filePath, Columns vcfColumns)
+        private ParsedVariants<Variant> ParseVCF(string filePath, Columns vcfColumns)
         {
-            VCFParser<VCF> vcfParser = new VCFParser<VCF>(
+            VCFParser<Variant> vcfParser = new VCFParser<Variant>(
                     filePath,
                     chrColumn: vcfColumns.ChrColumn,
                     positionColumn: vcfColumns.PositionColumn,
@@ -32,7 +32,7 @@ namespace GeUtilities.Tests.VCFParser
             var columns = new Columns();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
-                VCFParser<VCF> parser = new VCFParser<VCF>(testFile.TempFilePath);
+                VCFParser<Variant> parser = new VCFParser<Variant>(testFile.TempFilePath);
                 var parsedVariant = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 Assert.True(

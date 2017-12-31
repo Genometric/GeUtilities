@@ -8,7 +8,7 @@ using Genometric.GeUtilities.ReferenceGenomes;
 namespace Genometric.GeUtilities.Parsers
 {
     public sealed class VCFParser<I> : Parser<I, IntervalStats>
-        where I : IVCF, new()
+        where I : IVariant, new()
     {
         #region .::.         private properties         .::.
 

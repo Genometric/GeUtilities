@@ -7,7 +7,7 @@ using Genometric.GeUtilities.IGenomics;
 namespace Genometric.GeUtilities.Parsers
 {
     public class ParsedVariants<I> : ParsedIntervals<I, IntervalStats>
-        where I : IVCF, new()
+        where I : IVariant, new()
     {
         public ParsedVariants()
         { }

@@ -16,7 +16,7 @@ namespace GeUtilities.Tests.VCFParser
             var columns = new Columns();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
-                VCFParser<VCF> parser = new VCFParser<VCF>(testFile.TempFilePath);
+                VCFParser<Variant> parser = new VCFParser<Variant>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].HashKey != 0);

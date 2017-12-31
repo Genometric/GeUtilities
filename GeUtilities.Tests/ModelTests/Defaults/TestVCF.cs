@@ -11,9 +11,9 @@ namespace GeUtilities.Tests.ModelTests.Defaults
 {
     public class TestVCF
     {
-        internal static VCF GetTempVCF()
+        internal static Variant GetTempVCF()
         {
-            return new VCF()
+            return new Variant()
             {
                 Left = 10,
                 Right = 20,
@@ -69,7 +69,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             int aLeft, int aRight, double aValue, string aID, string aRefbp, string aAltbp, double aQuality, string aFilter, string aInfo,
             int bLeft, int bRight, double bValue, string bID, string bRefbp, string bAltbp, double bQuality, string bFilter, string bInfo)
         {
-            var aVariant = new VCF()
+            var aVariant = new Variant()
             {
                 Left = aLeft,
                 Right = aRight,
@@ -82,7 +82,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
                 Info = aInfo
             };
 
-            var bVariant = new VCF()
+            var bVariant = new Variant()
             {
                 Left = bLeft,
                 Right = bRight,
