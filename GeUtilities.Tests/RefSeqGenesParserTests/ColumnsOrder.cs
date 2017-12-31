@@ -6,7 +6,7 @@ using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
 using Xunit;
 
-namespace GeUtilities.Tests.RefSeqGenesParserTests
+namespace GeUtilities.Tests.RefSeqGenesParser
 {
     public class ColumnsOrder
     {

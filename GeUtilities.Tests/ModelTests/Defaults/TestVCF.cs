@@ -27,18 +27,18 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             };
         }
 
-        private static BasePair[] ConvertStringToBasePair(string input)
+        private static Base[] ConvertStringToBasePair(string input)
         {
-            var rtv = new BasePair[input.Length];
+            var rtv = new Base[input.Length];
             for (int i = 0; i < input.Length; i++)
                 switch (input[i])
                 {
-                    case 'A': rtv[i] = BasePair.A; break;
-                    case 'C': rtv[i] = BasePair.C; break;
-                    case 'G': rtv[i] = BasePair.G; break;
-                    case 'N': rtv[i] = BasePair.N; break;
-                    case 'T': rtv[i] = BasePair.T; break;
-                    case 'U': rtv[i] = BasePair.U; break;
+                    case 'A': rtv[i] = Base.A; break;
+                    case 'C': rtv[i] = Base.C; break;
+                    case 'G': rtv[i] = Base.G; break;
+                    case 'N': rtv[i] = Base.N; break;
+                    case 'T': rtv[i] = Base.T; break;
+                    case 'U': rtv[i] = Base.U; break;
                     default: continue;
                 }
             return rtv;

@@ -4,7 +4,7 @@
 
 using System;
 
-namespace GeUtilities.Tests.RefSeqGenesParserTests
+namespace GeUtilities.Tests.RefSeqGenesParser
 {
     public class Columns
     {

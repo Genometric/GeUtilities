@@ -13,8 +13,8 @@ namespace Genometric.GeUtilities.Parsers
         #region .::.         private properties         .::.
 
         private byte _idColumn;
-        private byte _refbpColumn;
-        private byte _altbpColumn;
+        private byte _refbColumn;
+        private byte _altbColumn;
         private byte _qualityColumn;
         private byte _filterColumn;
         private byte _infoColumn;
@@ -31,8 +31,8 @@ namespace Genometric.GeUtilities.Parsers
                 chrColumn: 0,
                 positionColumn: 1,
                 idColumn: 2,
-                refbpColumn: 3,
-                altbpColumn: 4,
+                refbColumn: 3,
+                altbColumn: 4,
                 qualityColumn: 5,
                 filterColumn: 6,
                 infoColumn: 7,
@@ -46,8 +46,8 @@ namespace Genometric.GeUtilities.Parsers
             byte chrColumn,
             byte positionColumn,
             byte idColumn,
-            byte refbpColumn,
-            byte altbpColumn,
+            byte refbColumn,
+            byte altbColumn,
             byte qualityColumn,
             byte filterColumn,
             byte infoColumn,
@@ -70,8 +70,8 @@ namespace Genometric.GeUtilities.Parsers
                 data: new ParsedVariants<I>())
         {
             _idColumn = idColumn;
-            _refbpColumn = refbpColumn;
-            _altbpColumn = altbpColumn;
+            _refbColumn = refbColumn;
+            _altbColumn = altbColumn;
             _qualityColumn = qualityColumn;
             _filterColumn = filterColumn;
             _infoColumn = infoColumn;
@@ -90,9 +90,9 @@ namespace Genometric.GeUtilities.Parsers
             else
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid ID column.");
 
-            if (_refbpColumn < line.Length)
+            if (_refbColumn < line.Length)
             {
-                rtv.RefBase = ParseBasePairs(line[_refbpColumn]);
+                rtv.RefBase = ParseBases(line[_refbColumn]);
                 if (rtv.RefBase == null)
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid REF column.");
             }
@@ -101,9 +101,9 @@ namespace Genometric.GeUtilities.Parsers
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid REF column.");
             }
 
-            if (_altbpColumn < line.Length)
+            if (_altbColumn < line.Length)
             {
-                rtv.AltBase = ParseBasePairs(line[_altbpColumn]);
+                rtv.AltBase = ParseBases(line[_altbColumn]);
                 if (rtv.AltBase == null)
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid ALT column.");
             }
@@ -130,19 +130,19 @@ namespace Genometric.GeUtilities.Parsers
             return rtv;
         }
 
-        private BasePair[] ParseBasePairs(string field)
+        private Base[] ParseBases(string field)
         {
-            BasePair[] rtv = new BasePair[field.Length];
+            Base[] rtv = new Base[field.Length];
             for (int i = 0; i < field.Length; i++)
             {
                 switch (field[i])
                 {
-                    case 'A': rtv[i] = BasePair.A; break;
-                    case 'C': rtv[i] = BasePair.C; break;
-                    case 'G': rtv[i] = BasePair.G; break;
-                    case 'N': rtv[i] = BasePair.N; break;
-                    case 'T': rtv[i] = BasePair.T; break;
-                    case 'U': rtv[i] = BasePair.U; break;
+                    case 'A': rtv[i] = Base.A; break;
+                    case 'C': rtv[i] = Base.C; break;
+                    case 'G': rtv[i] = Base.G; break;
+                    case 'N': rtv[i] = Base.N; break;
+                    case 'T': rtv[i] = Base.T; break;
+                    case 'U': rtv[i] = Base.U; break;
                     default:
                         return null;
                 }

@@ -7,7 +7,7 @@ using Genometric.GeUtilities.Parsers;
 using System;
 using Xunit;
 
-namespace GeUtilities.Tests.RefSeqGenesParserTests
+namespace GeUtilities.Tests.RefSeqGenesParser
 {
     public class DefaultArguments
     {

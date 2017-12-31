@@ -9,8 +9,8 @@ namespace Genometric.GeUtilities.IGenomics
     public interface IVCF : IInterval<int>, IComparable<IVCF>
     {
         string ID { set; get; }
-        BasePair[] RefBase { set; get; }
-        BasePair[] AltBase { set; get; }
+        Base[] RefBase { set; get; }
+        Base[] AltBase { set; get; }
 
         /// <summary>
         /// Phred-scaled quality score for the assertion made in altered-base.

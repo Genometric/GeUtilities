@@ -13,8 +13,8 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
         public int Right { set; get; }
         public double Value { set; get; }
         public string ID { set; get; }
-        public BasePair[] RefBase { set; get; }
-        public BasePair[] AltBase { set; get; }
+        public Base[] RefBase { set; get; }
+        public Base[] AltBase { set; get; }
         public double Quality { set; get; }
         public string Filter { set; get; }
         public string Info { set; get; }

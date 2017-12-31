@@ -5,7 +5,7 @@
 using System;
 using System.IO;
 
-namespace GeUtilities.Tests.RefSeqGenesParser
+namespace GeUtilities.Tests.VCFParser
 {
     public class TempFileCreator : IDisposable
     {
@@ -14,23 +14,27 @@ namespace GeUtilities.Tests.RefSeqGenesParser
 
         public TempFileCreator(string line)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".vcf";
             using (FileStream fs = File.Create(_tempFilePath))
             using (StreamWriter sw = new StreamWriter(fs))
                 sw.WriteLine(line);
         }
 
-        public TempFileCreator(Columns columns, int headerLineCount = 0, int genesCount = 1)
+        public TempFileCreator(Columns columns, int headerLineCount = 0, int variantsCount = 1)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".vcf";
             using (FileStream fs = File.Create(_tempFilePath))
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 while (headerLineCount-- > 0)
                     sw.WriteLine(columns.GetSampleHeader());
 
-                while (genesCount-- > 0)
+                while (variantsCount-- > 0)
+                {
                     sw.WriteLine(columns.GetSampleLine());
+                    if (variantsCount > 0)
+                        columns.Position += 10;
+                }
             }
         }
 

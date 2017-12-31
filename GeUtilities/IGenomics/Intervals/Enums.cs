@@ -4,7 +4,7 @@
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public enum BasePair
+    public enum Base
     {
         /// <summary>
         /// Adenine
