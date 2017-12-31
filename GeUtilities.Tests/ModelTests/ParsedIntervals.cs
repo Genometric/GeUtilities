@@ -5,7 +5,7 @@
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
 using Genometric.GeUtilities.ReferenceGenomes;
-using GeUtilities.Tests.BEDParserTests;
+using GeUtilities.Tests.BEDParser;
 using System;
 using System.IO;
 using Xunit;
@@ -18,7 +18,7 @@ namespace GeUtilities.Tests.ModelTests
         public void TestFileHashKey()
         {
             string peak = "chr1\t10\t20\tName\t100.0";
-            using (TempBEDFileCreator testFile = new TempBEDFileCreator(peak))
+            using (TempFileCreator testFile = new TempFileCreator(peak))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedBED = bedParser.Parse();
@@ -31,7 +31,7 @@ namespace GeUtilities.Tests.ModelTests
         public void TestFileName()
         {
             string peak = "chr1\t10\t20\tName\t100.0";
-            using (TempBEDFileCreator testFile = new TempBEDFileCreator(peak))
+            using (TempFileCreator testFile = new TempFileCreator(peak))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedBED = bedParser.Parse();
@@ -44,7 +44,7 @@ namespace GeUtilities.Tests.ModelTests
         public void TestFilePath()
         {
             string peak = "chr1\t10\t20\tName\t100.0";
-            using (TempBEDFileCreator testFile = new TempBEDFileCreator(peak))
+            using (TempFileCreator testFile = new TempFileCreator(peak))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedBED = bedParser.Parse();
@@ -60,7 +60,7 @@ namespace GeUtilities.Tests.ModelTests
         public void TestAssembly(Assemblies assembly)
         {
             string peak = "chr1\t10\t20\tName\t100.0";
-            using (TempBEDFileCreator testFile = new TempBEDFileCreator(peak))
+            using (TempFileCreator testFile = new TempFileCreator(peak))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: assembly);
                 var parsedBED = bedParser.Parse();

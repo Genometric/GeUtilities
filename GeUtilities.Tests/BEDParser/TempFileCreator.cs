@@ -5,14 +5,19 @@
 using System;
 using System.IO;
 
-namespace GeUtilities.Tests.BEDParserTests
+/// <summary>
+/// This namespace contains Tests for both base and BED parsers.
+/// </summary>
+namespace GeUtilities.Tests.BEDParser
 {
-    class TempBEDFileCreator : IDisposable
+    internal sealed class TempFileCreator : IDisposable
     {
         private string _tempFilePath;
         public string TempFilePath { get { return _tempFilePath; } }
 
-        public TempBEDFileCreator(string peak)
+        public TempFileCreator() : this(new Columns()) { }
+
+        public TempFileCreator(string peak)
         {
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
             using (FileStream fs = File.Create(_tempFilePath))
@@ -20,7 +25,7 @@ namespace GeUtilities.Tests.BEDParserTests
                 sw.WriteLine(peak);
         }
 
-        public TempBEDFileCreator(string[] peaks)
+        public TempFileCreator(string[] peaks)
         {
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
             using (FileStream fs = File.Create(_tempFilePath))
@@ -29,29 +34,22 @@ namespace GeUtilities.Tests.BEDParserTests
                     sw.WriteLine(peak);
         }
 
-        public TempBEDFileCreator(
-            string chr = "chr1",
-            string left = "10",
-            string right = "20",
-            string name = "GeUtilities_00",
-            string value = "100.0",
-            int headerLineCount = 0,
-            int peaksCount = 1)
+        public TempFileCreator(Columns columns, int headerLineCount = 0, int peaksCount = 1)
         {
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
             using (FileStream fs = File.Create(_tempFilePath))
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 while (headerLineCount-- > 0)
-                    sw.WriteLine("chr\tLeft\tRight\tName\tValue");
+                    sw.WriteLine(columns.GetSampleHeader());
 
                 while (peaksCount-- > 0)
                 {
-                    sw.WriteLine(chr + "\t" + left + "\t" + right + "\t" + name + "\t" + value);
-                    if (int.TryParse(left, out int cLeft) && int.TryParse(right, out int cRight))
+                    sw.WriteLine(columns.GetSampleLine());
+                    if (peaksCount > 0)
                     {
-                        left = (cRight + 10).ToString();
-                        right = (cRight + 20).ToString();
+                        columns.Left = columns.Right + 10;
+                        columns.Right = columns.Right + 20;
                     }
                 }
             }

@@ -7,7 +7,7 @@ using Genometric.GeUtilities.Parsers;
 using System;
 using Xunit;
 
-namespace GeUtilities.Tests.BEDParserTests
+namespace GeUtilities.Tests.BEDParser
 {
     public class TestBEDStats
     {
@@ -86,7 +86,7 @@ namespace GeUtilities.Tests.BEDParserTests
                 "chr2\t10\t20\tGeUtilities_00\t0.2",
             };
 
-            using (TempBEDFileCreator testFile = new TempBEDFileCreator(peaks))
+            using (TempFileCreator testFile = new TempFileCreator(peaks))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, pValueFormat: PValueFormat.SameAsInput);
                 var parsedData = bedParser.Parse();
@@ -106,7 +106,7 @@ namespace GeUtilities.Tests.BEDParserTests
                 "chr2\t10\t20\tGeUtilities_00\t0.2",
             };
 
-            using (TempBEDFileCreator testFile = new TempBEDFileCreator(peaks))
+            using (TempFileCreator testFile = new TempFileCreator(peaks))
             {
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, pValueFormat: PValueFormat.SameAsInput);
                 var parsedData = bedParser.Parse();
