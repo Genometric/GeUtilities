@@ -52,11 +52,7 @@ namespace GeUtilities.Tests.RefSeqGenesParser
                 var parsedGene = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(
-                    parsedGene.Left == columns.Left &&
-                    parsedGene.Right == columns.Right &&
-                    parsedGene.RefSeqID == columns.RefSeqID &&
-                    parsedGene.GeneSymbol == columns.GeneSymbol);
+                Assert.True(parsedGene.CompareTo(columns.Gene) == 0);
             }
         }
     }

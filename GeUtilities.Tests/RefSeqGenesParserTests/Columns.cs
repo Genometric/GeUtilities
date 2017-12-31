@@ -2,6 +2,7 @@
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
+using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using System;
 
 namespace GeUtilities.Tests.RefSeqGenesParser
@@ -75,11 +76,9 @@ namespace GeUtilities.Tests.RefSeqGenesParser
         }
 
         public string Chr { set; get; }
-        public int Left { set; get; }
-        public int Right { set; get; }
-        public string RefSeqID { set; get; }
-        public string GeneSymbol { set; get; }
         public char Strand { set; get; }
+
+        public Gene Gene { set; get; }
 
         public Columns(
             string chr = "chr1",
@@ -96,10 +95,14 @@ namespace GeUtilities.Tests.RefSeqGenesParser
             sbyte strandColumn = -1)
         {
             Chr = chr;
-            Left = left;
-            Right = right;
-            RefSeqID = refSeqID;
-            GeneSymbol = geneSymbol;
+            Gene = new Gene()
+            {
+                Left = left,
+                Right = right,
+                RefSeqID = refSeqID,
+                GeneSymbol = geneSymbol,
+            };
+            
             Strand = strand;
             _chrColumn = chrColumn;
             _leftColumn = leftColumn;
@@ -154,10 +157,10 @@ namespace GeUtilities.Tests.RefSeqGenesParser
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
                 if (ChrColumn == i) line += Chr + "\t";
-                else if (LeftColumn == i) line += Left + "\t";
-                else if (RightColumn == i) line += Right + "\t";
-                else if (RefSeqIDColumn == i) line += RefSeqID + "\t";
-                else if (GeneSymbolColumn == i) line += GeneSymbol + "\t";
+                else if (LeftColumn == i) line += Gene.Left + "\t";
+                else if (RightColumn == i) line += Gene.Right + "\t";
+                else if (RefSeqIDColumn == i) line += Gene.RefSeqID + "\t";
+                else if (GeneSymbolColumn == i) line += Gene.GeneSymbol + "\t";
                 else if (StrandColumn == i) line += Strand + "\t";
                 else line += "AbCd\t";
 
