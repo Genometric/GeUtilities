@@ -92,6 +92,31 @@ namespace Genometric.GeUtilities.Parsers
         /// </summary>
         private ReadOnlyDictionary<string, int> _assemblyData;
 
+        #region .::.         Status variable and it's event controllers   .::.
+
+        private string _status = "0";
+        public string Status
+        {
+            get { return _status; }
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnStatusValueChaned(value);
+                }
+            }
+        }
+        public event EventHandler<ParserEventArgs> StatusChanged;
+        private void OnStatusValueChaned(string value)
+        {
+            StatusChanged?.Invoke(this, new ParserEventArgs(value));
+        }
+
+        #endregion
+
+        protected List<string> Messages { set; get; }
+
         public Parser(
             string sourceFilePath,
             byte startOffset,
@@ -124,36 +149,6 @@ namespace Genometric.GeUtilities.Parsers
             _excessChrs = new List<string>();
             _missingChrs = new List<string>();
         }
-
-
-        #region .::.         Status variable and it's event controllers   .::.
-
-        private string _status = "0";
-        public string Status
-        {
-            get { return _status; }
-            set
-            {
-                if (_status != value)
-                {
-                    _status = value;
-                    OnStatusValueChaned(value);
-                }
-            }
-        }
-        public event EventHandler<ParserEventArgs> StatusChanged;
-        private void OnStatusValueChaned(string value)
-        {
-            StatusChanged?.Invoke(this, new ParserEventArgs(value));
-        }
-
-        #endregion
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected List<string> Messages { set; get; }
 
         /// <summary>
         /// Reads the regions presented in source file; and generates chromosome-wide statistics.
@@ -277,7 +272,6 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="line">The spitted line read from input.</param>
         /// <returns>The interval this line delegates.</returns>
         protected abstract I BuildInterval(int left, int right, string[] line, UInt32 lineCounter);
-
 
         private void ReadMissingAndExcessChrs()
         {
