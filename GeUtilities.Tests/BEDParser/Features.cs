@@ -4,6 +4,7 @@
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
+using Genometric.GeUtilities.ReferenceGenomes;
 using System;
 using Xunit;
 
@@ -211,19 +212,21 @@ namespace GeUtilities.Tests.BEDParser
             }
         }
 
-        [Fact]
-        public void ParseIntervalChrWhenChrPrefixIsMissing()
+        [Theory]
+        [InlineData("1")]
+        [InlineData("X")]
+        public void ParseIntervalChrWhenChrPrefixIsMissing(string chr)
         {
             // Arrange
-            var columns = new Columns(chr: "1");
+            var columns = new Columns(chr: chr);
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: true);
                 var parsedData = bedParser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes.ContainsKey("chr1"));
+                Assert.True(parsedData.Chromosomes.ContainsKey("chr" + chr));
             }
         }
 
@@ -237,7 +240,7 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: true);
                 var parsedData = bedParser.Parse();
 
                 // Assert

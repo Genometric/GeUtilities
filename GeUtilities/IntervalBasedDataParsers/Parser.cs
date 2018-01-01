@@ -226,25 +226,21 @@ namespace Genometric.GeUtilities.Parsers
                             if (_dropReadingPeak)
                                 continue;
 
+                            chrName = null;
                             if (_chrColumn < splittedLine.Length)
                             {
                                 if (Regex.IsMatch(splittedLine[_chrColumn].ToLower(), "chr"))
                                     chrName = splittedLine[_chrColumn];
                                 else if (int.TryParse(splittedLine[_chrColumn], out int chrNumber))
                                     chrName = "chr" + chrNumber;
+                                else if (_assemblyData.ContainsKey("chr" + splittedLine[_chrColumn]))
+                                    chrName = "chr" + splittedLine[_chrColumn];
                                 else
-                                {
-                                    DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid chromosome number ( " + splittedLine[_chrColumn].ToString() + " )");
-                                    continue;
-                                }
+                                    chrName = splittedLine[_chrColumn];
+                                if (_readOnlyValidChrs && !_assemblyData.ContainsKey(chrName))
+                                    chrName = null;
                             }
-                            else
-                            {
-                                DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid chromosome column number");
-                                continue;
-                            }
-
-                            if (_readOnlyValidChrs && !_assemblyData.ContainsKey(chrName))
+                            if (chrName == null)
                             {
                                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid chromosome number ( " + splittedLine[_chrColumn].ToString() + " )");
                                 continue;
