@@ -6,6 +6,7 @@ using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
 using Genometric.GeUtilities.ReferenceGenomes;
 using System;
+using System.IO;
 using Xunit;
 
 /// <summary>
@@ -15,6 +16,20 @@ namespace GeUtilities.Tests.BEDParser
 {
     public class Features
     {
+        [Fact]
+        public void InvalidFile()
+        {
+            // Arrange
+            string fileName = "a_file_name_which_does_not_exist_1234567890";
+            BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(fileName);
+
+            // Act
+            Exception exception = Assert.Throws<FileNotFoundException>(() => bedParser.Parse());
+
+            // Assert
+            Assert.Equal(string.Format("The file `{0}` does not exist or is inaccessible.", fileName), exception.Message);
+        }
+
         [Fact]
         public void DropPeaksHavingInvalidPValue()
         {
