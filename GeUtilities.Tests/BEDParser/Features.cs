@@ -247,5 +247,40 @@ namespace GeUtilities.Tests.BEDParser
                 Assert.True(parsedData.Chromosomes.Count == 0);
             }
         }
+
+        [Theory]
+        [InlineData("chrZ")]
+        [InlineData("chr99")]
+        [InlineData("99")]
+        public void TestExcessChrs(string chr)
+        {
+            // Arrange
+            var columns = new Columns(chr: chr);
+            using (TempFileCreator testFile = new TempFileCreator(columns))
+            {
+                // Act
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: false);
+                var parsedData = bedParser.Parse();
+
+                // Assert
+                Assert.True(bedParser.ExcessChrs.Count == 1);
+            }
+        }
+
+        [Fact]
+        public void TestMissingChrs()
+        {
+            // Arrange
+            var columns = new Columns(chr: "chr1");
+            using (TempFileCreator testFile = new TempFileCreator(columns))
+            {
+                // Act
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: false);
+                var parsedData = bedParser.Parse();
+
+                // Assert
+                Assert.True(bedParser.MissingChrs.Count == References.GetGenomeSizes(Assemblies.hg19).Count - 1);
+            }
+        }
     }
 }
