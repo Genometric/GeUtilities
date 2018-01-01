@@ -60,6 +60,37 @@ namespace GeUtilities.Tests.BEDParser
             }
         }
 
+        [Fact]
+        public void ColumnsSetters()
+        {
+            // Arrange
+            var columns = new Columns();
+            columns.ChrColumn = 2;
+            columns.LeftColumn = 2;
+            columns.RightColumn = 9;
+            columns.ValueColumn = 0;
+            columns.SummitColumn = 2;
+            columns.NameColumn = 1;
+            columns.StrandColumn = 3;
+            using (TempFileCreator testFile = new TempFileCreator(columns))
+            {
+                // Act
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
+                    testFile.TempFilePath,
+                    chrColumn: columns.ChrColumn,
+                    leftEndColumn: columns.LeftColumn,
+                    rightEndColumn: columns.RightColumn,
+                    nameColumn: columns.NameColumn,
+                    valueColumn: columns.ValueColumn,
+                    summitColumn: columns.SummitColumn,
+                    strandColumn: columns.StrandColumn);
+                var parsedPeak = bedParser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+
+                // Assert
+                Assert.True(parsedPeak.CompareTo(columns.Peak) == 0);
+            }
+        }
+
         [Theory]
         [InlineData(-1, -1)]
         [InlineData(0, -1)]
