@@ -313,5 +313,20 @@ namespace GeUtilities.Tests.BEDParser
                 Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals.Count == 10);
             }
         }
+
+        [Fact]
+        public void AvoidEmptyLines()
+        {
+            // Arrange
+            using (TempFileCreator testFile = new TempFileCreator("             "))
+            {
+                // Act
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, dropPeakIfInvalidValue: true);
+                var parsedData = parser.Parse();
+
+                // Assert
+                Assert.True(parsedData.Chromosomes.Count == 0);
+            }
+        }
     }
 }

@@ -135,13 +135,28 @@ namespace GeUtilities.Tests.BEDParser
         }
 
         [Fact]
-        public void FailReadRight()
+        public void FailReadRightInvalidValue()
         {
             // Arrange
             using (TempFileCreator testFile = new TempFileCreator("chr1\t10\t20V\tGeUtilities_01\t123.4"))
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parsedData = parser.Parse();
+
+                // Assert
+                Assert.False(parsedData.Chromosomes.ContainsKey("chr1"));
+            }
+        }
+
+        [Fact]
+        public void FailReadRightColumnIndexOutOfRange()
+        {
+            // Arrange
+            using (TempFileCreator testFile = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123.4"))
+            {
+                // Act
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, 0, 1, 10, 3, 4);
                 var parsedData = parser.Parse();
 
                 // Assert
