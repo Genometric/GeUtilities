@@ -21,10 +21,10 @@ namespace GeUtilities.Tests.BEDParser
         {
             // Arrange
             string fileName = "a_file_name_which_does_not_exist_1234567890";
-            BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(fileName);
+            BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(fileName);
 
             // Act
-            Exception exception = Assert.Throws<FileNotFoundException>(() => bedParser.Parse());
+            Exception exception = Assert.Throws<FileNotFoundException>(() => parser.Parse());
 
             // Assert
             Assert.Equal(string.Format("The file `{0}` does not exist or is inaccessible.", fileName), exception.Message);
@@ -37,8 +37,8 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123..45"))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, dropPeakIfInvalidValue: true);
-                var parsedData = bedParser.Parse();
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, dropPeakIfInvalidValue: true);
+                var parsedData = parser.Parse();
 
                 // Assert
                 Assert.False(parsedData.Chromosomes.ContainsKey("chr1"));
@@ -53,8 +53,8 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123..45"))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, dropPeakIfInvalidValue: false, defaultValue: defaultValue);
-                var parsedData = bedParser.Parse();
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, dropPeakIfInvalidValue: false, defaultValue: defaultValue);
+                var parsedData = parser.Parse();
 
                 // Assert
                 Assert.True(parsedData.Chromosomes["chr1"].Strands['*'].Intervals[0].Value == defaultValue);
@@ -69,7 +69,7 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(
                     testFile.TempFilePath,
                     chrColumn: columns.ChrColumn,
                     leftEndColumn: columns.LeftColumn,
@@ -77,7 +77,7 @@ namespace GeUtilities.Tests.BEDParser
                     nameColumn: columns.NameColumn,
                     valueColumn: 9,
                     dropPeakIfInvalidValue: true);
-                var parsedData = bedParser.Parse();
+                var parsedData = parser.Parse();
 
                 // Assert
                 Assert.False(parsedData.Chromosomes.ContainsKey(columns.Chr));
@@ -92,7 +92,7 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(
                     testFile.TempFilePath,
                     chrColumn: columns.ChrColumn,
                     leftEndColumn: columns.LeftColumn,
@@ -100,7 +100,7 @@ namespace GeUtilities.Tests.BEDParser
                     nameColumn: columns.NameColumn,
                     valueColumn: 9,
                     dropPeakIfInvalidValue: false);
-                var parsedData = bedParser.Parse();
+                var parsedData = parser.Parse();
 
                 // Assert
                 Assert.True(parsedData.Chromosomes.ContainsKey(columns.Chr));
@@ -119,8 +119,8 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, pValueFormat: pvalueFormat);
-                var parsedData = bedParser.Parse();
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, pValueFormat: pvalueFormat);
+                var parsedData = parser.Parse();
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Value == originalValue);
@@ -139,8 +139,8 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns, peaksCount: numberOfPeaksToWrite))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, maxLinesToBeRead: numberOfPeaksToRead);
-                var parsedData = bedParser.Parse();
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, maxLinesToBeRead: numberOfPeaksToRead);
+                var parsedData = parser.Parse();
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals.Count == Math.Min(numberOfPeaksToWrite, numberOfPeaksToRead));
@@ -155,8 +155,8 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns, peaksCount: 4))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, maxLinesToBeRead: 0);
-                var parsedData = bedParser.Parse();
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, maxLinesToBeRead: 0);
+                var parsedData = parser.Parse();
 
                 // Assert
                 Assert.True(parsedData.Chromosomes.Count == 0);
@@ -171,7 +171,7 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(
                     testFile.TempFilePath,
                     chrColumn: columns.ChrColumn,
                     leftEndColumn: columns.LeftColumn,
@@ -179,7 +179,7 @@ namespace GeUtilities.Tests.BEDParser
                     nameColumn: 12,
                     valueColumn: columns.ValueColumn,
                     dropPeakIfInvalidValue: false);
-                var parsedData = bedParser.Parse();
+                var parsedData = parser.Parse();
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Name == null);
@@ -196,8 +196,8 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, hashFunction: hashFunction);
-                var parsedData = bedParser.Parse();
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, hashFunction: hashFunction);
+                var parsedData = parser.Parse();
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].HashKey != 0);
@@ -212,7 +212,7 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(
                     testFile.TempFilePath,
                     chrColumn: columns.ChrColumn,
                     leftEndColumn: columns.LeftColumn,
@@ -220,7 +220,7 @@ namespace GeUtilities.Tests.BEDParser
                     nameColumn: columns.NameColumn,
                     valueColumn: 9,
                     dropPeakIfInvalidValue: true);
-                var parsedData = bedParser.Parse();
+                var parsedData = parser.Parse();
 
                 // Assert
                 Assert.True(parsedData.Messages.Count > 0);
@@ -237,8 +237,8 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: true);
-                var parsedData = bedParser.Parse();
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: true);
+                var parsedData = parser.Parse();
 
                 // Assert
                 Assert.True(parsedData.Chromosomes.ContainsKey("chr" + chr));
@@ -255,8 +255,8 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: true);
-                var parsedData = bedParser.Parse();
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: true);
+                var parsedData = parser.Parse();
 
                 // Assert
                 Assert.True(parsedData.Chromosomes.Count == 0);
@@ -274,11 +274,11 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: false);
-                var parsedData = bedParser.Parse();
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: false);
+                var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(bedParser.ExcessChrs.Count == 1);
+                Assert.True(parser.ExcessChrs.Count == 1);
             }
         }
 
@@ -290,11 +290,27 @@ namespace GeUtilities.Tests.BEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: false);
-                var parsedData = bedParser.Parse();
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: false);
+                var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(bedParser.MissingChrs.Count == References.GetGenomeSizes(Assemblies.hg19).Count - 1);
+                Assert.True(parser.MissingChrs.Count == References.GetGenomeSizes(Assemblies.hg19).Count - 1);
+            }
+        }
+
+        [Fact]
+        public void BEDWithAllOptionalColumnsAndSomeExtraColumns()
+        {
+            // Arrange
+            var columns = new Columns(summitColumn: 10, strandColumn: 11);
+            using (TempFileCreator testFile = new TempFileCreator(columns, headerLineCount: 2, peaksCount: 10))
+            {
+                // Act
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parsedData = parser.Parse();
+
+                // Assert
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals.Count == 10);
             }
         }
     }
