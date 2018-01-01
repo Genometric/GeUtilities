@@ -4,54 +4,15 @@
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
+using Genometric.GeUtilities.ReferenceGenomes;
 using Xunit;
 
 namespace GeUtilities.Tests.TGTFParser
 {
     public class ConcreteClassArguments
     {
-        [Theory]
-        [InlineData("chr1")]
-        [InlineData("Chr1")]
-        [InlineData("chr10")]
-        [InlineData("Chr10")]
-        [InlineData("chrX")]
-        [InlineData("ChrX")]
-        public void ReadChr(string chr)
-        {
-            // Arrange
-            var columns = new Columns(chr: chr);
-            using (TempFileCreator testFile = new TempFileCreator(columns))
-            {
-                // Act
-                GTFParser parser = new GTFParser(testFile.TempFilePath);
-                var parsedData = parser.Parse();
-
-                // Assert
-                Assert.True(parsedData.Chromosomes.ContainsKey(chr));
-            }
-        }
-
-        [Theory]
-        [InlineData("chr2")]
-        [InlineData("chrX")]
-        public void FailReadChr(string chr)
-        {
-            // Arrange
-            var columns = new Columns(chr: "chr1");
-            using (TempFileCreator testFile = new TempFileCreator(columns))
-            {
-                // Act
-                GTFParser parser = new GTFParser(testFile.TempFilePath);
-                var parsedData = parser.Parse();
-
-                // Assert
-                Assert.False(parsedData.Chromosomes.ContainsKey(chr));
-            }
-        }
-
         [Fact]
-        public void ReadStrand()
+        public void AllDefaultArguments()
         {
             // Arrange
             var columns = new Columns();
@@ -62,149 +23,60 @@ namespace GeUtilities.Tests.TGTFParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands.ContainsKey(columns.Strand));
+                Assert.True(parsedData.Chromosomes.ContainsKey(columns.Chr));
             }
         }
 
         [Fact]
-        public void ReadLeft()
-        {
-            // Arrange
-            var columns = new Columns(left: 10);
-            using (TempFileCreator testFile = new TempFileCreator(columns))
-            {
-                // Act
-                GTFParser parser = new GTFParser(testFile.TempFilePath);
-                var parsedData = parser.Parse();
-
-                // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Left == columns.GFeature.Left);
-            }
-        }
-
-        [Fact]
-        public void FailReadLeft()
-        {
-            // Arrange
-            using (TempFileCreator testFile = new TempFileCreator("chr1\tSource\tFeature\t10V\t20\t100.0\t*\t0\tatt1=1;att2=v2"))
-            {
-                // Act
-                GTFParser parser = new GTFParser(testFile.TempFilePath);
-                var parsedData = parser.Parse();
-
-                // Assert
-                Assert.False(parsedData.Chromosomes.ContainsKey("chr1"));
-            }
-        }
-
-        [Fact]
-        public void ReadRight()
-        {
-            // Arrange
-            var columns = new Columns(right: 20);
-            using (TempFileCreator testFile = new TempFileCreator(columns))
-            {
-                // Act
-                GTFParser parser = new GTFParser(testFile.TempFilePath);
-                var parsedData = parser.Parse();
-
-                // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Right == columns.GFeature.Right);
-            }
-        }
-
-        [Fact]
-        public void FailReadRight()
-        {
-            // Arrange
-            using (TempFileCreator testFile = new TempFileCreator("chr1\tSource\tFeature\t10\t20V\t100.0\t*\t0\tatt1=1;att2=v2"))
-            {
-                // ACt
-                GTFParser parser = new GTFParser(testFile.TempFilePath);
-                var parsedData = parser.Parse();
-
-                // Assert
-                Assert.False(parsedData.Chromosomes.ContainsKey("chr1"));
-            }
-        }
-
-        [Fact]
-        public void ReadSource()
-        {
-            // Arrange
-            var columns = new Columns(source: "Source_01");
-            using (TempFileCreator testFile = new TempFileCreator(columns))
-            {
-                // Act
-                GTFParser parser = new GTFParser(testFile.TempFilePath);
-                var parsedData = parser.Parse();
-
-                // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Source == columns.GFeature.Source);
-            }
-        }
-
-        [Fact]
-        public void ReadFeature()
-        {
-            // Arrange
-            var columns = new Columns(feature: "Feature_01");
-            using (TempFileCreator testFile = new TempFileCreator(columns))
-            {
-                // Act
-                GTFParser parser = new GTFParser(testFile.TempFilePath);
-                var parsedData = parser.Parse();
-
-                // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Feature == columns.GFeature.Feature);
-            }
-        }
-
-        [Fact]
-        public void ReadScore()
-        {
-            // Arrange
-            var columns = new Columns(score: 123.456);
-            using (TempFileCreator testFile = new TempFileCreator(columns))
-            {
-                // Act
-                GTFParser parser = new GTFParser(testFile.TempFilePath);
-                var parsedData = parser.Parse();
-
-                // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Score == columns.GFeature.Score);
-            }
-        }
-
-        [Fact]
-        public void ReadAttribute()
-        {
-            // Arrange
-            var columns = new Columns(attribute: "att1=at1;att2=at2;att3=3");
-            using (TempFileCreator testFile = new TempFileCreator(columns))
-            {
-                // Act
-                GTFParser parser = new GTFParser(testFile.TempFilePath);
-                var parsedData = parser.Parse();
-
-                // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Attribute == columns.GFeature.Attribute);
-            }
-        }
-
-        [Fact]
-        public void AssignHashKey()
+        public void PartiallySetArguments()
         {
             // Arrange
             var columns = new Columns();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                GTFParser parser = new GTFParser(testFile.TempFilePath);
+                GTFParser parser = new GTFParser(
+                    testFile.TempFilePath,
+                    assembly: Assemblies.hg19,
+                    readOnlyValidChrs: true,
+                    maxLinesToBeRead: 1,
+                    startOffset: 0,
+                    hashFunction: HashFunction.One_at_a_Time);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].HashKey != 0);
+                Assert.True(parsedData.Chromosomes.ContainsKey(columns.Chr));
+            }
+        }
+
+        [Fact]
+        public void FullySetArguments()
+        {
+            // Arrange
+            var columns = new Columns();
+            using (TempFileCreator testFile = new TempFileCreator(columns))
+            {
+                // Act
+                GTFParser parser = new GTFParser(
+                    testFile.TempFilePath,
+                    chrColumn: columns.ChrColumn,
+                    sourceColumn: columns.SourceColumn,
+                    featureColumn: columns.FeatureColumn,
+                    leftEndColumn: columns.LeftColumn,
+                    rightEndColumn: columns.RightColumn,
+                    scoreColumn: columns.ScoreColumn,
+                    strandColumn: columns.StrandColumn,
+                    frameColumn: columns.FrameColumn,
+                    attributeColumn: columns.AttributeColumn,
+                    assembly: Assemblies.hg19,
+                    readOnlyValidChrs: true,
+                    maxLinesToBeRead: 1,
+                    startOffset: 0,
+                    hashFunction: HashFunction.One_at_a_Time);
+                var parsedData = parser.Parse();
+
+                // Assert
+                Assert.True(parsedData.Chromosomes.ContainsKey(columns.Chr));
             }
         }
     }
