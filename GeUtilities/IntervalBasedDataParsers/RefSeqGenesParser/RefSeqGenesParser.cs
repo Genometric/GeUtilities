@@ -35,11 +35,12 @@ namespace Genometric.GeUtilities.Parsers
             string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
             bool readOnlyValidChrs = true,
+            byte startOffset = 0,
             uint maxLinesToBeRead = uint.MaxValue) :
             this(sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 readOnlyValidChrs: readOnlyValidChrs,
-                startOffset: 0,
+                startOffset: startOffset,
                 chrColumn: 0,
                 leftEndColumn: 1,
                 rightEndColumn: 2,

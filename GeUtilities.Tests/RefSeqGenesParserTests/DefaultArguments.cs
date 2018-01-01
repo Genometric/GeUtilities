@@ -154,6 +154,26 @@ namespace GeUtilities.Tests.RefSeqGenesParser
             }
         }
 
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(1, 1)]
+        [InlineData(1, 0)]
+        [InlineData(2, 0)]
+        [InlineData(2, 2)]
+        public void AvoidHeader(int headerCount, byte startOffset)
+        {
+            // Arrange
+            using (TempFileCreator testFile = new TempFileCreator(new Columns(), headerLineCount: headerCount))
+            {
+                // Act
+                RefSeqGenesParser<Gene> parser = new RefSeqGenesParser<Gene>(testFile.TempFilePath, startOffset: startOffset);
+                var parsedData = parser.Parse();
+
+                // Assert
+                Assert.True(parsedData.Chromosomes.Count == 1);
+            }
+        }
+
         [Fact]
         public void AssignHashKey()
         {
