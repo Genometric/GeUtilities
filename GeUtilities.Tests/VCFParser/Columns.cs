@@ -146,6 +146,7 @@ namespace GeUtilities.Tests.TVCFParser
             Variant = new Variant()
             {
                 Left = position,
+                Right = position + 1,
                 ID = id,
                 Quality = quality,
                 Filter = filter,
