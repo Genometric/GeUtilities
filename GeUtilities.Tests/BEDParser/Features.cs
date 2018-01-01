@@ -210,5 +210,21 @@ namespace GeUtilities.Tests.BEDParser
                 Assert.True(parsedData.Messages.Count > 0);
             }
         }
+
+        [Fact]
+        public void ParseIntervalChrWhenChrPrefixIsMissing()
+        {
+            // Arrange
+            var columns = new Columns(chr: "1");
+            using (TempFileCreator testFile = new TempFileCreator(columns))
+            {
+                // Act
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parsedData = bedParser.Parse();
+
+                // Assert
+                Assert.True(parsedData.Chromosomes.ContainsKey("chr1"));
+            }
+        }
     }
 }
