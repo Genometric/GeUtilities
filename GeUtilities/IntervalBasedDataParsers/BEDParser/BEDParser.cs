@@ -104,7 +104,6 @@ namespace Genometric.GeUtilities.Parsers
                 hashFunction: hashFunction)
         { }
 
-
         /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
@@ -255,7 +254,6 @@ namespace Genometric.GeUtilities.Parsers
             Status = "100";
             return rtv;
         }
-
 
         /// <summary>
         /// Converts the p-value presented in (-1)Log10 or (-10)Log10 to original format.

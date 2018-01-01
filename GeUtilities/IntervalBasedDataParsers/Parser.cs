@@ -128,7 +128,7 @@ namespace Genometric.GeUtilities.Parsers
 
         #region .::.         Status variable and it's event controllers   .::.
 
-        private string _status;
+        private string _status = "0";
         public string Status
         {
             get { return _status; }
@@ -263,7 +263,6 @@ namespace Genometric.GeUtilities.Parsers
 
             if (_assembly != Assemblies.Unknown)
                 ReadMissingAndExcessChrs();
-
 
             return _data;
         }

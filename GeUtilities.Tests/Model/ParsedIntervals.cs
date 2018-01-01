@@ -21,8 +21,8 @@ namespace GeUtilities.Tests.ModelTests
             using (TempFileCreator testFile = new TempFileCreator(peak))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
-                var parsedBED = bedParser.Parse();
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parsedBED = parser.Parse();
 
                 // Assert
                 Assert.True(parsedBED.FileHashKey != 0);
@@ -37,8 +37,8 @@ namespace GeUtilities.Tests.ModelTests
             using (TempFileCreator testFile = new TempFileCreator(peak))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
-                var parsedBED = bedParser.Parse();
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parsedBED = parser.Parse();
 
                 // Assert
                 Assert.True(parsedBED.FileName == Path.GetFileName(testFile.TempFilePath));
@@ -53,8 +53,8 @@ namespace GeUtilities.Tests.ModelTests
             using (TempFileCreator testFile = new TempFileCreator(peak))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
-                var parsedBED = bedParser.Parse();
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parsedBED = parser.Parse();
 
                 // Assert
                 Assert.True(parsedBED.FilePath == Path.GetFullPath(testFile.TempFilePath));
@@ -72,8 +72,8 @@ namespace GeUtilities.Tests.ModelTests
             using (TempFileCreator testFile = new TempFileCreator(peak))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: assembly);
-                var parsedBED = bedParser.Parse();
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: assembly);
+                var parsedBED = parser.Parse();
 
                 // Assert
                 Assert.True(parsedBED.Assembly == assembly);
