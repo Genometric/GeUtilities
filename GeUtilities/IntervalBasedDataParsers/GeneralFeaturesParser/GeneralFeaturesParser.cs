@@ -98,7 +98,7 @@ namespace Genometric.GeUtilities.Parsers
                 readOnlyValidChrs: readOnlyValidChrs,
                 maxLinesToBeRead: maxLinesToBeRead,
                 hashFunction: hashFunction,
-                data: new ParsedGeneralFeatures<I>())
+                data: new ParsedGTF<I>())
         {
             _sourceColumn = sourceColumn;
             _featureColumn = featureColumn;
@@ -154,9 +154,9 @@ namespace Genometric.GeUtilities.Parsers
             return rtv;
         }
 
-        public new ParsedGeneralFeatures<I> Parse()
+        public new ParsedGTF<I> Parse()
         {
-            var parsedData = (ParsedGeneralFeatures<I>)base.Parse();
+            var parsedData = (ParsedGTF<I>)base.Parse();
             parsedData.DeterminedFeatures = new Dictionary<string, int>(_features);
             Status = "100";
             return parsedData;

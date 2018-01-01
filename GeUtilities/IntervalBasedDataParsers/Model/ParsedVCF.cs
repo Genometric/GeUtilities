@@ -6,17 +6,10 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public class ParsedChIPseqPeaks<I> : ParsedIntervals<I, BEDStats>
-        where I : IChIPSeqPeak, new()
-    {   
-        public ParsedChIPseqPeaks()
-        {
-            pValueMax = new I();
-            pValueMin = new I();
-        }
-
-        public I pValueMax;
-        public I pValueMin;
-        public double pValueMean;
+    public class ParsedVCF<I> : ParsedIntervals<I, IntervalStats>
+        where I : IVariant, new()
+    {
+        public ParsedVCF()
+        { }
     }
 }

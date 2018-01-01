@@ -10,7 +10,7 @@ namespace GeUtilities.Tests.VCFParser
 {
     public class ColumnsOrder
     {
-        private ParsedVariants<Variant> ParseVCF(string filePath, Columns vcfColumns)
+        private ParsedVCF<Variant> ParseVCF(string filePath, Columns vcfColumns)
         {
             VCFParser<Variant> vcfParser = new VCFParser<Variant>(
                     filePath,
@@ -277,6 +277,32 @@ namespace GeUtilities.Tests.VCFParser
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
+            }
+        }
+
+        [Fact]
+        public void ColumnsSetters()
+        {
+            // Arrange
+            var columns = new Columns();
+            columns.ChrColumn = 2;
+            columns.PositionColumn = 2;
+            columns.IDColumn = 9;
+            columns.RefbColumn = 0;
+            columns.AltbColumn = 2;
+            columns.QualityColumn = 2;
+            columns.FilterColumn = 0;
+            columns.InfoColumn = 6;
+            columns.StrandColumn = 12;
+            columns.InfoColumn = 12;
+            using (TempFileCreator testFile = new TempFileCreator(columns))
+            {
+                // Act
+                var parsedVCF = ParseVCF(testFile.TempFilePath, columns);
+                var parsedPeak = parsedVCF.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+
+                // Assert
+                Assert.True(parsedPeak.CompareTo(columns.Variant) == 0);
             }
         }
     }

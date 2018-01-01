@@ -69,7 +69,7 @@ namespace Genometric.GeUtilities.Parsers
                 readOnlyValidChrs: readOnlyValidChrs,
                 maxLinesToBeRead: maxLinesToBeRead,
                 hashFunction: hashFunction,
-                data: new ParsedVariants<I>())
+                data: new ParsedVCF<I>())
         {
             _idColumn = idColumn;
             _refbColumn = refbColumn;
@@ -152,9 +152,9 @@ namespace Genometric.GeUtilities.Parsers
             return rtv;
         }
 
-        public new ParsedVariants<I> Parse()
+        public new ParsedVCF<I> Parse()
         {
-            var rtv = (ParsedVariants<I>)base.Parse();
+            var rtv = (ParsedVCF<I>)base.Parse();
             Status = "100";
             return rtv;
         }

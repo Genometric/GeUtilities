@@ -7,7 +7,7 @@ using System;
 
 namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
 {
-    public class Gene : IGene
+    public class Gene : IRefSeq
     {
         public int Left { set; get; }
         public int Right { set; get; }
@@ -24,7 +24,7 @@ namespace Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults
                 throw new NotImplementedException("Comparison with other object types is not implemented.");
         }
 
-        public int CompareTo(IGene other)
+        public int CompareTo(IRefSeq other)
         {
             if (other == null) return 1;
             int compareResult = Left.CompareTo(other.Left);

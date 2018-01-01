@@ -8,7 +8,7 @@ using Genometric.GeUtilities.ReferenceGenomes;
 namespace Genometric.GeUtilities.Parsers
 {
     public sealed class RefSeqGenesParser<I> : Parser<I, IntervalStats>
-        where I : IGene, new()
+        where I : IRefSeq, new()
     {
         #region .::.         private properties         .::.
 
@@ -90,7 +90,7 @@ namespace Genometric.GeUtilities.Parsers
                 readOnlyValidChrs: readOnlyValidChrs,
                 maxLinesToBeRead: maxLinesToRead,
                 hashFunction: hashFunction,
-                data: new ParsedRefSeqGenes<I>())
+                data: new ParsedRefSeq<I>())
         {
             _refSeqIDColumn = refSeqIDColumn;
             _geneColumn = geneSymbolColumn;
@@ -127,9 +127,9 @@ namespace Genometric.GeUtilities.Parsers
         /// Reads the regions presented in source file and generates chromosome-wide statistics regarding regions length and p-values. 
         /// </summary>
         /// <returns>Returns an object of Input_BED_Data class</returns>
-        public new ParsedRefSeqGenes<I> Parse()
+        public new ParsedRefSeq<I> Parse()
         {
-            var parsingResult = (ParsedRefSeqGenes<I>)base.Parse();
+            var parsingResult = (ParsedRefSeq<I>)base.Parse();
             Status = "100";
             return parsingResult;
         }

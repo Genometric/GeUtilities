@@ -10,7 +10,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
 {
     public class Features
     {
-        internal static ParsedGeneralFeatures<GeneralFeature> ParseGTF(string filePath, Columns columns)
+        internal static ParsedGTF<GeneralFeature> ParseGTF(string filePath, Columns columns)
         {
             GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(
                     filePath,

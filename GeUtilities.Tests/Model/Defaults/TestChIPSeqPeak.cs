@@ -100,10 +100,11 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             var aPeak = GetTempChIPSeqPeak();
             var aGene = TestGene.GetTempGene();
 
-            // Act & Assert
+            // Act
             Exception exception = Assert.Throws<NotImplementedException>(() => aPeak.CompareTo(aGene));
 
             // Assert
+            Assert.False(String.IsNullOrEmpty(exception.Message));
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
         }
     }

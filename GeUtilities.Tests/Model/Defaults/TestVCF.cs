@@ -36,8 +36,8 @@ namespace GeUtilities.Tests.ModelTests.Defaults
                     case 'G': rtv[i] = Base.G; break;
                     case 'N': rtv[i] = Base.N; break;
                     case 'T': rtv[i] = Base.T; break;
+                    default:
                     case 'U': rtv[i] = Base.U; break;
-                    default: continue;
                 }
             return rtv;
         }

@@ -177,11 +177,10 @@ namespace GeUtilities.Tests.BEDParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(
-                    parsedData.Chromosomes["chr1"].Strands.ContainsKey('*') &&
-                    parsedData.Chromosomes["chr1"].Strands.ContainsKey('+') &&
-                    parsedData.Chromosomes["chr1"].Strands.ContainsKey('-') &&
-                    !parsedData.Chromosomes["chr1"].Strands.ContainsKey('#'));
+                Assert.True(parsedData.Chromosomes["chr1"].Strands.ContainsKey('*'));
+                Assert.True(parsedData.Chromosomes["chr1"].Strands.ContainsKey('+'));
+                Assert.True(parsedData.Chromosomes["chr1"].Strands.ContainsKey('-'));
+                Assert.False(parsedData.Chromosomes["chr1"].Strands.ContainsKey('#'));
             }
         }
     }

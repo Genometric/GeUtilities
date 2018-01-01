@@ -27,6 +27,7 @@ namespace GeUtilities.Tests.BEDParser
             Exception exception = Assert.Throws<FileNotFoundException>(() => parser.Parse());
 
             // Assert
+            Assert.False(String.IsNullOrEmpty(exception.Message));
             Assert.Equal(string.Format("The file `{0}` does not exist or is inaccessible.", fileName), exception.Message);
         }
 

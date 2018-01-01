@@ -111,7 +111,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             var aPeak = TestChIPSeqPeak.GetTempChIPSeqPeak();
 
             // Act & Assert
-            Exception exception = Assert.Throws<NotImplementedException>(() => aGF.CompareTo(aPeak));
+            Exception exception = Assert.Throws<NotImplementedException>((() => aGF.CompareTo(aPeak)));
 
             // Act & Assert
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);

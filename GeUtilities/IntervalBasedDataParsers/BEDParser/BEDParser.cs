@@ -155,7 +155,7 @@ namespace Genometric.GeUtilities.Parsers
                 readOnlyValidChrs: readOnlyValidChrs,
                 maxLinesToBeRead: maxLinesToBeRead,
                 hashFunction: hashFunction,
-                data: new ParsedChIPseqPeaks<I>(),
+                data: new ParsedBED<I>(),
                 assembly: assembly)
         {
             _nameColumn = nameColumn;
@@ -240,9 +240,9 @@ namespace Genometric.GeUtilities.Parsers
             return rtv;
         }
 
-        public new ParsedChIPseqPeaks<I> Parse()
+        public new ParsedBED<I> Parse()
         {
-            var rtv = (ParsedChIPseqPeaks<I>)base.Parse();
+            var rtv = (ParsedBED<I>)base.Parse();
 
             if (_defaultValueUtilizationCount > 0)
                 Messages.Insert(0, "\tDefault p-value used for " + _defaultValueUtilizationCount.ToString() + " times");
