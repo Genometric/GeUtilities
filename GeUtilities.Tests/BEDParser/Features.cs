@@ -226,5 +226,23 @@ namespace GeUtilities.Tests.BEDParser
                 Assert.True(parsedData.Chromosomes.ContainsKey("chr1"));
             }
         }
+
+        [Theory]
+        [InlineData("1.1")]
+        [InlineData("A")]
+        public void DropLineIfInvalidChr(string chr)
+        {
+            // Arrange
+            var columns = new Columns(chr: chr);
+            using (TempFileCreator testFile = new TempFileCreator(columns))
+            {
+                // Act
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parsedData = bedParser.Parse();
+
+                // Assert
+                Assert.True(parsedData.Chromosomes.Count == 0);
+            }
+        }
     }
 }
