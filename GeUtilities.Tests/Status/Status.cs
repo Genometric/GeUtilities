@@ -10,6 +10,17 @@ namespace GeUtilities.Tests.Status
 {
     public class Status
     {
+        private double _previousStatus;
+        private void ParserStatusChanged(object sender, ParserEventArgs e)
+        {
+            double.TryParse(e.Value, out double status);
+
+            // Assert
+            Assert.True(status > _previousStatus);
+
+            _previousStatus = status;
+        }
+
         [Fact]
         public void Initial()
         {
@@ -98,17 +109,6 @@ namespace GeUtilities.Tests.Status
 
                 // Asserted in 'ParserStatusChanged'
             }
-        }
-
-        private double _previousStatus;
-        private void ParserStatusChanged(object sender, ParserEventArgs e)
-        {
-            double.TryParse(e.Value, out double status);
-
-            // Assert
-            Assert.True(status > _previousStatus);
-
-            _previousStatus = status;
         }
     }
 }
