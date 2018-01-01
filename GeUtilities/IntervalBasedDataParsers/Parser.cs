@@ -269,6 +269,7 @@ namespace Genometric.GeUtilities.Parsers
                             }
 
                             _data.Add(readingInterval, chrName, strand);
+                            _data.IntervalsCount++;
                         }
                     }
                 }
