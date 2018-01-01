@@ -15,8 +15,8 @@ namespace Genometric.GeUtilities.Parsers
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true,
-            byte startOffset = 0,
             bool readOnlyValidChrs = true,
+            byte startOffset = 0,
             uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             this(
@@ -51,8 +51,8 @@ namespace Genometric.GeUtilities.Parsers
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true,
-            byte startOffset = 0,
             bool readOnlyValidChrs = true,
+            byte startOffset = 0,
             uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             base(

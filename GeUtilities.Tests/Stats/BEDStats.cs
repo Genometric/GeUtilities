@@ -8,7 +8,7 @@ using GeUtilities.Tests.TBEDParser;
 using System;
 using Xunit;
 
-namespace GeUtilities.Tests.Stats
+namespace GeUtilities.Tests.TStats
 {
     public class BEDStats
     {

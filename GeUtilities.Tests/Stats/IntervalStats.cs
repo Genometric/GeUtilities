@@ -3,11 +3,10 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
-using Genometric.GeUtilities.Parsers;
 using System;
 using Xunit;
 
-namespace GeUtilities.Tests.Stats
+namespace GeUtilities.Tests.TStats
 {
     public class IntervalStats
     {
