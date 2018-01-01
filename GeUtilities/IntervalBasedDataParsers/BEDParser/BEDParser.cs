@@ -17,7 +17,7 @@ namespace Genometric.GeUtilities.Parsers
             bool dropPeakIfInvalidValue = true,
             byte startOffset = 0,
             bool readOnlyValidChrs = true,
-            uint maxLinesToBeRead = uint.MaxValue,
+            uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             this(
                 sourceFilePath: sourceFilePath,
@@ -34,7 +34,7 @@ namespace Genometric.GeUtilities.Parsers
                 dropPeakIfInvalidValue: dropPeakIfInvalidValue,
                 startOffset: startOffset,
                 readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToBeRead: maxLinesToBeRead,
+                maxLinesToRead: maxLinesToRead,
                 hashFunction: hashFunction)
         { }
 
@@ -53,7 +53,7 @@ namespace Genometric.GeUtilities.Parsers
             bool dropPeakIfInvalidValue = true,
             byte startOffset = 0,
             bool readOnlyValidChrs = true,
-            uint maxLinesToBeRead = uint.MaxValue,
+            uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             base(
                 sourceFilePath: sourceFilePath,
@@ -70,7 +70,7 @@ namespace Genometric.GeUtilities.Parsers
                 dropPeakIfInvalidValue: dropPeakIfInvalidValue,
                 startOffset: startOffset,
                 readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToBeRead: maxLinesToBeRead,
+                maxLinesToRead: maxLinesToRead,
                 hashFunction: hashFunction)
         { }
     }

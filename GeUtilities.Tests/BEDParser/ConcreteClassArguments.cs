@@ -45,7 +45,7 @@ namespace GeUtilities.Tests.TBEDParser
                     dropPeakIfInvalidValue: true,
                     startOffset: 0,
                     readOnlyValidChrs: true,
-                    maxLinesToBeRead: 1,
+                    maxLinesToRead: 1,
                     hashFunction: HashFunction.FNV);
                 var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
@@ -77,7 +77,7 @@ namespace GeUtilities.Tests.TBEDParser
                     dropPeakIfInvalidValue: true,
                     startOffset: 0,
                     readOnlyValidChrs: true,
-                    maxLinesToBeRead: 1,
+                    maxLinesToRead: 1,
                     hashFunction: HashFunction.FNV);
                 var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 

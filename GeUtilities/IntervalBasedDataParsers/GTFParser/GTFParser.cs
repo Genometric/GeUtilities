@@ -13,7 +13,7 @@ namespace Genometric.GeUtilities.Parsers
            string sourceFilePath,
            Assemblies assembly = Assemblies.Unknown,
            bool readOnlyValidChrs = true,
-           uint maxLinesToBeRead = uint.MaxValue,
+           uint maxLinesToRead = uint.MaxValue,
            byte startOffset = 0,
            HashFunction hashFunction = HashFunction.One_at_a_Time) :
            this(sourceFilePath: sourceFilePath,
@@ -29,7 +29,7 @@ namespace Genometric.GeUtilities.Parsers
                strandColumn: 6,
                frameColumn: 7,
                attributeColumn: 8,
-               maxLinesToBeRead: maxLinesToBeRead,
+               maxLinesToRead: maxLinesToRead,
                hashFunction: hashFunction)
         { }
 
@@ -46,7 +46,7 @@ namespace Genometric.GeUtilities.Parsers
            sbyte attributeColumn,
            Assemblies assembly = Assemblies.Unknown,
            bool readOnlyValidChrs = true,
-           uint maxLinesToBeRead = uint.MaxValue,
+           uint maxLinesToRead = uint.MaxValue,
            byte startOffset = 0,
            HashFunction hashFunction = HashFunction.One_at_a_Time) :
            base(
@@ -62,7 +62,7 @@ namespace Genometric.GeUtilities.Parsers
                attributeColumn: attributeColumn,
                assembly: assembly,
                readOnlyValidChrs: readOnlyValidChrs,
-               maxLinesToBeRead: maxLinesToBeRead,
+               maxLinesToRead: maxLinesToRead,
                startOffset: startOffset,
                hashFunction: hashFunction)
         { }

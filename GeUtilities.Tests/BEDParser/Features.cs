@@ -133,14 +133,14 @@ namespace GeUtilities.Tests.TBEDParser
         [InlineData(4, 1)]
         [InlineData(1, 4)]
         [InlineData(4, 4)]
-        public void MaxLinesToBeRead(int numberOfPeaksToWrite, uint numberOfPeaksToRead)
+        public void MaxLinesToRead(int numberOfPeaksToWrite, uint numberOfPeaksToRead)
         {
             // Arrange
             var columns = new Columns();
             using (TempFileCreator testFile = new TempFileCreator(columns, peaksCount: numberOfPeaksToWrite))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, maxLinesToBeRead: numberOfPeaksToRead);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, maxLinesToRead: numberOfPeaksToRead);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -156,7 +156,7 @@ namespace GeUtilities.Tests.TBEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns, peaksCount: 4))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, maxLinesToBeRead: 0);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, maxLinesToRead: 0);
                 var parsedData = parser.Parse();
 
                 // Assert

@@ -39,7 +39,7 @@ namespace GeUtilities.Tests.TGTFParser
                     testFile.TempFilePath,
                     assembly: Assemblies.hg19,
                     readOnlyValidChrs: true,
-                    maxLinesToBeRead: 1,
+                    maxLinesToRead: 1,
                     startOffset: 0,
                     hashFunction: HashFunction.One_at_a_Time);
                 var parsedFeature = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
@@ -70,7 +70,7 @@ namespace GeUtilities.Tests.TGTFParser
                     attributeColumn: columns.AttributeColumn,
                     assembly: Assemblies.hg19,
                     readOnlyValidChrs: true,
-                    maxLinesToBeRead: 1,
+                    maxLinesToRead: 1,
                     startOffset: 0,
                     hashFunction: HashFunction.One_at_a_Time);
                 var parsedFeature = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];

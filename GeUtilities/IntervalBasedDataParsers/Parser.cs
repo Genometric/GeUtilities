@@ -78,7 +78,7 @@ namespace Genometric.GeUtilities.Parsers
         /// Sets the number of lines to be read from input file.
         /// The default value is 4,294,967,295 (0xFFFFFFFF) which will be used if not set. 
         /// </summary>
-        private UInt32 _maxLinesToBeRead;
+        private UInt32 _maxLinesToRead;
 
         /// <summary>
         /// When read process is finished, this variable contains the number
@@ -125,7 +125,7 @@ namespace Genometric.GeUtilities.Parsers
             sbyte rightEndColumn,
             sbyte strandColumn,
             bool readOnlyValidChrs,
-            uint maxLinesToBeRead,
+            uint maxLinesToRead,
             HashFunction hashFunction,
             ParsedIntervals<I, S> data,
             Assemblies assembly = Assemblies.Unknown)
@@ -138,7 +138,7 @@ namespace Genometric.GeUtilities.Parsers
             _rightColumn = rightEndColumn;
             _strandColumn = strandColumn;
             _readOnlyValidChrs = assembly == Assemblies.Unknown ? false : readOnlyValidChrs;
-            _maxLinesToBeRead = maxLinesToBeRead;
+            _maxLinesToRead = maxLinesToRead;
             _hashFunction = hashFunction;
             _data = data;
             _data.FilePath = Path.GetFullPath(_sourceFilePath);
@@ -187,7 +187,7 @@ namespace Genometric.GeUtilities.Parsers
                     lineSize += fileReader.CurrentEncoding.GetByteCount(line);
                     Status = (Math.Round((lineSize * 100.0) / fileSize, 0)).ToString();
 
-                    if (line.Trim().Length > 0 && lineCounter <= _maxLinesToBeRead)
+                    if (line.Trim().Length > 0 && lineCounter <= _maxLinesToRead)
                     {
                         _dropReadingPeak = false;
                         string[] splittedLine = line.Split('\t');
