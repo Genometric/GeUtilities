@@ -4,7 +4,7 @@
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
-using GeUtilities.Tests.BEDParser;
+using GeUtilities.Tests.TBEDParser;
 using System;
 using Xunit;
 

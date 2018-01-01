@@ -6,11 +6,11 @@ using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
 using Xunit;
 
-namespace GeUtilities.Tests.VCFParser
+namespace GeUtilities.Tests.TVCFParser
 {
     public class ColumnsOrder
     {
-        private ParsedVCF<Variant> ParseVCF(string filePath, Columns vcfColumns)
+        private VCF<Variant> ParseVCF(string filePath, Columns vcfColumns)
         {
             VCFParser<Variant> vcfParser = new VCFParser<Variant>(
                     filePath,

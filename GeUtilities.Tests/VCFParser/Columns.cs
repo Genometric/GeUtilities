@@ -6,7 +6,7 @@ using Genometric.GeUtilities.IGenomics;
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using System;
 
-namespace GeUtilities.Tests.VCFParser
+namespace GeUtilities.Tests.TVCFParser
 {
     public class Columns
     {

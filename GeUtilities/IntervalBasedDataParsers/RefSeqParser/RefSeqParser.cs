@@ -7,61 +7,54 @@ using Genometric.GeUtilities.ReferenceGenomes;
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public class VCFParser : VCFParser<Variant>
+    public class RefSeqParser : RefSeqParser<Gene>
     {
-        public VCFParser(
+        public RefSeqParser(
             string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
-            byte startOffset = 0,
             bool readOnlyValidChrs = true,
+            byte startOffset = 0,
             uint maxLinesToBeRead = uint.MaxValue) :
             this(sourceFilePath: sourceFilePath,
                 assembly: assembly,
-                chrColumn: 0,
-                positionColumn: 1,
-                idColumn: 2,
-                refbColumn: 3,
-                altbColumn: 4,
-                qualityColumn: 5,
-                filterColumn: 6,
-                infoColumn: 7,
-                strandColumn: -1,
-                startOffset: startOffset,
                 readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToBeRead: maxLinesToBeRead)
+                startOffset: startOffset,
+                chrColumn: 0,
+                leftEndColumn: 1,
+                rightEndColumn: 2,
+                refSeqIDColumn: 3,
+                geneSymbolColumn: 4,
+                strandColumn: -1,
+                maxLinesToRead: maxLinesToBeRead,
+                hashFunction: HashFunction.One_at_a_Time
+                )
         { }
 
-        public VCFParser(
+        public RefSeqParser(
             string sourceFilePath,
             byte chrColumn,
-            byte positionColumn,
-            byte idColumn,
-            byte refbColumn,
-            byte altbColumn,
-            byte qualityColumn,
-            byte filterColumn,
-            byte infoColumn,
-            sbyte strandColumn,
+            byte leftEndColumn,
+            sbyte rightEndColumn,
+            byte refSeqIDColumn,
+            byte geneSymbolColumn,
+            sbyte strandColumn = -1,
             Assemblies assembly = Assemblies.Unknown,
             byte startOffset = 0,
             bool readOnlyValidChrs = true,
-            uint maxLinesToBeRead = uint.MaxValue,
+            uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             base(
                 sourceFilePath: sourceFilePath,
                 chrColumn: chrColumn,
-                positionColumn: positionColumn,
-                idColumn: idColumn,
-                refbColumn: refbColumn,
-                altbColumn: altbColumn,
-                qualityColumn: qualityColumn,
-                filterColumn: filterColumn,
-                infoColumn: infoColumn,
+                leftEndColumn: leftEndColumn,
+                rightEndColumn: rightEndColumn,
+                refSeqIDColumn: refSeqIDColumn,
+                geneSymbolColumn: geneSymbolColumn,
                 strandColumn: strandColumn,
                 assembly: assembly,
                 startOffset: startOffset,
                 readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToBeRead: maxLinesToBeRead,
+                maxLinesToRead: maxLinesToRead,
                 hashFunction: hashFunction)
         { }
     }

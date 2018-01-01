@@ -6,7 +6,7 @@ using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
 using Xunit;
 
-namespace GeUtilities.Tests.GeneralFeatureParser
+namespace GeUtilities.Tests.TGTFParser
 {
     public class DefaultArguments
     {
@@ -22,7 +22,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             using (TempFileCreator testFile = new TempFileCreator(new Columns(), headerLineCount: headerCount))
             {
                 // Act
-                GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath, startOffset: startOffset);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath, startOffset: startOffset);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -44,7 +44,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -62,7 +62,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -78,7 +78,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -94,7 +94,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -109,7 +109,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             using (TempFileCreator testFile = new TempFileCreator("chr1\tSource\tFeature\t10V\t20\t100.0\t*\t0\tatt1=1;att2=v2"))
             {
                 // Act
-                GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -125,7 +125,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -140,7 +140,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             using (TempFileCreator testFile = new TempFileCreator("chr1\tSource\tFeature\t10\t20V\t100.0\t*\t0\tatt1=1;att2=v2"))
             {
                 // ACt
-                GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -156,7 +156,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -172,7 +172,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -188,7 +188,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -204,7 +204,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -220,7 +220,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert

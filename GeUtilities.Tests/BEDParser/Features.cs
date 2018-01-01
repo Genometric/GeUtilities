@@ -12,7 +12,7 @@ using Xunit;
 /// <summary>
 /// This namespace contains Tests for both base and BED parsers.
 /// </summary>
-namespace GeUtilities.Tests.BEDParser
+namespace GeUtilities.Tests.TBEDParser
 {
     public class Features
     {

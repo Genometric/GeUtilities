@@ -7,7 +7,7 @@ using Genometric.GeUtilities.ReferenceGenomes;
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public sealed class RefSeqGenesParser<I> : Parser<I, IntervalStats>
+    public class RefSeqParser<I> : Parser<I, IntervalStats>
         where I : IRefSeq, new()
     {
         #region .::.         private properties         .::.
@@ -31,13 +31,14 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
         /// <param name="readOnlyValidChrs"></param>
-        public RefSeqGenesParser(
+        public RefSeqParser(
             string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
             bool readOnlyValidChrs = true,
             byte startOffset = 0,
             uint maxLinesToBeRead = uint.MaxValue) :
-            this(sourceFilePath: sourceFilePath,
+            this(
+                sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 readOnlyValidChrs: readOnlyValidChrs,
                 startOffset: startOffset,
@@ -50,7 +51,6 @@ namespace Genometric.GeUtilities.Parsers
                 maxLinesToRead: maxLinesToBeRead,
                 hashFunction: HashFunction.One_at_a_Time
                 )
-
         { }
 
 
@@ -67,7 +67,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="chrColumn">The column number of chromosome name</param>
         /// <param name="leftEndColumn">The column number of gene start position</param>
         /// <param name="rightEndColumn">The column number of gene stop position</param>
-        public RefSeqGenesParser(
+        public RefSeqParser(
             string sourceFilePath,
             byte chrColumn,
             byte leftEndColumn,
@@ -90,7 +90,7 @@ namespace Genometric.GeUtilities.Parsers
                 readOnlyValidChrs: readOnlyValidChrs,
                 maxLinesToBeRead: maxLinesToRead,
                 hashFunction: hashFunction,
-                data: new ParsedRefSeq<I>())
+                data: new RefSeq<I>())
         {
             _refSeqIDColumn = refSeqIDColumn;
             _geneColumn = geneSymbolColumn;
@@ -127,9 +127,9 @@ namespace Genometric.GeUtilities.Parsers
         /// Reads the regions presented in source file and generates chromosome-wide statistics regarding regions length and p-values. 
         /// </summary>
         /// <returns>Returns an object of Input_BED_Data class</returns>
-        public new ParsedRefSeq<I> Parse()
+        public new RefSeq<I> Parse()
         {
-            var parsingResult = (ParsedRefSeq<I>)base.Parse();
+            var parsingResult = (RefSeq<I>)base.Parse();
             Status = "100";
             return parsingResult;
         }

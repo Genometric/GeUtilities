@@ -6,7 +6,7 @@ using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
 using Xunit;
 
-namespace GeUtilities.Tests.GeneralFeatureParser
+namespace GeUtilities.Tests.TGTFParser
 {
     public class ColumnsOrder
     {
@@ -18,7 +18,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(testFile.TempFilePath);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedFeature = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert

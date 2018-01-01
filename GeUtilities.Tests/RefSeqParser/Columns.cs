@@ -5,7 +5,7 @@
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using System;
 
-namespace GeUtilities.Tests.RefSeqGenesParser
+namespace GeUtilities.Tests.TRefSeqParser
 {
     public class Columns
     {

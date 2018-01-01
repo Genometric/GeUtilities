@@ -3,13 +3,20 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using System.Collections.Generic;
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public class ParsedGTF<I> : ParsedIntervals<I, IntervalStats>
-        where I : IGeneralFeature, new()
-    {
-        public Dictionary<string, int> DeterminedFeatures { set; get; }
+    public class BED<I> : ParsedIntervals<I, BEDStats>
+        where I : IChIPSeqPeak, new()
+    {   
+        public BED()
+        {
+            pValueMax = new I();
+            pValueMin = new I();
+        }
+
+        public I pValueMax;
+        public I pValueMin;
+        public double pValueMean;
     }
 }

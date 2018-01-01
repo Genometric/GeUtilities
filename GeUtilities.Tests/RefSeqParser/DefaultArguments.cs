@@ -7,7 +7,7 @@ using Genometric.GeUtilities.Parsers;
 using System;
 using Xunit;
 
-namespace GeUtilities.Tests.RefSeqGenesParser
+namespace GeUtilities.Tests.TRefSeqParser
 {
     public class DefaultArguments
     {
@@ -19,7 +19,7 @@ namespace GeUtilities.Tests.RefSeqGenesParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                RefSeqGenesParser<Gene> parser = new RefSeqGenesParser<Gene>(testFile.TempFilePath);
+                RefSeqParser<Gene> parser = new RefSeqParser<Gene>(testFile.TempFilePath);
                 var parsedGene = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
@@ -41,7 +41,7 @@ namespace GeUtilities.Tests.RefSeqGenesParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                RefSeqGenesParser<Gene> parser = new RefSeqGenesParser<Gene>(testFile.TempFilePath);
+                RefSeqParser<Gene> parser = new RefSeqParser<Gene>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -59,7 +59,7 @@ namespace GeUtilities.Tests.RefSeqGenesParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                RefSeqGenesParser<Gene> parser = new RefSeqGenesParser<Gene>(testFile.TempFilePath);
+                RefSeqParser<Gene> parser = new RefSeqParser<Gene>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -77,7 +77,7 @@ namespace GeUtilities.Tests.RefSeqGenesParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                RefSeqGenesParser<Gene> genesParser = new RefSeqGenesParser<Gene>(
+                RefSeqParser<Gene> genesParser = new RefSeqParser<Gene>(
                     testFile.TempFilePath,
                     chrColumn: columns.ChrColumn,
                     leftEndColumn: columns.LeftColumn,
@@ -100,7 +100,7 @@ namespace GeUtilities.Tests.RefSeqGenesParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                RefSeqGenesParser<Gene> parser = new RefSeqGenesParser<Gene>(testFile.TempFilePath);
+                RefSeqParser<Gene> parser = new RefSeqParser<Gene>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -115,7 +115,7 @@ namespace GeUtilities.Tests.RefSeqGenesParser
             using (TempFileCreator testFile = new TempFileCreator("chr1\t10\t20\tRefSeq\tGeneSymbol"))
             {
                 // Act
-                RefSeqGenesParser<Gene> parser = new RefSeqGenesParser<Gene>(testFile.TempFilePath, 0, 1, 2, 10, 4);
+                RefSeqParser<Gene> parser = new RefSeqParser<Gene>(testFile.TempFilePath, 0, 1, 2, 10, 4);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -131,7 +131,7 @@ namespace GeUtilities.Tests.RefSeqGenesParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                RefSeqGenesParser<Gene> parser = new RefSeqGenesParser<Gene>(testFile.TempFilePath);
+                RefSeqParser<Gene> parser = new RefSeqParser<Gene>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -146,7 +146,7 @@ namespace GeUtilities.Tests.RefSeqGenesParser
             using (TempFileCreator testFile = new TempFileCreator("chr1\t10\t20\tRefSeq\tGeneSymbol"))
             {
                 // Act
-                RefSeqGenesParser<Gene> parser = new RefSeqGenesParser<Gene>(testFile.TempFilePath, 0, 1, 2, 3, 10);
+                RefSeqParser<Gene> parser = new RefSeqParser<Gene>(testFile.TempFilePath, 0, 1, 2, 3, 10);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -166,7 +166,7 @@ namespace GeUtilities.Tests.RefSeqGenesParser
             using (TempFileCreator testFile = new TempFileCreator(new Columns(), headerLineCount: headerCount))
             {
                 // Act
-                RefSeqGenesParser<Gene> parser = new RefSeqGenesParser<Gene>(testFile.TempFilePath, startOffset: startOffset);
+                RefSeqParser<Gene> parser = new RefSeqParser<Gene>(testFile.TempFilePath, startOffset: startOffset);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -182,7 +182,7 @@ namespace GeUtilities.Tests.RefSeqGenesParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                RefSeqGenesParser<Gene> parser = new RefSeqGenesParser<Gene>(testFile.TempFilePath);
+                RefSeqParser<Gene> parser = new RefSeqParser<Gene>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert

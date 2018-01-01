@@ -5,7 +5,7 @@
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using System;
 
-namespace GeUtilities.Tests.GeneralFeatureParser
+namespace GeUtilities.Tests.TGTFParser
 {
     public class Columns
     {

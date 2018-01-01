@@ -25,7 +25,7 @@ namespace GeUtilities.Tests.Status
         public void Initial()
         {
             // Arrange
-            using (BEDParser.TempFileCreator testFile = new BEDParser.TempFileCreator(new BEDParser.Columns()))
+            using (TBEDParser.TempFileCreator testFile = new TBEDParser.TempFileCreator(new TBEDParser.Columns()))
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
@@ -39,7 +39,7 @@ namespace GeUtilities.Tests.Status
         public void CompletedBED()
         {
             // Arrange
-            using (BEDParser.TempFileCreator testFile = new BEDParser.TempFileCreator(new BEDParser.Columns()))
+            using (TBEDParser.TempFileCreator testFile = new TBEDParser.TempFileCreator(new TBEDParser.Columns()))
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
@@ -54,7 +54,7 @@ namespace GeUtilities.Tests.Status
         public void CompletedGeneralFeature()
         {
             // Arrange
-            using (GeneralFeatureParser.TempFileCreator testFile = new GeneralFeatureParser.TempFileCreator(new GeneralFeatureParser.Columns()))
+            using (TGTFParser.TempFileCreator testFile = new TGTFParser.TempFileCreator(new TGTFParser.Columns()))
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
@@ -69,7 +69,7 @@ namespace GeUtilities.Tests.Status
         public void CompletedRefSeqGenes()
         {
             // Arrange
-            using (RefSeqGenesParser.TempFileCreator testFile = new RefSeqGenesParser.TempFileCreator(new RefSeqGenesParser.Columns()))
+            using (TRefSeqParser.TempFileCreator testFile = new TRefSeqParser.TempFileCreator(new TRefSeqParser.Columns()))
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
@@ -84,7 +84,7 @@ namespace GeUtilities.Tests.Status
         public void CompletedVCF()
         {
             // Arrange
-            using (VCFParser.TempFileCreator testFile = new VCFParser.TempFileCreator(new VCFParser.Columns()))
+            using (TVCFParser.TempFileCreator testFile = new TVCFParser.TempFileCreator(new TVCFParser.Columns()))
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
@@ -100,7 +100,7 @@ namespace GeUtilities.Tests.Status
         {
             // Arrange
             _previousStatus = -1;
-            using (BEDParser.TempFileCreator testFile = new BEDParser.TempFileCreator(new BEDParser.Columns(), peaksCount: 50))
+            using (TBEDParser.TempFileCreator testFile = new TBEDParser.TempFileCreator(new TBEDParser.Columns(), peaksCount: 50))
             {
                 // Act
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);

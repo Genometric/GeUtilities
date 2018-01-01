@@ -6,7 +6,7 @@ using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
 using Xunit;
 
-namespace GeUtilities.Tests.RefSeqGenesParser
+namespace GeUtilities.Tests.TRefSeqParser
 {
     public class ColumnsOrder
     {
@@ -41,7 +41,7 @@ namespace GeUtilities.Tests.RefSeqGenesParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                RefSeqGenesParser<Gene> parser = new RefSeqGenesParser<Gene>(
+                RefSeqParser<Gene> parser = new RefSeqParser<Gene>(
                     testFile.TempFilePath,
                     chrColumn: columns.ChrColumn,
                     leftEndColumn: columns.LeftColumn,

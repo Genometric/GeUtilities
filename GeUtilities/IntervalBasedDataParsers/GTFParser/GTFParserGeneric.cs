@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public sealed class GeneralFeaturesParser<I> : Parser<I, IntervalStats>
+    public class GTFParser<I> : Parser<I, IntervalStats>
         where I : IGeneralFeature, new()
     {
         /// <summary>
@@ -32,14 +32,15 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
         /// <param name="readOnlyValidChrs"></param>
-        public GeneralFeaturesParser(
+        public GTFParser(
             string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
             bool readOnlyValidChrs = true,
             uint maxLinesToBeRead = uint.MaxValue,
             byte startOffset = 0,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
-            this(sourceFilePath: sourceFilePath,
+            this(
+                sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 readOnlyValidChrs: readOnlyValidChrs,
                 startOffset: startOffset,
@@ -72,7 +73,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="rightEndColumn">The column number of feature stop position.</param>
         /// <param name="featureColumn">The column number of feature.</param>
         /// <param name="attributeColumn">The column number of a semicolon-separated list of tag-value pairs, providing additional information about each feature..</param>
-        public GeneralFeaturesParser(
+        public GTFParser(
             string sourceFilePath,
             byte chrColumn,
             sbyte sourceColumn,
@@ -98,7 +99,7 @@ namespace Genometric.GeUtilities.Parsers
                 readOnlyValidChrs: readOnlyValidChrs,
                 maxLinesToBeRead: maxLinesToBeRead,
                 hashFunction: hashFunction,
-                data: new ParsedGTF<I>())
+                data: new GTF<I>())
         {
             _sourceColumn = sourceColumn;
             _featureColumn = featureColumn;
@@ -154,9 +155,9 @@ namespace Genometric.GeUtilities.Parsers
             return rtv;
         }
 
-        public new ParsedGTF<I> Parse()
+        public new GTF<I> Parse()
         {
-            var parsedData = (ParsedGTF<I>)base.Parse();
+            var parsedData = (GTF<I>)base.Parse();
             parsedData.DeterminedFeatures = new Dictionary<string, int>(_features);
             Status = "100";
             return parsedData;

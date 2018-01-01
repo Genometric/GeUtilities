@@ -5,7 +5,7 @@
 using System;
 using System.IO;
 
-namespace GeUtilities.Tests.GeneralFeatureParser
+namespace GeUtilities.Tests.TRefSeqParser
 {
     public class TempFileCreator : IDisposable
     {
@@ -14,30 +14,23 @@ namespace GeUtilities.Tests.GeneralFeatureParser
 
         public TempFileCreator(string line)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
             using (FileStream fs = File.Create(_tempFilePath))
             using (StreamWriter sw = new StreamWriter(fs))
                 sw.WriteLine(line);
         }
 
-        public TempFileCreator(Columns columns, int headerLineCount = 0, int featuresCount = 1)
+        public TempFileCreator(Columns columns, int headerLineCount = 0, int genesCount = 1)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
             using (FileStream fs = File.Create(_tempFilePath))
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 while (headerLineCount-- > 0)
                     sw.WriteLine(columns.GetSampleHeader());
 
-                while (featuresCount-- > 0)
-                {
+                while (genesCount-- > 0)
                     sw.WriteLine(columns.GetSampleLine());
-                    if (featuresCount > 0)
-                    {
-                        columns.GFeature.Left = columns.GFeature.Right + 10;
-                        columns.GFeature.Right = columns.GFeature.Right + 20;
-                    }
-                }
             }
         }
 

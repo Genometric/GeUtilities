@@ -9,26 +9,10 @@ using Xunit;
 /// <summary>
 /// This namespace contains Tests for both base and BED parsers.
 /// </summary>
-namespace GeUtilities.Tests.BEDParser
+namespace GeUtilities.Tests.TBEDParser
 {
     public class ColumnsOrder
     {
-        [Fact]
-        public void DefaultColumnsOrder()
-        {
-            // Arrange
-            var columns = new Columns();
-            using (TempFileCreator testFile = new TempFileCreator())
-            {
-                // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, dropPeakIfInvalidValue: true);
-                var parsedPeak = bedParser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
-
-                // Assert
-                Assert.True(parsedPeak.CompareTo(columns.Peak) == 0);
-            }
-        }
-
         [Theory]
         [InlineData(0, 1, 2, 3, 4)]
         [InlineData(1, 0, 2, 3, 4)]

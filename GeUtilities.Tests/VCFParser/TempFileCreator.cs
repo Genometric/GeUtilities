@@ -5,7 +5,7 @@
 using System;
 using System.IO;
 
-namespace GeUtilities.Tests.VCFParser
+namespace GeUtilities.Tests.TVCFParser
 {
     public class TempFileCreator : IDisposable
     {

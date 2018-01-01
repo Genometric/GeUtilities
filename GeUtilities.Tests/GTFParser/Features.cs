@@ -6,13 +6,13 @@ using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
 using Xunit;
 
-namespace GeUtilities.Tests.GeneralFeatureParser
+namespace GeUtilities.Tests.TGTFParser
 {
     public class Features
     {
-        internal static ParsedGTF<GeneralFeature> ParseGTF(string filePath, Columns columns)
+        internal static GTF<GeneralFeature> ParseGTF(string filePath, Columns columns)
         {
-            GeneralFeaturesParser<GeneralFeature> parser = new GeneralFeaturesParser<GeneralFeature>(
+            GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(
                     filePath,
                     chrColumn: columns.ChrColumn,
                     sourceColumn: columns.SourceColumn,

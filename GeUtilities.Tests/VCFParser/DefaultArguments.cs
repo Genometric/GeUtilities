@@ -6,7 +6,7 @@ using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
 using Xunit;
 
-namespace GeUtilities.Tests.VCFParser
+namespace GeUtilities.Tests.TVCFParser
 {
     public class DefaultArguments
     {

@@ -3,13 +3,13 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using System.Collections.Generic;
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public class ParsedVCF<I> : ParsedIntervals<I, IntervalStats>
-        where I : IVariant, new()
+    public class GTF<I> : ParsedIntervals<I, IntervalStats>
+        where I : IGeneralFeature, new()
     {
-        public ParsedVCF()
-        { }
+        public Dictionary<string, int> DeterminedFeatures { set; get; }
     }
 }
