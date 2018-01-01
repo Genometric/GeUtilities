@@ -17,8 +17,8 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             {
                 Left = 10,
                 ID = "ID",
-                RefBase = ConvertStringToBasePair("ACG"),
-                AltBase = ConvertStringToBasePair("GCA"),
+                RefBase = ConvertStringToBasePair("ACGN"),
+                AltBase = ConvertStringToBasePair("UGCA"),
                 Quality = 123.4,
                 Filter = "Filter",
                 Info = "Info"
