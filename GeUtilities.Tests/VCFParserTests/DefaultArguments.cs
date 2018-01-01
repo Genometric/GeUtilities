@@ -25,5 +25,25 @@ namespace GeUtilities.Tests.VCFParser
                 Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].HashKey != 0);
             }
         }
+
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(1, 1)]
+        [InlineData(1, 0)]
+        [InlineData(2, 0)]
+        [InlineData(2, 2)]
+        public void AvoidHeader(int headerCount, byte startOffset)
+        {
+            // Arrange
+            using (TempFileCreator testFile = new TempFileCreator(new Columns(), headerLineCount: headerCount))
+            {
+                // Act
+                VCFParser<Variant> parser = new VCFParser<Variant>(testFile.TempFilePath, startOffset: startOffset);
+                var parsedData = parser.Parse();
+
+                // Assert
+                Assert.True(parsedData.Chromosomes.Count == 1);
+            }
+        }
     }
 }
