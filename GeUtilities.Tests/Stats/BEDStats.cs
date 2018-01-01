@@ -4,12 +4,13 @@
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
+using GeUtilities.Tests.BEDParser;
 using System;
 using Xunit;
 
-namespace GeUtilities.Tests.BEDParser
+namespace GeUtilities.Tests.Stats
 {
-    public class TestBEDStats
+    public class BEDStats
     {
         private ChIPSeqPeak[] CreatePeaks(double[] pValues)
         {
@@ -32,7 +33,7 @@ namespace GeUtilities.Tests.BEDParser
         [InlineData(new double[] { 0.1, 0.01, 0.001, 0.0001 }, 0.1)]
         public void TestPValueHighest(double[] pValues, double pValueHighest)
         {
-            var stats = new BEDStats();
+            var stats = new Genometric.GeUtilities.Parsers.BEDStats();
             foreach (var peak in CreatePeaks(pValues))
                 stats.Update(peak);
 
@@ -44,7 +45,7 @@ namespace GeUtilities.Tests.BEDParser
         [InlineData(new double[] { 0.1, 0.01, 0.001, 0.0001 }, 0.0001)]
         public void TestPValueLowest(double[] pValues, double pValueLowest)
         {
-            var stats = new BEDStats();
+            var stats = new Genometric.GeUtilities.Parsers.BEDStats();
             foreach (var peak in CreatePeaks(pValues))
                 stats.Update(peak);
 
@@ -56,7 +57,7 @@ namespace GeUtilities.Tests.BEDParser
         [InlineData(new double[] { 0.1, 0.01, 0.001, 0.0001 }, 0.027775)]
         public void TestPValueMean(double[] pValues, double mean)
         {
-            var stats = new BEDStats();
+            var stats = new Genometric.GeUtilities.Parsers.BEDStats();
             foreach (var peak in CreatePeaks(pValues))
                 stats.Update(peak);
 
@@ -68,7 +69,7 @@ namespace GeUtilities.Tests.BEDParser
         [InlineData(new double[] { 0.1, 0.01, 0.001, 0.0001 }, 0.041878418)]
         public void TestPValueSTDV(double[] pValues, double stdv)
         {
-            var stats = new BEDStats();
+            var stats = new Genometric.GeUtilities.Parsers.BEDStats();
             foreach (var peak in CreatePeaks(pValues))
                 stats.Update(peak);
 

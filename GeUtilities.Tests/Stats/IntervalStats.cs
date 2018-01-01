@@ -7,9 +7,9 @@ using Genometric.GeUtilities.Parsers;
 using System;
 using Xunit;
 
-namespace GeUtilities.Tests.StatsTests
+namespace GeUtilities.Tests.Stats
 {
-    public class TestIntervalStats
+    public class IntervalStats
     {
         private ChIPSeqPeak[] CreatePeaks(int[] intersCoord)
         {
@@ -34,7 +34,7 @@ namespace GeUtilities.Tests.StatsTests
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 })]
         public void TestCount(int[] intersCoord)
         {
-            var stats = new BEDStats();
+            var stats = new Genometric.GeUtilities.Parsers.BEDStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 
@@ -48,7 +48,7 @@ namespace GeUtilities.Tests.StatsTests
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 40)]
         public void TestWidthMax(int[] intersCoord, int maxWidth)
         {
-            var stats = new BEDStats();
+            var stats = new Genometric.GeUtilities.Parsers.BEDStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 
@@ -62,7 +62,7 @@ namespace GeUtilities.Tests.StatsTests
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 2)]
         public void TestWidthMin(int[] intersCoord, uint minWidth)
         {
-            var stats = new BEDStats();
+            var stats = new Genometric.GeUtilities.Parsers.BEDStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 
@@ -76,7 +76,7 @@ namespace GeUtilities.Tests.StatsTests
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 17.333)]
         public void TestWidthMean(int[] intersCoord, double mean)
         {
-            var stats = new BEDStats();
+            var stats = new Genometric.GeUtilities.Parsers.BEDStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 
@@ -90,7 +90,7 @@ namespace GeUtilities.Tests.StatsTests
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 16.3571)]
         public void TestWidthPSTDV(int[] intersCoord, double pstdv)
         {
-            var stats = new BEDStats();
+            var stats = new Genometric.GeUtilities.Parsers.BEDStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 
