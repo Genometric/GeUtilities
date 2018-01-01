@@ -16,11 +16,9 @@ namespace Genometric.GeUtilities.Parsers
         where I : IInterval<int>, new()
         where S : IStats<int>, new()
     {
-        /// <summary>
-        /// decimal places/precision of numbers when rounding them. It is used for 
-        /// chromosome-wide stats estimation.
-        /// </summary>
-        public byte decimalPlaces;
+        private ParsedIntervals<I, S> _data;
+        private bool _readOnlyValidChrs;
+        private HashFunction _hashFunction;
 
         public ReadOnlyCollection<string> ExcessChrs { get { return _excessChrs.AsReadOnly(); } }
         private List<string> _excessChrs;
@@ -93,18 +91,6 @@ namespace Genometric.GeUtilities.Parsers
         /// This information will be updated based on the selected species.
         /// </summary>
         private ReadOnlyDictionary<string, int> _assemblyData;
-
-        /// <summary>
-        /// Contains all read information from the input file, and 
-        /// will be returned as parser result.
-        /// </summary>
-        protected ParsedIntervals<I, S> Data { set { _data = value; } get { return _data; } }
-        private ParsedIntervals<I, S> _data;
-
-        private bool _readOnlyValidChrs;
-
-        private HashFunction _hashFunction;
-
 
         public Parser(
             string sourceFilePath,
