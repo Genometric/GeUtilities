@@ -22,10 +22,10 @@ namespace GeUtilities.Tests.TBEDParser
             {
                 // Act
                 BEDParser parser = new BEDParser(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedData.Chromosomes.ContainsKey(columns.Chr));
+                Assert.True(parsedPeak.CompareTo(columns.Peak) == 0);
             }
         }
 
@@ -47,10 +47,10 @@ namespace GeUtilities.Tests.TBEDParser
                     readOnlyValidChrs: true,
                     maxLinesToBeRead: 1,
                     hashFunction: HashFunction.FNV);
-                var parsedData = parser.Parse();
+                var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedData.Chromosomes.ContainsKey(columns.Chr));
+                Assert.True(parsedPeak.CompareTo(columns.Peak) == 0);
             }
         }
 
@@ -79,10 +79,10 @@ namespace GeUtilities.Tests.TBEDParser
                     readOnlyValidChrs: true,
                     maxLinesToBeRead: 1,
                     hashFunction: HashFunction.FNV);
-                var parsedData = parser.Parse();
+                var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedData.Chromosomes.ContainsKey(columns.Chr));
+                Assert.True(parsedPeak.CompareTo(columns.Peak) == 0);
             }
         }
     }

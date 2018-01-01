@@ -20,10 +20,10 @@ namespace GeUtilities.Tests.TGTFParser
             {
                 // Act
                 GTFParser parser = new GTFParser(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parsedFeature = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedData.Chromosomes.ContainsKey(columns.Chr));
+                Assert.True(parsedFeature.CompareTo(columns.GFeature) == 0);
             }
         }
 
@@ -42,10 +42,10 @@ namespace GeUtilities.Tests.TGTFParser
                     maxLinesToBeRead: 1,
                     startOffset: 0,
                     hashFunction: HashFunction.One_at_a_Time);
-                var parsedData = parser.Parse();
+                var parsedFeature = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedData.Chromosomes.ContainsKey(columns.Chr));
+                Assert.True(parsedFeature.CompareTo(columns.GFeature) == 0);
             }
         }
 
@@ -73,10 +73,10 @@ namespace GeUtilities.Tests.TGTFParser
                     maxLinesToBeRead: 1,
                     startOffset: 0,
                     hashFunction: HashFunction.One_at_a_Time);
-                var parsedData = parser.Parse();
+                var parsedFeature = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedData.Chromosomes.ContainsKey(columns.Chr));
+                Assert.True(parsedFeature.CompareTo(columns.GFeature) == 0);
             }
         }
     }
