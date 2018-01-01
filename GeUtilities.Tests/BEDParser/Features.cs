@@ -187,5 +187,28 @@ namespace GeUtilities.Tests.BEDParser
                 Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].HashKey != 0);
             }
         }
+
+        [Fact]
+        public void LogErrorIfFailedToReadALine()
+        {
+            // Arrange
+            var columns = new Columns();
+            using (TempFileCreator testFile = new TempFileCreator(columns))
+            {
+                // Act
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(
+                    testFile.TempFilePath,
+                    chrColumn: columns.ChrColumn,
+                    leftEndColumn: columns.LeftColumn,
+                    rightEndColumn: columns.RightColumn,
+                    nameColumn: columns.NameColumn,
+                    valueColumn: 9,
+                    dropPeakIfInvalidValue: true);
+                var parsedData = bedParser.Parse();
+
+                // Assert
+                Assert.True(parsedData.Messages.Count > 0);
+            }
+        }
     }
 }
