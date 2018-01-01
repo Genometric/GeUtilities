@@ -41,5 +41,23 @@ namespace GeUtilities.Tests.GeneralFeatureParser
                 Assert.True(parsedGTF.DeterminedFeatures[columns.GFeature.Feature] == featureCount);
             }
         }
+
+        [Fact]
+        public void MultiFeatureFile()
+        {
+            // Arrange
+            var columns = new Columns
+            {
+                StrandColumn = 12
+            };
+            using (TempFileCreator testFile = new TempFileCreator(columns, featuresCount: 10, headerLineCount: 2))
+            {
+                // Act
+                var parsedData = ParseGTF(testFile.TempFilePath, columns);
+
+                // Assert
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals.Count == 10);
+            }
+        }
     }
 }

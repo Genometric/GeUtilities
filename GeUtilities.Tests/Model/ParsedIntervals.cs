@@ -6,7 +6,6 @@ using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
 using Genometric.GeUtilities.ReferenceGenomes;
 using GeUtilities.Tests.BEDParser;
-using System;
 using System.IO;
 using Xunit;
 
@@ -17,12 +16,15 @@ namespace GeUtilities.Tests.ModelTests
         [Fact]
         public void TestFileHashKey()
         {
+            // Arrange
             string peak = "chr1\t10\t20\tName\t100.0";
             using (TempFileCreator testFile = new TempFileCreator(peak))
             {
+                // Act
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedBED = bedParser.Parse();
 
+                // Assert
                 Assert.True(parsedBED.FileHashKey != 0);
             }
         }
@@ -30,12 +32,15 @@ namespace GeUtilities.Tests.ModelTests
         [Fact]
         public void TestFileName()
         {
+            // Arrange
             string peak = "chr1\t10\t20\tName\t100.0";
             using (TempFileCreator testFile = new TempFileCreator(peak))
             {
+                // Act
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedBED = bedParser.Parse();
 
+                // Assert
                 Assert.True(parsedBED.FileName == Path.GetFileName(testFile.TempFilePath));
             }
         }
@@ -43,12 +48,15 @@ namespace GeUtilities.Tests.ModelTests
         [Fact]
         public void TestFilePath()
         {
+            // Arrange
             string peak = "chr1\t10\t20\tName\t100.0";
             using (TempFileCreator testFile = new TempFileCreator(peak))
             {
+                // Act
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedBED = bedParser.Parse();
 
+                // Assert
                 Assert.True(parsedBED.FilePath == Path.GetFullPath(testFile.TempFilePath));
             }
         }
@@ -59,12 +67,15 @@ namespace GeUtilities.Tests.ModelTests
         [InlineData(Assemblies.Unknown)]
         public void TestAssembly(Assemblies assembly)
         {
+            // Arrange
             string peak = "chr1\t10\t20\tName\t100.0";
             using (TempFileCreator testFile = new TempFileCreator(peak))
             {
+                // Act
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: assembly);
                 var parsedBED = bedParser.Parse();
 
+                // Assert
                 Assert.True(parsedBED.Assembly == assembly);
             }
         }

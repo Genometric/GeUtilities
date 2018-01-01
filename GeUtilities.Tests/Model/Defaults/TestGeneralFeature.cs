@@ -45,6 +45,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             string aSource, string aFeature, int aLeft, int aRight, double aScore, string aFrame, string aAttribute,
             string bSource, string bFeature, int bLeft, int bRight, double bScore, string bFrame, string bAttribute)
         {
+            // Arrange
             var aGF = new GeneralFeature()
             {
                 Source = aSource,
@@ -67,42 +68,52 @@ namespace GeUtilities.Tests.ModelTests.Defaults
                 Attribute = bAttribute
             };
 
+            // Act & Assert
             Assert.True(aGF.CompareTo(bGF) == comparisonResult);
         }
 
         [Fact]
         public void ComparisonTestWithNullObject()
         {
+            // Arrange
             var gf = GetTempGeneralFeature();
 
+            // Act & Assert
             Assert.True(gf.CompareTo(null) == 1);
         }
 
         [Fact]
         public void ComparisonTestWithNullObject2()
         {
+            // Arrange
             var gf = GetTempGeneralFeature();
 
+            // Act & Assert
             Assert.True(gf.CompareTo((object)null) == 1);
         }
 
         [Fact]
         public void ComparisonTestWithAPeakAsObject()
         {
+            // Arrange
             var aGF = GetTempGeneralFeature();
             var bGF = GetTempGeneralFeature();
 
+            // Act & Assert
             Assert.True(aGF.CompareTo((object)bGF) == 0);
         }
 
         [Fact]
         public void CheckNotImplementedComparison()
         {
+            // Arrange
             var aGF = GetTempGeneralFeature();
             var aPeak = TestChIPSeqPeak.GetTempChIPSeqPeak();
 
+            // Act & Assert
             Exception exception = Assert.Throws<NotImplementedException>(() => aGF.CompareTo(aPeak));
 
+            // Act & Assert
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
         }
     }

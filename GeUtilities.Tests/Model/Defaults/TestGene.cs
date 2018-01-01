@@ -36,6 +36,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             int aLeft, int aRight, string aRefSeqID, string aGeneSymbol,
             int bLeft, int bRight, string bRefSeqID, string bGeneSymbol)
         {
+            // Arrange
             var aGene = new Gene()
             {
                 Left = aLeft,
@@ -52,42 +53,52 @@ namespace GeUtilities.Tests.ModelTests.Defaults
                 GeneSymbol = bGeneSymbol
             };
 
+            // Act & Assert
             Assert.True(aGene.CompareTo(bGene) == comparisonResult);
         }
 
         [Fact]
         public void ComparisonTestWithNullObject()
         {
+            // Arrange
             var gene = GetTempGene();
 
+            // Act & Assert
             Assert.True(gene.CompareTo(null) == 1);
         }
 
         [Fact]
         public void ComparisonTestWithNullObject2()
         {
+            // Arrange
             var gene = GetTempGene();
 
+            // Act & Assert
             Assert.True(gene.CompareTo((object)null) == 1);
         }
 
         [Fact]
         public void ComparisonTestWithAPeakAsObject()
         {
+            // Arrange
             var aGene = GetTempGene();
             var bGene = GetTempGene();
 
+            // Act & Assert
             Assert.True(aGene.CompareTo((object)bGene) == 0);
         }
 
         [Fact]
         public void CheckNotImplementedComparison()
         {
+            // Arrange
             var aGene = GetTempGene();
             var aPeak = TestChIPSeqPeak.GetTempChIPSeqPeak();
 
+            // Act & Assert
             Exception exception = Assert.Throws<NotImplementedException>(() => aGene.CompareTo(aPeak));
 
+            // Act & Assert
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
         }
     }

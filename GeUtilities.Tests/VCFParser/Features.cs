@@ -11,8 +11,9 @@ namespace GeUtilities.Tests.VCFParser
     public class Features
     {
         [Fact]
-        public void MultiFeatureFile()
+        public void MultiVariantFile()
         {
+            // Arrange
             var columns = new Columns
             {
                 StrandColumn = 12

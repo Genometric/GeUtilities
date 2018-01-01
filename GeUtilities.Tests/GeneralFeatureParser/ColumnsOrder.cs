@@ -35,7 +35,7 @@ namespace GeUtilities.Tests.GeneralFeatureParser
         [InlineData(8, 7, 6, 5, 4, 0, 1, 2, 3)]
         [InlineData(5, 6, 8, 7, 0, 2, 1, 4, 3)]
         [InlineData(10, 11, 12, 13, 14, 15, 16, 17, 18)]
-        public void TestColumnsShuffle(
+        public void ColumnsShuffle(
             byte chrColumn, sbyte sourceColumn, sbyte featureColumn, byte leftColumn, sbyte rightColumn,
             sbyte scoreColumn, sbyte strandColumn, sbyte frameColumn, sbyte attributeColumn)
         {
@@ -53,6 +53,31 @@ namespace GeUtilities.Tests.GeneralFeatureParser
                 AttributeColumn = attributeColumn
             };
 
+            using (TempFileCreator testFile = new TempFileCreator(columns))
+            {
+                // Act
+                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, columns);
+                var parsedFeature = parsedGTF.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+
+                // Assert
+                Assert.True(parsedFeature.CompareTo(columns.GFeature) == 0);
+            }
+        }
+
+        [Fact]
+        public void ColumnsSetters()
+        {
+            // Arrange
+            var columns = new Columns();
+            columns.ChrColumn = 2;
+            columns.LeftColumn = 2;
+            columns.RightColumn = 9;
+            columns.StrandColumn = -1;
+            columns.SourceColumn = 2;
+            columns.FeatureColumn = -1;
+            columns.StrandColumn = 0;
+            columns.StrandColumn = 19;
+            columns.FeatureColumn = 8;
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act

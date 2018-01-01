@@ -39,6 +39,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             int aLeft, int aRight, double aValue, int aSummit, string aName,
             int bLeft, int bRight, double bValue, int bSummit, string bName)
         {
+            // Arrange
             var aPeak = new ChIPSeqPeak()
             {
                 Left = aLeft,
@@ -57,42 +58,52 @@ namespace GeUtilities.Tests.ModelTests.Defaults
                 Name = bName
             };
 
+            // Act & Assert
             Assert.True(aPeak.CompareTo(bPeak) == comparisonResult);
         }
 
         [Fact]
         public void ComparisonTestWithNullObject()
         {
+            // Arrange
             var peak = GetTempChIPSeqPeak();
 
+            // Act & Assert
             Assert.True(peak.CompareTo(null) == 1);
         }
 
         [Fact]
         public void ComparisonTestWithNullObject2()
         {
+            // Arrange
             var peak = GetTempChIPSeqPeak();
 
+            // Act & Assert
             Assert.True(peak.CompareTo((object)null) == 1);
         }
 
         [Fact]
         public void ComparisonTestWithAPeakAsObject()
         {
+            // Arrange
             var aPeak = GetTempChIPSeqPeak();
             var bPeak = GetTempChIPSeqPeak();
 
+            // Act & Assert
             Assert.True(aPeak.CompareTo((object)bPeak) == 0);
         }
 
         [Fact]
         public void CheckNotImplementedComparison()
         {
+            // Arrange
             var aPeak = GetTempChIPSeqPeak();
             var aGene = TestGene.GetTempGene();
 
+            // Act & Assert
             Exception exception = Assert.Throws<NotImplementedException>(() => aPeak.CompareTo(aGene));
 
+            // Assert
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
         }
     }

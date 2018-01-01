@@ -63,6 +63,7 @@ namespace GeUtilities.Tests.ModelTests.Defaults
             int aLeft, string aID, string aRefbp, string aAltbp, double aQuality, string aFilter, string aInfo,
             int bLeft, string bID, string bRefbp, string bAltbp, double bQuality, string bFilter, string bInfo)
         {
+            // Arrange
             var aVariant = new Variant()
             {
                 Left = aLeft,
@@ -85,42 +86,52 @@ namespace GeUtilities.Tests.ModelTests.Defaults
                 Info = bInfo
             };
 
+            // Act & Assert
             Assert.True(aVariant.CompareTo(bVariant) == comparisonResult);
         }
 
         [Fact]
         public void ComparisonTestWithNullObject()
         {
+            // Arrange
             var variant = GetTempVCF();
 
+            // Act & Assert
             Assert.True(variant.CompareTo(null) == 1);
         }
 
         [Fact]
         public void ComparisonTestWithNullObject2()
         {
+            // Arrange
             var variant = GetTempVCF();
 
+            // Act & Assert
             Assert.True(variant.CompareTo((object)null) == 1);
         }
 
         [Fact]
         public void ComparisonTestWithAPeakAsObject()
         {
+            // Arrange
             var aVariant = GetTempVCF();
             var bVariant = GetTempVCF();
 
+            // Act & Assert
             Assert.True(aVariant.CompareTo((object)bVariant) == 0);
         }
 
         [Fact]
         public void CheckNotImplementedComparison()
         {
+            // Arrange
             var aVariant = GetTempVCF();
             var aPeak = TestChIPSeqPeak.GetTempChIPSeqPeak();
 
+            // Act & Assert
             Exception exception = Assert.Throws<NotImplementedException>(() => aVariant.CompareTo(aPeak));
 
+            // Act & Assert
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
         }
     }
