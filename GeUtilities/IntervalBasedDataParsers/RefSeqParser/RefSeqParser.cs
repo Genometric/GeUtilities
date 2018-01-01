@@ -14,7 +14,7 @@ namespace Genometric.GeUtilities.Parsers
             Assemblies assembly = Assemblies.Unknown,
             bool readOnlyValidChrs = true,
             byte startOffset = 0,
-            uint maxLinesToBeRead = uint.MaxValue) :
+            uint maxLinesToRead = uint.MaxValue) :
             this(sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 readOnlyValidChrs: readOnlyValidChrs,
@@ -25,7 +25,7 @@ namespace Genometric.GeUtilities.Parsers
                 refSeqIDColumn: 3,
                 geneSymbolColumn: 4,
                 strandColumn: -1,
-                maxLinesToRead: maxLinesToBeRead,
+                maxLinesToRead: maxLinesToRead,
                 hashFunction: HashFunction.One_at_a_Time
                 )
         { }
