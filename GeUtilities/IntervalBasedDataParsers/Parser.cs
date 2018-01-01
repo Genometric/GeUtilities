@@ -315,10 +315,10 @@ namespace Genometric.GeUtilities.Parsers
         /// <returns></returns>
         private UInt32 GetFileHashKey(string filePath)
         {
-            int len = filePath.Length;
+            int l = filePath.Length;
 
             UInt32 hashKey = 0;
-            for (int i = 0; i < len; i++)
+            for (int i = 0; i < l; i++)
             {
                 hashKey += filePath[i];
                 hashKey += (hashKey << 10);
@@ -340,10 +340,10 @@ namespace Genometric.GeUtilities.Parsers
         private UInt32 OneAtATimeHashFunction(I readingPeak, UInt32 lineNo)
         {
             string key = _data.FileHashKey + "_" + readingPeak.Left.ToString() + "_" + readingPeak.Right.ToString() + "_" + lineNo.ToString();
-            int len = key.Length;
+            int l = key.Length;
 
             UInt32 hashKey = 0;
-            for (int i = 0; i < len; i++)
+            for (int i = 0; i < l; i++)
             {
                 hashKey += key[i];
                 hashKey += (hashKey << 10);
