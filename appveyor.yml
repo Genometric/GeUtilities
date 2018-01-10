@@ -7,9 +7,6 @@ init:
   # Good practise, because Windows line endings are different from Unix/Linux ones
   - cmd: git config --global core.autocrlf true
 install:
-- cmd: >-
-    type c:\windows\system32\drivers\etc\hosts
-    dotnet restore
 build:
   verbosity: minimal
 clone_depth: 1
