@@ -16,6 +16,8 @@ test_script:
   - cmd: dotnet restore GeUtilities.Tests\GeUtilities.Tests.csproj --verbosity m
   # run the unit tests (requires changing into the test directory)
   - cmd: cd GeUtilities.Tests\
+  - cmd: pwd
+  - cmd: ls
   - cmd: dotnet xunit
 on_finish :
   # any cleanup in here
