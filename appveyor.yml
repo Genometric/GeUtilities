@@ -9,7 +9,6 @@ init:
 install:
 - cmd: >-
     type c:\windows\system32\drivers\etc\hosts
-    ping api.nuget.org
     dotnet restore
 build:
   verbosity: minimal
