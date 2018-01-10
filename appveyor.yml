@@ -1,0 +1,25 @@
+version: '2.0.{build}'
+image: Visual Studio 2017
+branches:
+  only:
+  - master
+init:
+  # Good practise, because Windows line endings are different from Unix/Linux ones
+  - cmd: git config --global core.autocrlf true
+install:
+- cmd: >-
+    type c:\windows\system32\drivers\etc\hosts
+    ping api.nuget.org
+    dotnet restore
+build:
+  verbosity: minimal
+clone_depth: 1
+test_script:
+  # restore packages for our unit tests
+  - cmd: dotnet restore ./GeUtilities.Tests/GeUtilities.Tests.csproj --verbosity m
+  # run the unit tests (requires changing into the test directory)
+  - cmd: cd tests
+  - cmd: dotnet xunit
+on_finish :
+  # any cleanup in here
+deploy: off
