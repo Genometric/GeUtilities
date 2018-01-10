@@ -13,7 +13,7 @@ build:
 clone_depth: 1
 test_script:
   # restore packages for our unit tests
-  - cmd: dotnet restore ./GeUtilities.Tests/GeUtilities.Tests.csproj --verbosity m
+  - cmd: dotnet restore GeUtilities.Tests\GeUtilities.Tests.csproj --verbosity m
   # run the unit tests (requires changing into the test directory)
   - cmd: cd tests
   - cmd: dotnet xunit
