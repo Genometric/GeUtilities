@@ -13,6 +13,7 @@ namespace GeUtilities.Tests.TRefSeqParser
         [Fact]
         public void MultiFeatureFile()
         {
+            // Arrange
             var columns = new Columns
             {
                 StrandColumn = 12
