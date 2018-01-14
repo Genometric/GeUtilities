@@ -1,7 +1,7 @@
 language: csharp
 solution: GeUtilities.sln
 mono: none
-dotnet: 2.0.0
+dotnet: 2.0.3
 install:
   - dotnet restore
 script:
