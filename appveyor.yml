@@ -16,9 +16,9 @@ build:
 clone_depth: 1
 build_script:
   - choco install "msbuild-sonarqube-runner" -y
-  - ps: MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:sonar.login=$env:sonar_cloud_token
+  - ps: MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=$env:sonar_cloud_token"
   - ps: MSBuild.exe /t:Rebuild
-  - ps: MSBuild.SonarQube.Runner.exe end /d:sonar.login=$env:sonar_cloud_token
+  - ps: MSBuild.SonarQube.Runner.exe end /d:"sonar.login=$env:sonar_cloud_token"
 test_script:
   # restore packages for our unit tests
   - cmd: dotnet restore GeUtilities.Tests\GeUtilities.Tests.csproj --verbosity m
