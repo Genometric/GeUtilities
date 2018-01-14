@@ -15,10 +15,9 @@ test_script:
   # restore packages for our unit tests
   - cmd: dotnet restore GeUtilities.Tests\GeUtilities.Tests.csproj --verbosity m
   - cmd: dotnet test GeUtilities.Tests\GeUtilities.Tests.csproj
-  - ps: pwd
   - ps: cd GeUtilities.Tests
-  - ps: pwd
   - OpenCover.Console.exe -register:"user" -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"xunit -noshadow" -filter:"+[*]* -[GeUtilities.Tests*]*" -oldStyle -output:".\GeUtilities_coverage.xml"
+  - ps: cd ..
 after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
