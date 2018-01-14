@@ -1,3 +1,5 @@
+os:
+  - linux
 language: csharp
 solution: GeUtilities.sln
 mono: none
