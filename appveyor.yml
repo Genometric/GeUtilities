@@ -22,7 +22,7 @@ after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-      bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml" -t ab819306-5320-4cea-a2c8-cded1183d1d4
+      bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml" -t 9c893f36-91fa-4166-945a-c6433b0ac7be
 on_finish :
   # any cleanup in here
 deploy: off
