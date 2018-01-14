@@ -5,7 +5,7 @@ branches:
   - master
 environment:
   sonartoken:
-    secure: zx9FQl2yXcPb8X7A4BqN753h1TFSuHioq13TFRwQk04/1cSxEFaqR1j+UAuJhyT7
+    secure: 9VWCHMXxOqx9+jGz9YzVcPjuKDQWp2UrSGX2q3ZC1S4mhkqA3kRHf4RtgshQyrio
 init:
   # Good practise, because Windows line endings are different from Unix/Linux ones
   - cmd: git config --global core.autocrlf true
@@ -16,9 +16,9 @@ build:
 clone_depth: 1
 build_script:
   - choco install "msbuild-sonarqube-runner" -y
-  - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=b5c8c8c58e291520647c89042373eb67963fcef0"
+  - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%"
   - MSBuild.exe /t:Rebuild
-  - MSBuild.SonarQube.Runner.exe end /d:"sonar.login=b5c8c8c58e291520647c89042373eb67963fcef0"
+  - MSBuild.SonarQube.Runner.exe end /d:"sonar.login=%sonartoken%"
 test_script:
   # restore packages for our unit tests
   - cmd: dotnet restore GeUtilities.Tests\GeUtilities.Tests.csproj --verbosity m
