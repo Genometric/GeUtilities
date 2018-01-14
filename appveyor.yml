@@ -15,12 +15,14 @@ test_script:
   # restore packages for our unit tests
   - cmd: dotnet restore GeUtilities.Tests\GeUtilities.Tests.csproj --verbosity m
   - cmd: dotnet test GeUtilities.Tests\GeUtilities.Tests.csproj
-  - OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\GeUtilities.Tests\bin\Debug\netcoreapp2.0\GeUtilities.Tests.dll -noshadow" -filter:"+[GeUtilities*]* -[GeUtilities.Tests*]*" -output:".\GeUtilities_coverage.xml"
+  - ps: cd GeUtilities.Tests
+  - OpenCover.Console.exe -register:"user" -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"xunit -noshadow" -filter:"+[*]* -[GeUtilities.Tests*]*" -oldStyle -output:".\GeUtilities_coverage.xml"
+  - ps: cd ..
 after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-      bash codecov.sh -f "GeUtilities_coverage.xml" -t ab819306-5320-4cea-a2c8-cded1183d1d4
+      bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml" -t ab819306-5320-4cea-a2c8-cded1183d1d4
 on_finish :
   # any cleanup in here
 deploy: off
