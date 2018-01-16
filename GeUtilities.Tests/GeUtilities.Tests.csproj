@@ -9,6 +9,13 @@
   <PropertyGroup>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <PackageId>Genometric.GeUtilities.Tests</PackageId>
+    <Authors>https://github.com/Genometric/GeUtilities/graphs/contributors</Authors>
+    <Company>Genometric</Company>
+    <Copyright>GPLv3</Copyright>
+    <PackageLicenseUrl>https://github.com/Genometric/GeUtilities/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Genometric/GeUtilities</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Genometric/GeUtilities</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
