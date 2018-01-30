@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Genometric.GeUtilities</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>https://github.com/Genometric/GeUtilities/graphs/contributors</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/Genometric/GeUtilities/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Genometric/GeUtilities</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>GeUtilities</description>
+    <releaseNotes>First public release.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>Genome</tags>
+  </metadata>
+</package>
