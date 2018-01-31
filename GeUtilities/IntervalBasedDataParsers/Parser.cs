@@ -34,9 +34,6 @@ namespace Genometric.GeUtilities.Parsers
         /// </summary>
         private string _sourceFilePath;
 
-        /// <summary>
-        /// 
-        /// </summary>
         private Assemblies _assembly;
 
         /// <summary>
