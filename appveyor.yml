@@ -65,3 +65,4 @@ for:
     api_key:
       secure: 0FByOuPflD66DigH69NQNr+lW9DG68vHBELc9Tioyjps9M/8JZl1C+E/GQyv7B51
     skip_symbols: false
+    artifact: /.*\.nupkg/
