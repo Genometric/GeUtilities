@@ -1,13 +1,7 @@
+# Common configuration for all branches
 version: '2.0.{build}'
 image: Visual Studio 2017
-branches:
-  only:
-  - master
-environment:
-  sonartoken:
-    secure: 9VWCHMXxOqx9+jGz9YzVcPjuKDQWp2UrSGX2q3ZC1S4mhkqA3kRHf4RtgshQyrio
-  codecovtoken:
-    secure: grVzO2tsoeq7B3FFfRjyhirsmD11tXDcKoXOK6zjpqyOco2BSFbQ0J0T5qTZKsx7
+
 init:
   # Good practise, because Windows line endings are different from Unix/Linux ones
   - cmd: git config --global core.autocrlf true
@@ -16,11 +10,7 @@ install:
 build:
   verbosity: minimal
 clone_depth: 1
-build_script:
-  - choco install "msbuild-sonarqube-runner" -y
-  - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%"
-  - MSBuild.exe /t:Rebuild
-  - MSBuild.SonarQube.Runner.exe end /d:"sonar.login=%sonartoken%"
+
 test_script:
   # restore packages for our unit tests
   - cmd: dotnet restore GeUtilities.Tests\GeUtilities.Tests.csproj --verbosity m
@@ -32,7 +22,36 @@ after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-      bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml" -t $env:codecovtoken
 on_finish :
   # any cleanup in here
 deploy: off
+
+
+# override common configuration for each branch
+for:
+
+# override settings for `master` branch
+-
+  branches:
+    only:
+      - master
+
+  configuration: Release
+  
+  environment:
+    sonartoken:
+      secure: 9VWCHMXxOqx9+jGz9YzVcPjuKDQWp2UrSGX2q3ZC1S4mhkqA3kRHf4RtgshQyrio
+    codecovtoken:
+      secure: grVzO2tsoeq7B3FFfRjyhirsmD11tXDcKoXOK6zjpqyOco2BSFbQ0J0T5qTZKsx7
+    
+  build_script:
+    - choco install "msbuild-sonarqube-runner" -y
+    - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%"
+    - MSBuild.exe /t:Rebuild
+    - MSBuild.SonarQube.Runner.exe end /d:"sonar.login=%sonartoken%"
+    
+  after_test:
+    - ps: |
+        $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+        Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+        bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml" -t $env:codecovtoken
