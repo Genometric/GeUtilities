@@ -63,6 +63,5 @@ for:
   deploy:
     provider: NuGet
     api_key:
-      secure: 0FByOuPflD66DigH69NQNr+lW9DG68vHBELc9Tioyjps9M/8JZl1C+E/GQyv7B51
-    skip_symbols: false
+      secure: 0ubG+Z4SGof+VEFEQD4Gm5JIb4L6+lMq3pnRfUhim5RLUw+JaC5Qx9dBMWZ9JRuD
     artifact: GeUtilities
