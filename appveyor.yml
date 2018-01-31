@@ -24,7 +24,6 @@ after_test:
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
 on_finish :
   # any cleanup in here
-deploy: off
 
 
 # override common configuration for each branch
