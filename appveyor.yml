@@ -64,3 +64,4 @@ for:
     provider: NuGet
     api_key:
       secure: 0ubG+Z4SGof+VEFEQD4Gm5JIb4L6+lMq3pnRfUhim5RLUw+JaC5Qx9dBMWZ9JRuD
+    skip_symbols: false
