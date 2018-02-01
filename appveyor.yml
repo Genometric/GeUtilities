@@ -24,8 +24,8 @@ after_test:
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
 on_finish :
   # any cleanup in here
-deploy: off
 
+deploy: off
 
 # override common configuration for each branch
 for:
@@ -55,3 +55,13 @@ for:
         $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
         Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
         bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml" -t $env:codecovtoken
+  
+  artifacts: 
+    - path: GeUtilities/bin/Release/Genometric.GeUtilities*.nupkg  
+      name: GeUtilities
+    
+  deploy:
+    provider: NuGet
+    api_key:
+      secure: 0ubG+Z4SGof+VEFEQD4Gm5JIb4L6+lMq3pnRfUhim5RLUw+JaC5Qx9dBMWZ9JRuD
+    skip_symbols: false
