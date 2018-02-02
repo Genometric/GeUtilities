@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.Parsers;
-using Genometric.GeUtilities.ReferenceGenomes;
 using Xunit;
 
 namespace GeUtilities.Tests.TRefSeqParser
