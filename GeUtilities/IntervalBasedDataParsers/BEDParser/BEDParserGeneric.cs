@@ -29,12 +29,6 @@ namespace Genometric.GeUtilities.Parsers
         private sbyte _summitColumn;
 
         /// <summary>
-        /// Sets and gets the default p-value that Will be used as region's p-value if the 
-        /// region in source file has an invalid p-value and 'drop_Peak_if_no_p_Value_is_given = false'
-        /// </summary>
-        private double _defaultValue;
-
-        /// <summary>
         /// Sets and gets the p-value conversion will be based on this parameter.
         /// </summary>
         private PValueFormat _pValueFormat;
@@ -69,13 +63,23 @@ namespace Genometric.GeUtilities.Parsers
         #endregion
 
         /// <summary>
+        /// Sets and gets the default p-value that Will be used as region's p-value if the 
+        /// region in source file has an invalid p-value and 'DropPeakIfNoPValueIsGiven = false'.
+        /// </summary>
+        public double DefaultValue
+        {
+            set { _defaultValue = value; }
+            get { return _defaultValue; }
+        }
+        private double _defaultValue = 1E-8;
+
+
+        /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         public BEDParser(
             string sourceFilePath,
-            double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true) :
             this(
@@ -87,7 +91,6 @@ namespace Genometric.GeUtilities.Parsers
                 valueColumn: 4,
                 strandColumn: -1,
                 summitColumn: -1,
-                defaultValue: defaultValue,
                 pValueFormat: pValueFormat,
                 dropPeakIfInvalidValue: dropPeakIfInvalidValue)
         { }
@@ -103,8 +106,6 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="valueColumn">The column number of peak value.</param>
         /// <param name="summitColumn">The column number of peak summit. If summit is not available, set this value to -1 so that the summit will the mid point of the interval.</param>
         /// <param name="strandColumn">The column number of peak strand. If input is not stranded this value should be set to -1.</param>
-        /// <param name="defaultValue">Default value of a peak. It will be used in case 
-        /// invalid value is read from source.</param>
         /// <param name="pValueFormat">It specifies the value conversion option:
         /// <para>0 : no conversion.</para>
         /// <para>1 : value = (-10)Log10(value)</para>
@@ -120,7 +121,6 @@ namespace Genometric.GeUtilities.Parsers
             byte valueColumn,
             sbyte strandColumn = -1,
             sbyte summitColumn = -1,
-            double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true) :
             base(
@@ -134,7 +134,6 @@ namespace Genometric.GeUtilities.Parsers
             _nameColumn = nameColumn;
             _valueColumn = valueColumn;
             _summitColumn = summitColumn;
-            _defaultValue = defaultValue;
             _pValueFormat = pValueFormat;
             _dropPeakIfInvalidValue = dropPeakIfInvalidValue;
             _mostStringentPeak = new I();
@@ -165,7 +164,7 @@ namespace Genometric.GeUtilities.Parsers
                 }
                 else
                 {
-                    rtv.Value = _defaultValue;
+                    rtv.Value = DefaultValue;
                     _defaultValueUtilizationCount++;
                 }
 
@@ -188,7 +187,7 @@ namespace Genometric.GeUtilities.Parsers
                 }
                 else
                 {
-                    rtv.Value = _defaultValue;
+                    rtv.Value = DefaultValue;
                     _defaultValueUtilizationCount++;
                 }
             }

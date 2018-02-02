@@ -39,7 +39,6 @@ namespace GeUtilities.Tests.TBEDParser
                 // Act
                 BEDParser parser = new BEDParser(
                     testFile.TempFilePath,
-                    defaultValue: 1E-8,
                     pValueFormat: PValueFormat.SameAsInput,
                     dropPeakIfInvalidValue: true);
                 var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
@@ -66,7 +65,6 @@ namespace GeUtilities.Tests.TBEDParser
                     valueColumn: columns.ValueColumn,
                     strandColumn: columns.StrandColumn,
                     summitColumn: columns.SummitColumn,
-                    defaultValue: 1E-8,
                     pValueFormat: PValueFormat.SameAsInput,
                     dropPeakIfInvalidValue: true);
                 var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];

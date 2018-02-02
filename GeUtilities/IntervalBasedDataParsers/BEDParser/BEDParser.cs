@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
-using Genometric.GeUtilities.ReferenceGenomes;
 
 namespace Genometric.GeUtilities.Parsers
 {
@@ -11,7 +10,6 @@ namespace Genometric.GeUtilities.Parsers
     {
         public BEDParser(
             string sourceFilePath,
-            double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true) :
             this(
@@ -23,7 +21,6 @@ namespace Genometric.GeUtilities.Parsers
                 valueColumn: 4,
                 strandColumn: -1,
                 summitColumn: -1,
-                defaultValue: defaultValue,
                 pValueFormat: pValueFormat,
                 dropPeakIfInvalidValue: dropPeakIfInvalidValue)
         { }
@@ -37,7 +34,6 @@ namespace Genometric.GeUtilities.Parsers
             byte valueColumn,
             sbyte strandColumn = -1,
             sbyte summitColumn = -1,
-            double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true) :
             base(
@@ -49,7 +45,6 @@ namespace Genometric.GeUtilities.Parsers
                 valueColumn: valueColumn,
                 strandColumn: strandColumn,
                 summitColumn: summitColumn,
-                defaultValue: defaultValue,
                 pValueFormat: pValueFormat,
                 dropPeakIfInvalidValue: dropPeakIfInvalidValue)
         { }

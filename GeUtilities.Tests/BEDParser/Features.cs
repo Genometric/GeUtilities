@@ -54,7 +54,8 @@ namespace GeUtilities.Tests.TBEDParser
             using (TempFileCreator testFile = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123..45"))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, dropPeakIfInvalidValue: false, defaultValue: defaultValue);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, dropPeakIfInvalidValue: false);
+                parser.DefaultValue = defaultValue;
                 var parsedData = parser.Parse();
 
                 // Assert
