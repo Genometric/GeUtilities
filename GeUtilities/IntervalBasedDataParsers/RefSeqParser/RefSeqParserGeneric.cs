@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using Genometric.GeUtilities.ReferenceGenomes;
 
 namespace Genometric.GeUtilities.Parsers
 {

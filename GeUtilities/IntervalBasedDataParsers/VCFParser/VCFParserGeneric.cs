@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using Genometric.GeUtilities.ReferenceGenomes;
 
 namespace Genometric.GeUtilities.Parsers
 {
@@ -22,10 +21,8 @@ namespace Genometric.GeUtilities.Parsers
         #endregion
 
         public VCFParser(
-            string sourceFilePath,
-            Assemblies assembly = Assemblies.Unknown) :
+            string sourceFilePath) :
             this(sourceFilePath: sourceFilePath,
-                assembly: assembly,
                 chrColumn: 0,
                 positionColumn: 1,
                 idColumn: 2,
@@ -47,8 +44,7 @@ namespace Genometric.GeUtilities.Parsers
             byte qualityColumn,
             byte filterColumn,
             byte infoColumn,
-            sbyte strandColumn,
-            Assemblies assembly = Assemblies.Unknown) :
+            sbyte strandColumn) :
             base(
                 sourceFilePath: sourceFilePath,
                 chrColumn: chrColumn,
