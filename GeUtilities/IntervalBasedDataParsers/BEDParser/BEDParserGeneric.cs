@@ -74,16 +74,12 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="sourceFilePath">Full path of source file name.</param>
         /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
-        /// <param name="readOnlyValidChrs"></param>
         public BEDParser(
             string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             this(
                 sourceFilePath: sourceFilePath,
@@ -98,9 +94,6 @@ namespace Genometric.GeUtilities.Parsers
                 defaultValue: defaultValue,
                 pValueFormat: pValueFormat,
                 dropPeakIfInvalidValue: dropPeakIfInvalidValue,
-                startOffset: startOffset,
-                readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToRead: maxLinesToRead,
                 hashFunction: hashFunction)
         { }
 
@@ -110,10 +103,6 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="sourceFilePath">Full path of source file name.</param>
         /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
-        /// <param name="readOnlyValidChrs"></param>
-        /// <param name="startOffset">If the source file comes with header, the number of headers lines needs to be specified so that
-        /// parser can ignore them. If not specified and header is present, header might be dropped because
-        /// of improper format it might have. </param>
         /// <param name="chrColumn">The column number of chromosome name.</param>
         /// <param name="leftEndColumn">The column number of peak left-end position.</param>
         /// <param name="rightEndColumn">The column number of peak right-end position.</param>
@@ -142,19 +131,13 @@ namespace Genometric.GeUtilities.Parsers
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             base(
                 sourceFilePath: sourceFilePath,
-                startOffset: startOffset,
                 chrColumn: chrColumn,
                 leftEndColumn: leftEndColumn,
                 rightEndColumn: rightEndColumn,
                 strandColumn: strandColumn,
-                readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToRead: maxLinesToRead,
                 hashFunction: hashFunction,
                 data: new BED<I>(),
                 assembly: assembly)

@@ -12,14 +12,9 @@ namespace Genometric.GeUtilities.Parsers
         public GTFParser(
            string sourceFilePath,
            Assemblies assembly = Assemblies.Unknown,
-           bool readOnlyValidChrs = true,
-           byte startOffset = 0,
-           uint maxLinesToRead = uint.MaxValue,
            HashFunction hashFunction = HashFunction.One_at_a_Time) :
            this(sourceFilePath: sourceFilePath,
                assembly: assembly,
-               readOnlyValidChrs: readOnlyValidChrs,
-               startOffset: startOffset,
                chrColumn: 0,
                sourceColumn: 1,
                featureColumn: 2,
@@ -29,7 +24,6 @@ namespace Genometric.GeUtilities.Parsers
                strandColumn: 6,
                frameColumn: 7,
                attributeColumn: 8,
-               maxLinesToRead: maxLinesToRead,
                hashFunction: hashFunction)
         { }
 
@@ -45,9 +39,6 @@ namespace Genometric.GeUtilities.Parsers
            sbyte frameColumn,
            sbyte attributeColumn,
            Assemblies assembly = Assemblies.Unknown,
-           bool readOnlyValidChrs = true,
-           byte startOffset = 0,
-           uint maxLinesToRead = uint.MaxValue,
            HashFunction hashFunction = HashFunction.One_at_a_Time) :
            base(
                sourceFilePath: sourceFilePath,
@@ -61,9 +52,6 @@ namespace Genometric.GeUtilities.Parsers
                frameColumn: frameColumn,
                attributeColumn: attributeColumn,
                assembly: assembly,
-               readOnlyValidChrs: readOnlyValidChrs,
-               maxLinesToRead: maxLinesToRead,
-               startOffset: startOffset,
                hashFunction: hashFunction)
         { }
     }

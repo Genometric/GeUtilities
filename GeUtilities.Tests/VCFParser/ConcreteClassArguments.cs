@@ -36,10 +36,7 @@ namespace GeUtilities.Tests.TVCFParser
                 // Act
                 VCFParser parser = new VCFParser(
                     testFile.TempFilePath,
-                    assembly: Assemblies.hg19,
-                    readOnlyValidChrs: true,
-                    startOffset: 0,
-                    maxLinesToRead: 1);
+                    assembly: Assemblies.hg19);
                 var parsedVariant = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
@@ -66,10 +63,7 @@ namespace GeUtilities.Tests.TVCFParser
                     filterColumn: columns.FilterColumn,
                     infoColumn: columns.InfoColumn,
                     strandColumn: columns.StrandColumn,
-                    assembly: Assemblies.hg19,
-                    startOffset: 0,
-                    readOnlyValidChrs: true,
-                    maxLinesToRead: 1);
+                    assembly: Assemblies.hg19);
                 var parsedVariant = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert

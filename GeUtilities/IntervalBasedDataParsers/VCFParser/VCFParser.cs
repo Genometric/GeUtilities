@@ -12,9 +12,6 @@ namespace Genometric.GeUtilities.Parsers
         public VCFParser(
             string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             this(sourceFilePath: sourceFilePath,
                 assembly: assembly,
@@ -27,9 +24,6 @@ namespace Genometric.GeUtilities.Parsers
                 filterColumn: 6,
                 infoColumn: 7,
                 strandColumn: -1,
-                startOffset: startOffset,
-                readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToRead: maxLinesToRead,
                 hashFunction: hashFunction)
         { }
 
@@ -45,9 +39,6 @@ namespace Genometric.GeUtilities.Parsers
             byte infoColumn,
             sbyte strandColumn,
             Assemblies assembly = Assemblies.Unknown,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             base(
                 sourceFilePath: sourceFilePath,
@@ -61,9 +52,6 @@ namespace Genometric.GeUtilities.Parsers
                 infoColumn: infoColumn,
                 strandColumn: strandColumn,
                 assembly: assembly,
-                startOffset: startOffset,
-                readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToRead: maxLinesToRead,
                 hashFunction: hashFunction)
         { }
     }

@@ -36,10 +36,7 @@ namespace GeUtilities.Tests.TRefSeqParser
                 // Act
                 RefSeqParser parser = new RefSeqParser(
                     testFile.TempFilePath,
-                    assembly: Assemblies.hg19,
-                    readOnlyValidChrs: true,
-                    startOffset: 0,
-                    maxLinesToRead: 1);
+                    assembly: Assemblies.hg19);
                 var parsedGene = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
@@ -63,10 +60,7 @@ namespace GeUtilities.Tests.TRefSeqParser
                     refSeqIDColumn: columns.RefSeqIDColumn,
                     geneSymbolColumn: columns.GeneSymbolColumn,
                     strandColumn: columns.StrandColumn,
-                    assembly: Assemblies.hg19,
-                    readOnlyValidChrs: true,
-                    startOffset: 0,
-                    maxLinesToRead: 1);
+                    assembly: Assemblies.hg19);
                 var parsedGene = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert

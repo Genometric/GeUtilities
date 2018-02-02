@@ -12,21 +12,15 @@ namespace Genometric.GeUtilities.Parsers
         public RefSeqParser(
             string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             this(sourceFilePath: sourceFilePath,
                 assembly: assembly,
-                readOnlyValidChrs: readOnlyValidChrs,
-                startOffset: startOffset,
                 chrColumn: 0,
                 leftEndColumn: 1,
                 rightEndColumn: 2,
                 refSeqIDColumn: 3,
                 geneSymbolColumn: 4,
                 strandColumn: -1,
-                maxLinesToRead: maxLinesToRead,
                 hashFunction: hashFunction
                 )
         { }
@@ -40,9 +34,6 @@ namespace Genometric.GeUtilities.Parsers
             byte geneSymbolColumn,
             sbyte strandColumn = -1,
             Assemblies assembly = Assemblies.Unknown,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             base(
                 sourceFilePath: sourceFilePath,
@@ -53,9 +44,6 @@ namespace Genometric.GeUtilities.Parsers
                 geneSymbolColumn: geneSymbolColumn,
                 strandColumn: strandColumn,
                 assembly: assembly,
-                startOffset: startOffset,
-                readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToRead: maxLinesToRead,
                 hashFunction: hashFunction)
         { }
     }

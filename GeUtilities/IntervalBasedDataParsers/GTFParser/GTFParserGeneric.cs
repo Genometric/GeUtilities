@@ -31,19 +31,13 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="sourceFilePath">Full path of source file name.</param>
         /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
-        /// <param name="readOnlyValidChrs"></param>
         public GTFParser(
             string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             this(
                 sourceFilePath: sourceFilePath,
                 assembly: assembly,
-                readOnlyValidChrs: readOnlyValidChrs,
-                startOffset: startOffset,
                 chrColumn: 0,
                 sourceColumn: 1,
                 featureColumn: 2,
@@ -53,7 +47,6 @@ namespace Genometric.GeUtilities.Parsers
                 strandColumn: 6,
                 frameColumn: 7,
                 attributeColumn: 8,
-                maxLinesToRead: maxLinesToRead,
                 hashFunction: hashFunction)
         { }
 
@@ -64,10 +57,6 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="sourceFilePath">Full path of source file name.</param>
         /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
         /// <param name="assembly"></param>
-        /// <param name="readOnlyValidChrs"></param>
-        /// <param name="startOffset">If the source file comes with header, the number of headers lines needs to be specified so that
-        /// parser can ignore them. If not specified and header is present, header might be dropped because
-        /// of improper format it might have. </param>
         /// <param name="chrColumn">The column number of chromosome name.</param>
         /// <param name="leftEndColumn">The column number of feature start position.</param>
         /// <param name="rightEndColumn">The column number of feature stop position.</param>
@@ -85,19 +74,13 @@ namespace Genometric.GeUtilities.Parsers
             sbyte frameColumn,
             sbyte attributeColumn,
             Assemblies assembly = Assemblies.Unknown,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
             HashFunction hashFunction = HashFunction.One_at_a_Time) :
             base(sourceFilePath: sourceFilePath,
                 assembly: assembly,
-                startOffset: startOffset,
                 chrColumn: chrColumn,
                 leftEndColumn: leftEndColumn,
                 rightEndColumn: rightEndColumn,
                 strandColumn: strandColumn,
-                readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToRead: maxLinesToRead,
                 hashFunction: hashFunction,
                 data: new GTF<I>())
         {
