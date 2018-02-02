@@ -29,11 +29,6 @@ namespace Genometric.GeUtilities.Parsers
         private sbyte _summitColumn;
 
         /// <summary>
-        /// Sets and gets the p-value conversion will be based on this parameter.
-        /// </summary>
-        private PValueFormat _pValueFormat;
-
-        /// <summary>
         /// When read process is finished, this variable contains the number
         /// of regions that contained invalid p-value and replaced by default p-value. 
         /// </summary>
@@ -80,14 +75,23 @@ namespace Genometric.GeUtilities.Parsers
         }
         private bool _dropPeakIfInvalidValue = true;
 
+        /// <summary>
+        /// Sets and gets the p-value conversion.
+        /// </summary>
+        public PValueFormats PValueFormat
+        {
+            set { _pValueFormat = value; }
+            get { return _pValueFormat; }
+        }
+        private PValueFormats _pValueFormat = PValueFormats.SameAsInput;
+
 
         /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
         public BEDParser(
-            string sourceFilePath,
-            PValueFormat pValueFormat = PValueFormat.SameAsInput) :
+            string sourceFilePath) :
             this(
                 sourceFilePath: sourceFilePath,
                 chrColumn: 0,
@@ -96,8 +100,7 @@ namespace Genometric.GeUtilities.Parsers
                 nameColumn: 3,
                 valueColumn: 4,
                 strandColumn: -1,
-                summitColumn: -1,
-                pValueFormat: pValueFormat)
+                summitColumn: -1)
         { }
 
         /// <summary>
@@ -111,10 +114,6 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="valueColumn">The column number of peak value.</param>
         /// <param name="summitColumn">The column number of peak summit. If summit is not available, set this value to -1 so that the summit will the mid point of the interval.</param>
         /// <param name="strandColumn">The column number of peak strand. If input is not stranded this value should be set to -1.</param>
-        /// <param name="pValueFormat">It specifies the value conversion option:
-        /// <para>0 : no conversion.</para>
-        /// <para>1 : value = (-10)Log10(value)</para>
-        /// <para>2 : value =  (-1)Log10(value)</para>
         public BEDParser(
             string sourceFilePath,
             byte chrColumn,
@@ -123,8 +122,7 @@ namespace Genometric.GeUtilities.Parsers
             byte nameColumn,
             byte valueColumn,
             sbyte strandColumn = -1,
-            sbyte summitColumn = -1,
-            PValueFormat pValueFormat = PValueFormat.SameAsInput) :
+            sbyte summitColumn = -1) :
             base(
                 sourceFilePath: sourceFilePath,
                 chrColumn: chrColumn,
@@ -136,7 +134,6 @@ namespace Genometric.GeUtilities.Parsers
             _nameColumn = nameColumn;
             _valueColumn = valueColumn;
             _summitColumn = summitColumn;
-            _pValueFormat = pValueFormat;
             _mostStringentPeak = new I();
             _mostPermissivePeak = new I();
             _mostStringentPeak.Value = 1;
@@ -236,12 +233,12 @@ namespace Genometric.GeUtilities.Parsers
         /// <returns>The converted p-value if the conversion type is valid, otherwise it returns 0</returns>
         private double PValueConvertor(double value)
         {
-            switch (_pValueFormat)
+            switch (PValueFormat)
             {
-                case PValueFormat.minus1_Log10_pValue: return Math.Pow(10.0, value / (-1.0));
-                case PValueFormat.minus10_Log10_pValue: return Math.Pow(10.0, value / (-10.0));
-                case PValueFormat.minus100_Log10_pValue: return Math.Pow(10.0, value / (-100.0));
-                case PValueFormat.SameAsInput:
+                case PValueFormats.minus1_Log10_pValue: return Math.Pow(10.0, value / (-1.0));
+                case PValueFormats.minus10_Log10_pValue: return Math.Pow(10.0, value / (-10.0));
+                case PValueFormats.minus100_Log10_pValue: return Math.Pow(10.0, value / (-100.0));
+                case PValueFormats.SameAsInput:
                 default: return value;
             }
         }

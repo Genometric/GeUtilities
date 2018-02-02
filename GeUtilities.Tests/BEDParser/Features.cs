@@ -112,18 +112,19 @@ namespace GeUtilities.Tests.TBEDParser
         }
 
         [Theory]
-        [InlineData(0.001, 0.001, PValueFormat.SameAsInput)]
-        [InlineData(0.001, 3, PValueFormat.minus1_Log10_pValue)]
-        [InlineData(0.001, 30, PValueFormat.minus10_Log10_pValue)]
-        [InlineData(0.001, 300, PValueFormat.minus100_Log10_pValue)]
-        public void PValueConversion(double originalValue, double convertedValue, PValueFormat pvalueFormat)
+        [InlineData(0.001, 0.001, PValueFormats.SameAsInput)]
+        [InlineData(0.001, 3, PValueFormats.minus1_Log10_pValue)]
+        [InlineData(0.001, 30, PValueFormats.minus10_Log10_pValue)]
+        [InlineData(0.001, 300, PValueFormats.minus100_Log10_pValue)]
+        public void PValueConversion(double originalValue, double convertedValue, PValueFormats pvalueFormat)
         {
             // Arrange
             var columns = new Columns(value: convertedValue);
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, pValueFormat: pvalueFormat);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.PValueFormat = pvalueFormat;
                 var parsedData = parser.Parse();
 
                 // Assert
