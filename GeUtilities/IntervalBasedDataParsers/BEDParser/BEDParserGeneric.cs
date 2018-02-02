@@ -79,8 +79,7 @@ namespace Genometric.GeUtilities.Parsers
             Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
-            bool dropPeakIfInvalidValue = true,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            bool dropPeakIfInvalidValue = true) :
             this(
                 sourceFilePath: sourceFilePath,
                 chrColumn: 0,
@@ -93,8 +92,7 @@ namespace Genometric.GeUtilities.Parsers
                 assembly: assembly,
                 defaultValue: defaultValue,
                 pValueFormat: pValueFormat,
-                dropPeakIfInvalidValue: dropPeakIfInvalidValue,
-                hashFunction: hashFunction)
+                dropPeakIfInvalidValue: dropPeakIfInvalidValue)
         { }
 
         /// <summary>
@@ -130,15 +128,13 @@ namespace Genometric.GeUtilities.Parsers
             Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
-            bool dropPeakIfInvalidValue = true,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            bool dropPeakIfInvalidValue = true) :
             base(
                 sourceFilePath: sourceFilePath,
                 chrColumn: chrColumn,
                 leftEndColumn: leftEndColumn,
                 rightEndColumn: rightEndColumn,
                 strandColumn: strandColumn,
-                hashFunction: hashFunction,
                 data: new BED<I>(),
                 assembly: assembly)
         {

@@ -11,8 +11,7 @@ namespace Genometric.GeUtilities.Parsers
     {
         public RefSeqParser(
             string sourceFilePath,
-            Assemblies assembly = Assemblies.Unknown,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            Assemblies assembly = Assemblies.Unknown) :
             this(sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 chrColumn: 0,
@@ -20,9 +19,7 @@ namespace Genometric.GeUtilities.Parsers
                 rightEndColumn: 2,
                 refSeqIDColumn: 3,
                 geneSymbolColumn: 4,
-                strandColumn: -1,
-                hashFunction: hashFunction
-                )
+                strandColumn: -1)
         { }
 
         public RefSeqParser(
@@ -33,8 +30,7 @@ namespace Genometric.GeUtilities.Parsers
             byte refSeqIDColumn,
             byte geneSymbolColumn,
             sbyte strandColumn = -1,
-            Assemblies assembly = Assemblies.Unknown,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            Assemblies assembly = Assemblies.Unknown) :
             base(
                 sourceFilePath: sourceFilePath,
                 chrColumn: chrColumn,
@@ -43,8 +39,7 @@ namespace Genometric.GeUtilities.Parsers
                 refSeqIDColumn: refSeqIDColumn,
                 geneSymbolColumn: geneSymbolColumn,
                 strandColumn: strandColumn,
-                assembly: assembly,
-                hashFunction: hashFunction)
+                assembly: assembly)
         { }
     }
 }

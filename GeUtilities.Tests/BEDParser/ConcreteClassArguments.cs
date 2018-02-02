@@ -42,8 +42,7 @@ namespace GeUtilities.Tests.TBEDParser
                     assembly: Assemblies.hg19,
                     defaultValue: 1E-8,
                     pValueFormat: PValueFormat.SameAsInput,
-                    dropPeakIfInvalidValue: true,
-                    hashFunction: HashFunction.FNV);
+                    dropPeakIfInvalidValue: true);
                 var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
@@ -71,8 +70,7 @@ namespace GeUtilities.Tests.TBEDParser
                     assembly: Assemblies.hg19,
                     defaultValue: 1E-8,
                     pValueFormat: PValueFormat.SameAsInput,
-                    dropPeakIfInvalidValue: true,
-                    hashFunction: HashFunction.FNV);
+                    dropPeakIfInvalidValue: true);
                 var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert

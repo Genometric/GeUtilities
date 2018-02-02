@@ -11,8 +11,7 @@ namespace Genometric.GeUtilities.Parsers
     {
         public GTFParser(
            string sourceFilePath,
-           Assemblies assembly = Assemblies.Unknown,
-           HashFunction hashFunction = HashFunction.One_at_a_Time) :
+           Assemblies assembly = Assemblies.Unknown) :
            this(sourceFilePath: sourceFilePath,
                assembly: assembly,
                chrColumn: 0,
@@ -23,8 +22,7 @@ namespace Genometric.GeUtilities.Parsers
                scoreColumn: 5,
                strandColumn: 6,
                frameColumn: 7,
-               attributeColumn: 8,
-               hashFunction: hashFunction)
+               attributeColumn: 8)
         { }
 
         public GTFParser(
@@ -38,8 +36,7 @@ namespace Genometric.GeUtilities.Parsers
            sbyte strandColumn,
            sbyte frameColumn,
            sbyte attributeColumn,
-           Assemblies assembly = Assemblies.Unknown,
-           HashFunction hashFunction = HashFunction.One_at_a_Time) :
+           Assemblies assembly = Assemblies.Unknown) :
            base(
                sourceFilePath: sourceFilePath,
                chrColumn: chrColumn,
@@ -51,8 +48,7 @@ namespace Genometric.GeUtilities.Parsers
                strandColumn: strandColumn,
                frameColumn: frameColumn,
                attributeColumn: attributeColumn,
-               assembly: assembly,
-               hashFunction: hashFunction)
+               assembly: assembly)
         { }
     }
 }

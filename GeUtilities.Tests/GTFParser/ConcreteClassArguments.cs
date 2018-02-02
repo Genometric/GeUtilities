@@ -37,8 +37,7 @@ namespace GeUtilities.Tests.TGTFParser
                 // Act
                 GTFParser parser = new GTFParser(
                     testFile.TempFilePath,
-                    assembly: Assemblies.hg19,
-                    hashFunction: HashFunction.One_at_a_Time);
+                    assembly: Assemblies.hg19);
                 var parsedFeature = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
@@ -65,8 +64,7 @@ namespace GeUtilities.Tests.TGTFParser
                     strandColumn: columns.StrandColumn,
                     frameColumn: columns.FrameColumn,
                     attributeColumn: columns.AttributeColumn,
-                    assembly: Assemblies.hg19,
-                    hashFunction: HashFunction.One_at_a_Time);
+                    assembly: Assemblies.hg19);
                 var parsedFeature = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert

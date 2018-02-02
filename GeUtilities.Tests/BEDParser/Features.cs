@@ -190,16 +190,17 @@ namespace GeUtilities.Tests.TBEDParser
         }
 
         [Theory]
-        [InlineData(HashFunction.FNV)]
-        [InlineData(HashFunction.One_at_a_Time)]
-        public void HashFunctions(HashFunction hashFunction)
+        [InlineData(Genometric.GeUtilities.Parsers.HashFunctions.FNV)]
+        [InlineData(Genometric.GeUtilities.Parsers.HashFunctions.One_at_a_Time)]
+        public void HashFunctions(HashFunctions hashFunction)
         {
             // Arrange
             var columns = new Columns();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, hashFunction: hashFunction);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.HashFunction = hashFunction;
                 var parsedData = parser.Parse();
 
                 // Assert

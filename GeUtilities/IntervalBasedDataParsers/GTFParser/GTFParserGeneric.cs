@@ -34,7 +34,7 @@ namespace Genometric.GeUtilities.Parsers
         public GTFParser(
             string sourceFilePath,
             Assemblies assembly = Assemblies.Unknown,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            HashFunctions hashFunction = HashFunctions.One_at_a_Time) :
             this(
                 sourceFilePath: sourceFilePath,
                 assembly: assembly,
@@ -74,14 +74,13 @@ namespace Genometric.GeUtilities.Parsers
             sbyte frameColumn,
             sbyte attributeColumn,
             Assemblies assembly = Assemblies.Unknown,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            HashFunctions hashFunction = HashFunctions.One_at_a_Time) :
             base(sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 chrColumn: chrColumn,
                 leftEndColumn: leftEndColumn,
                 rightEndColumn: rightEndColumn,
                 strandColumn: strandColumn,
-                hashFunction: hashFunction,
                 data: new GTF<I>())
         {
             _sourceColumn = sourceColumn;

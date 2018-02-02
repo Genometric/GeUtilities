@@ -11,8 +11,7 @@ namespace Genometric.GeUtilities.Parsers
     {
         public VCFParser(
             string sourceFilePath,
-            Assemblies assembly = Assemblies.Unknown,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            Assemblies assembly = Assemblies.Unknown) :
             this(sourceFilePath: sourceFilePath,
                 assembly: assembly,
                 chrColumn: 0,
@@ -23,8 +22,7 @@ namespace Genometric.GeUtilities.Parsers
                 qualityColumn: 5,
                 filterColumn: 6,
                 infoColumn: 7,
-                strandColumn: -1,
-                hashFunction: hashFunction)
+                strandColumn: -1)
         { }
 
         public VCFParser(
@@ -38,8 +36,7 @@ namespace Genometric.GeUtilities.Parsers
             byte filterColumn,
             byte infoColumn,
             sbyte strandColumn,
-            Assemblies assembly = Assemblies.Unknown,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            Assemblies assembly = Assemblies.Unknown) :
             base(
                 sourceFilePath: sourceFilePath,
                 chrColumn: chrColumn,
@@ -51,8 +48,7 @@ namespace Genometric.GeUtilities.Parsers
                 filterColumn: filterColumn,
                 infoColumn: infoColumn,
                 strandColumn: strandColumn,
-                assembly: assembly,
-                hashFunction: hashFunction)
+                assembly: assembly)
         { }
     }
 }

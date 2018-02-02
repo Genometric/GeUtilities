@@ -14,8 +14,7 @@ namespace Genometric.GeUtilities.Parsers
             Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
-            bool dropPeakIfInvalidValue = true,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            bool dropPeakIfInvalidValue = true) :
             this(
                 sourceFilePath: sourceFilePath,
                 chrColumn: 0,
@@ -28,8 +27,7 @@ namespace Genometric.GeUtilities.Parsers
                 assembly: assembly,
                 defaultValue: defaultValue,
                 pValueFormat: pValueFormat,
-                dropPeakIfInvalidValue: dropPeakIfInvalidValue,
-                hashFunction: hashFunction)
+                dropPeakIfInvalidValue: dropPeakIfInvalidValue)
         { }
 
         public BEDParser(
@@ -44,8 +42,7 @@ namespace Genometric.GeUtilities.Parsers
             Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
-            bool dropPeakIfInvalidValue = true,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            bool dropPeakIfInvalidValue = true) :
             base(
                 sourceFilePath: sourceFilePath,
                 chrColumn: chrColumn,
@@ -58,8 +55,7 @@ namespace Genometric.GeUtilities.Parsers
                 assembly: assembly,
                 defaultValue: defaultValue,
                 pValueFormat: pValueFormat,
-                dropPeakIfInvalidValue: dropPeakIfInvalidValue,
-                hashFunction: hashFunction)
+                dropPeakIfInvalidValue: dropPeakIfInvalidValue)
         { }
     }
 }

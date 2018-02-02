@@ -17,7 +17,6 @@ namespace Genometric.GeUtilities.Parsers
         where S : IStats<int>, new()
     {
         private ParsedIntervals<I, S> _data;
-        private HashFunction _hashFunction;
 
         private const UInt32 _FNVPrime_32 = 16777619;
         private const UInt32 _FNVOffsetBasis_32 = 2166136261;
@@ -133,13 +132,18 @@ namespace Genometric.GeUtilities.Parsers
         public ReadOnlyCollection<string> MissingChrs { get { return _missingChrs.AsReadOnly(); } }
         private List<string> _missingChrs;
 
+        /// <summary>
+        /// Sets and gets the hash function used to create hash 
+        /// value of each parsed interval. 
+        /// </summary>
+        public HashFunctions HashFunction { set; get; }
+
         public Parser(
             string sourceFilePath,
             byte chrColumn,
             byte leftEndColumn,
             sbyte rightEndColumn,
             sbyte strandColumn,
-            HashFunction hashFunction,
             ParsedIntervals<I, S> data,
             Assemblies assembly = Assemblies.Unknown)
         {
@@ -149,7 +153,6 @@ namespace Genometric.GeUtilities.Parsers
             _leftColumn = leftEndColumn;
             _rightColumn = rightEndColumn;
             _strandColumn = strandColumn;
-            _hashFunction = hashFunction;
             _data = data;
             _data.FilePath = Path.GetFullPath(_sourceFilePath);
             _data.FileName = Path.GetFileName(_sourceFilePath);
@@ -244,14 +247,14 @@ namespace Genometric.GeUtilities.Parsers
                                 if (strand != '+' && strand != '-' && strand != '*')
                                     strand = '*';
 
-                        switch (_hashFunction)
+                        switch (HashFunction)
                         {
-                            case HashFunction.One_at_a_Time:
+                            case HashFunctions.One_at_a_Time:
                             default:
                                 readingInterval.HashKey = OneAtATimeHashFunction(readingInterval, lineCounter);
                                 break;
 
-                            case HashFunction.FNV:
+                            case HashFunctions.FNV:
                                 readingInterval.HashKey = FNVHashFunction(readingInterval, lineCounter);
                                 break;
                         }
