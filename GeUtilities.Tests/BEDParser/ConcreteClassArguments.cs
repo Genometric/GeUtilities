@@ -65,8 +65,7 @@ namespace GeUtilities.Tests.TBEDParser
                     valueColumn: columns.ValueColumn,
                     strandColumn: columns.StrandColumn,
                     summitColumn: columns.SummitColumn,
-                    pValueFormat: PValueFormat.SameAsInput,
-                    dropPeakIfInvalidValue: true);
+                    pValueFormat: PValueFormat.SameAsInput);
                 var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert

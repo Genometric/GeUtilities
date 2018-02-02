@@ -34,11 +34,6 @@ namespace Genometric.GeUtilities.Parsers
         private PValueFormat _pValueFormat;
 
         /// <summary>
-        /// If set to true, any peak that has invalid p-value will be dropped. 
-        /// </summary>
-        private bool _dropPeakIfInvalidValue;
-
-        /// <summary>
         /// When read process is finished, this variable contains the number
         /// of regions that contained invalid p-value and replaced by default p-value. 
         /// </summary>
@@ -73,6 +68,18 @@ namespace Genometric.GeUtilities.Parsers
         }
         private double _defaultValue = 1E-8;
 
+        /// <summary>
+        /// Sets and gets if a region with invalid p-value should be 
+        /// read (using default p-value) or dropped. Therefore, if set
+        /// to true, any peak that has invalid p-value will be dropped. 
+        /// </summary>
+        public bool DropPeakIfInvalidValue
+        {
+            set { _dropPeakIfInvalidValue = value; }
+            get { return _dropPeakIfInvalidValue; }
+        }
+        private bool _dropPeakIfInvalidValue = true;
+
 
         /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
@@ -80,8 +87,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="sourceFilePath">Full path of source file name.</param>
         public BEDParser(
             string sourceFilePath,
-            PValueFormat pValueFormat = PValueFormat.SameAsInput,
-            bool dropPeakIfInvalidValue = true) :
+            PValueFormat pValueFormat = PValueFormat.SameAsInput) :
             this(
                 sourceFilePath: sourceFilePath,
                 chrColumn: 0,
@@ -91,8 +97,7 @@ namespace Genometric.GeUtilities.Parsers
                 valueColumn: 4,
                 strandColumn: -1,
                 summitColumn: -1,
-                pValueFormat: pValueFormat,
-                dropPeakIfInvalidValue: dropPeakIfInvalidValue)
+                pValueFormat: pValueFormat)
         { }
 
         /// <summary>
@@ -110,8 +115,6 @@ namespace Genometric.GeUtilities.Parsers
         /// <para>0 : no conversion.</para>
         /// <para>1 : value = (-10)Log10(value)</para>
         /// <para>2 : value =  (-1)Log10(value)</para>
-        /// <param name="dropPeakIfInvalidValue">If set to true, a peak with invalid value will be dropped. 
-        /// If set to false, a peak with invalid value with take up the default value.</param>
         public BEDParser(
             string sourceFilePath,
             byte chrColumn,
@@ -121,8 +124,7 @@ namespace Genometric.GeUtilities.Parsers
             byte valueColumn,
             sbyte strandColumn = -1,
             sbyte summitColumn = -1,
-            PValueFormat pValueFormat = PValueFormat.SameAsInput,
-            bool dropPeakIfInvalidValue = true) :
+            PValueFormat pValueFormat = PValueFormat.SameAsInput) :
             base(
                 sourceFilePath: sourceFilePath,
                 chrColumn: chrColumn,
@@ -135,7 +137,6 @@ namespace Genometric.GeUtilities.Parsers
             _valueColumn = valueColumn;
             _summitColumn = summitColumn;
             _pValueFormat = pValueFormat;
-            _dropPeakIfInvalidValue = dropPeakIfInvalidValue;
             _mostStringentPeak = new I();
             _mostPermissivePeak = new I();
             _mostStringentPeak.Value = 1;
@@ -158,7 +159,7 @@ namespace Genometric.GeUtilities.Parsers
                 {
                     rtv.Value = PValueConvertor(pValue);
                 }
-                else if (_dropPeakIfInvalidValue == true)
+                else if (DropPeakIfInvalidValue == true)
                 {
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid p-value ( " + line[_valueColumn] + " )");
                 }
@@ -181,7 +182,7 @@ namespace Genometric.GeUtilities.Parsers
             }
             else
             {
-                if (_dropPeakIfInvalidValue == true)
+                if (DropPeakIfInvalidValue == true)
                 {
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid p-value column number");
                 }

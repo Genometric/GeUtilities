@@ -21,7 +21,7 @@ namespace GeUtilities.Tests.TBEDParser
             using (TempFileCreator testFile = new TempFileCreator())
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, dropPeakIfInvalidValue: true);
+                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedPeak = bedParser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert

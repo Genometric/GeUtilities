@@ -21,8 +21,7 @@ namespace Genometric.GeUtilities.Parsers
                 valueColumn: 4,
                 strandColumn: -1,
                 summitColumn: -1,
-                pValueFormat: pValueFormat,
-                dropPeakIfInvalidValue: dropPeakIfInvalidValue)
+                pValueFormat: pValueFormat)
         { }
 
         public BEDParser(
@@ -34,8 +33,7 @@ namespace Genometric.GeUtilities.Parsers
             byte valueColumn,
             sbyte strandColumn = -1,
             sbyte summitColumn = -1,
-            PValueFormat pValueFormat = PValueFormat.SameAsInput,
-            bool dropPeakIfInvalidValue = true) :
+            PValueFormat pValueFormat = PValueFormat.SameAsInput) :
             base(
                 sourceFilePath: sourceFilePath,
                 chrColumn: chrColumn,
@@ -45,8 +43,7 @@ namespace Genometric.GeUtilities.Parsers
                 valueColumn: valueColumn,
                 strandColumn: strandColumn,
                 summitColumn: summitColumn,
-                pValueFormat: pValueFormat,
-                dropPeakIfInvalidValue: dropPeakIfInvalidValue)
+                pValueFormat: pValueFormat)
         { }
     }
 }
