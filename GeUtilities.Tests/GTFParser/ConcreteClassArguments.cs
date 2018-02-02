@@ -28,24 +28,6 @@ namespace GeUtilities.Tests.TGTFParser
         }
 
         [Fact]
-        public void PartiallySetArguments()
-        {
-            // Arrange
-            var columns = new Columns();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
-            {
-                // Act
-                GTFParser parser = new GTFParser(
-                    testFile.TempFilePath,
-                    assembly: Assemblies.hg19);
-                var parsedFeature = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
-
-                // Assert
-                Assert.True(parsedFeature.CompareTo(columns.GFeature) == 0);
-            }
-        }
-
-        [Fact]
         public void FullySetArguments()
         {
             // Arrange
@@ -63,8 +45,7 @@ namespace GeUtilities.Tests.TGTFParser
                     scoreColumn: columns.ScoreColumn,
                     strandColumn: columns.StrandColumn,
                     frameColumn: columns.FrameColumn,
-                    attributeColumn: columns.AttributeColumn,
-                    assembly: Assemblies.hg19);
+                    attributeColumn: columns.AttributeColumn);
                 var parsedFeature = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert

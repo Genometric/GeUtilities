@@ -10,10 +10,8 @@ namespace Genometric.GeUtilities.Parsers
     public class VCFParser : VCFParser<Variant>
     {
         public VCFParser(
-            string sourceFilePath,
-            Assemblies assembly = Assemblies.Unknown) :
+            string sourceFilePath) :
             this(sourceFilePath: sourceFilePath,
-                assembly: assembly,
                 chrColumn: 0,
                 positionColumn: 1,
                 idColumn: 2,
@@ -35,8 +33,7 @@ namespace Genometric.GeUtilities.Parsers
             byte qualityColumn,
             byte filterColumn,
             byte infoColumn,
-            sbyte strandColumn,
-            Assemblies assembly = Assemblies.Unknown) :
+            sbyte strandColumn) :
             base(
                 sourceFilePath: sourceFilePath,
                 chrColumn: chrColumn,
@@ -47,8 +44,7 @@ namespace Genometric.GeUtilities.Parsers
                 qualityColumn: qualityColumn,
                 filterColumn: filterColumn,
                 infoColumn: infoColumn,
-                strandColumn: strandColumn,
-                assembly: assembly)
+                strandColumn: strandColumn)
         { }
     }
 }

@@ -10,10 +10,8 @@ namespace Genometric.GeUtilities.Parsers
     public class GTFParser : GTFParser<GeneralFeature>
     {
         public GTFParser(
-           string sourceFilePath,
-           Assemblies assembly = Assemblies.Unknown) :
+           string sourceFilePath) :
            this(sourceFilePath: sourceFilePath,
-               assembly: assembly,
                chrColumn: 0,
                sourceColumn: 1,
                featureColumn: 2,
@@ -35,8 +33,7 @@ namespace Genometric.GeUtilities.Parsers
            sbyte scoreColumn,
            sbyte strandColumn,
            sbyte frameColumn,
-           sbyte attributeColumn,
-           Assemblies assembly = Assemblies.Unknown) :
+           sbyte attributeColumn) :
            base(
                sourceFilePath: sourceFilePath,
                chrColumn: chrColumn,
@@ -47,8 +44,7 @@ namespace Genometric.GeUtilities.Parsers
                scoreColumn: scoreColumn,
                strandColumn: strandColumn,
                frameColumn: frameColumn,
-               attributeColumn: attributeColumn,
-               assembly: assembly)
+               attributeColumn: attributeColumn)
         { }
     }
 }

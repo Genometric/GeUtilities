@@ -25,19 +25,15 @@ namespace Genometric.GeUtilities.Parsers
         private sbyte _scoreColumn;
         private sbyte _frameColumn;
         private Dictionary<string, int> _features;
+
         /// <summary>
         /// Parse General Transfer Format (GTF) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
-        /// <param name="assembly"></param>
         public GTFParser(
-            string sourceFilePath,
-            Assemblies assembly = Assemblies.Unknown,
-            HashFunctions hashFunction = HashFunctions.One_at_a_Time) :
+            string sourceFilePath) :
             this(
                 sourceFilePath: sourceFilePath,
-                assembly: assembly,
                 chrColumn: 0,
                 sourceColumn: 1,
                 featureColumn: 2,
@@ -46,8 +42,7 @@ namespace Genometric.GeUtilities.Parsers
                 scoreColumn: 5,
                 strandColumn: 6,
                 frameColumn: 7,
-                attributeColumn: 8,
-                hashFunction: hashFunction)
+                attributeColumn: 8)
         { }
 
 
@@ -55,8 +50,6 @@ namespace Genometric.GeUtilities.Parsers
         /// Parse General Transfer Format (GTF) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
-        /// <param name="assembly"></param>
         /// <param name="chrColumn">The column number of chromosome name.</param>
         /// <param name="leftEndColumn">The column number of feature start position.</param>
         /// <param name="rightEndColumn">The column number of feature stop position.</param>
@@ -72,11 +65,8 @@ namespace Genometric.GeUtilities.Parsers
             sbyte scoreColumn,
             sbyte strandColumn,
             sbyte frameColumn,
-            sbyte attributeColumn,
-            Assemblies assembly = Assemblies.Unknown,
-            HashFunctions hashFunction = HashFunctions.One_at_a_Time) :
+            sbyte attributeColumn) :
             base(sourceFilePath: sourceFilePath,
-                assembly: assembly,
                 chrColumn: chrColumn,
                 leftEndColumn: leftEndColumn,
                 rightEndColumn: rightEndColumn,

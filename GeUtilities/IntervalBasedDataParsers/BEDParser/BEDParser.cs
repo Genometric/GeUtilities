@@ -11,7 +11,6 @@ namespace Genometric.GeUtilities.Parsers
     {
         public BEDParser(
             string sourceFilePath,
-            Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true) :
@@ -24,7 +23,6 @@ namespace Genometric.GeUtilities.Parsers
                 valueColumn: 4,
                 strandColumn: -1,
                 summitColumn: -1,
-                assembly: assembly,
                 defaultValue: defaultValue,
                 pValueFormat: pValueFormat,
                 dropPeakIfInvalidValue: dropPeakIfInvalidValue)
@@ -39,7 +37,6 @@ namespace Genometric.GeUtilities.Parsers
             byte valueColumn,
             sbyte strandColumn = -1,
             sbyte summitColumn = -1,
-            Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true) :
@@ -52,7 +49,6 @@ namespace Genometric.GeUtilities.Parsers
                 valueColumn: valueColumn,
                 strandColumn: strandColumn,
                 summitColumn: summitColumn,
-                assembly: assembly,
                 defaultValue: defaultValue,
                 pValueFormat: pValueFormat,
                 dropPeakIfInvalidValue: dropPeakIfInvalidValue)

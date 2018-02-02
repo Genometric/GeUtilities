@@ -51,7 +51,6 @@ namespace Genometric.GeUtilities.Parsers
             Assemblies assembly = Assemblies.Unknown) :
             base(
                 sourceFilePath: sourceFilePath,
-                assembly: assembly,
                 chrColumn: chrColumn,
                 leftEndColumn: positionColumn,
                 rightEndColumn: -1,

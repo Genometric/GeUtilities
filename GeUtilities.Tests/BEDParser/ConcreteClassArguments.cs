@@ -39,7 +39,6 @@ namespace GeUtilities.Tests.TBEDParser
                 // Act
                 BEDParser parser = new BEDParser(
                     testFile.TempFilePath,
-                    assembly: Assemblies.hg19,
                     defaultValue: 1E-8,
                     pValueFormat: PValueFormat.SameAsInput,
                     dropPeakIfInvalidValue: true);
@@ -67,7 +66,6 @@ namespace GeUtilities.Tests.TBEDParser
                     valueColumn: columns.ValueColumn,
                     strandColumn: columns.StrandColumn,
                     summitColumn: columns.SummitColumn,
-                    assembly: Assemblies.hg19,
                     defaultValue: 1E-8,
                     pValueFormat: PValueFormat.SameAsInput,
                     dropPeakIfInvalidValue: true);

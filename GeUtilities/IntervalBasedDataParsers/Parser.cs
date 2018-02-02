@@ -27,11 +27,6 @@ namespace Genometric.GeUtilities.Parsers
         private string _sourceFilePath;
 
         /// <summary>
-        /// 
-        /// </summary>
-        private Assemblies _assembly;
-
-        /// <summary>
         /// Sets and gets the column number of chromosome name.
         /// </summary>
         private byte _chrColumn;
@@ -122,7 +117,7 @@ namespace Genometric.GeUtilities.Parsers
         public bool ReadOnlyAssemblyChrs
         {
             set { _readOnlyAssemblyChrs = value; }
-            get { return _assembly == Assemblies.Unknown ? false : _readOnlyAssemblyChrs; }
+            get { return Assembly == Assemblies.Unknown ? false : _readOnlyAssemblyChrs; }
         }
         private bool _readOnlyAssemblyChrs = true;
 
@@ -138,17 +133,23 @@ namespace Genometric.GeUtilities.Parsers
         /// </summary>
         public HashFunctions HashFunction { set; get; }
 
+        /// <summary>
+        /// Set and gets the assembly of source file. 
+        /// The assembly info are used for variety of purposes,
+        /// e.g., to determine if a region has a 
+        /// chromosome value valid w.r.t. to the assembly.
+        /// </summary>
+        public Assemblies Assembly { set; get; }
+
         public Parser(
             string sourceFilePath,
             byte chrColumn,
             byte leftEndColumn,
             sbyte rightEndColumn,
             sbyte strandColumn,
-            ParsedIntervals<I, S> data,
-            Assemblies assembly = Assemblies.Unknown)
+            ParsedIntervals<I, S> data)
         {
             _sourceFilePath = sourceFilePath;
-            _assembly = assembly;
             _chrColumn = chrColumn;
             _leftColumn = leftEndColumn;
             _rightColumn = rightEndColumn;
@@ -157,8 +158,6 @@ namespace Genometric.GeUtilities.Parsers
             _data.FilePath = Path.GetFullPath(_sourceFilePath);
             _data.FileName = Path.GetFileName(_sourceFilePath);
             _data.FileHashKey = GetFileHashKey(_data.FilePath);
-            _data.Assembly = _assembly;
-            _assemblyData = References.GetGenomeSizes(_assembly);
             _excessChrs = new List<string>();
             _missingChrs = new List<string>();
         }
@@ -169,6 +168,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <returns>Returns parsed intervals.</returns>
         protected ParsedIntervals<I, S> Parse()
         {
+            _assemblyData = References.GetGenomeSizes(Assembly);
             if (!File.Exists(_sourceFilePath))
                 throw new FileNotFoundException(string.Format("The file `{0}` does not exist or is inaccessible.", _sourceFilePath));
 
@@ -269,9 +269,10 @@ namespace Genometric.GeUtilities.Parsers
                 Messages.Insert(0, "\t" + _dropedLinesCount.ToString() + " Lines dropped");
             _data.Messages = Messages;
 
-            if (_assembly != Assemblies.Unknown)
+            if (Assembly != Assemblies.Unknown)
                 ReadMissingAndExcessChrs();
 
+            _data.Assembly = Assembly;
             return _data;
         }
 

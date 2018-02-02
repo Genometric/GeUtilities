@@ -27,24 +27,6 @@ namespace GeUtilities.Tests.TVCFParser
         }
 
         [Fact]
-        public void PartiallySetArguments()
-        {
-            // Arrange
-            var columns = new Columns();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
-            {
-                // Act
-                VCFParser parser = new VCFParser(
-                    testFile.TempFilePath,
-                    assembly: Assemblies.hg19);
-                var parsedVariant = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
-
-                // Assert
-                Assert.True(parsedVariant.CompareTo(columns.Variant) == 0);
-            }
-        }
-
-        [Fact]
         public void FullySetArguments()
         {
             // Arrange
@@ -62,8 +44,7 @@ namespace GeUtilities.Tests.TVCFParser
                     qualityColumn: columns.QualityColumn,
                     filterColumn: columns.FilterColumn,
                     infoColumn: columns.InfoColumn,
-                    strandColumn: columns.StrandColumn,
-                    assembly: Assemblies.hg19);
+                    strandColumn: columns.StrandColumn);
                 var parsedVariant = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert

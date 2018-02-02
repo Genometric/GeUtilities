@@ -241,7 +241,8 @@ namespace GeUtilities.Tests.TBEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.Assembly = Assemblies.hg19;
                 parser.ReadOnlyAssemblyChrs = true;
                 var parsedData = parser.Parse();
 
@@ -260,7 +261,8 @@ namespace GeUtilities.Tests.TBEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.Assembly = Assemblies.hg19;
                 parser.ReadOnlyAssemblyChrs = true;
                 var parsedData = parser.Parse();
 
@@ -280,7 +282,8 @@ namespace GeUtilities.Tests.TBEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.Assembly = Assemblies.hg19;
                 parser.ReadOnlyAssemblyChrs = false;
                 var parsedData = parser.Parse();
 
@@ -297,7 +300,8 @@ namespace GeUtilities.Tests.TBEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.Assembly = Assemblies.hg19;
                 parser.ReadOnlyAssemblyChrs = false;
                 var parsedData = parser.Parse();
 

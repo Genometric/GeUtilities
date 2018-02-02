@@ -28,14 +28,10 @@ namespace Genometric.GeUtilities.Parsers
         /// Parse refseq genes presented in tab-delimited text file.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
-        /// <param name="assembly"></param>
         public RefSeqParser(
-            string sourceFilePath,
-            Assemblies assembly = Assemblies.Unknown) :
+            string sourceFilePath) :
             this(
                 sourceFilePath: sourceFilePath,
-                assembly: assembly,
                 chrColumn: 0,
                 leftEndColumn: 1,
                 rightEndColumn: 2,
@@ -49,8 +45,6 @@ namespace Genometric.GeUtilities.Parsers
         /// Parse refseq genes presented in tab-delimited text file.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name</param>
-        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
-        /// <param name="assembly"></param>
         /// <param name="chrColumn">The column number of chromosome name</param>
         /// <param name="leftEndColumn">The column number of gene start position</param>
         /// <param name="rightEndColumn">The column number of gene stop position</param>
@@ -61,10 +55,8 @@ namespace Genometric.GeUtilities.Parsers
             sbyte rightEndColumn,
             byte refSeqIDColumn,
             byte geneSymbolColumn,
-            sbyte strandColumn = -1,
-            Assemblies assembly = Assemblies.Unknown) :
+            sbyte strandColumn = -1) :
             base(sourceFilePath: sourceFilePath,
-                assembly: assembly,
                 chrColumn: chrColumn,
                 leftEndColumn: leftEndColumn,
                 rightEndColumn: rightEndColumn,

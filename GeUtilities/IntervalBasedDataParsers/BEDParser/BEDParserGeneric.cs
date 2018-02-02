@@ -73,10 +73,8 @@ namespace Genometric.GeUtilities.Parsers
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
         /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
-        /// <param name="assembly"></param>
         public BEDParser(
             string sourceFilePath,
-            Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true) :
@@ -89,7 +87,6 @@ namespace Genometric.GeUtilities.Parsers
                 valueColumn: 4,
                 strandColumn: -1,
                 summitColumn: -1,
-                assembly: assembly,
                 defaultValue: defaultValue,
                 pValueFormat: pValueFormat,
                 dropPeakIfInvalidValue: dropPeakIfInvalidValue)
@@ -99,8 +96,6 @@ namespace Genometric.GeUtilities.Parsers
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
-        /// <param name="assembly"></param>
         /// <param name="chrColumn">The column number of chromosome name.</param>
         /// <param name="leftEndColumn">The column number of peak left-end position.</param>
         /// <param name="rightEndColumn">The column number of peak right-end position.</param>
@@ -125,7 +120,6 @@ namespace Genometric.GeUtilities.Parsers
             byte valueColumn,
             sbyte strandColumn = -1,
             sbyte summitColumn = -1,
-            Assemblies assembly = Assemblies.Unknown,
             double defaultValue = 1E-8,
             PValueFormat pValueFormat = PValueFormat.SameAsInput,
             bool dropPeakIfInvalidValue = true) :
@@ -135,8 +129,7 @@ namespace Genometric.GeUtilities.Parsers
                 leftEndColumn: leftEndColumn,
                 rightEndColumn: rightEndColumn,
                 strandColumn: strandColumn,
-                data: new BED<I>(),
-                assembly: assembly)
+                data: new BED<I>())
         {
             _nameColumn = nameColumn;
             _valueColumn = valueColumn;
