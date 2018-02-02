@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using Genometric.GeUtilities.ReferenceGenomes;
 using System;
 
 namespace Genometric.GeUtilities.Parsers
@@ -27,22 +26,6 @@ namespace Genometric.GeUtilities.Parsers
         /// Sets and gets the column number of peak summit.
         /// </summary>
         private sbyte _summitColumn;
-
-        /// <summary>
-        /// Sets and gets the default p-value that Will be used as region's p-value if the 
-        /// region in source file has an invalid p-value and 'drop_Peak_if_no_p_Value_is_given = false'
-        /// </summary>
-        private double _defaultValue;
-
-        /// <summary>
-        /// Sets and gets the p-value conversion will be based on this parameter.
-        /// </summary>
-        private PValueFormat _pValueFormat;
-
-        /// <summary>
-        /// If set to true, any peak that has invalid p-value will be dropped. 
-        /// </summary>
-        private bool _dropPeakIfInvalidValue;
 
         /// <summary>
         /// When read process is finished, this variable contains the number
@@ -69,22 +52,45 @@ namespace Genometric.GeUtilities.Parsers
         #endregion
 
         /// <summary>
+        /// Sets and gets the default p-value that Will be used as region's p-value if the 
+        /// region in source file has an invalid p-value and 'DropPeakIfNoPValueIsGiven = false'.
+        /// </summary>
+        public double DefaultValue
+        {
+            set { _defaultValue = value; }
+            get { return _defaultValue; }
+        }
+        private double _defaultValue = 1E-8;
+
+        /// <summary>
+        /// Sets and gets if a region with invalid p-value should be 
+        /// read (using default p-value) or dropped. Therefore, if set
+        /// to true, any peak that has invalid p-value will be dropped. 
+        /// </summary>
+        public bool DropPeakIfInvalidValue
+        {
+            set { _dropPeakIfInvalidValue = value; }
+            get { return _dropPeakIfInvalidValue; }
+        }
+        private bool _dropPeakIfInvalidValue = true;
+
+        /// <summary>
+        /// Sets and gets the p-value conversion.
+        /// </summary>
+        public PValueFormats PValueFormat
+        {
+            set { _pValueFormat = value; }
+            get { return _pValueFormat; }
+        }
+        private PValueFormats _pValueFormat = PValueFormats.SameAsInput;
+
+
+        /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
-        /// <param name="assembly"></param>
-        /// <param name="readOnlyValidChrs"></param>
         public BEDParser(
-            string sourceFilePath,
-            Assemblies assembly = Assemblies.Unknown,
-            double defaultValue = 1E-8,
-            PValueFormat pValueFormat = PValueFormat.SameAsInput,
-            bool dropPeakIfInvalidValue = true,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            string sourceFilePath) :
             this(
                 sourceFilePath: sourceFilePath,
                 chrColumn: 0,
@@ -93,27 +99,13 @@ namespace Genometric.GeUtilities.Parsers
                 nameColumn: 3,
                 valueColumn: 4,
                 strandColumn: -1,
-                summitColumn: -1,
-                assembly: assembly,
-                defaultValue: defaultValue,
-                pValueFormat: pValueFormat,
-                dropPeakIfInvalidValue: dropPeakIfInvalidValue,
-                startOffset: startOffset,
-                readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToRead: maxLinesToRead,
-                hashFunction: hashFunction)
+                summitColumn: -1)
         { }
 
         /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
-        /// <param name="assembly"></param>
-        /// <param name="readOnlyValidChrs"></param>
-        /// <param name="startOffset">If the source file comes with header, the number of headers lines needs to be specified so that
-        /// parser can ignore them. If not specified and header is present, header might be dropped because
-        /// of improper format it might have. </param>
         /// <param name="chrColumn">The column number of chromosome name.</param>
         /// <param name="leftEndColumn">The column number of peak left-end position.</param>
         /// <param name="rightEndColumn">The column number of peak right-end position.</param>
@@ -121,14 +113,6 @@ namespace Genometric.GeUtilities.Parsers
         /// <param name="valueColumn">The column number of peak value.</param>
         /// <param name="summitColumn">The column number of peak summit. If summit is not available, set this value to -1 so that the summit will the mid point of the interval.</param>
         /// <param name="strandColumn">The column number of peak strand. If input is not stranded this value should be set to -1.</param>
-        /// <param name="defaultValue">Default value of a peak. It will be used in case 
-        /// invalid value is read from source.</param>
-        /// <param name="pValueFormat">It specifies the value conversion option:
-        /// <para>0 : no conversion.</para>
-        /// <para>1 : value = (-10)Log10(value)</para>
-        /// <para>2 : value =  (-1)Log10(value)</para>
-        /// <param name="dropPeakIfInvalidValue">If set to true, a peak with invalid value will be dropped. 
-        /// If set to false, a peak with invalid value with take up the default value.</param>
         public BEDParser(
             string sourceFilePath,
             byte chrColumn,
@@ -137,34 +121,18 @@ namespace Genometric.GeUtilities.Parsers
             byte nameColumn,
             byte valueColumn,
             sbyte strandColumn = -1,
-            sbyte summitColumn = -1,
-            Assemblies assembly = Assemblies.Unknown,
-            double defaultValue = 1E-8,
-            PValueFormat pValueFormat = PValueFormat.SameAsInput,
-            bool dropPeakIfInvalidValue = true,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            sbyte summitColumn = -1) :
             base(
                 sourceFilePath: sourceFilePath,
-                startOffset: startOffset,
                 chrColumn: chrColumn,
                 leftEndColumn: leftEndColumn,
                 rightEndColumn: rightEndColumn,
                 strandColumn: strandColumn,
-                readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToRead: maxLinesToRead,
-                hashFunction: hashFunction,
-                data: new BED<I>(),
-                assembly: assembly)
+                data: new BED<I>())
         {
             _nameColumn = nameColumn;
             _valueColumn = valueColumn;
             _summitColumn = summitColumn;
-            _defaultValue = defaultValue;
-            _pValueFormat = pValueFormat;
-            _dropPeakIfInvalidValue = dropPeakIfInvalidValue;
             _mostStringentPeak = new I();
             _mostPermissivePeak = new I();
             _mostStringentPeak.Value = 1;
@@ -187,13 +155,13 @@ namespace Genometric.GeUtilities.Parsers
                 {
                     rtv.Value = PValueConvertor(pValue);
                 }
-                else if (_dropPeakIfInvalidValue == true)
+                else if (DropPeakIfInvalidValue == true)
                 {
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid p-value ( " + line[_valueColumn] + " )");
                 }
                 else
                 {
-                    rtv.Value = _defaultValue;
+                    rtv.Value = DefaultValue;
                     _defaultValueUtilizationCount++;
                 }
 
@@ -210,13 +178,13 @@ namespace Genometric.GeUtilities.Parsers
             }
             else
             {
-                if (_dropPeakIfInvalidValue == true)
+                if (DropPeakIfInvalidValue == true)
                 {
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid p-value column number");
                 }
                 else
                 {
-                    rtv.Value = _defaultValue;
+                    rtv.Value = DefaultValue;
                     _defaultValueUtilizationCount++;
                 }
             }
@@ -264,12 +232,12 @@ namespace Genometric.GeUtilities.Parsers
         /// <returns>The converted p-value if the conversion type is valid, otherwise it returns 0</returns>
         private double PValueConvertor(double value)
         {
-            switch (_pValueFormat)
+            switch (PValueFormat)
             {
-                case PValueFormat.minus1_Log10_pValue: return Math.Pow(10.0, value / (-1.0));
-                case PValueFormat.minus10_Log10_pValue: return Math.Pow(10.0, value / (-10.0));
-                case PValueFormat.minus100_Log10_pValue: return Math.Pow(10.0, value / (-100.0));
-                case PValueFormat.SameAsInput:
+                case PValueFormats.minus1_Log10_pValue: return Math.Pow(10.0, value / (-1.0));
+                case PValueFormats.minus10_Log10_pValue: return Math.Pow(10.0, value / (-10.0));
+                case PValueFormats.minus100_Log10_pValue: return Math.Pow(10.0, value / (-100.0));
+                case PValueFormats.SameAsInput:
                 default: return value;
             }
         }

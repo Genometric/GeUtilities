@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.Parsers;
-using Genometric.GeUtilities.ReferenceGenomes;
 using Xunit;
 
 namespace GeUtilities.Tests.TVCFParser
@@ -19,27 +18,6 @@ namespace GeUtilities.Tests.TVCFParser
             {
                 // Act
                 VCFParser parser = new VCFParser(testFile.TempFilePath);
-                var parsedVariant = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
-
-                // Assert
-                Assert.True(parsedVariant.CompareTo(columns.Variant) == 0);
-            }
-        }
-
-        [Fact]
-        public void PartiallySetArguments()
-        {
-            // Arrange
-            var columns = new Columns();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
-            {
-                // Act
-                VCFParser parser = new VCFParser(
-                    testFile.TempFilePath,
-                    assembly: Assemblies.hg19,
-                    readOnlyValidChrs: true,
-                    startOffset: 0,
-                    maxLinesToRead: 1);
                 var parsedVariant = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
@@ -65,11 +43,7 @@ namespace GeUtilities.Tests.TVCFParser
                     qualityColumn: columns.QualityColumn,
                     filterColumn: columns.FilterColumn,
                     infoColumn: columns.InfoColumn,
-                    strandColumn: columns.StrandColumn,
-                    assembly: Assemblies.hg19,
-                    startOffset: 0,
-                    readOnlyValidChrs: true,
-                    maxLinesToRead: 1);
+                    strandColumn: columns.StrandColumn);
                 var parsedVariant = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert

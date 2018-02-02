@@ -4,5 +4,5 @@
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public enum PValueFormat {SameAsInput, minus1_Log10_pValue, minus10_Log10_pValue, minus100_Log10_pValue };
+    public enum PValueFormats {SameAsInput, minus1_Log10_pValue, minus10_Log10_pValue, minus100_Log10_pValue };
 }

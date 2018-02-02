@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using Genometric.GeUtilities.ReferenceGenomes;
 using System.Collections.Generic;
 
 namespace Genometric.GeUtilities.Parsers
@@ -25,25 +24,15 @@ namespace Genometric.GeUtilities.Parsers
         private sbyte _scoreColumn;
         private sbyte _frameColumn;
         private Dictionary<string, int> _features;
+
         /// <summary>
         /// Parse General Transfer Format (GTF) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
-        /// <param name="assembly"></param>
-        /// <param name="readOnlyValidChrs"></param>
         public GTFParser(
-            string sourceFilePath,
-            Assemblies assembly = Assemblies.Unknown,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            string sourceFilePath) :
             this(
                 sourceFilePath: sourceFilePath,
-                assembly: assembly,
-                readOnlyValidChrs: readOnlyValidChrs,
-                startOffset: startOffset,
                 chrColumn: 0,
                 sourceColumn: 1,
                 featureColumn: 2,
@@ -52,9 +41,7 @@ namespace Genometric.GeUtilities.Parsers
                 scoreColumn: 5,
                 strandColumn: 6,
                 frameColumn: 7,
-                attributeColumn: 8,
-                maxLinesToRead: maxLinesToRead,
-                hashFunction: hashFunction)
+                attributeColumn: 8)
         { }
 
 
@@ -62,12 +49,6 @@ namespace Genometric.GeUtilities.Parsers
         /// Parse General Transfer Format (GTF) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        /// <param name="genome">This parameter will be used for initializing the chromosome count and sex chromosomes mappings.</param>
-        /// <param name="assembly"></param>
-        /// <param name="readOnlyValidChrs"></param>
-        /// <param name="startOffset">If the source file comes with header, the number of headers lines needs to be specified so that
-        /// parser can ignore them. If not specified and header is present, header might be dropped because
-        /// of improper format it might have. </param>
         /// <param name="chrColumn">The column number of chromosome name.</param>
         /// <param name="leftEndColumn">The column number of feature start position.</param>
         /// <param name="rightEndColumn">The column number of feature stop position.</param>
@@ -83,22 +64,12 @@ namespace Genometric.GeUtilities.Parsers
             sbyte scoreColumn,
             sbyte strandColumn,
             sbyte frameColumn,
-            sbyte attributeColumn,
-            Assemblies assembly = Assemblies.Unknown,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            sbyte attributeColumn) :
             base(sourceFilePath: sourceFilePath,
-                assembly: assembly,
-                startOffset: startOffset,
                 chrColumn: chrColumn,
                 leftEndColumn: leftEndColumn,
                 rightEndColumn: rightEndColumn,
                 strandColumn: strandColumn,
-                readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToRead: maxLinesToRead,
-                hashFunction: hashFunction,
                 data: new GTF<I>())
         {
             _sourceColumn = sourceColumn;

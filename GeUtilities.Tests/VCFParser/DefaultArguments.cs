@@ -32,13 +32,14 @@ namespace GeUtilities.Tests.TVCFParser
         [InlineData(1, 0)]
         [InlineData(2, 0)]
         [InlineData(2, 2)]
-        public void AvoidHeader(int headerCount, byte startOffset)
+        public void AvoidHeader(int headerCount, byte readOffset)
         {
             // Arrange
             using (TempFileCreator testFile = new TempFileCreator(new Columns(), headerLineCount: headerCount))
             {
                 // Act
-                VCFParser<Variant> parser = new VCFParser<Variant>(testFile.TempFilePath, startOffset: startOffset);
+                VCFParser<Variant> parser = new VCFParser<Variant>(testFile.TempFilePath);
+                parser.ReadOffset = readOffset;
                 var parsedData = parser.Parse();
 
                 // Assert

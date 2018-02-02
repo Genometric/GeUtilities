@@ -16,13 +16,14 @@ namespace GeUtilities.Tests.TGTFParser
         [InlineData(1, 0)]
         [InlineData(2, 0)]
         [InlineData(2, 2)]
-        public void AvoidHeader(int headerCount, byte startOffset)
+        public void AvoidHeader(int headerCount, byte readOffset)
         {
             // Arrange
             using (TempFileCreator testFile = new TempFileCreator(new Columns(), headerLineCount: headerCount))
             {
                 // Act
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath, startOffset: startOffset);
+                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
+                parser.ReadOffset = readOffset;
                 var parsedData = parser.Parse();
 
                 // Assert
