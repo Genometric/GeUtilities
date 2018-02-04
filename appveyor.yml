@@ -75,4 +75,5 @@ for:
   configuration: Debug
   
   after_test:
-    - bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml"
+    - ps: |
+        bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml"
