@@ -73,3 +73,6 @@ for:
       - /dev*/
       
   configuration: Debug
+  
+  after_test:
+    - codecov -f "GeUtilities.Tests/GeUtilities_coverage.xml"
