@@ -248,7 +248,7 @@ namespace Genometric.GeUtilities.Parsers
 
                         switch (HashFunction)
                         {
-                            case HashFunction.FNV:
+                            case HashFunctions.FNV:
                                 readingInterval.HashKey = FNVHashFunction(readingInterval, lineCounter);
                                 break;
 
