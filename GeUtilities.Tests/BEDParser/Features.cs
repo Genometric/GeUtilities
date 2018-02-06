@@ -276,7 +276,7 @@ namespace GeUtilities.Tests.TBEDParser
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: false);
-                var parsedData = parser.Parse();
+                parser.Parse();
 
                 // Assert
                 Assert.True(parser.ExcessChrs.Count == 1);
@@ -292,7 +292,7 @@ namespace GeUtilities.Tests.TBEDParser
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: false);
-                var parsedData = parser.Parse();
+                parser.Parse();
 
                 // Assert
                 Assert.True(parser.MissingChrs.Count == References.GetGenomeSizes(Assemblies.hg19).Count - 1);
