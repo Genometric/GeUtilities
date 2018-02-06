@@ -230,9 +230,8 @@ namespace Genometric.GeUtilities.Parsers
 
                         strand = '*';
                         if (_strandColumn != -1 && _strandColumn < line.Length)
-                            if (char.TryParse(splittedLine[_strandColumn], out strand))
-                                if (strand != '+' && strand != '-' && strand != '*')
-                                    strand = '*';
+                            if (char.TryParse(splittedLine[_strandColumn], out strand) && strand != '+' && strand != '-' && strand != '*')
+                                strand = '*';
 
                         switch (_hashFunction)
                         {
