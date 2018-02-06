@@ -4,6 +4,7 @@
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using System;
+using System.Text;
 
 /// <summary>
 /// This namespace contains Tests for both base and BED parsers.
@@ -165,36 +166,36 @@ namespace GeUtilities.Tests.TBEDParser
 
         public string GetSampleHeader()
         {
-            string header = "";
+            var header = new StringBuilder("");
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
-                if (ChrColumn == i) header += "chr\t";
-                else if (LeftColumn == i) header += "Left\t";
-                else if (RightColumn == i) header += "Right\t";
-                else if (NameColumn == i) header += "Name\t";
-                else if (ValueColumn == i) header += "Value\t";
-                else if (StrandColumn == i) header += "Strand\t";
-                else if (SummitColumn == i) header += "Summit\t";
-                else header += "aBcD\t";
+                if (ChrColumn == i) header.Append("chr\t");
+                else if (LeftColumn == i) header.Append("Left\t");
+                else if (RightColumn == i) header.Append("Right\t");
+                else if (NameColumn == i) header.Append("Name\t");
+                else if (ValueColumn == i) header.Append("Value\t");
+                else if (StrandColumn == i) header.Append("Strand\t");
+                else if (SummitColumn == i) header.Append("Summit\t");
+                else header.Append("aBcD\t");
 
-            return header;
+            return header.ToString();
         }
 
         public string GetSampleLine()
         {
-            string line = "";
+            var lineBuilder = new StringBuilder("");
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
-                if (ChrColumn == i) line += Chr + "\t";
-                else if (LeftColumn == i) line += Peak.Left + "\t";
-                else if (RightColumn == i) line += Peak.Right + "\t";
-                else if (NameColumn == i) line += Peak.Name + "\t";
-                else if (ValueColumn == i) line += Peak.Value + "\t";
-                else if (StrandColumn == i) line += Strand + "\t";
-                else if (SummitColumn == i) line += Peak.Summit + "\t";
-                else line += "AbCd\t";
+                if (ChrColumn == i) lineBuilder.Append(Chr + "\t");
+                else if (LeftColumn == i) lineBuilder.Append(Peak.Left + "\t");
+                else if (RightColumn == i) lineBuilder.Append(Peak.Right + "\t");
+                else if (NameColumn == i) lineBuilder.Append(Peak.Name + "\t");
+                else if (ValueColumn == i) lineBuilder.Append(Peak.Value + "\t");
+                else if (StrandColumn == i) lineBuilder.Append(Strand + "\t");
+                else if (SummitColumn == i) lineBuilder.Append(Peak.Summit + "\t");
+                else lineBuilder.Append("AbCd\t");
 
-            return line;
+            return lineBuilder.ToString();
         }
     }
 }
