@@ -19,10 +19,19 @@ namespace GeUtilities.Tests.TBEDParser
 
         public TempFileCreator(string peak)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
-            using (FileStream fs = File.Create(TempFilePath))
-            using (StreamWriter sw = new StreamWriter(fs))
-                sw.WriteLine(peak);
+            FileStream fs = null;
+            try
+            {
+                _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+                fs = File.Create(TempFilePath);
+                using (StreamWriter sw = new StreamWriter(fs))
+                    sw.WriteLine(peak);
+            }
+            finally
+            {
+                if (fs != null)
+                    fs.Dispose();
+            }
         }
 
         public TempFileCreator(string[] peaks)
