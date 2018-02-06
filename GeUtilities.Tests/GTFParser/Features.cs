@@ -30,7 +30,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void FeatureCount()
         {
             // Arrange
-            var columns = new Columns(feature: "feature");
+            var columns = new Columns { Feature = "feature" };
             int featureCount = 5;
             using (TempFileCreator testFile = new TempFileCreator(columns, featuresCount: featureCount))
             {
@@ -38,7 +38,7 @@ namespace GeUtilities.Tests.TGTFParser
                 var parsedGTF = ParseGTF(testFile.TempFilePath, columns);
 
                 // Assert
-                Assert.True(parsedGTF.DeterminedFeatures[columns.GFeature.Feature] == featureCount);
+                Assert.True(parsedGTF.DeterminedFeatures[columns.Feature] == featureCount);
             }
         }
 

@@ -40,7 +40,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadChr(string chr)
         {
             // Arrange
-            var columns = new Columns(chr: chr);
+            var columns = new Columns { Chr = chr };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -58,7 +58,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void FailReadChr(string chr)
         {
             // Arrange
-            var columns = new Columns(chr: "chr1");
+            var columns = new Columns { Chr = "chr1" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -90,7 +90,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadLeft()
         {
             // Arrange
-            var columns = new Columns(left: 10);
+            var columns = new Columns { Left = 10 };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -98,7 +98,7 @@ namespace GeUtilities.Tests.TGTFParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Left == columns.GFeature.Left);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Left == columns.Left);
             }
         }
 
@@ -121,7 +121,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadRight()
         {
             // Arrange
-            var columns = new Columns(right: 20);
+            var columns = new Columns { Right = 20 };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -129,7 +129,7 @@ namespace GeUtilities.Tests.TGTFParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Right == columns.GFeature.Right);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Right == columns.Right);
             }
         }
 
@@ -152,7 +152,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadSource()
         {
             // Arrange
-            var columns = new Columns(source: "Source_01");
+            var columns = new Columns { Source = "Source_01" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -160,7 +160,7 @@ namespace GeUtilities.Tests.TGTFParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Source == columns.GFeature.Source);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Source == columns.Source);
             }
         }
 
@@ -168,7 +168,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadFeature()
         {
             // Arrange
-            var columns = new Columns(feature: "Feature_01");
+            var columns = new Columns { Feature = "Feature_01" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -176,7 +176,7 @@ namespace GeUtilities.Tests.TGTFParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Feature == columns.GFeature.Feature);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Feature == columns.Feature);
             }
         }
 
@@ -184,7 +184,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadScore()
         {
             // Arrange
-            var columns = new Columns(score: 123.456);
+            var columns = new Columns { Score = 123.456 };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -192,7 +192,7 @@ namespace GeUtilities.Tests.TGTFParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Score == columns.GFeature.Score);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Score == columns.Score);
             }
         }
 
@@ -200,7 +200,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadAttribute()
         {
             // Arrange
-            var columns = new Columns(attribute: "att1=at1;att2=at2;att3=3");
+            var columns = new Columns { Attribute = "att1=at1;att2=at2;att3=3" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -208,7 +208,7 @@ namespace GeUtilities.Tests.TGTFParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Attribute == columns.GFeature.Attribute);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Attribute == columns.Attribute);
             }
         }
 

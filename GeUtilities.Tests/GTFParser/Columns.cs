@@ -9,7 +9,7 @@ namespace GeUtilities.Tests.TGTFParser
 {
     public class Columns
     {
-        private byte _chrColumn;
+        private byte _chrColumn = 0;
         public byte ChrColumn
         {
             get { return _chrColumn; }
@@ -20,7 +20,7 @@ namespace GeUtilities.Tests.TGTFParser
             }
         }
 
-        private sbyte _sourceColumn;
+        private sbyte _sourceColumn = 1;
         public sbyte SourceColumn
         {
             get { return _sourceColumn; }
@@ -31,7 +31,7 @@ namespace GeUtilities.Tests.TGTFParser
             }
         }
 
-        private sbyte _featureColumn;
+        private sbyte _featureColumn = 2;
         public sbyte FeatureColumn
         {
             get { return _featureColumn; }
@@ -42,7 +42,7 @@ namespace GeUtilities.Tests.TGTFParser
             }
         }
 
-        private byte _leftColumn;
+        private byte _leftColumn = 3;
         public byte LeftColumn
         {
             get { return _leftColumn; }
@@ -53,7 +53,7 @@ namespace GeUtilities.Tests.TGTFParser
             }
         }
 
-        private sbyte _rightColumn;
+        private sbyte _rightColumn = 4;
         public sbyte RightColumn
         {
             get { return _rightColumn; }
@@ -64,7 +64,7 @@ namespace GeUtilities.Tests.TGTFParser
             }
         }
 
-        private sbyte _scoreColumn;
+        private sbyte _scoreColumn = 5;
         public sbyte ScoreColumn
         {
             get { return _scoreColumn; }
@@ -75,7 +75,7 @@ namespace GeUtilities.Tests.TGTFParser
             }
         }
 
-        private sbyte _strandColumn;
+        private sbyte _strandColumn = 6;
         public sbyte StrandColumn
         {
             get { return _strandColumn; }
@@ -86,7 +86,7 @@ namespace GeUtilities.Tests.TGTFParser
             }
         }
 
-        private sbyte _frameColumn;
+        private sbyte _frameColumn = 7;
         public sbyte FrameColumn
         {
             get { return _frameColumn; }
@@ -97,7 +97,7 @@ namespace GeUtilities.Tests.TGTFParser
             }
         }
 
-        private sbyte _attributeColumn;
+        private sbyte _attributeColumn = 8;
         public sbyte AttributeColumn
         {
             get { return _attributeColumn; }
@@ -108,53 +108,85 @@ namespace GeUtilities.Tests.TGTFParser
             }
         }
 
-        public string Chr { set; get; }
-        public char Strand { set; get; }
-        public GeneralFeature GFeature { set; get; }
-
-        public Columns(
-            string source = "Source",
-            string feature = "Feature",
-            string chr = "chr1",
-            int left = 10,
-            int right = 20,
-            double score = 100.0,
-            char strand = '*',
-            string frame = "Frame",
-            string attribute = "att1=1;att2=v2",
-            byte chrColumn = 0,
-            sbyte sourceColumn = 1,
-            sbyte featureColumn = 2,
-            byte leftColumn = 3,
-            sbyte rightColumn = 4,
-            sbyte scoreColumn = 5,
-            sbyte strandColumn = 6,
-            sbyte frameColumn = 7,
-            sbyte attributeColumn = 8
-            )
+        private string _source = "Source";
+        public string Source
         {
-            Chr = chr;
-            Strand = strand;
-            GFeature = new GeneralFeature()
-            {
-                Source = source,
-                Feature = feature,
-                Left = left,
-                Right = right,
-                Score = score,
-                Frame = frame,
-                Attribute = attribute,
-            };
-            _chrColumn = chrColumn;
-            _sourceColumn = sourceColumn;
-            _featureColumn = featureColumn;
-            _leftColumn = leftColumn;
-            _rightColumn = rightColumn;
-            _scoreColumn = scoreColumn;
-            _strandColumn = strandColumn;
-            _frameColumn = frameColumn;
-            _attributeColumn = attributeColumn;
+            set { _source = value; }
+            get { return _source; }
         }
+
+        private string _feature = "Feature";
+        public string Feature
+        {
+            set { _feature = value; }
+            get { return _feature; }
+        }
+
+        private string _chr = "chr1";
+        public string Chr
+        {
+            set { _chr = value; }
+            get { return _chr; }
+        }
+
+        private int _left = 10;
+        public int Left
+        {
+            set { _left = value; }
+            get { return _left; }
+        }
+
+        private int _right = 20;
+        public int Right
+        {
+            set { _right = value; }
+            get { return _right; }
+        }
+
+        private double _score = 100.0;
+        public double Score
+        {
+            set { _score = value; }
+            get { return _score; }
+        }
+
+        private char _strand = '*';
+        public char Strand
+        {
+            set { _strand = value; }
+            get { return _strand; }
+        }
+
+        private string _frame = "Frame";
+        public string Frame
+        {
+            set { _frame = value; }
+            get { return _frame; }
+        }
+
+        private string _attribute = "att1=1;att2=v2";
+        public string Attribute
+        {
+            set { _attribute = value; }
+            get { return _attribute; }
+        }
+
+        public GeneralFeature GFeature { get
+            {
+                return new GeneralFeature
+                {
+                    Source = Source,
+                    Feature = Feature,
+                    Left = Left,
+                    Right = Right,
+                    Score = Score,
+                    Frame = Frame,
+                    Attribute = Attribute,
+                };
+            }
+        }
+
+        public Columns() { }
 
         private void Swap(sbyte oldValue, sbyte newValue)
         {
@@ -210,14 +242,14 @@ namespace GeUtilities.Tests.TGTFParser
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
                 if (ChrColumn == i) line += Chr + "\t";
-                else if (SourceColumn == i) line += GFeature.Source + "\t";
-                else if (FeatureColumn == i) line += GFeature.Feature + "\t";
-                else if (LeftColumn == i) line += GFeature.Left + "\t";
-                else if (RightColumn == i) line += GFeature.Right + "\t";
-                else if (ScoreColumn == i) line += GFeature.Score + "\t";
+                else if (SourceColumn == i) line += Source + "\t";
+                else if (FeatureColumn == i) line += Feature + "\t";
+                else if (LeftColumn == i) line += Left + "\t";
+                else if (RightColumn == i) line += Right + "\t";
+                else if (ScoreColumn == i) line += Score + "\t";
                 else if (StrandColumn == i) line += Strand + "\t";
-                else if (FrameColumn == i) line += GFeature.Frame + "\t";
-                else if (AttributeColumn == i) line += GFeature.Attribute + "\t";
+                else if (FrameColumn == i) line += Frame + "\t";
+                else if (AttributeColumn == i) line += Attribute + "\t";
                 else line += "AbCd\t";
 
             return line;

@@ -34,8 +34,8 @@ namespace GeUtilities.Tests.TGTFParser
                     sw.WriteLine(columns.GetSampleLine());
                     if (featuresCount > 0)
                     {
-                        columns.GFeature.Left = columns.GFeature.Right + 10;
-                        columns.GFeature.Right = columns.GFeature.Right + 20;
+                        columns.Left = columns.Right + 10;
+                        columns.Right = columns.Right + 20;
                     }
                 }
             }
