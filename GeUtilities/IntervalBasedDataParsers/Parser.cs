@@ -236,13 +236,12 @@ namespace Genometric.GeUtilities.Parsers
 
                         switch (_hashFunction)
                         {
-                            case HashFunction.One_at_a_Time:
-                            default:
-                                readingInterval.HashKey = OneAtATimeHashFunction(readingInterval, lineCounter);
-                                break;
-
                             case HashFunction.FNV:
                                 readingInterval.HashKey = FNVHashFunction(readingInterval, lineCounter);
+                                break;
+
+                            default:
+                                readingInterval.HashKey = OneAtATimeHashFunction(readingInterval, lineCounter);
                                 break;
                         }
 
