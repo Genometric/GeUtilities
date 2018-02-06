@@ -12,23 +12,20 @@ namespace GeUtilities.Tests.TBEDParser
 {
     internal sealed class TempFileCreator : IDisposable
     {
-        private string _tempFilePath;
-        public string TempFilePath { get { return _tempFilePath; } }
+        public string TempFilePath { get { return Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed"; } }
 
         public TempFileCreator() : this(new Columns()) { }
 
         public TempFileCreator(string peak)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
-            using (FileStream fs = File.Create(_tempFilePath))
+            using (FileStream fs = File.Create(TempFilePath))
             using (StreamWriter sw = new StreamWriter(fs))
                 sw.WriteLine(peak);
         }
 
         public TempFileCreator(string[] peaks)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
-            using (FileStream fs = File.Create(_tempFilePath))
+            using (FileStream fs = File.Create(TempFilePath))
             using (StreamWriter sw = new StreamWriter(fs))
                 foreach (var peak in peaks)
                     sw.WriteLine(peak);
@@ -36,8 +33,7 @@ namespace GeUtilities.Tests.TBEDParser
 
         public TempFileCreator(Columns columns, int headerLineCount = 0, int peaksCount = 1)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
-            using (FileStream fs = File.Create(_tempFilePath))
+            using (FileStream fs = File.Create(TempFilePath))
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 while (headerLineCount-- > 0)
@@ -57,7 +53,7 @@ namespace GeUtilities.Tests.TBEDParser
 
         public void Dispose()
         {
-            File.Delete(_tempFilePath);
+            File.Delete(TempFilePath);
         }
     }
 }
