@@ -12,12 +12,14 @@ namespace GeUtilities.Tests.TBEDParser
 {
     internal sealed class TempFileCreator : IDisposable
     {
-        public string TempFilePath { get { return Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed"; } }
+        private readonly string _tempFilePath;
+        public string TempFilePath { get { return _tempFilePath; } }
 
         public TempFileCreator() : this(new Columns()) { }
 
         public TempFileCreator(string peak)
         {
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
             using (FileStream fs = File.Create(TempFilePath))
             using (StreamWriter sw = new StreamWriter(fs))
                 sw.WriteLine(peak);
@@ -28,6 +30,7 @@ namespace GeUtilities.Tests.TBEDParser
             FileStream fs = null;
             try
             {
+                _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
                 fs = File.Create(TempFilePath);
                 using (StreamWriter sw = new StreamWriter(fs))
                     foreach (var peak in peaks)
@@ -45,6 +48,7 @@ namespace GeUtilities.Tests.TBEDParser
             FileStream fs = null;
             try
             {
+                _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
                 fs = File.Create(TempFilePath);
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
