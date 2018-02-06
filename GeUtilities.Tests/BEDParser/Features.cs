@@ -119,7 +119,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void PValueConversion(double originalValue, double convertedValue, PValueFormats pvalueFormat)
         {
             // Arrange
-            var columns = new Columns(value: convertedValue);
+            var columns = new Columns { Value = convertedValue };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -241,7 +241,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void ParseIntervalChrWhenChrPrefixIsMissing(string chr)
         {
             // Arrange
-            var columns = new Columns(chr: chr);
+            var columns = new Columns { Chr = chr };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -261,7 +261,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void DropLineIfInvalidChr(string chr)
         {
             // Arrange
-            var columns = new Columns(chr: chr);
+            var columns = new Columns { Chr = chr };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -282,7 +282,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void TestExcessChrs(string chr)
         {
             // Arrange
-            var columns = new Columns(chr: chr);
+            var columns = new Columns { Chr = chr };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -300,7 +300,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void TestMissingChrs()
         {
             // Arrange
-            var columns = new Columns(chr: "chr1");
+            var columns = new Columns { Chr = "chr1" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -318,7 +318,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void BEDWithAllOptionalColumnsAndSomeExtraColumns()
         {
             // Arrange
-            var columns = new Columns(summitColumn: 10, strandColumn: 11);
+            var columns = new Columns { SummitColumn = 10, StrandColumn = 11 };
             using (TempFileCreator testFile = new TempFileCreator(columns, headerLineCount: 2, peaksCount: 10))
             {
                 // Act

@@ -25,7 +25,15 @@ namespace GeUtilities.Tests.TBEDParser
         public void ColumnsShuffle(byte chrColumn, byte leftColumn, sbyte rightColumn, byte nameColumn, byte valueColumn)
         {
             // Arrange
-            var columns = new Columns(chrColumn: chrColumn, leftColumn: leftColumn, rightColumn: rightColumn, nameColumn: nameColumn, valueColumn: valueColumn);
+            var columns = new Columns
+            {
+                ChrColumn = chrColumn,
+                LeftColumn = leftColumn,
+                RightColumn = rightColumn,
+                NameColumn = nameColumn,
+                ValueColumn = valueColumn
+            };
+
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -87,7 +95,7 @@ namespace GeUtilities.Tests.TBEDParser
         {
             // Arrange
             var columns = new Columns { SummitColumn = summitColumn };
-            columns.Peak.Summit = summit == -1 ? columns.Peak.Left + ((columns.Peak.Right - columns.Peak.Left) / 2) : summit;
+            columns.Summit = summit == -1 ? columns.Left + ((columns.Right - columns.Left) / 2) : summit;
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -103,7 +111,7 @@ namespace GeUtilities.Tests.TBEDParser
                 var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedPeak.Summit == columns.Peak.Summit);
+                Assert.True(parsedPeak.Summit == columns.Summit);
             }
         }
 
@@ -117,7 +125,12 @@ namespace GeUtilities.Tests.TBEDParser
         public void TestStrand(sbyte strandColumn, char strand)
         {
             // Arrange
-            var columns = new Columns(strand: strand) { StrandColumn = strandColumn };
+            var columns = new Columns
+            {
+                Strand = strand,
+                StrandColumn = strandColumn
+            };
+
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act

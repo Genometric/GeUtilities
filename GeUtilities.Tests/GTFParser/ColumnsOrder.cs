@@ -99,8 +99,9 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestSourceColumn(sbyte sourceColumn, string source)
         {
             // Arrange
-            var columns = new Columns(source: source)
+            var columns = new Columns
             {
+                Source = source,
                 SourceColumn = sourceColumn
             };
 
@@ -125,8 +126,9 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestFeatureColumn(sbyte featureColumn, string feature)
         {
             // Arrange
-            var columns = new Columns(feature: feature)
+            var columns = new Columns
             {
+                Feature = feature,
                 FeatureColumn = featureColumn
             };
 
@@ -171,8 +173,9 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestScoreColumn(sbyte scoreColumn, double score)
         {
             // Arrange
-            var columns = new Columns(score: score)
+            var columns = new Columns
             {
+                Score = score,
                 ScoreColumn = scoreColumn
             };
 
@@ -197,8 +200,9 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestFrameColumn(sbyte frameColumn, string frame)
         {
             // Arrange
-            var columns = new Columns(frame: frame)
+            var columns = new Columns
             {
+                Frame = frame,
                 FrameColumn = frameColumn
             };
 
@@ -223,8 +227,9 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestAttributeColumn(sbyte attributeColumn, string attribute)
         {
             // Arrange
-            var columns = new Columns(attribute: attribute)
+            var columns = new Columns
             {
+                Attribute = attribute,
                 AttributeColumn = attributeColumn
             };
 

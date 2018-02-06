@@ -4,6 +4,7 @@
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using System;
+using System.Text;
 
 namespace GeUtilities.Tests.TRefSeqParser
 {
@@ -75,41 +76,63 @@ namespace GeUtilities.Tests.TRefSeqParser
             }
         }
 
-        public string Chr { set; get; }
-        public char Strand { set; get; }
-
-        public Gene Gene { set; get; }
-
-        public Columns(
-            string chr = "chr1",
-            int left = 10,
-            int right = 20,
-            string refSeqID = "RefSeqID",
-            string geneSymbol = "GeneSymbol",
-            char strand = '*',
-            byte chrColumn = 0,
-            byte leftColumn = 1,
-            sbyte rightColumn = 2,
-            byte refSeqIDColumn = 3,
-            byte geneSymbolColumn = 4,
-            sbyte strandColumn = -1)
+        private string _chr = "chr1";
+        public string Chr
         {
-            Chr = chr;
-            Strand = strand;
-            Gene = new Gene()
-            {
-                Left = left,
-                Right = right,
-                RefSeqID = refSeqID,
-                GeneSymbol = geneSymbol,
-            };
-            _chrColumn = chrColumn;
-            _leftColumn = leftColumn;
-            _rightColumn = rightColumn;
-            _refSeqIDColumn = refSeqIDColumn;
-            _geneSymbolColumn = geneSymbolColumn;
-            _strandColumn = strandColumn;
+            set { _chr = value; }
+            get { return _chr; }
         }
+
+        private int _left = 10;
+        public int Left
+        {
+            set { _left = value; }
+            get { return _left; }
+        }
+
+        private int _right = 20;
+        public int Right
+        {
+            set { _right = value; }
+            get { return _right; }
+        }
+
+        private string _refSeqID = "RefSeqID";
+        public string RefSeqID
+        {
+            set { _refSeqID = value; }
+            get { return _refSeqID; }
+        }
+
+        private string _geneSymbol = "GeneSymbol";
+        public string GeneSymbol
+        {
+            set { _geneSymbol = value; }
+            get { return _geneSymbol; }
+        }
+
+        private char _strand = '*';
+        public char Strand
+        {
+            set { _strand = value; }
+            get { return _strand; }
+        }
+
+        public Gene Gene
+        {
+            get
+            {
+                return new Gene()
+                {
+                    Left = Left,
+                    Right = Right,
+                    RefSeqID = RefSeqID,
+                    GeneSymbol = GeneSymbol,
+                };
+            }
+        }
+
+        public Columns() { }
 
         private void Swap(sbyte oldValue, sbyte newValue)
         {
@@ -136,34 +159,34 @@ namespace GeUtilities.Tests.TRefSeqParser
 
         public string GetSampleHeader()
         {
-            string header = "";
+            var header = new StringBuilder("");
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
-                if (ChrColumn == i) header += "chr\t";
-                else if (LeftColumn == i) header += "Left\t";
-                else if (RightColumn == i) header += "Right\t";
-                else if (RefSeqIDColumn == i) header += "RefSeqID\t";
-                else if (GeneSymbolColumn == i) header += "GeneSymbol\t";
-                else if (StrandColumn == i) header += "Strand\t";
-                else header += "aBcD\t";
+                if (ChrColumn == i) header.Append("chr\t");
+                else if (LeftColumn == i) header.Append("Left\t");
+                else if (RightColumn == i) header.Append("Right\t");
+                else if (RefSeqIDColumn == i) header.Append("RefSeqID\t");
+                else if (GeneSymbolColumn == i) header.Append("GeneSymbol\t");
+                else if (StrandColumn == i) header.Append("Strand\t");
+                else header.Append("aBcD\t");
 
-            return header;
+            return header.ToString();
         }
 
         public string GetSampleLine()
         {
-            string line = "";
+            var lineBuilder = new StringBuilder("");
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
-                if (ChrColumn == i) line += Chr + "\t";
-                else if (LeftColumn == i) line += Gene.Left + "\t";
-                else if (RightColumn == i) line += Gene.Right + "\t";
-                else if (RefSeqIDColumn == i) line += Gene.RefSeqID + "\t";
-                else if (GeneSymbolColumn == i) line += Gene.GeneSymbol + "\t";
-                else if (StrandColumn == i) line += Strand + "\t";
-                else line += "AbCd\t";
+                if (ChrColumn == i) lineBuilder.Append(Chr + "\t");
+                else if (LeftColumn == i) lineBuilder.Append(Left + "\t");
+                else if (RightColumn == i) lineBuilder.Append(Right + "\t");
+                else if (RefSeqIDColumn == i) lineBuilder.Append(RefSeqID + "\t");
+                else if (GeneSymbolColumn == i) lineBuilder.Append(GeneSymbol + "\t");
+                else if (StrandColumn == i) lineBuilder.Append(Strand + "\t");
+                else lineBuilder.Append("AbCd\t");
 
-            return line;
+            return lineBuilder.ToString();
         }
     }
 }

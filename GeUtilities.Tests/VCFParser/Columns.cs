@@ -5,6 +5,7 @@
 using Genometric.GeUtilities.IGenomics;
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using System;
+using System.Text;
 
 namespace GeUtilities.Tests.TVCFParser
 {
@@ -109,10 +110,86 @@ namespace GeUtilities.Tests.TVCFParser
             }
         }
 
-        public string Chr { set; get; }
-        public char Strand { set; get; }
+        private string _chr = "chr1";
+        public string Chr
+        {
+            set { _chr = value; }
+            get { return _chr; }
+        }
 
-        public Variant Variant { set; get; }
+        private int _position = 10;
+        public int Position
+        {
+            set { _position = value; }
+            get { return _position; }
+        }
+
+        private string _id = "id_001";
+        public string Id
+        {
+            set { _id = value; }
+            get { return _id; }
+        }
+
+        private Base[] _refBase = new Base[] { Base.A, Base.C, Base.G };
+        public Base[] RefBase
+        {
+            set { _refBase = value; }
+            get { return _refBase; }
+        }
+
+        private Base[] _altBase = new Base[] { Base.U, Base.T, Base.N };
+        public Base[] AltBase
+        {
+            set { _altBase = value; }
+            get { return _altBase; }
+        }
+
+        private double _quality = 654.321;
+        public double Quality
+        {
+            set { _quality = value; }
+            get { return _quality; }
+        }
+
+        private string _filter = "filter_001";
+        public string Filter
+        {
+            set { _filter = value; }
+            get { return _filter; }
+        }
+
+        private string _info = "info_001";
+        public string Info
+        {
+            set { _info = value; }
+            get { return _info; }
+        }
+
+        private char _strand = '*';
+        public char Strand
+        {
+            set { _strand = value; }
+            get { return _strand; }
+        }
+
+        public Variant Variant
+        {
+            get
+            {
+                return new Variant()
+                {
+                    Left = Position,
+                    Right = Position + 1,
+                    ID = Id,
+                    Quality = Quality,
+                    Filter = Filter,
+                    Info = Info,
+                    AltBase = AltBase ?? (new Base[] { Base.U, Base.T, Base.N }),
+                    RefBase = RefBase ?? (new Base[] { Base.A, Base.C, Base.G })
+                };
+            }
+        }
 
         /// <summary>
         /// NOTE: The only option for an array default value is 'null'.
@@ -120,50 +197,7 @@ namespace GeUtilities.Tests.TVCFParser
         /// set in the constructor.
         /// and their value is 
         /// </summary>
-        public Columns(
-            string chr = "chr1",
-            int position = 10,
-            string id = "id_001",
-            Base[] refBase = null,
-            Base[] altBase = null,
-            double quality = 654.321,
-            string filter = "filter_001",
-            string info = "info_001",
-            char strand = '*',
-            byte chrColumn = 0,
-            byte positionColumn = 1,
-            byte idColumn = 2,
-            byte refbColumn = 3,
-            byte altbColumn = 4,
-            byte qualityColumn = 5,
-            byte filterColumn = 6,
-            byte infoColumn = 7,
-            sbyte strandColumn = -1
-            )
-        {
-            Chr = chr;
-            Strand = strand;
-            Variant = new Variant()
-            {
-                Left = position,
-                Right = position + 1,
-                ID = id,
-                Quality = quality,
-                Filter = filter,
-                Info = info,
-                AltBase = altBase ?? (new Base[] { Base.U, Base.T, Base.N }),
-                RefBase = refBase ?? (new Base[] { Base.A, Base.C, Base.G })
-            };
-            ChrColumn = chrColumn;
-            PositionColumn = positionColumn;
-            IDColumn = idColumn;
-            RefbColumn = refbColumn;
-            AltbColumn = altbColumn;
-            QualityColumn = qualityColumn;
-            FilterColumn = filterColumn;
-            InfoColumn = infoColumn;
-            StrandColumn = strandColumn;
-        }
+        public Columns() { }
 
         private void Swap(sbyte oldValue, sbyte newValue)
         {
@@ -196,40 +230,40 @@ namespace GeUtilities.Tests.TVCFParser
 
         public string GetSampleHeader()
         {
-            string header = "";
+            var header = new StringBuilder("");
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
-                if (ChrColumn == i) header += "chr\t";
-                else if (PositionColumn == i) header += "Position\t";
-                else if (IDColumn == i) header += "ID\t";
-                else if (RefbColumn == i) header += "RefBase\t";
-                else if (AltbColumn == i) header += "AltBase\t";
-                else if (QualityColumn == i) header += "Quality\t";
-                else if (FilterColumn == i) header += "Filter\t";
-                else if (InfoColumn == i) header += "Info\t";
-                else if (StrandColumn == i) header += "Strand\t";
-                else header += "aBcD\t";
+                if (ChrColumn == i) header.Append("chr\t");
+                else if (PositionColumn == i) header.Append("Position\t");
+                else if (IDColumn == i) header.Append("ID\t");
+                else if (RefbColumn == i) header.Append("RefBase\t");
+                else if (AltbColumn == i) header.Append("AltBase\t");
+                else if (QualityColumn == i) header.Append("Quality\t");
+                else if (FilterColumn == i) header.Append("Filter\t");
+                else if (InfoColumn == i) header.Append("Info\t");
+                else if (StrandColumn == i) header.Append("Strand\t");
+                else header.Append("aBcD\t");
 
-            return header;
+            return header.ToString();
         }
 
         public string GetSampleLine()
         {
-            string line = "";
+            var lineBuilder = new StringBuilder("");
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
-                if (ChrColumn == i) line += Chr + "\t";
-                else if (PositionColumn == i) line += Variant.Left + "\t";
-                else if (IDColumn == i) line += Variant.ID + "\t";
-                else if (RefbColumn == i) line += string.Join("", Variant.RefBase) + "\t";
-                else if (AltbColumn == i) line += string.Join("", Variant.AltBase) + "\t";
-                else if (QualityColumn == i) line += Variant.Quality + "\t";
-                else if (FilterColumn == i) line += Variant.Filter + "\t";
-                else if (InfoColumn == i) line += Variant.Info + "\t";
-                else if (StrandColumn == i) line += Strand + "\t";
-                else line += "AbCd\t";
+                if (ChrColumn == i) lineBuilder.Append(Chr + "\t");
+                else if (PositionColumn == i) lineBuilder.Append(Position + "\t");
+                else if (IDColumn == i) lineBuilder.Append(Id + "\t");
+                else if (RefbColumn == i) lineBuilder.Append(string.Join("", RefBase) + "\t");
+                else if (AltbColumn == i) lineBuilder.Append(string.Join("", AltBase) + "\t");
+                else if (QualityColumn == i) lineBuilder.Append(Quality + "\t");
+                else if (FilterColumn == i) lineBuilder.Append(Filter + "\t");
+                else if (InfoColumn == i) lineBuilder.Append(Info + "\t");
+                else if (StrandColumn == i) lineBuilder.Append(Strand + "\t");
+                else lineBuilder.Append("AbCd\t");
 
-            return line;
+            return lineBuilder.ToString();
         }
     }
 }

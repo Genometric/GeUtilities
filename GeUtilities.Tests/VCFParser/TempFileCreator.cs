@@ -33,7 +33,7 @@ namespace GeUtilities.Tests.TVCFParser
                 {
                     sw.WriteLine(columns.GetSampleLine());
                     if (variantsCount > 0)
-                        columns.Variant.Left += 10;
+                        columns.Position += 10;
                 }
             }
         }

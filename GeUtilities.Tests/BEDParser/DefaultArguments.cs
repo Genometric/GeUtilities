@@ -60,7 +60,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void ReadChr(string chr)
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator(new Columns(chr: chr)))
+            using (TempFileCreator testFile = new TempFileCreator(new Columns { Chr = chr }))
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
@@ -77,7 +77,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void FailReadChr(string chr)
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator(new Columns(chr: "chr1")))
+            using (TempFileCreator testFile = new TempFileCreator(new Columns { Chr = "chr1" }))
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
@@ -116,7 +116,7 @@ namespace GeUtilities.Tests.TBEDParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Left == columns.Peak.Left);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Left == columns.Left);
             }
         }
 
@@ -147,7 +147,7 @@ namespace GeUtilities.Tests.TBEDParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Right == columns.Peak.Right);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Right == columns.Right);
             }
         }
 
@@ -193,7 +193,7 @@ namespace GeUtilities.Tests.TBEDParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Name == columns.Peak.Name);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Name == columns.Name);
             }
         }
 
@@ -209,7 +209,7 @@ namespace GeUtilities.Tests.TBEDParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Value == columns.Peak.Value);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Value == columns.Value);
             }
         }
 

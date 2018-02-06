@@ -243,19 +243,17 @@ namespace Genometric.GeUtilities.Parsers
 
                         strand = '*';
                         if (_strandColumn != -1 && _strandColumn < line.Length)
-                            if (char.TryParse(splittedLine[_strandColumn], out strand))
-                                if (strand != '+' && strand != '-' && strand != '*')
-                                    strand = '*';
+                            if (char.TryParse(splittedLine[_strandColumn], out strand) && strand != '+' && strand != '-' && strand != '*')
+                                strand = '*';
 
                         switch (HashFunction)
                         {
-                            case HashFunctions.One_at_a_Time:
-                            default:
-                                readingInterval.HashKey = OneAtATimeHashFunction(readingInterval, lineCounter);
-                                break;
-
                             case HashFunctions.FNV:
                                 readingInterval.HashKey = FNVHashFunction(readingInterval, lineCounter);
+                                break;
+
+                            default:
+                                readingInterval.HashKey = OneAtATimeHashFunction(readingInterval, lineCounter);
                                 break;
                         }
 

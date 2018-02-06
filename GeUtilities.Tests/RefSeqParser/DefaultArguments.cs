@@ -36,7 +36,7 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void ReadChr(string chr)
         {
             // Arrange
-            var columns = new Columns(chr: chr);
+            var columns = new Columns { Chr = chr };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -54,7 +54,7 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void FailReadChr(string chr)
         {
             // Arrange
-            var columns = new Columns(chr: "chr1");
+            var columns = new Columns { Chr = "chr1" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -72,7 +72,11 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void ReadStrand(char strand)
         {
             // Arrange
-            var columns = new Columns(strand: strand) { StrandColumn = 5 };
+            var columns = new Columns
+            {
+                Strand = strand,
+                StrandColumn = 5
+            };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -95,7 +99,7 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void ReadRefSeqID()
         {
             // Arrange
-            var columns = new Columns(refSeqID: "RefSeqID_001");
+            var columns = new Columns { RefSeqID = "RefSeqID_001" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -103,7 +107,7 @@ namespace GeUtilities.Tests.TRefSeqParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].RefSeqID == columns.Gene.RefSeqID);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].RefSeqID == columns.RefSeqID);
             }
         }
 
@@ -126,7 +130,7 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void ReadGeneSymbol()
         {
             // Arrange
-            var columns = new Columns(geneSymbol: "Symbol_001");
+            var columns = new Columns { GeneSymbol = "Symbol_001" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -134,7 +138,7 @@ namespace GeUtilities.Tests.TRefSeqParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].GeneSymbol == columns.Gene.GeneSymbol);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].GeneSymbol == columns.GeneSymbol);
             }
         }
 
