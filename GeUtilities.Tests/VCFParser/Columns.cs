@@ -5,6 +5,7 @@
 using Genometric.GeUtilities.IGenomics;
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using System;
+using System.Text;
 
 namespace GeUtilities.Tests.TVCFParser
 {
@@ -229,40 +230,40 @@ namespace GeUtilities.Tests.TVCFParser
 
         public string GetSampleHeader()
         {
-            string header = "";
+            var header = new StringBuilder("");
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
-                if (ChrColumn == i) header += "chr\t";
-                else if (PositionColumn == i) header += "Position\t";
-                else if (IDColumn == i) header += "ID\t";
-                else if (RefbColumn == i) header += "RefBase\t";
-                else if (AltbColumn == i) header += "AltBase\t";
-                else if (QualityColumn == i) header += "Quality\t";
-                else if (FilterColumn == i) header += "Filter\t";
-                else if (InfoColumn == i) header += "Info\t";
-                else if (StrandColumn == i) header += "Strand\t";
-                else header += "aBcD\t";
+                if (ChrColumn == i) header.Append("chr\t");
+                else if (PositionColumn == i) header.Append("Position\t");
+                else if (IDColumn == i) header.Append("ID\t");
+                else if (RefbColumn == i) header.Append("RefBase\t");
+                else if (AltbColumn == i) header.Append("AltBase\t");
+                else if (QualityColumn == i) header.Append("Quality\t");
+                else if (FilterColumn == i) header.Append("Filter\t");
+                else if (InfoColumn == i) header.Append("Info\t");
+                else if (StrandColumn == i) header.Append("Strand\t");
+                else header.Append("aBcD\t");
 
-            return header;
+            return header.ToString();
         }
 
         public string GetSampleLine()
         {
-            string line = "";
+            var lineBuilder = new StringBuilder("");
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
-                if (ChrColumn == i) line += Chr + "\t";
-                else if (PositionColumn == i) line += Position + "\t";
-                else if (IDColumn == i) line += Id + "\t";
-                else if (RefbColumn == i) line += string.Join("", RefBase) + "\t";
-                else if (AltbColumn == i) line += string.Join("", AltBase) + "\t";
-                else if (QualityColumn == i) line += Quality + "\t";
-                else if (FilterColumn == i) line += Filter + "\t";
-                else if (InfoColumn == i) line += Info + "\t";
-                else if (StrandColumn == i) line += Strand + "\t";
-                else line += "AbCd\t";
+                if (ChrColumn == i) lineBuilder.Append(Chr + "\t");
+                else if (PositionColumn == i) lineBuilder.Append(Position + "\t");
+                else if (IDColumn == i) lineBuilder.Append(Id + "\t");
+                else if (RefbColumn == i) lineBuilder.Append(string.Join("", RefBase) + "\t");
+                else if (AltbColumn == i) lineBuilder.Append(string.Join("", AltBase) + "\t");
+                else if (QualityColumn == i) lineBuilder.Append(Quality + "\t");
+                else if (FilterColumn == i) lineBuilder.Append(Filter + "\t");
+                else if (InfoColumn == i) lineBuilder.Append(Info + "\t");
+                else if (StrandColumn == i) lineBuilder.Append(Strand + "\t");
+                else lineBuilder.Append("AbCd\t");
 
-            return line;
+            return lineBuilder.ToString();
         }
     }
 }
