@@ -25,29 +25,47 @@ namespace GeUtilities.Tests.TBEDParser
 
         public TempFileCreator(string[] peaks)
         {
-            using (FileStream fs = File.Create(TempFilePath))
-            using (StreamWriter sw = new StreamWriter(fs))
-                foreach (var peak in peaks)
-                    sw.WriteLine(peak);
+            FileStream fs = null;
+            try
+            {
+                fs = File.Create(TempFilePath);
+                using (StreamWriter sw = new StreamWriter(fs))
+                    foreach (var peak in peaks)
+                        sw.WriteLine(peak);
+            }
+            finally
+            {
+                if (fs != null)
+                    fs.Dispose();
+            }
         }
 
         public TempFileCreator(Columns columns, int headerLineCount = 0, int peaksCount = 1)
         {
-            using (FileStream fs = File.Create(TempFilePath))
-            using (StreamWriter sw = new StreamWriter(fs))
+            FileStream fs = null;
+            try
             {
-                while (headerLineCount-- > 0)
-                    sw.WriteLine(columns.GetSampleHeader());
-
-                while (peaksCount-- > 0)
+                fs = File.Create(TempFilePath);
+                using (StreamWriter sw = new StreamWriter(fs))
                 {
-                    sw.WriteLine(columns.GetSampleLine());
-                    if (peaksCount > 0)
+                    while (headerLineCount-- > 0)
+                        sw.WriteLine(columns.GetSampleHeader());
+
+                    while (peaksCount-- > 0)
                     {
-                        columns.Left = columns.Right + 10;
-                        columns.Right = columns.Right + 20;
+                        sw.WriteLine(columns.GetSampleLine());
+                        if (peaksCount > 0)
+                        {
+                            columns.Left = columns.Right + 10;
+                            columns.Right = columns.Right + 20;
+                        }
                     }
                 }
+            }
+            finally
+            {
+                if (fs != null)
+                    fs.Dispose();
             }
         }
 
