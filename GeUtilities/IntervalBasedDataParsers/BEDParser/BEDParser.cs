@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
-using Genometric.GeUtilities.ReferenceGenomes;
 
 namespace Genometric.GeUtilities.Parsers
 {
@@ -11,14 +10,7 @@ namespace Genometric.GeUtilities.Parsers
     {
         public BEDParser(
             string sourceFilePath,
-            Assemblies assembly = Assemblies.Unknown,
-            double defaultValue = 1E-8,
-            PValueFormat pValueFormat = PValueFormat.SameAsInput,
-            bool dropPeakIfInvalidValue = true,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            bool dropPeakIfInvalidValue = true) :
             this(
                 sourceFilePath: sourceFilePath,
                 chrColumn: 0,
@@ -27,15 +19,7 @@ namespace Genometric.GeUtilities.Parsers
                 nameColumn: 3,
                 valueColumn: 4,
                 strandColumn: -1,
-                summitColumn: -1,
-                assembly: assembly,
-                defaultValue: defaultValue,
-                pValueFormat: pValueFormat,
-                dropPeakIfInvalidValue: dropPeakIfInvalidValue,
-                startOffset: startOffset,
-                readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToRead: maxLinesToRead,
-                hashFunction: hashFunction)
+                summitColumn: -1)
         { }
 
         public BEDParser(
@@ -46,15 +30,7 @@ namespace Genometric.GeUtilities.Parsers
             byte nameColumn,
             byte valueColumn,
             sbyte strandColumn = -1,
-            sbyte summitColumn = -1,
-            Assemblies assembly = Assemblies.Unknown,
-            double defaultValue = 1E-8,
-            PValueFormat pValueFormat = PValueFormat.SameAsInput,
-            bool dropPeakIfInvalidValue = true,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            sbyte summitColumn = -1) :
             base(
                 sourceFilePath: sourceFilePath,
                 chrColumn: chrColumn,
@@ -63,15 +39,7 @@ namespace Genometric.GeUtilities.Parsers
                 nameColumn: nameColumn,
                 valueColumn: valueColumn,
                 strandColumn: strandColumn,
-                summitColumn: summitColumn,
-                assembly: assembly,
-                defaultValue: defaultValue,
-                pValueFormat: pValueFormat,
-                dropPeakIfInvalidValue: dropPeakIfInvalidValue,
-                startOffset: startOffset,
-                readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToRead: maxLinesToRead,
-                hashFunction: hashFunction)
+                summitColumn: summitColumn)
         { }
     }
 }

@@ -65,3 +65,17 @@ for:
     api_key:
       secure: 0ubG+Z4SGof+VEFEQD4Gm5JIb4L6+lMq3pnRfUhim5RLUw+JaC5Qx9dBMWZ9JRuD
     skip_symbols: false
+
+# override settings for `dev*` branches
+-
+  branches:
+    only:
+      - /dev*/
+      
+  configuration: Debug
+  
+  after_test:
+    - ps: |
+        $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+        Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+        bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml"

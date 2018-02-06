@@ -17,14 +17,6 @@ namespace Genometric.GeUtilities.Parsers
         where S : IStats<int>, new()
     {
         private ParsedIntervals<I, S> _data;
-        private bool _readOnlyValidChrs;
-        private HashFunction _hashFunction;
-
-        public ReadOnlyCollection<string> ExcessChrs { get { return _excessChrs.AsReadOnly(); } }
-        private List<string> _excessChrs;
-
-        public ReadOnlyCollection<string> MissingChrs { get { return _missingChrs.AsReadOnly(); } }
-        private List<string> _missingChrs;
 
         private const UInt32 _FNVPrime_32 = 16777619;
         private const UInt32 _FNVOffsetBasis_32 = 2166136261;
@@ -33,18 +25,6 @@ namespace Genometric.GeUtilities.Parsers
         /// Full path of source file name.
         /// </summary>
         private string _sourceFilePath;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Assemblies _assembly;
-
-        /// <summary>
-        /// If the source file comes with header, the number of headers lines needs to be specified so that
-        /// parser can ignore them. If not specified and header is present, header might be dropped because
-        /// of improper format it might have. 
-        /// </summary>
-        private byte _startOffset;
 
         /// <summary>
         /// Sets and gets the column number of chromosome name.
@@ -73,12 +53,6 @@ namespace Genometric.GeUtilities.Parsers
         /// the chromosome attribute of the peak is read.
         /// </summary>
         private bool _dropReadingPeak;
-
-        /// <summary>
-        /// Sets the number of lines to be read from input file.
-        /// The default value is 4,294,967,295 (0xFFFFFFFF) which will be used if not set. 
-        /// </summary>
-        private UInt32 _maxLinesToRead;
 
         /// <summary>
         /// When read process is finished, this variable contains the number
@@ -117,35 +91,73 @@ namespace Genometric.GeUtilities.Parsers
 
         protected List<string> Messages { set; get; }
 
-        protected Parser(
+        /// <summary>
+        /// Sets and gets the number of lines to be skipped from the 
+        /// beginning of a file. This variable can be used to skip
+        /// header lines of a file. However, if this property is not
+        /// set, and source file contains header lines, still the 
+        /// header lines will be ignored and reported as improperly
+        /// formated data lines.
+        /// </summary>
+        public byte ReadOffset { set; get; }
+
+        /// <summary>
+        /// Sets and gets the number of lines to read from input file.
+        /// The default value is 4,294,967,295 (0xFFFFFFFF).
+        /// </summary>
+        public uint MaxLinesToRead { set { _maxLinesToRead = value; } get { return _maxLinesToRead; } }
+        private uint _maxLinesToRead = uint.MaxValue;
+
+        /// <summary>
+        /// Set and gets if the parser should read only regions whose 
+        /// chromosome value is defined in the specified assembly. For instance, 
+        /// if set to false, the parser will not read a peak with chr44 
+        /// when the assembly is set to homo sapiens.
+        /// </summary>
+        public bool ReadOnlyAssemblyChrs
+        {
+            set { _readOnlyAssemblyChrs = value; }
+            get { return Assembly == Assemblies.Unknown ? false : _readOnlyAssemblyChrs; }
+        }
+        private bool _readOnlyAssemblyChrs = true;
+
+        public ReadOnlyCollection<string> ExcessChrs { get { return _excessChrs.AsReadOnly(); } }
+        private List<string> _excessChrs;
+
+        public ReadOnlyCollection<string> MissingChrs { get { return _missingChrs.AsReadOnly(); } }
+        private List<string> _missingChrs;
+
+        /// <summary>
+        /// Sets and gets the hash function used to create hash 
+        /// value of each parsed interval. 
+        /// </summary>
+        public HashFunctions HashFunction { set; get; }
+
+        /// <summary>
+        /// Set and gets the assembly of source file. 
+        /// The assembly info are used for variety of purposes,
+        /// e.g., to determine if a region has a 
+        /// chromosome value valid w.r.t. to the assembly.
+        /// </summary>
+        public Assemblies Assembly { set; get; }
+
+        public Parser(
             string sourceFilePath,
-            byte startOffset,
             byte chrColumn,
             byte leftEndColumn,
             sbyte rightEndColumn,
             sbyte strandColumn,
-            bool readOnlyValidChrs,
-            uint maxLinesToRead,
-            HashFunction hashFunction,
-            ParsedIntervals<I, S> data,
-            Assemblies assembly = Assemblies.Unknown)
+            ParsedIntervals<I, S> data)
         {
             _sourceFilePath = sourceFilePath;
-            _assembly = assembly;
-            _startOffset = startOffset;
             _chrColumn = chrColumn;
             _leftColumn = leftEndColumn;
             _rightColumn = rightEndColumn;
             _strandColumn = strandColumn;
-            _readOnlyValidChrs = assembly == Assemblies.Unknown ? false : readOnlyValidChrs;
-            _maxLinesToRead = maxLinesToRead;
-            _hashFunction = hashFunction;
             _data = data;
             _data.FilePath = Path.GetFullPath(_sourceFilePath);
             _data.FileName = Path.GetFileName(_sourceFilePath);
             _data.FileHashKey = GetFileHashKey(_data.FilePath);
-            _data.Assembly = _assembly;
-            _assemblyData = References.GetGenomeSizes(_assembly);
             _excessChrs = new List<string>();
             _missingChrs = new List<string>();
         }
@@ -156,6 +168,7 @@ namespace Genometric.GeUtilities.Parsers
         /// <returns>Returns parsed intervals.</returns>
         protected ParsedIntervals<I, S> Parse()
         {
+            _assemblyData = References.GetGenomeSizes(Assembly);
             if (!File.Exists(_sourceFilePath))
                 throw new FileNotFoundException(string.Format("The file `{0}` does not exist or is inaccessible.", _sourceFilePath));
 
@@ -165,7 +178,7 @@ namespace Genometric.GeUtilities.Parsers
             UInt32 lineCounter = 0;
             Messages = new List<string>();
             _dropReadingPeak = false;
-            byte startOffset = _startOffset;
+            byte readOffset = ReadOffset;
 
             FileInfo fileInfo = new FileInfo(_sourceFilePath);
             long fileSize = fileInfo.Length;
@@ -175,7 +188,7 @@ namespace Genometric.GeUtilities.Parsers
 
             using (StreamReader fileReader = new StreamReader(_sourceFilePath))
             {
-                while (startOffset-- > 0)
+                while (readOffset-- > 0)
                 {
                     line = fileReader.ReadLine();
                     lineCounter++;
@@ -219,7 +232,7 @@ namespace Genometric.GeUtilities.Parsers
                                 chrName = "chr" + splittedLine[_chrColumn];
                             else
                                 chrName = splittedLine[_chrColumn];
-                            if (_readOnlyValidChrs && !_assemblyData.ContainsKey(chrName))
+                            if (ReadOnlyAssemblyChrs && !_assemblyData.ContainsKey(chrName))
                                 chrName = null;
                         }
                         if (chrName == null)
@@ -233,7 +246,7 @@ namespace Genometric.GeUtilities.Parsers
                             if (char.TryParse(splittedLine[_strandColumn], out strand) && strand != '+' && strand != '-' && strand != '*')
                                 strand = '*';
 
-                        switch (_hashFunction)
+                        switch (HashFunction)
                         {
                             case HashFunction.FNV:
                                 readingInterval.HashKey = FNVHashFunction(readingInterval, lineCounter);
@@ -254,9 +267,10 @@ namespace Genometric.GeUtilities.Parsers
                 Messages.Insert(0, "\t" + _dropedLinesCount.ToString() + " Lines dropped");
             _data.Messages = Messages;
 
-            if (_assembly != Assemblies.Unknown)
+            if (Assembly != Assemblies.Unknown)
                 ReadMissingAndExcessChrs();
 
+            _data.Assembly = Assembly;
             return _data;
         }
 

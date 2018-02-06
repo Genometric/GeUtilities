@@ -4,7 +4,6 @@
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using Genometric.GeUtilities.Parsers;
-using System;
 using Xunit;
 
 namespace GeUtilities.Tests.TRefSeqParser
@@ -164,13 +163,14 @@ namespace GeUtilities.Tests.TRefSeqParser
         [InlineData(1, 0)]
         [InlineData(2, 0)]
         [InlineData(2, 2)]
-        public void AvoidHeader(int headerCount, byte startOffset)
+        public void AvoidHeader(int headerCount, byte readOffset)
         {
             // Arrange
             using (TempFileCreator testFile = new TempFileCreator(new Columns(), headerLineCount: headerCount))
             {
                 // Act
-                RefSeqParser<Gene> parser = new RefSeqParser<Gene>(testFile.TempFilePath, startOffset: startOffset);
+                RefSeqParser<Gene> parser = new RefSeqParser<Gene>(testFile.TempFilePath);
+                parser.ReadOffset = readOffset;
                 var parsedData = parser.Parse();
 
                 // Assert
