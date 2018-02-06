@@ -117,7 +117,7 @@ namespace Genometric.GeUtilities.Parsers
 
         protected List<string> Messages { set; get; }
 
-        public Parser(
+        protected Parser(
             string sourceFilePath,
             byte startOffset,
             byte chrColumn,
