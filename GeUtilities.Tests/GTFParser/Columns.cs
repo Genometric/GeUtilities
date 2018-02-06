@@ -4,6 +4,7 @@
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using System;
+using System.Text;
 
 namespace GeUtilities.Tests.TGTFParser
 {
@@ -219,40 +220,40 @@ namespace GeUtilities.Tests.TGTFParser
 
         public string GetSampleHeader()
         {
-            string header = "";
+            var header = new StringBuilder("");
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
-                if (ChrColumn == i) header += "chr\t";
-                else if (SourceColumn == i) header += "Source\t";
-                else if (FeatureColumn == i) header += "Feature\t";
-                else if (LeftColumn == i) header += "Left\t";
-                else if (RightColumn == i) header += "Right\t";
-                else if (ScoreColumn == i) header += "Score\t";
-                else if (StrandColumn == i) header += "Strand\t";
-                else if (FrameColumn == i) header += "Frame\t";
-                else if (AttributeColumn == i) header += "Attribute\t";
-                else header += "aBcD\t";
+                if (ChrColumn == i) header.Append("chr\t");
+                else if (SourceColumn == i) header.Append("Source\t");
+                else if (FeatureColumn == i) header.Append("Feature\t");
+                else if (LeftColumn == i) header.Append("Left\t");
+                else if (RightColumn == i) header.Append("Right\t");
+                else if (ScoreColumn == i) header.Append("Score\t");
+                else if (StrandColumn == i) header.Append("Strand\t");
+                else if (FrameColumn == i) header.Append("Frame\t");
+                else if (AttributeColumn == i) header.Append("Attribute\t");
+                else header.Append("aBcD\t");
 
-            return header;
+            return header.ToString();
         }
 
         public string GetSampleLine()
         {
-            string line = "";
+            var lineBuilder = new StringBuilder("");
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
-                if (ChrColumn == i) line += Chr + "\t";
-                else if (SourceColumn == i) line += Source + "\t";
-                else if (FeatureColumn == i) line += Feature + "\t";
-                else if (LeftColumn == i) line += Left + "\t";
-                else if (RightColumn == i) line += Right + "\t";
-                else if (ScoreColumn == i) line += Score + "\t";
-                else if (StrandColumn == i) line += Strand + "\t";
-                else if (FrameColumn == i) line += Frame + "\t";
-                else if (AttributeColumn == i) line += Attribute + "\t";
-                else line += "AbCd\t";
+                if (ChrColumn == i) lineBuilder.Append(Chr + "\t");
+                else if (SourceColumn == i) lineBuilder.Append(Source + "\t");
+                else if (FeatureColumn == i) lineBuilder.Append(Feature + "\t");
+                else if (LeftColumn == i) lineBuilder.Append(Left + "\t");
+                else if (RightColumn == i) lineBuilder.Append(Right + "\t");
+                else if (ScoreColumn == i) lineBuilder.Append(Score + "\t");
+                else if (StrandColumn == i) lineBuilder.Append(Strand + "\t");
+                else if (FrameColumn == i) lineBuilder.Append(Frame + "\t");
+                else if (AttributeColumn == i) lineBuilder.Append(Attribute + "\t");
+                else lineBuilder.Append("AbCd\t");
 
-            return line;
+            return lineBuilder.ToString();
         }
     }
 }
