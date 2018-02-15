@@ -16,7 +16,7 @@ namespace Genometric.GeUtilities.Parsers
         where I : IInterval<int>, new()
         where S : IStats<int>, new()
     {
-        private ParsedIntervals<I, S> _data;
+        private readonly ParsedIntervals<I, S> _data;
 
         private const UInt32 _FNVPrime_32 = 16777619;
         private const UInt32 _FNVOffsetBasis_32 = 2166136261;
@@ -24,27 +24,27 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// Full path of source file name.
         /// </summary>
-        private string _sourceFilePath;
+        private readonly string _sourceFilePath;
 
         /// <summary>
         /// Sets and gets the column number of chromosome name.
         /// </summary>
-        private byte _chrColumn;
+        private readonly byte _chrColumn;
 
         /// <summary>
         /// Sets and gets column number of peak left position.
         /// </summary>
-        private byte _leftColumn;
+        private readonly byte _leftColumn;
 
         /// <summary>
         /// Sets and gets the column number of peak right position.
         /// </summary>
-        private sbyte _rightColumn;
+        private readonly sbyte _rightColumn;
 
         /// <summary>
         /// Sets and gets the column number of strand.
         /// </summary>
-        private sbyte _strandColumn;
+        private readonly sbyte _strandColumn;
 
         /// <summary>
         /// Sets and gets validity of the interval being parsed.
