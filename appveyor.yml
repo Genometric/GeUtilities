@@ -50,12 +50,6 @@ for:
     codecovtoken:
       secure: grVzO2tsoeq7B3FFfRjyhirsmD11tXDcKoXOK6zjpqyOco2BSFbQ0J0T5qTZKsx7
     
-  build_script:
-    - choco install "msbuild-sonarqube-runner" -y
-    - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%"
-    - MSBuild.exe /t:Rebuild
-    - MSBuild.SonarQube.Runner.exe end /d:"sonar.login=%sonartoken%"
-    
   after_test:
     - ps: |
         $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
