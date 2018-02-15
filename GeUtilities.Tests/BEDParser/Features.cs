@@ -38,7 +38,8 @@ namespace GeUtilities.Tests.TBEDParser
             using (TempFileCreator testFile = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123..45"))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, dropPeakIfInvalidValue: true);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.DropPeakIfInvalidValue = true;
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -54,7 +55,9 @@ namespace GeUtilities.Tests.TBEDParser
             using (TempFileCreator testFile = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123..45"))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, dropPeakIfInvalidValue: false, defaultValue: defaultValue);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.DropPeakIfInvalidValue = false;
+                parser.DefaultValue = defaultValue;
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -76,8 +79,8 @@ namespace GeUtilities.Tests.TBEDParser
                     leftEndColumn: columns.LeftColumn,
                     rightEndColumn: columns.RightColumn,
                     nameColumn: columns.NameColumn,
-                    valueColumn: 9,
-                    dropPeakIfInvalidValue: true);
+                    valueColumn: 9);
+                parser.DropPeakIfInvalidValue = true;
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -99,8 +102,8 @@ namespace GeUtilities.Tests.TBEDParser
                     leftEndColumn: columns.LeftColumn,
                     rightEndColumn: columns.RightColumn,
                     nameColumn: columns.NameColumn,
-                    valueColumn: 9,
-                    dropPeakIfInvalidValue: false);
+                    valueColumn: 9);
+                parser.DropPeakIfInvalidValue = false;
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -109,18 +112,19 @@ namespace GeUtilities.Tests.TBEDParser
         }
 
         [Theory]
-        [InlineData(0.001, 0.001, PValueFormat.SameAsInput)]
-        [InlineData(0.001, 3, PValueFormat.minus1_Log10_pValue)]
-        [InlineData(0.001, 30, PValueFormat.minus10_Log10_pValue)]
-        [InlineData(0.001, 300, PValueFormat.minus100_Log10_pValue)]
-        public void PValueConversion(double originalValue, double convertedValue, PValueFormat pvalueFormat)
+        [InlineData(0.001, 0.001, PValueFormats.SameAsInput)]
+        [InlineData(0.001, 3, PValueFormats.minus1_Log10_pValue)]
+        [InlineData(0.001, 30, PValueFormats.minus10_Log10_pValue)]
+        [InlineData(0.001, 300, PValueFormats.minus100_Log10_pValue)]
+        public void PValueConversion(double originalValue, double convertedValue, PValueFormats pvalueFormat)
         {
             // Arrange
-            var columns = new Columns(value: convertedValue);
+            var columns = new Columns { Value = convertedValue };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, pValueFormat: pvalueFormat);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.PValueFormat = pvalueFormat;
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -140,7 +144,8 @@ namespace GeUtilities.Tests.TBEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns, peaksCount: numberOfPeaksToWrite))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, maxLinesToRead: numberOfPeaksToRead);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.MaxLinesToRead = numberOfPeaksToRead;
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -156,7 +161,8 @@ namespace GeUtilities.Tests.TBEDParser
             using (TempFileCreator testFile = new TempFileCreator(columns, peaksCount: 4))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, maxLinesToRead: 0);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.MaxLinesToRead = 0;
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -178,8 +184,8 @@ namespace GeUtilities.Tests.TBEDParser
                     leftEndColumn: columns.LeftColumn,
                     rightEndColumn: columns.RightColumn,
                     nameColumn: 12,
-                    valueColumn: columns.ValueColumn,
-                    dropPeakIfInvalidValue: false);
+                    valueColumn: columns.ValueColumn);
+                parser.DropPeakIfInvalidValue = false;
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -188,16 +194,17 @@ namespace GeUtilities.Tests.TBEDParser
         }
 
         [Theory]
-        [InlineData(HashFunction.FNV)]
-        [InlineData(HashFunction.One_at_a_Time)]
-        public void HashFunctions(HashFunction hashFunction)
+        [InlineData(Genometric.GeUtilities.Parsers.HashFunctions.FNV)]
+        [InlineData(Genometric.GeUtilities.Parsers.HashFunctions.One_at_a_Time)]
+        public void HashFunctions(HashFunctions hashFunction)
         {
             // Arrange
             var columns = new Columns();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, hashFunction: hashFunction);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.HashFunction = hashFunction;
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -219,8 +226,8 @@ namespace GeUtilities.Tests.TBEDParser
                     leftEndColumn: columns.LeftColumn,
                     rightEndColumn: columns.RightColumn,
                     nameColumn: columns.NameColumn,
-                    valueColumn: 9,
-                    dropPeakIfInvalidValue: true);
+                    valueColumn: 9);
+                parser.DropPeakIfInvalidValue = true;
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -234,11 +241,13 @@ namespace GeUtilities.Tests.TBEDParser
         public void ParseIntervalChrWhenChrPrefixIsMissing(string chr)
         {
             // Arrange
-            var columns = new Columns(chr: chr);
+            var columns = new Columns { Chr = chr };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: true);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.Assembly = Assemblies.hg19;
+                parser.ReadOnlyAssemblyChrs = true;
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -252,11 +261,13 @@ namespace GeUtilities.Tests.TBEDParser
         public void DropLineIfInvalidChr(string chr)
         {
             // Arrange
-            var columns = new Columns(chr: chr);
+            var columns = new Columns { Chr = chr };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: true);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.Assembly = Assemblies.hg19;
+                parser.ReadOnlyAssemblyChrs = true;
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -271,11 +282,13 @@ namespace GeUtilities.Tests.TBEDParser
         public void TestExcessChrs(string chr)
         {
             // Arrange
-            var columns = new Columns(chr: chr);
+            var columns = new Columns { Chr = chr };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: false);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.Assembly = Assemblies.hg19;
+                parser.ReadOnlyAssemblyChrs = false;
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -287,11 +300,13 @@ namespace GeUtilities.Tests.TBEDParser
         public void TestMissingChrs()
         {
             // Arrange
-            var columns = new Columns(chr: "chr1");
+            var columns = new Columns { Chr = "chr1" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: Assemblies.hg19, readOnlyValidChrs: false);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.Assembly = Assemblies.hg19;
+                parser.ReadOnlyAssemblyChrs = false;
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -303,7 +318,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void BEDWithAllOptionalColumnsAndSomeExtraColumns()
         {
             // Arrange
-            var columns = new Columns(summitColumn: 10, strandColumn: 11);
+            var columns = new Columns { SummitColumn = 10, StrandColumn = 11 };
             using (TempFileCreator testFile = new TempFileCreator(columns, headerLineCount: 2, peaksCount: 10))
             {
                 // Act
@@ -322,7 +337,7 @@ namespace GeUtilities.Tests.TBEDParser
             using (TempFileCreator testFile = new TempFileCreator("             "))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, dropPeakIfInvalidValue: true);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert

@@ -50,7 +50,7 @@ namespace GeUtilities.Tests.TVCFParser
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Right == columns.Variant.Left + 1);
+                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Right == columns.Position + 1);
             }
         }
     }

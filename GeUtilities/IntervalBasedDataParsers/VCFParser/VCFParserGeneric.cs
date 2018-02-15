@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using Genometric.GeUtilities.ReferenceGenomes;
 
 namespace Genometric.GeUtilities.Parsers
 {
@@ -22,14 +21,8 @@ namespace Genometric.GeUtilities.Parsers
         #endregion
 
         public VCFParser(
-            string sourceFilePath,
-            Assemblies assembly = Assemblies.Unknown,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            string sourceFilePath) :
             this(sourceFilePath: sourceFilePath,
-                assembly: assembly,
                 chrColumn: 0,
                 positionColumn: 1,
                 idColumn: 2,
@@ -38,11 +31,7 @@ namespace Genometric.GeUtilities.Parsers
                 qualityColumn: 5,
                 filterColumn: 6,
                 infoColumn: 7,
-                strandColumn: -1,
-                startOffset: startOffset,
-                readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToRead: maxLinesToRead,
-                hashFunction: hashFunction)
+                strandColumn: -1)
         { }
 
         public VCFParser(
@@ -55,23 +44,13 @@ namespace Genometric.GeUtilities.Parsers
             byte qualityColumn,
             byte filterColumn,
             byte infoColumn,
-            sbyte strandColumn,
-            Assemblies assembly = Assemblies.Unknown,
-            bool readOnlyValidChrs = true,
-            byte startOffset = 0,
-            uint maxLinesToRead = uint.MaxValue,
-            HashFunction hashFunction = HashFunction.One_at_a_Time) :
+            sbyte strandColumn) :
             base(
                 sourceFilePath: sourceFilePath,
-                assembly: assembly,
-                startOffset: startOffset,
                 chrColumn: chrColumn,
                 leftEndColumn: positionColumn,
                 rightEndColumn: -1,
                 strandColumn: strandColumn,
-                readOnlyValidChrs: readOnlyValidChrs,
-                maxLinesToRead: maxLinesToRead,
-                hashFunction: hashFunction,
                 data: new VCF<I>())
         {
             _idColumn = idColumn;

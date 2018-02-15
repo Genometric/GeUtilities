@@ -9,35 +9,53 @@ namespace GeUtilities.Tests.TGTFParser
 {
     public class TempFileCreator : IDisposable
     {
-        private string _tempFilePath;
+        private readonly string _tempFilePath;
         public string TempFilePath { get { return _tempFilePath; } }
 
         public TempFileCreator(string line)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
-            using (FileStream fs = File.Create(_tempFilePath))
-            using (StreamWriter sw = new StreamWriter(fs))
-                sw.WriteLine(line);
+            FileStream fs = null;
+            try
+            {
+                _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
+                fs = File.Create(_tempFilePath);
+                using (StreamWriter sw = new StreamWriter(fs))
+                    sw.WriteLine(line);
+            }
+            finally
+            {
+                if (fs != null)
+                    fs.Dispose();
+            }
         }
 
         public TempFileCreator(Columns columns, int headerLineCount = 0, int featuresCount = 1)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
-            using (FileStream fs = File.Create(_tempFilePath))
-            using (StreamWriter sw = new StreamWriter(fs))
+            FileStream fs = null;
+            try
             {
-                while (headerLineCount-- > 0)
-                    sw.WriteLine(columns.GetSampleHeader());
-
-                while (featuresCount-- > 0)
+                _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
+                fs = File.Create(_tempFilePath);
+                using (StreamWriter sw = new StreamWriter(fs))
                 {
-                    sw.WriteLine(columns.GetSampleLine());
-                    if (featuresCount > 0)
+                    while (headerLineCount-- > 0)
+                        sw.WriteLine(columns.GetSampleHeader());
+
+                    while (featuresCount-- > 0)
                     {
-                        columns.GFeature.Left = columns.GFeature.Right + 10;
-                        columns.GFeature.Right = columns.GFeature.Right + 20;
+                        sw.WriteLine(columns.GetSampleLine());
+                        if (featuresCount > 0)
+                        {
+                            columns.Left = columns.Right + 10;
+                            columns.Right = columns.Right + 20;
+                        }
                     }
                 }
+            }
+            finally
+            {
+                if (fs != null)
+                    fs.Dispose();
             }
         }
 

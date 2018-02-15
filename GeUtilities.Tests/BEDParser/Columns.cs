@@ -4,6 +4,7 @@
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
 using System;
+using System.Text;
 
 /// <summary>
 /// This namespace contains Tests for both base and BED parsers.
@@ -12,7 +13,7 @@ namespace GeUtilities.Tests.TBEDParser
 {
     public class Columns
     {
-        private byte _chrColumn;
+        private byte _chrColumn = 0;
         public byte ChrColumn
         {
             get { return _chrColumn; }
@@ -23,7 +24,7 @@ namespace GeUtilities.Tests.TBEDParser
             }
         }
 
-        private byte _leftColumn;
+        private byte _leftColumn = 1;
         public byte LeftColumn
         {
             get { return _leftColumn; }
@@ -34,7 +35,7 @@ namespace GeUtilities.Tests.TBEDParser
             }
         }
 
-        private sbyte _rightColumn;
+        private sbyte _rightColumn = 2;
         public sbyte RightColumn
         {
             get { return _rightColumn; }
@@ -45,7 +46,7 @@ namespace GeUtilities.Tests.TBEDParser
             }
         }
 
-        private byte _nameColumn;
+        private byte _nameColumn = 3;
         public byte NameColumn
         {
             get { return _nameColumn; }
@@ -56,7 +57,7 @@ namespace GeUtilities.Tests.TBEDParser
             }
         }
 
-        private byte _valueColumn;
+        private byte _valueColumn = 4;
         public byte ValueColumn
         {
             get { return _valueColumn; }
@@ -67,7 +68,7 @@ namespace GeUtilities.Tests.TBEDParser
             }
         }
 
-        private sbyte _strandColumn;
+        private sbyte _strandColumn = -1;
         public sbyte StrandColumn
         {
             get { return _strandColumn; }
@@ -78,7 +79,7 @@ namespace GeUtilities.Tests.TBEDParser
             }
         }
 
-        private sbyte _summitColumn;
+        private sbyte _summitColumn = -1;
         public sbyte SummitColumn
         {
             get { return _summitColumn; }
@@ -89,13 +90,72 @@ namespace GeUtilities.Tests.TBEDParser
             }
         }
 
-        public string Chr { set; get; }
-        public char Strand { set; get; }
+        private string _chr = "chr1";
+        public string Chr
+        {
+            set { _chr = value; }
+            get { return _chr; }
+        }
 
-        public ChIPSeqPeak Peak { set; get; }
+        private int _left = 10;
+        public int Left
+        {
+            set { _left = value; }
+            get { return _left; }
+        }
+
+        private int _right = 20;
+        public int Right
+        {
+            set { _right = value; }
+            get { return _right; }
+        }
+
+        private int _summit = 15;
+        public int Summit
+        {
+            set { _summit = value; }
+            get { return _summit; }
+        }
+
+        private string _name = "GeUtilities_01";
+        public string Name
+        {
+            set { _name = value; }
+            get { return _name; }
+        }
+
+        private double _value = 123.45;
+        public double Value
+        {
+            set { _value = value; }
+            get { return _value; }
+        }
+
+        private char _strand = '*';
+        public char Strand
+        {
+            set { _strand = value; }
+            get { return _strand; }
+        }
+
+        public ChIPSeqPeak Peak
+        {
+            get
+            {
+                return new ChIPSeqPeak
+                {
+                    Left = Left,
+                    Right = Right,
+                    Summit = Summit,
+                    Name = Name,
+                    Value = Value
+                };
+            }
+        }
 
         /// <summary>
-        /// <para>NOTE 1: the default values of these columns must match the 
+        /// <para>NOTE 1: the default values of the columns must match the 
         /// default columns order of the parser. </para>
         ///
         /// <para>Note 2: the order of columns received in the constructor
@@ -103,40 +163,7 @@ namespace GeUtilities.Tests.TBEDParser
         /// overlap. This is intentional. To avoid column number overlapping
         /// assign their values using set/get accessors of the properties. </para>
         /// </summary>
-        public Columns(
-            string chr = "chr1",
-            int left = 10,
-            int right = 20,
-            int summit = 15,
-            string name = "GeUtilities_01",
-            double value = 123.45,
-            char strand = '*',
-            byte chrColumn = 0,
-            byte leftColumn = 1,
-            sbyte rightColumn = 2,
-            byte nameColumn = 3,
-            byte valueColumn = 4,
-            sbyte strandColumn = -1,
-            sbyte summitColumn = -1)
-        {
-            Chr = chr;
-            Strand = strand;
-            Peak = new ChIPSeqPeak()
-            {
-                Left = left,
-                Right = right,
-                Summit = summit,
-                Name = name,
-                Value = value
-            };
-            _chrColumn = chrColumn;
-            _leftColumn = leftColumn;
-            _rightColumn = rightColumn;
-            _nameColumn = nameColumn;
-            _valueColumn = valueColumn;
-            _strandColumn = strandColumn;
-            _summitColumn = summitColumn;
-        }
+        public Columns() { }
 
         private void Swap(sbyte oldValue, sbyte newValue)
         {
@@ -165,36 +192,36 @@ namespace GeUtilities.Tests.TBEDParser
 
         public string GetSampleHeader()
         {
-            string header = "";
+            var header = new StringBuilder("");
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
-                if (ChrColumn == i) header += "chr\t";
-                else if (LeftColumn == i) header += "Left\t";
-                else if (RightColumn == i) header += "Right\t";
-                else if (NameColumn == i) header += "Name\t";
-                else if (ValueColumn == i) header += "Value\t";
-                else if (StrandColumn == i) header += "Strand\t";
-                else if (SummitColumn == i) header += "Summit\t";
-                else header += "aBcD\t";
+                if (ChrColumn == i) header.Append("chr\t");
+                else if (LeftColumn == i) header.Append("Left\t");
+                else if (RightColumn == i) header.Append("Right\t");
+                else if (NameColumn == i) header.Append("Name\t");
+                else if (ValueColumn == i) header.Append("Value\t");
+                else if (StrandColumn == i) header.Append("Strand\t");
+                else if (SummitColumn == i) header.Append("Summit\t");
+                else header.Append("aBcD\t");
 
-            return header;
+            return header.ToString();
         }
 
         public string GetSampleLine()
         {
-            string line = "";
+            var lineBuilder = new StringBuilder("");
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
-                if (ChrColumn == i) line += Chr + "\t";
-                else if (LeftColumn == i) line += Peak.Left + "\t";
-                else if (RightColumn == i) line += Peak.Right + "\t";
-                else if (NameColumn == i) line += Peak.Name + "\t";
-                else if (ValueColumn == i) line += Peak.Value + "\t";
-                else if (StrandColumn == i) line += Strand + "\t";
-                else if (SummitColumn == i) line += Peak.Summit + "\t";
-                else line += "AbCd\t";
+                if (ChrColumn == i) lineBuilder.Append(Chr + "\t");
+                else if (LeftColumn == i) lineBuilder.Append(Left + "\t");
+                else if (RightColumn == i) lineBuilder.Append(Right + "\t");
+                else if (NameColumn == i) lineBuilder.Append(Name + "\t");
+                else if (ValueColumn == i) lineBuilder.Append(Value + "\t");
+                else if (StrandColumn == i) lineBuilder.Append(Strand + "\t");
+                else if (SummitColumn == i) lineBuilder.Append(Summit + "\t");
+                else lineBuilder.Append("AbCd\t");
 
-            return line;
+            return lineBuilder.ToString();
         }
     }
 }

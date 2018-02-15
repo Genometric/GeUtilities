@@ -4,7 +4,7 @@
 
 namespace Genometric.GeUtilities.Parsers
 {
-    public enum HashFunction
+    public enum HashFunctions
     {
         /// <summary>
         /// Calculates a hash key based on One-at-a-Time method

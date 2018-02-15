@@ -72,7 +72,8 @@ namespace GeUtilities.Tests.ModelTests
             using (TempFileCreator testFile = new TempFileCreator(peak))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, assembly: assembly);
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                parser.Assembly = assembly;
                 var parsedBED = parser.Parse();
 
                 // Assert

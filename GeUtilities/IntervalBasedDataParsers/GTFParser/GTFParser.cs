@@ -3,23 +3,14 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
-using Genometric.GeUtilities.ReferenceGenomes;
 
 namespace Genometric.GeUtilities.Parsers
 {
     public class GTFParser : GTFParser<GeneralFeature>
     {
         public GTFParser(
-           string sourceFilePath,
-           Assemblies assembly = Assemblies.Unknown,
-           bool readOnlyValidChrs = true,
-           byte startOffset = 0,
-           uint maxLinesToRead = uint.MaxValue,
-           HashFunction hashFunction = HashFunction.One_at_a_Time) :
+           string sourceFilePath) :
            this(sourceFilePath: sourceFilePath,
-               assembly: assembly,
-               readOnlyValidChrs: readOnlyValidChrs,
-               startOffset: startOffset,
                chrColumn: 0,
                sourceColumn: 1,
                featureColumn: 2,
@@ -28,9 +19,7 @@ namespace Genometric.GeUtilities.Parsers
                scoreColumn: 5,
                strandColumn: 6,
                frameColumn: 7,
-               attributeColumn: 8,
-               maxLinesToRead: maxLinesToRead,
-               hashFunction: hashFunction)
+               attributeColumn: 8)
         { }
 
         public GTFParser(
@@ -43,12 +32,7 @@ namespace Genometric.GeUtilities.Parsers
            sbyte scoreColumn,
            sbyte strandColumn,
            sbyte frameColumn,
-           sbyte attributeColumn,
-           Assemblies assembly = Assemblies.Unknown,
-           bool readOnlyValidChrs = true,
-           byte startOffset = 0,
-           uint maxLinesToRead = uint.MaxValue,
-           HashFunction hashFunction = HashFunction.One_at_a_Time) :
+           sbyte attributeColumn) :
            base(
                sourceFilePath: sourceFilePath,
                chrColumn: chrColumn,
@@ -59,12 +43,7 @@ namespace Genometric.GeUtilities.Parsers
                scoreColumn: scoreColumn,
                strandColumn: strandColumn,
                frameColumn: frameColumn,
-               attributeColumn: attributeColumn,
-               assembly: assembly,
-               readOnlyValidChrs: readOnlyValidChrs,
-               maxLinesToRead: maxLinesToRead,
-               startOffset: startOffset,
-               hashFunction: hashFunction)
+               attributeColumn: attributeColumn)
         { }
     }
 }
