@@ -11,6 +11,10 @@ namespace GeUtilities.Tests.TVCFParser
 {
     public class Columns
     {
+        // NOTE
+        // The default column indexes (i.e., the values of properties such as
+        // ChrColumn, LeftColumn, and etc.) must match the parsers defaults.
+
         private byte _chrColumn = 0;
         public byte ChrColumn
         {
@@ -110,68 +114,23 @@ namespace GeUtilities.Tests.TVCFParser
             }
         }
 
-        private string _chr = "chr1";
-        public string Chr
-        {
-            set { _chr = value; }
-            get { return _chr; }
-        }
+        public string Chr { set; get; }
 
-        private int _position = 10;
-        public int Position
-        {
-            set { _position = value; }
-            get { return _position; }
-        }
+        public int Position { set; get; }
 
-        private string _id = "id_001";
-        public string Id
-        {
-            set { _id = value; }
-            get { return _id; }
-        }
+        public string Id { set; get; }
 
-        private Base[] _refBase = new Base[] { Base.A, Base.C, Base.G };
-        public Base[] RefBase
-        {
-            set { _refBase = value; }
-            get { return _refBase; }
-        }
+        public Base[] RefBase { set; get; }
 
-        private Base[] _altBase = new Base[] { Base.U, Base.T, Base.N };
-        public Base[] AltBase
-        {
-            set { _altBase = value; }
-            get { return _altBase; }
-        }
+        public Base[] AltBase { set; get; }
 
-        private double _quality = 654.321;
-        public double Quality
-        {
-            set { _quality = value; }
-            get { return _quality; }
-        }
+        public double Quality { set; get; }
 
-        private string _filter = "filter_001";
-        public string Filter
-        {
-            set { _filter = value; }
-            get { return _filter; }
-        }
+        public string Filter { set; get; }
 
-        private string _info = "info_001";
-        public string Info
-        {
-            set { _info = value; }
-            get { return _info; }
-        }
+        public string Info { set; get; }
 
-        private char _strand = '*';
-        public char Strand
-        {
-            set { _strand = value; }
-            get { return _strand; }
-        }
+        public char Strand { set; get; }
 
         public Variant Variant
         {
@@ -191,13 +150,17 @@ namespace GeUtilities.Tests.TVCFParser
             }
         }
 
-        /// <summary>
-        /// NOTE: The only option for an array default value is 'null'.
-        /// Therefore, a default value for null ref/alt base arrays is
-        /// set in the constructor.
-        /// and their value is 
-        /// </summary>
-        public Columns() { }
+        public Columns() {
+            Chr = "chr1";
+            Position = 10;
+            Id = "id_001";
+            RefBase = new Base[] { Base.A, Base.C, Base.G };
+            AltBase = new Base[] { Base.U, Base.T, Base.N };
+            Quality = 654.321;
+            Filter= "filter_001";
+            Info = "info_001";
+            Strand = '*';
+        }
 
         private void Swap(sbyte oldValue, sbyte newValue)
         {

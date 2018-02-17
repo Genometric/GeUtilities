@@ -13,6 +13,10 @@ namespace GeUtilities.Tests.TBEDParser
 {
     public class Columns
     {
+        // NOTE
+        // The default column indexes (i.e., the values of properties such as
+        // ChrColumn, LeftColumn, and etc.) must match the parsers defaults.
+
         private byte _chrColumn = 0;
         public byte ChrColumn
         {
@@ -90,54 +94,19 @@ namespace GeUtilities.Tests.TBEDParser
             }
         }
 
-        private string _chr = "chr1";
-        public string Chr
-        {
-            set { _chr = value; }
-            get { return _chr; }
-        }
+        public string Chr { set; get; }
 
-        private int _left = 10;
-        public int Left
-        {
-            set { _left = value; }
-            get { return _left; }
-        }
+        public int Left { set; get; }
 
-        private int _right = 20;
-        public int Right
-        {
-            set { _right = value; }
-            get { return _right; }
-        }
+        public int Right { set; get; }
 
-        private int _summit = 15;
-        public int Summit
-        {
-            set { _summit = value; }
-            get { return _summit; }
-        }
+        public int Summit { set; get; }
 
-        private string _name = "GeUtilities_01";
-        public string Name
-        {
-            set { _name = value; }
-            get { return _name; }
-        }
+        public string Name { set; get; }
 
-        private double _value = 123.45;
-        public double Value
-        {
-            set { _value = value; }
-            get { return _value; }
-        }
+        public double Value { set; get; }
 
-        private char _strand = '*';
-        public char Strand
-        {
-            set { _strand = value; }
-            get { return _strand; }
-        }
+        public char Strand { set; get; }
 
         public ChIPSeqPeak Peak
         {
@@ -154,16 +123,16 @@ namespace GeUtilities.Tests.TBEDParser
             }
         }
 
-        /// <summary>
-        /// <para>NOTE 1: the default values of the columns must match the 
-        /// default columns order of the parser. </para>
-        ///
-        /// <para>Note 2: the order of columns received in the constructor
-        /// are used/applied as given. Therefore, they are prone to 
-        /// overlap. This is intentional. To avoid column number overlapping
-        /// assign their values using set/get accessors of the properties. </para>
-        /// </summary>
-        public Columns() { }
+        public Columns()
+        {
+            Chr = "chr1";
+            Left = 10;
+            Right = 20;
+            Summit = 15;
+            Name = "GeUtilities_01";
+            Value = 123.45;
+            Strand = '*';
+        }
 
         private void Swap(sbyte oldValue, sbyte newValue)
         {
