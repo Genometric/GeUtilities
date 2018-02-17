@@ -76,47 +76,17 @@ namespace GeUtilities.Tests.TRefSeqParser
             }
         }
 
-        private string _chr = "chr1";
-        public string Chr
-        {
-            set { _chr = value; }
-            get { return _chr; }
-        }
+        public string Chr { set; get; }
 
-        private int _left = 10;
-        public int Left
-        {
-            set { _left = value; }
-            get { return _left; }
-        }
+        public int Left { set; get; }
 
-        private int _right = 20;
-        public int Right
-        {
-            set { _right = value; }
-            get { return _right; }
-        }
+        public int Right { set; get; }
 
-        private string _refSeqID = "RefSeqID";
-        public string RefSeqID
-        {
-            set { _refSeqID = value; }
-            get { return _refSeqID; }
-        }
+        public string RefSeqID { set; get; }
 
-        private string _geneSymbol = "GeneSymbol";
-        public string GeneSymbol
-        {
-            set { _geneSymbol = value; }
-            get { return _geneSymbol; }
-        }
+        public string GeneSymbol { set; get; }
 
-        private char _strand = '*';
-        public char Strand
-        {
-            set { _strand = value; }
-            get { return _strand; }
-        }
+        public char Strand { set; get; }
 
         public Gene Gene
         {
@@ -132,7 +102,14 @@ namespace GeUtilities.Tests.TRefSeqParser
             }
         }
 
-        public Columns() { }
+        public Columns() {
+            Chr = "chr1";
+            Left = 10;
+            Right = 20;
+            RefSeqID = "RefSeqID";
+            GeneSymbol = "GeneSymbol";
+            Strand = '*';
+        }
 
         private void Swap(sbyte oldValue, sbyte newValue)
         {
