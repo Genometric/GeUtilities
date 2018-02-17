@@ -11,12 +11,12 @@ namespace Genometric.GeUtilities.Parsers
     {
         #region .::.         private properties         .::.
 
-        private byte _idColumn;
-        private byte _refbColumn;
-        private byte _altbColumn;
-        private byte _qualityColumn;
-        private byte _filterColumn;
-        private byte _infoColumn;
+        private readonly byte _idColumn;
+        private readonly byte _refbColumn;
+        private readonly byte _altbColumn;
+        private readonly byte _qualityColumn;
+        private readonly byte _filterColumn;
+        private readonly byte _infoColumn;
 
         #endregion
 

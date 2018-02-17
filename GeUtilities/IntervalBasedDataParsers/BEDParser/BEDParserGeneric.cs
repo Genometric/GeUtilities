@@ -15,17 +15,17 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// Sets and gets the column number of peak name.
         /// </summary>
-        private byte _nameColumn;
+        private readonly byte _nameColumn;
 
         /// <summary>
         /// Sets and gets the column number of p-value.
         /// </summary>
-        private byte _valueColumn;
+        private readonly byte _valueColumn;
 
         /// <summary>
         /// Sets and gets the column number of peak summit.
         /// </summary>
-        private sbyte _summitColumn;
+        private readonly sbyte _summitColumn;
 
         /// <summary>
         /// When read process is finished, this variable contains the number
