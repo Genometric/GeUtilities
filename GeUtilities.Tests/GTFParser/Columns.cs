@@ -121,12 +121,7 @@ namespace GeUtilities.Tests.TGTFParser
 
         public double Score { set; get; }
 
-        private char _strand = '*';
-        public char Strand
-        {
-            set { _strand = value; }
-            get { return _strand; }
-        }
+        public char Strand { set; get; }
 
         public string Frame { set; get; }
 
@@ -156,6 +151,7 @@ namespace GeUtilities.Tests.TGTFParser
             Right = 20;
             Score = 100.0;
             Strand = '*';
+            Frame = "Frame";
             Attribute = "att1=1;att2=v2";
         }
 
