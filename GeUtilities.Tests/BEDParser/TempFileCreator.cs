@@ -10,7 +10,7 @@ using System.IO;
 /// </summary>
 namespace GeUtilities.Tests.TBEDParser
 {
-    internal sealed class TempFileCreator : IDisposable
+    internal class TempFileCreator : IDisposable
     {
         private readonly string _tempFilePath;
         public string TempFilePath { get { return _tempFilePath; } }
@@ -83,6 +83,12 @@ namespace GeUtilities.Tests.TBEDParser
         }
 
         public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
         {
             File.Delete(TempFilePath);
         }

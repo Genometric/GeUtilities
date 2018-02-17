@@ -61,6 +61,12 @@ namespace GeUtilities.Tests.TGTFParser
 
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
             File.Delete(_tempFilePath);
         }
     }
