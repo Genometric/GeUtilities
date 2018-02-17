@@ -90,7 +90,7 @@ namespace GeUtilities.Tests.TBEDParser
 
         protected virtual void Dispose(bool disposing)
         {
-            File.Delete(TempFilePath);
+            File.Delete(_tempFilePath);
         }
     }
 }
