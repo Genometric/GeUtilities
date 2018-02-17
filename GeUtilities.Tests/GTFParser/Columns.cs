@@ -109,47 +109,17 @@ namespace GeUtilities.Tests.TGTFParser
             }
         }
 
-        private string _source = "Source";
-        public string Source
-        {
-            set { _source = value; }
-            get { return _source; }
-        }
+        public string Source { set; get; }
 
-        private string _feature = "Feature";
-        public string Feature
-        {
-            set { _feature = value; }
-            get { return _feature; }
-        }
+        public string Feature { set; get; }
 
-        private string _chr = "chr1";
-        public string Chr
-        {
-            set { _chr = value; }
-            get { return _chr; }
-        }
+        public string Chr { set; get; }
 
-        private int _left = 10;
-        public int Left
-        {
-            set { _left = value; }
-            get { return _left; }
-        }
+        public int Left { set; get; }
 
-        private int _right = 20;
-        public int Right
-        {
-            set { _right = value; }
-            get { return _right; }
-        }
+        public int Right { set; get; }
 
-        private double _score = 100.0;
-        public double Score
-        {
-            set { _score = value; }
-            get { return _score; }
-        }
+        public double Score { set; get; }
 
         private char _strand = '*';
         public char Strand
@@ -158,19 +128,9 @@ namespace GeUtilities.Tests.TGTFParser
             get { return _strand; }
         }
 
-        private string _frame = "Frame";
-        public string Frame
-        {
-            set { _frame = value; }
-            get { return _frame; }
-        }
+        public string Frame { set; get; }
 
-        private string _attribute = "att1=1;att2=v2";
-        public string Attribute
-        {
-            set { _attribute = value; }
-            get { return _attribute; }
-        }
+        public string Attribute { set; get; }
 
         public GeneralFeature GFeature { get
             {
@@ -187,7 +147,17 @@ namespace GeUtilities.Tests.TGTFParser
             }
         }
 
-        public Columns() { }
+        public Columns()
+        {
+            Source = "Source";
+            Feature = "Feature";
+            Chr = "chr1";
+            Left = 10;
+            Right = 20;
+            Score = 100.0;
+            Strand = '*';
+            Attribute = "att1=1;att2=v2";
+        }
 
         private void Swap(sbyte oldValue, sbyte newValue)
         {
