@@ -10,6 +10,10 @@ namespace GeUtilities.Tests.TRefSeqParser
 {
     public class Columns
     {
+        // NOTE
+        // The default column indexes (i.e., the values of properties such as
+        // ChrColumn, LeftColumn, and etc.) must match the parsers defaults.
+
         private byte _chrColumn = 0;
         public byte ChrColumn
         {

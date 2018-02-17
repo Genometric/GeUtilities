@@ -11,6 +11,10 @@ namespace GeUtilities.Tests.TVCFParser
 {
     public class Columns
     {
+        // NOTE
+        // The default column indexes (i.e., the values of properties such as
+        // ChrColumn, LeftColumn, and etc.) must match the parsers defaults.
+
         private byte _chrColumn = 0;
         public byte ChrColumn
         {
@@ -146,12 +150,6 @@ namespace GeUtilities.Tests.TVCFParser
             }
         }
 
-        /// <summary>
-        /// NOTE: The only option for an array default value is 'null'.
-        /// Therefore, a default value for null ref/alt base arrays is
-        /// set in the constructor.
-        /// and their value is 
-        /// </summary>
         public Columns() {
             Chr = "chr1";
             Position = 10;
