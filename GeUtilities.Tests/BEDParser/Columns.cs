@@ -13,6 +13,10 @@ namespace GeUtilities.Tests.TBEDParser
 {
     public class Columns
     {
+        // NOTE
+        // The default column indexes (i.e., the values of properties such as
+        // ChrColumn, LeftColumn, and etc.) must match the parsers defaults.
+
         private byte _chrColumn = 0;
         public byte ChrColumn
         {
@@ -119,15 +123,6 @@ namespace GeUtilities.Tests.TBEDParser
             }
         }
 
-        /// <summary>
-        /// <para>NOTE 1: the default values of the columns must match the 
-        /// default columns order of the parser. </para>
-        ///
-        /// <para>Note 2: the order of columns received in the constructor
-        /// are used/applied as given. Therefore, they are prone to 
-        /// overlap. This is intentional. To avoid column number overlapping
-        /// assign their values using set/get accessors of the properties. </para>
-        /// </summary>
         public Columns()
         {
             Chr = "chr1";
