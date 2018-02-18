@@ -122,10 +122,10 @@ namespace Genometric.GeUtilities.Parsers
         private bool _readOnlyAssemblyChrs = true;
 
         public ReadOnlyCollection<string> ExcessChrs { get { return _excessChrs.AsReadOnly(); } }
-        private List<string> _excessChrs;
+        private readonly List<string> _excessChrs;
 
         public ReadOnlyCollection<string> MissingChrs { get { return _missingChrs.AsReadOnly(); } }
-        private List<string> _missingChrs;
+        private readonly List<string> _missingChrs;
 
         /// <summary>
         /// Sets and gets the hash function used to create hash 

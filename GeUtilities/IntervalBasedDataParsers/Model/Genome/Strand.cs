@@ -11,7 +11,7 @@ namespace Genometric.GeUtilities.Parsers
     public class Strand<I>
         where I : IInterval<int>, new()
     {
-        private List<I> _intervals;
+        private readonly List<I> _intervals;
         public ReadOnlyCollection<I> Intervals
         {
             get { return _intervals.AsReadOnly(); }
