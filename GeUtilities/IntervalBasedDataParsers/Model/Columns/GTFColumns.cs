@@ -11,5 +11,18 @@ namespace Genometric.GeUtilities.IntervalParsers
         public sbyte Score { set; get; }
         public sbyte Frame { set; get; }
         public sbyte Attribute { set; get; }
+
+        public GTFColumns()
+        {
+            Chr = 0;
+            Source = 1;
+            Feature = 2;
+            Left = 3;
+            Right = 4;
+            Source = 5;
+            Strand = 6;
+            Frame = 7;
+            Attribute = 8;
+        }
     }
 }
