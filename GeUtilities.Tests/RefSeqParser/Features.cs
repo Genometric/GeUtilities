@@ -14,18 +14,15 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void MultiFeatureFile()
         {
             // Arrange
-            var columns = new RegionGenerator
-            {
-                StrandColumn = 12
-            };
-            using (TempFileCreator testFile = new TempFileCreator(columns, genesCount: 10, headerLineCount: 2))
+            var rg = new RegionGenerator { StrandColumn = 12 };
+            using (var testFile = new TempFileCreator(rg, genesCount: 10, headerLineCount: 2))
             {
                 // Act
-                RefSeqParser<Gene> parser = new RefSeqParser<Gene>(testFile.TempFilePath);
+                var parser = new RefSeqParser<Gene>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals.Count == 10);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.Count == 10);
             }
         }
     }
