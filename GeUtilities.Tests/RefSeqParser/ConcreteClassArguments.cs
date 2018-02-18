@@ -13,15 +13,15 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void AllDefaultArguments()
         {
             // Arrange
-            var columns = new RegionGenerator();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                RefSeqParser parser = new RefSeqParser(testFile.TempFilePath);
-                var parsedGene = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parser = new RefSeqParser(testFile.TempFilePath);
+                var parsedGene = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedGene.CompareTo(columns.Gene) == 0);
+                Assert.True(parsedGene.CompareTo(rg.Gene) == 0);
             }
         }
 
@@ -29,22 +29,15 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void FullySetArguments()
         {
             // Arrange
-            var columns = new RegionGenerator();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                RefSeqParser parser = new RefSeqParser(
-                    testFile.TempFilePath,
-                    chrColumn: columns.ChrColumn,
-                    leftEndColumn: columns.LeftColumn,
-                    rightEndColumn: columns.RightColumn,
-                    refSeqIDColumn: columns.RefSeqIDColumn,
-                    geneSymbolColumn: columns.GeneSymbolColumn,
-                    strandColumn: columns.StrandColumn);
-                var parsedGene = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parser = new RefSeqParser(testFile.TempFilePath, rg.Columns);
+                var parsedGene = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedGene.CompareTo(columns.Gene) == 0);
+                Assert.True(parsedGene.CompareTo(rg.Gene) == 0);
             }
         }
     }
