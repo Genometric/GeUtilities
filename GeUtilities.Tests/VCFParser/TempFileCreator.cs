@@ -9,54 +9,32 @@ namespace GeUtilities.Tests.TVCFParser
 {
     public class TempFileCreator : IDisposable
     {
-        private string _tempFilePath;
+        private readonly string _tempFilePath;
         public string TempFilePath { get { return _tempFilePath; } }
 
         public TempFileCreator(string line)
         {
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".vcf";
-            FileStream fs = null;
-            try
-            {
-                fs = File.Create(_tempFilePath);
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
-                    fs = null;
-                    sw.WriteLine(line);
-                }
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Dispose();
-            }
+            FileStream stream = File.Create(_tempFilePath);
+            using (StreamWriter writer = new StreamWriter(stream))
+                writer.WriteLine(line);
         }
 
         public TempFileCreator(Columns columns, int headerLineCount = 0, int variantsCount = 1)
         {
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".vcf";
-            FileStream fs = null;
-            try
+            FileStream stream = File.Create(_tempFilePath);
+            using (StreamWriter writer = new StreamWriter(stream))
             {
-                fs = File.Create(_tempFilePath);
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
-                    fs = null;
-                    while (headerLineCount-- > 0)
-                        sw.WriteLine(columns.GetSampleHeader());
+                while (headerLineCount-- > 0)
+                    writer.WriteLine(columns.GetSampleHeader());
 
-                    while (variantsCount-- > 0)
-                    {
-                        sw.WriteLine(columns.GetSampleLine());
-                        if (variantsCount > 0)
-                            columns.Position += 10;
-                    }
+                while (variantsCount-- > 0)
+                {
+                    writer.WriteLine(columns.GetSampleLine());
+                    if (variantsCount > 0)
+                        columns.Position += 10;
                 }
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Dispose();
             }
         }
 
