@@ -14,10 +14,6 @@ namespace GeUtilities.Tests.TBEDParser
 {
     public class RegionGenerator
     {
-        // NOTE
-        // The default column indexes (i.e., the values of properties such as
-        // ChrColumn, LeftColumn, and etc.) must match the parsers defaults.
-
         public BEDColumns Columns { private set; get; }
 
         public byte ChrColumn
@@ -121,6 +117,11 @@ namespace GeUtilities.Tests.TBEDParser
 
         public RegionGenerator()
         {
+            // NOTE
+            // The following default column indexes must match the
+            // BED file type specifications. These specifications can 
+            // be obtained from various resources such as Ensembl: 
+            // https://uswest.ensembl.org/info/website/upload/bed.html
             Columns = new BEDColumns()
             {
                 Chr = 0,
