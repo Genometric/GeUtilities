@@ -19,11 +19,13 @@ namespace GeUtilities.Tests.TGTFParser
         public void AvoidHeader(int headerCount, byte readOffset)
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
+            using (var testFile = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
             {
                 // Act
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                parser.ReadOffset = readOffset;
+                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath)
+                {
+                    ReadOffset = readOffset
+                };
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -41,11 +43,11 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadChr(string chr)
         {
             // Arrange
-            var columns = new RegionGenerator { Chr = chr };
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator { Chr = chr };
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
+                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -59,11 +61,11 @@ namespace GeUtilities.Tests.TGTFParser
         public void FailReadChr(string chr)
         {
             // Arrange
-            var columns = new RegionGenerator { Chr = "chr1" };
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator { Chr = "chr1" };
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
+                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -75,15 +77,15 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadStrand()
         {
             // Arrange
-            var columns = new RegionGenerator();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
+                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands.ContainsKey(columns.Strand));
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands.ContainsKey(rg.Strand));
             }
         }
 
@@ -91,15 +93,15 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadLeft()
         {
             // Arrange
-            var columns = new RegionGenerator { Left = 10 };
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator { Left = 10 };
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
+                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Left == columns.Left);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Left == rg.Left);
             }
         }
 
@@ -107,10 +109,10 @@ namespace GeUtilities.Tests.TGTFParser
         public void FailReadLeft()
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator("chr1\tSource\tFeature\t10V\t20\t100.0\t*\t0\tatt1=1;att2=v2"))
+            using (var testFile = new TempFileCreator("chr1\tSource\tFeature\t10V\t20\t100.0\t*\t0\tatt1=1;att2=v2"))
             {
                 // Act
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
+                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -122,15 +124,15 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadRight()
         {
             // Arrange
-            var columns = new RegionGenerator { Right = 20 };
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator { Right = 20 };
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
+                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Right == columns.Right);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Right == rg.Right);
             }
         }
 
@@ -138,10 +140,10 @@ namespace GeUtilities.Tests.TGTFParser
         public void FailReadRight()
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator("chr1\tSource\tFeature\t10\t20V\t100.0\t*\t0\tatt1=1;att2=v2"))
+            using (var testFile = new TempFileCreator("chr1\tSource\tFeature\t10\t20V\t100.0\t*\t0\tatt1=1;att2=v2"))
             {
                 // ACt
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
+                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -153,15 +155,15 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadSource()
         {
             // Arrange
-            var columns = new RegionGenerator { Source = "Source_01" };
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator { Source = "Source_01" };
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
+                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Source == columns.Source);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Source == rg.Source);
             }
         }
 
@@ -169,15 +171,15 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadFeature()
         {
             // Arrange
-            var columns = new RegionGenerator { Feature = "Feature_01" };
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator { Feature = "Feature_01" };
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
+                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Feature == columns.Feature);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Feature == rg.Feature);
             }
         }
 
@@ -185,15 +187,15 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadScore()
         {
             // Arrange
-            var columns = new RegionGenerator { Score = 123.456 };
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator { Score = 123.456 };
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
+                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Score == columns.Score);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Score == rg.Score);
             }
         }
 
@@ -201,15 +203,15 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadAttribute()
         {
             // Arrange
-            var columns = new RegionGenerator { Attribute = "att1=at1;att2=at2;att3=3" };
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator { Attribute = "att1=at1;att2=at2;att3=3" };
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
+                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Attribute == columns.Attribute);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Attribute == rg.Attribute);
             }
         }
 
@@ -217,15 +219,15 @@ namespace GeUtilities.Tests.TGTFParser
         public void AssignHashKey()
         {
             // Arrange
-            var columns = new RegionGenerator();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
+                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].HashKey != 0);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].HashKey != 0);
             }
         }
     }
