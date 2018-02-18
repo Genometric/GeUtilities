@@ -204,9 +204,9 @@ namespace Genometric.GeUtilities.Parsers
             if (_defaultValueUtilizationCount > 0)
                 Messages.Insert(0, "\tDefault p-value used for " + _defaultValueUtilizationCount.ToString() + " times");
 
-            rtv.pValueMean = _pValueSum / rtv.IntervalsCount;
-            rtv.pValueMin = _mostStringentPeak;
-            rtv.pValueMax = _mostPermissivePeak;
+            rtv.PValueMean = _pValueSum / rtv.IntervalsCount;
+            rtv.PValueMin = _mostStringentPeak;
+            rtv.PValueMax = _mostPermissivePeak;
 
             Status = "100";
             return rtv;
