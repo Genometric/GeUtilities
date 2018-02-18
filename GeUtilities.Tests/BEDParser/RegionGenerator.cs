@@ -18,7 +18,7 @@ namespace GeUtilities.Tests.TBEDParser
         // The default column indexes (i.e., the values of properties such as
         // ChrColumn, LeftColumn, and etc.) must match the parsers defaults.
 
-        private BEDColumns Columns { set; get; }
+        public BEDColumns Columns { private set; get; }
 
         public byte ChrColumn
         {
