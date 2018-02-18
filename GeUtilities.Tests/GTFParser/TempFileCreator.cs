@@ -20,7 +20,10 @@ namespace GeUtilities.Tests.TGTFParser
                 _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
                 fs = File.Create(_tempFilePath);
                 using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    fs = null;
                     sw.WriteLine(line);
+                }
             }
             finally
             {
@@ -38,6 +41,7 @@ namespace GeUtilities.Tests.TGTFParser
                 fs = File.Create(_tempFilePath);
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
+                    fs = null;
                     while (headerLineCount-- > 0)
                         sw.WriteLine(columns.GetSampleHeader());
 

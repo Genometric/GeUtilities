@@ -25,7 +25,10 @@ namespace GeUtilities.Tests.TBEDParser
                 _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
                 fs = File.Create(TempFilePath);
                 using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    fs = null;
                     sw.WriteLine(peak);
+                }
             }
             finally
             {
@@ -42,8 +45,11 @@ namespace GeUtilities.Tests.TBEDParser
                 _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
                 fs = File.Create(TempFilePath);
                 using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    fs = null;
                     foreach (var peak in peaks)
                         sw.WriteLine(peak);
+                }
             }
             finally
             {
@@ -61,6 +67,7 @@ namespace GeUtilities.Tests.TBEDParser
                 fs = File.Create(TempFilePath);
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
+                    fs = null;
                     while (headerLineCount-- > 0)
                         sw.WriteLine(columns.GetSampleHeader());
 
