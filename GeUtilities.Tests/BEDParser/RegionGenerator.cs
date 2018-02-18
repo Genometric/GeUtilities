@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
+using Genometric.GeUtilities.IntervalParsers;
 using System;
 using System.Text;
 
@@ -17,80 +18,75 @@ namespace GeUtilities.Tests.TBEDParser
         // The default column indexes (i.e., the values of properties such as
         // ChrColumn, LeftColumn, and etc.) must match the parsers defaults.
 
-        private byte _chrColumn = 0;
+        private BEDColumns Columns { set; get; }
+
         public byte ChrColumn
         {
-            get { return _chrColumn; }
+            get { return Columns.Chr; }
             set
             {
-                Swap((sbyte)value, (sbyte)_chrColumn);
-                _chrColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.Chr);
+                Columns.Chr = value;
             }
         }
 
-        private byte _leftColumn = 1;
         public byte LeftColumn
         {
-            get { return _leftColumn; }
+            get { return Columns.Left; }
             set
             {
-                Swap((sbyte)value, (sbyte)_leftColumn);
-                _leftColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.Left);
+                Columns.Left = value;
             }
         }
 
-        private sbyte _rightColumn = 2;
         public sbyte RightColumn
         {
-            get { return _rightColumn; }
+            get { return Columns.Right; }
             set
             {
-                Swap(value, _rightColumn);
-                _rightColumn = value;
+                Swap(value, Columns.Right);
+                Columns.Right = value;
             }
         }
 
-        private byte _nameColumn = 3;
         public byte NameColumn
         {
-            get { return _nameColumn; }
+            get { return Columns.Name; }
             set
             {
-                Swap((sbyte)value, (sbyte)_nameColumn);
-                _nameColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.Name);
+                Columns.Name = value;
             }
         }
 
-        private byte _valueColumn = 4;
         public byte ValueColumn
         {
-            get { return _valueColumn; }
+            get { return Columns.Value; }
             set
             {
-                Swap((sbyte)value, (sbyte)_valueColumn);
-                _valueColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.Value);
+                Columns.Value = value;
             }
         }
 
-        private sbyte _strandColumn = -1;
         public sbyte StrandColumn
         {
-            get { return _strandColumn; }
+            get { return Columns.Strand; }
             set
             {
-                Swap(value, _strandColumn);
-                _strandColumn = value;
+                Swap(value, Columns.Strand);
+                Columns.Strand = value;
             }
         }
 
-        private sbyte _summitColumn = -1;
         public sbyte SummitColumn
         {
-            get { return _summitColumn; }
+            get { return Columns.Summit; }
             set
             {
-                Swap(value, _summitColumn);
-                _summitColumn = value;
+                Swap(value, Columns.Summit);
+                Columns.Summit = value;
             }
         }
 
@@ -125,6 +121,17 @@ namespace GeUtilities.Tests.TBEDParser
 
         public RegionGenerator()
         {
+            Columns = new BEDColumns()
+            {
+                Chr = 0,
+                Left = 1,
+                Right = 2,
+                Name = 3,
+                Value = 4,
+                Strand = -1,
+                Summit = -1
+            };
+
             Chr = "chr1";
             Left = 10;
             Right = 20;
@@ -139,13 +146,13 @@ namespace GeUtilities.Tests.TBEDParser
             if (newValue < 0)
                 newValue = (sbyte)(MaxColumnIndex() + 1);
 
-            if (_chrColumn == oldValue) _chrColumn = (byte)newValue;
-            else if (_leftColumn == oldValue) _leftColumn = (byte)newValue;
-            else if (_rightColumn == oldValue) _rightColumn = newValue;
-            else if (_nameColumn == oldValue) _nameColumn = (byte)newValue;
-            else if (_valueColumn == oldValue) _valueColumn = (byte)newValue;
-            else if (_strandColumn == oldValue) _strandColumn = newValue;
-            else if (_summitColumn == oldValue) _summitColumn = newValue;
+            if (Columns.Chr == oldValue) Columns.Chr = (byte)newValue;
+            else if (Columns.Left == oldValue) Columns.Left = (byte)newValue;
+            else if (Columns.Right == oldValue) Columns.Right = newValue;
+            else if (Columns.Name == oldValue) Columns.Name = (byte)newValue;
+            else if (Columns.Value == oldValue) Columns.Value = (byte)newValue;
+            else if (Columns.Strand == oldValue) Columns.Strand = newValue;
+            else if (Columns.Summit == oldValue) Columns.Summit = newValue;
         }
 
         public sbyte MaxColumnIndex()
