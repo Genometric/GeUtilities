@@ -35,10 +35,10 @@ namespace GeUtilities.Tests.TBEDParser
                 ValueColumn = valueColumn
             };
 
-            using (TempFileCreator testFile = new TempFileCreator(rg))
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(
+                var parser = new BEDParser<ChIPSeqPeak>(
                     testFile.TempFilePath,
                     new BEDColumns()
                     {
@@ -70,7 +70,7 @@ namespace GeUtilities.Tests.TBEDParser
                 StrandColumn = 0,
             };
 
-            using (TempFileCreator testFile = new TempFileCreator(rg))
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
                 var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
@@ -95,7 +95,7 @@ namespace GeUtilities.Tests.TBEDParser
             var rg = new RegionGenerator { SummitColumn = summitColumn };
             rg.Summit = summit == -1 ? rg.Left + ((rg.Right - rg.Left) / 2) : summit;
 
-            using (TempFileCreator testFile = new TempFileCreator(rg))
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
                 var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
@@ -122,7 +122,7 @@ namespace GeUtilities.Tests.TBEDParser
                 StrandColumn = strandColumn
             };
 
-            using (TempFileCreator testFile = new TempFileCreator(rg))
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
                 var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
@@ -144,7 +144,7 @@ namespace GeUtilities.Tests.TBEDParser
                 "chr1\t50\t60\t#\tGeUtilities_02\t111.0", // Any strand name other than '+', '-', and '*' will be parsed as '*'.
             };
 
-            using (TempFileCreator testFile = new TempFileCreator(peaks))
+            using (var testFile = new TempFileCreator(peaks))
             {
                 // Act
                 var parser = new BEDParser<ChIPSeqPeak>(
