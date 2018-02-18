@@ -105,8 +105,7 @@ namespace Genometric.GeUtilities.Parsers
         /// Sets and gets the number of lines to read from input file.
         /// The default value is 4,294,967,295 (0xFFFFFFFF).
         /// </summary>
-        public uint MaxLinesToRead { set { _maxLinesToRead = value; } get { return _maxLinesToRead; } }
-        private uint _maxLinesToRead = uint.MaxValue;
+        public uint MaxLinesToRead { set; get; }
 
         /// <summary>
         /// Set and gets if the parser should read only regions whose 
@@ -160,6 +159,7 @@ namespace Genometric.GeUtilities.Parsers
             _data.FileHashKey = GetFileHashKey(_data.FilePath);
             _excessChrs = new List<string>();
             _missingChrs = new List<string>();
+            MaxLinesToRead = uint.MaxValue;
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace Genometric.GeUtilities.Parsers
                     lineSize += fileReader.CurrentEncoding.GetByteCount(line);
                     Status = (Math.Round((lineSize * 100.0) / fileSize, 0)).ToString();
 
-                    if (line.Trim().Length > 0 && lineCounter <= _maxLinesToRead)
+                    if (line.Trim().Length > 0 && lineCounter <= MaxLinesToRead)
                     {
                         _dropReadingPeak = false;
                         string[] splittedLine = line.Split('\t');
