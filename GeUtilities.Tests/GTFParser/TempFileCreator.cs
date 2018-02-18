@@ -14,52 +14,30 @@ namespace GeUtilities.Tests.TGTFParser
 
         public TempFileCreator(string line)
         {
-            FileStream fs = null;
-            try
-            {
-                _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
-                fs = File.Create(_tempFilePath);
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
-                    fs = null;
-                    sw.WriteLine(line);
-                }
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Dispose();
-            }
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
+            FileStream stream = File.Create(_tempFilePath);
+            using (StreamWriter writer = new StreamWriter(stream))
+                writer.WriteLine(line);
         }
 
         public TempFileCreator(Columns columns, int headerLineCount = 0, int featuresCount = 1)
         {
-            FileStream fs = null;
-            try
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
+            FileStream stream = File.Create(_tempFilePath);
+            using (StreamWriter writer = new StreamWriter(stream))
             {
-                _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
-                fs = File.Create(_tempFilePath);
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
-                    fs = null;
-                    while (headerLineCount-- > 0)
-                        sw.WriteLine(columns.GetSampleHeader());
+                while (headerLineCount-- > 0)
+                    writer.WriteLine(columns.GetSampleHeader());
 
-                    while (featuresCount-- > 0)
+                while (featuresCount-- > 0)
+                {
+                    writer.WriteLine(columns.GetSampleLine());
+                    if (featuresCount > 0)
                     {
-                        sw.WriteLine(columns.GetSampleLine());
-                        if (featuresCount > 0)
-                        {
-                            columns.Left = columns.Right + 10;
-                            columns.Right = columns.Right + 20;
-                        }
+                        columns.Left = columns.Right + 10;
+                        columns.Right = columns.Right + 20;
                     }
                 }
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Dispose();
             }
         }
 
