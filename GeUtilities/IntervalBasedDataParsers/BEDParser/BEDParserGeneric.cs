@@ -143,7 +143,7 @@ namespace Genometric.GeUtilities.Parsers
                 {
                     rtv.Value = PValueConvertor(pValue);
                 }
-                else if (DropPeakIfInvalidValue == true)
+                else if (DropPeakIfInvalidValue)
                 {
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid p-value ( " + line[_valueColumn] + " )");
                 }
@@ -166,7 +166,7 @@ namespace Genometric.GeUtilities.Parsers
             }
             else
             {
-                if (DropPeakIfInvalidValue == true)
+                if (DropPeakIfInvalidValue)
                 {
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid p-value column number");
                 }
