@@ -4,6 +4,7 @@
 
 using Genometric.GeUtilities.IGenomics;
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
+using Genometric.GeUtilities.IntervalParsers;
 using System;
 using System.Text;
 
@@ -11,106 +12,95 @@ namespace GeUtilities.Tests.TVCFParser
 {
     public class RegionGenerator
     {
-        // NOTE
-        // The default column indexes (i.e., the values of properties such as
-        // ChrColumn, LeftColumn, and etc.) must match the parsers defaults.
+        public VCFColumns Columns { private set; get; }
 
-        private byte _chrColumn = 0;
         public byte ChrColumn
         {
-            get { return _chrColumn; }
+            get { return Columns.Chr; }
             set
             {
-                Swap((sbyte)value, (sbyte)_chrColumn);
-                _chrColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.Chr);
+                Columns.Chr = value;
             }
         }
 
-        private byte _positionColumn = 1;
         public byte PositionColumn
         {
-            get { return _positionColumn; }
+            get { return Columns.Left; }
             set
             {
-                Swap((sbyte)value, (sbyte)_positionColumn);
-                _positionColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.Left);
+                Columns.Left = value;
             }
         }
 
-        private byte _idColumn = 2;
         public byte IDColumn
         {
-            get { return _idColumn; }
+            get { return Columns.ID; }
             set
             {
-                Swap((sbyte)value, (sbyte)_idColumn);
-                _idColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.ID);
+                Columns.ID = value;
             }
         }
 
-        private byte _refbColumn = 3;
         public byte RefbColumn
         {
-            get { return _refbColumn; }
+            get { return Columns.RefBase; }
             set
             {
-                Swap((sbyte)value, (sbyte)_refbColumn);
-                _refbColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.RefBase);
+                Columns.RefBase = value;
             }
         }
 
-        private byte _altbColumn = 4;
         public byte AltbColumn
         {
-            get { return _altbColumn; }
+            get { return Columns.AltBase; }
             set
             {
-                Swap((sbyte)value, (sbyte)_altbColumn);
-                _altbColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.AltBase);
+                Columns.AltBase = value;
             }
         }
 
-        private byte _qualityColumn = 5;
         public byte QualityColumn
         {
-            get { return _qualityColumn; }
+            get { return Columns.Quality; }
             set
             {
-                Swap((sbyte)value, (sbyte)_qualityColumn);
-                _qualityColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.Quality);
+                Columns.Quality = value;
             }
         }
 
-        private byte _filterColumn = 6;
         public byte FilterColumn
         {
-            get { return _filterColumn; }
+            get { return Columns.Filter; }
             set
             {
-                Swap((sbyte)value, (sbyte)_filterColumn);
-                _filterColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.Filter);
+                Columns.Filter = value;
             }
         }
 
-        private byte _infoColumn = 7;
         public byte InfoColumn
         {
-            get { return _infoColumn; }
+            get { return Columns.Info; }
             set
             {
-                Swap((sbyte)value, (sbyte)_infoColumn);
-                _infoColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.Info);
+                Columns.Info = value;
             }
         }
 
-        private sbyte _strandColumn = 8;
         public sbyte StrandColumn
         {
-            get { return _strandColumn; }
+            get { return Columns.Strand; }
             set
             {
-                Swap(value, _strandColumn);
-                _strandColumn = value;
+                Swap(value, Columns.Strand);
+                Columns.Strand = value;
             }
         }
 
@@ -150,14 +140,34 @@ namespace GeUtilities.Tests.TVCFParser
             }
         }
 
-        public RegionGenerator() {
+        public RegionGenerator()
+        {
+            // NOTE
+            // The following default column indexes must match the
+            // VCF file type specifications. These specifications can 
+            // be obtained from various resources such as the following: 
+            // http://www.internationalgenome.org/wiki/Analysis/vcf4.0
+            Columns = new VCFColumns()
+            {
+                Chr = 0,
+                Left = 1,
+                Right = -1,
+                ID = 2,
+                RefBase = 3,
+                AltBase = 4,
+                Quality = 5,
+                Filter = 6,
+                Info = 7,
+                Strand = 8
+            };
+
             Chr = "chr1";
             Position = 10;
             Id = "id_001";
             RefBase = new Base[] { Base.A, Base.C, Base.G };
             AltBase = new Base[] { Base.U, Base.T, Base.N };
             Quality = 654.321;
-            Filter= "filter_001";
+            Filter = "filter_001";
             Info = "info_001";
             Strand = '*';
         }
@@ -167,15 +177,15 @@ namespace GeUtilities.Tests.TVCFParser
             if (newValue < 0)
                 newValue = (sbyte)(MaxColumnIndex() + 1);
 
-            if (_chrColumn == oldValue) _chrColumn = (byte)newValue;
-            else if (_positionColumn == oldValue) _positionColumn = (byte)newValue;
-            else if (_idColumn == oldValue) _idColumn = (byte)newValue;
-            else if (_refbColumn == oldValue) _refbColumn = (byte)newValue;
-            else if (_altbColumn == oldValue) _altbColumn = (byte)newValue;
-            else if (_qualityColumn == oldValue) _qualityColumn = (byte)newValue;
-            else if (_filterColumn == oldValue) _filterColumn = (byte)newValue;
-            else if (_infoColumn == oldValue) _infoColumn = (byte)newValue;
-            else if (_strandColumn == oldValue) _strandColumn = newValue;
+            if (Columns.Chr == oldValue) Columns.Chr = (byte)newValue;
+            else if (Columns.Left == oldValue) Columns.Left = (byte)newValue;
+            else if (Columns.ID == oldValue) Columns.ID = (byte)newValue;
+            else if (Columns.RefBase == oldValue) Columns.RefBase = (byte)newValue;
+            else if (Columns.AltBase == oldValue) Columns.AltBase = (byte)newValue;
+            else if (Columns.Quality == oldValue) Columns.Quality = (byte)newValue;
+            else if (Columns.Filter == oldValue) Columns.Filter = (byte)newValue;
+            else if (Columns.Info == oldValue) Columns.Info = (byte)newValue;
+            else if (Columns.Strand == oldValue) Columns.Strand = newValue;
         }
 
         public sbyte MaxColumnIndex()
