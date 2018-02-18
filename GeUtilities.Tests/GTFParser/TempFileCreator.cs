@@ -20,7 +20,7 @@ namespace GeUtilities.Tests.TGTFParser
                 writer.WriteLine(line);
         }
 
-        public TempFileCreator(Columns columns, int headerLineCount = 0, int featuresCount = 1)
+        public TempFileCreator(RegionGenerator columns, int headerLineCount = 0, int featuresCount = 1)
         {
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
             FileStream stream = File.Create(_tempFilePath);

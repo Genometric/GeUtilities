@@ -19,7 +19,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void AvoidHeader(int headerCount, byte readOffset)
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator(new Columns(), headerLineCount: headerCount))
+            using (TempFileCreator testFile = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
             {
                 // Act
                 GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
@@ -41,7 +41,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadChr(string chr)
         {
             // Arrange
-            var columns = new Columns { Chr = chr };
+            var columns = new RegionGenerator { Chr = chr };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -59,7 +59,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void FailReadChr(string chr)
         {
             // Arrange
-            var columns = new Columns { Chr = "chr1" };
+            var columns = new RegionGenerator { Chr = "chr1" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -75,7 +75,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadStrand()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -91,7 +91,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadLeft()
         {
             // Arrange
-            var columns = new Columns { Left = 10 };
+            var columns = new RegionGenerator { Left = 10 };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -122,7 +122,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadRight()
         {
             // Arrange
-            var columns = new Columns { Right = 20 };
+            var columns = new RegionGenerator { Right = 20 };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -153,7 +153,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadSource()
         {
             // Arrange
-            var columns = new Columns { Source = "Source_01" };
+            var columns = new RegionGenerator { Source = "Source_01" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -169,7 +169,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadFeature()
         {
             // Arrange
-            var columns = new Columns { Feature = "Feature_01" };
+            var columns = new RegionGenerator { Feature = "Feature_01" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -185,7 +185,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadScore()
         {
             // Arrange
-            var columns = new Columns { Score = 123.456 };
+            var columns = new RegionGenerator { Score = 123.456 };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -201,7 +201,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ReadAttribute()
         {
             // Arrange
-            var columns = new Columns { Attribute = "att1=at1;att2=at2;att3=3" };
+            var columns = new RegionGenerator { Attribute = "att1=at1;att2=at2;att3=3" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -217,7 +217,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void AssignHashKey()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act

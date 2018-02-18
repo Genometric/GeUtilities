@@ -9,7 +9,7 @@ using System.Text;
 
 namespace GeUtilities.Tests.TVCFParser
 {
-    public class Columns
+    public class RegionGenerator
     {
         // NOTE
         // The default column indexes (i.e., the values of properties such as
@@ -150,7 +150,7 @@ namespace GeUtilities.Tests.TVCFParser
             }
         }
 
-        public Columns() {
+        public RegionGenerator() {
             Chr = "chr1";
             Position = 10;
             Id = "id_001";

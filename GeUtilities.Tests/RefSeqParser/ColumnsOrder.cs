@@ -28,7 +28,7 @@ namespace GeUtilities.Tests.TRefSeqParser
             sbyte strandColumn)
         {
             // Arrange
-            var columns = new Columns()
+            var columns = new RegionGenerator()
             {
                 ChrColumn = chrColumn,
                 LeftColumn = leftColumn,

@@ -17,7 +17,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void DefaultColumnsOrder()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator())
             {
                 // Act
@@ -38,7 +38,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void AvoidHeader(int headerCount, byte readOffset)
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator(new Columns(), headerLineCount: headerCount))
+            using (TempFileCreator testFile = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
@@ -60,7 +60,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void ReadChr(string chr)
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator(new Columns { Chr = chr }))
+            using (TempFileCreator testFile = new TempFileCreator(new RegionGenerator { Chr = chr }))
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
@@ -77,7 +77,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void FailReadChr(string chr)
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator(new Columns { Chr = "chr1" }))
+            using (TempFileCreator testFile = new TempFileCreator(new RegionGenerator { Chr = "chr1" }))
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
@@ -92,7 +92,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void ReadStrand()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // ACt
@@ -108,7 +108,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void ReadLeft()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -139,7 +139,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void ReadRight()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -185,7 +185,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void ReadName()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -201,7 +201,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void ReadValue()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -232,7 +232,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void AssignHashKey()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act

@@ -11,7 +11,7 @@ using System.Text;
 /// </summary>
 namespace GeUtilities.Tests.TBEDParser
 {
-    public class Columns
+    public class RegionGenerator
     {
         // NOTE
         // The default column indexes (i.e., the values of properties such as
@@ -123,7 +123,7 @@ namespace GeUtilities.Tests.TBEDParser
             }
         }
 
-        public Columns()
+        public RegionGenerator()
         {
             Chr = "chr1";
             Left = 10;

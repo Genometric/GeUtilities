@@ -25,7 +25,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void ColumnsShuffle(byte chrColumn, byte leftColumn, sbyte rightColumn, byte nameColumn, byte valueColumn)
         {
             // Arrange
-            var columns = new Columns
+            var columns = new RegionGenerator
             {
                 ChrColumn = chrColumn,
                 LeftColumn = leftColumn,
@@ -56,7 +56,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void ColumnsSetters()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             columns.ChrColumn = 2;
             columns.LeftColumn = 2;
             columns.RightColumn = 9;
@@ -94,7 +94,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void TestSummit(sbyte summitColumn, int summit)
         {
             // Arrange
-            var columns = new Columns { SummitColumn = summitColumn };
+            var columns = new RegionGenerator { SummitColumn = summitColumn };
             columns.Summit = summit == -1 ? columns.Left + ((columns.Right - columns.Left) / 2) : summit;
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
@@ -125,7 +125,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void TestStrand(sbyte strandColumn, char strand)
         {
             // Arrange
-            var columns = new Columns
+            var columns = new RegionGenerator
             {
                 Strand = strand,
                 StrandColumn = strandColumn

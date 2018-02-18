@@ -20,7 +20,7 @@ namespace GeUtilities.Tests.TVCFParser
                 writer.WriteLine(line);
         }
 
-        public TempFileCreator(Columns columns, int headerLineCount = 0, int variantsCount = 1)
+        public TempFileCreator(RegionGenerator columns, int headerLineCount = 0, int variantsCount = 1)
         {
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".vcf";
             FileStream stream = File.Create(_tempFilePath);

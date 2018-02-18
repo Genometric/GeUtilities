@@ -14,7 +14,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestDefaultColumnOrder()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -40,7 +40,7 @@ namespace GeUtilities.Tests.TGTFParser
             sbyte scoreColumn, sbyte strandColumn, sbyte frameColumn, sbyte attributeColumn)
         {
             // Arrange
-            Columns columns = new Columns()
+            RegionGenerator columns = new RegionGenerator()
             {
                 ChrColumn = chrColumn,
                 SourceColumn = sourceColumn,
@@ -68,7 +68,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void ColumnsSetters()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             columns.ChrColumn = 2;
             columns.LeftColumn = 2;
             columns.RightColumn = 9;
@@ -99,7 +99,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestSourceColumn(sbyte sourceColumn, string source)
         {
             // Arrange
-            var columns = new Columns
+            var columns = new RegionGenerator
             {
                 Source = source,
                 SourceColumn = sourceColumn
@@ -126,7 +126,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestFeatureColumn(sbyte featureColumn, string feature)
         {
             // Arrange
-            var columns = new Columns
+            var columns = new RegionGenerator
             {
                 Feature = feature,
                 FeatureColumn = featureColumn
@@ -147,7 +147,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestInvalidFeatureColumn()
         {
             // Arrange
-            var columns = new Columns
+            var columns = new RegionGenerator
             {
                 // a column number which is more than the number of columns written to the test file.
                 FeatureColumn = 10
@@ -173,7 +173,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestScoreColumn(sbyte scoreColumn, double score)
         {
             // Arrange
-            var columns = new Columns
+            var columns = new RegionGenerator
             {
                 Score = score,
                 ScoreColumn = scoreColumn
@@ -200,7 +200,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestFrameColumn(sbyte frameColumn, string frame)
         {
             // Arrange
-            var columns = new Columns
+            var columns = new RegionGenerator
             {
                 Frame = frame,
                 FrameColumn = frameColumn
@@ -227,7 +227,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestAttributeColumn(sbyte attributeColumn, string attribute)
         {
             // Arrange
-            var columns = new Columns
+            var columns = new RegionGenerator
             {
                 Attribute = attribute,
                 AttributeColumn = attributeColumn

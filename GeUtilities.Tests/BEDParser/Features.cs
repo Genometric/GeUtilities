@@ -69,7 +69,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void DropPeakIfInvalidPValueColumn()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -92,7 +92,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void UseDefaultValueIfInvalidPValueColumn()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -119,7 +119,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void PValueConversion(double originalValue, double convertedValue, PValueFormats pvalueFormat)
         {
             // Arrange
-            var columns = new Columns { Value = convertedValue };
+            var columns = new RegionGenerator { Value = convertedValue };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -140,7 +140,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void MaxLinesToRead(int numberOfPeaksToWrite, uint numberOfPeaksToRead)
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns, peaksCount: numberOfPeaksToWrite))
             {
                 // Act
@@ -157,7 +157,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void ReadNoPeak()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns, peaksCount: 4))
             {
                 // Act
@@ -174,7 +174,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void InvalidNameColumn()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -199,7 +199,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void HashFunctions(HashFunctions hashFunction)
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -216,7 +216,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void LogErrorIfFailedToReadALine()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -241,7 +241,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void ParseIntervalChrWhenChrPrefixIsMissing(string chr)
         {
             // Arrange
-            var columns = new Columns { Chr = chr };
+            var columns = new RegionGenerator { Chr = chr };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -261,7 +261,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void DropLineIfInvalidChr(string chr)
         {
             // Arrange
-            var columns = new Columns { Chr = chr };
+            var columns = new RegionGenerator { Chr = chr };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -282,7 +282,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void TestExcessChrs(string chr)
         {
             // Arrange
-            var columns = new Columns { Chr = chr };
+            var columns = new RegionGenerator { Chr = chr };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -300,7 +300,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void TestMissingChrs()
         {
             // Arrange
-            var columns = new Columns { Chr = "chr1" };
+            var columns = new RegionGenerator { Chr = "chr1" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -318,7 +318,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void BEDWithAllOptionalColumnsAndSomeExtraColumns()
         {
             // Arrange
-            var columns = new Columns { SummitColumn = 10, StrandColumn = 11 };
+            var columns = new RegionGenerator { SummitColumn = 10, StrandColumn = 11 };
             using (TempFileCreator testFile = new TempFileCreator(columns, headerLineCount: 2, peaksCount: 10))
             {
                 // Act

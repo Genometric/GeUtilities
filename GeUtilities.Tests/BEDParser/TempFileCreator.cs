@@ -15,7 +15,7 @@ namespace GeUtilities.Tests.TBEDParser
         private readonly string _tempFilePath;
         public string TempFilePath { get { return _tempFilePath; } }
 
-        public TempFileCreator() : this(new Columns()) { }
+        public TempFileCreator() : this(new RegionGenerator()) { }
 
         public TempFileCreator(string peak)
         {
@@ -34,7 +34,7 @@ namespace GeUtilities.Tests.TBEDParser
                     writer.WriteLine(peak);
         }
 
-        public TempFileCreator(Columns columns, int headerLineCount = 0, int peaksCount = 1)
+        public TempFileCreator(RegionGenerator columns, int headerLineCount = 0, int peaksCount = 1)
         {
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
             FileStream stream = File.Create(TempFilePath);

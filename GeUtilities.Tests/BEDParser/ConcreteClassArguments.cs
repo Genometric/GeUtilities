@@ -17,7 +17,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void AllDefaultArguments()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -33,7 +33,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void PartiallySetArguments()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -51,7 +51,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void FullySetArguments()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act

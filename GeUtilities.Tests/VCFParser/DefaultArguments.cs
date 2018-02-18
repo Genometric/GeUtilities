@@ -14,7 +14,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void AssignHashKey()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -35,7 +35,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void AvoidHeader(int headerCount, byte readOffset)
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator(new Columns(), headerLineCount: headerCount))
+            using (TempFileCreator testFile = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
             {
                 // Act
                 VCFParser<Variant> parser = new VCFParser<Variant>(testFile.TempFilePath);

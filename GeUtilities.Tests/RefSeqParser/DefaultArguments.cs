@@ -14,7 +14,7 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void TestDefaultRefSeqGenesColumnOrder()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -36,7 +36,7 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void ReadChr(string chr)
         {
             // Arrange
-            var columns = new Columns { Chr = chr };
+            var columns = new RegionGenerator { Chr = chr };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -54,7 +54,7 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void FailReadChr(string chr)
         {
             // Arrange
-            var columns = new Columns { Chr = "chr1" };
+            var columns = new RegionGenerator { Chr = "chr1" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -72,7 +72,7 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void ReadStrand(char strand)
         {
             // Arrange
-            var columns = new Columns
+            var columns = new RegionGenerator
             {
                 Strand = strand,
                 StrandColumn = 5
@@ -99,7 +99,7 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void ReadRefSeqID()
         {
             // Arrange
-            var columns = new Columns { RefSeqID = "RefSeqID_001" };
+            var columns = new RegionGenerator { RefSeqID = "RefSeqID_001" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -130,7 +130,7 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void ReadGeneSymbol()
         {
             // Arrange
-            var columns = new Columns { GeneSymbol = "Symbol_001" };
+            var columns = new RegionGenerator { GeneSymbol = "Symbol_001" };
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -166,7 +166,7 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void AvoidHeader(int headerCount, byte readOffset)
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator(new Columns(), headerLineCount: headerCount))
+            using (TempFileCreator testFile = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
             {
                 // Act
                 RefSeqParser<Gene> parser = new RefSeqParser<Gene>(testFile.TempFilePath);
@@ -182,7 +182,7 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void AssignHashKey()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act

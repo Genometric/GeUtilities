@@ -13,7 +13,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void AllDefaultArguments()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -29,7 +29,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void FullySetArguments()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act

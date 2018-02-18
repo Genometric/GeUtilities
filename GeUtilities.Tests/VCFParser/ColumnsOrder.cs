@@ -10,7 +10,7 @@ namespace GeUtilities.Tests.TVCFParser
 {
     public class ColumnsOrder
     {
-        private VCF<Variant> ParseVCF(string filePath, Columns vcfColumns)
+        private VCF<Variant> ParseVCF(string filePath, RegionGenerator vcfColumns)
         {
             VCFParser<Variant> vcfParser = new VCFParser<Variant>(
                     filePath,
@@ -30,7 +30,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void TestDefaultVCFColumnOrder()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act
@@ -56,7 +56,7 @@ namespace GeUtilities.Tests.TVCFParser
             byte qualityColumn, byte filterColumn, byte infoColumn, sbyte strandColumn)
         {
             // Arrange
-            Columns columns = new Columns()
+            RegionGenerator columns = new RegionGenerator()
             {
                 ChrColumn = chrColumn,
                 PositionColumn = positionColumn,
@@ -84,7 +84,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadPosition()
         {
             // Arrange
-            Columns columns = new Columns()
+            RegionGenerator columns = new RegionGenerator()
             {
                 PositionColumn = 20
             };
@@ -104,7 +104,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadID()
         {
             // Arrange
-            Columns columns = new Columns()
+            RegionGenerator columns = new RegionGenerator()
             {
                 IDColumn = 20
             };
@@ -124,7 +124,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadRefbpInvalidColumn()
         {
             // Arrange
-            Columns columns = new Columns()
+            RegionGenerator columns = new RegionGenerator()
             {
                 RefbColumn = 20
             };
@@ -144,7 +144,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadRefbpInvalidValue()
         {
             // Arrange
-            Columns columns = new Columns()
+            RegionGenerator columns = new RegionGenerator()
             {
                 RefbColumn = 2
             };
@@ -164,7 +164,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadAltbpInvalidColumn()
         {
             // Arrange
-            Columns columns = new Columns()
+            RegionGenerator columns = new RegionGenerator()
             {
                 AltbColumn = 20
             };
@@ -184,7 +184,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadAltbpInvalidValue()
         {
             // Arrange
-            Columns columns = new Columns()
+            RegionGenerator columns = new RegionGenerator()
             {
                 AltbColumn = 3
             };
@@ -204,7 +204,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadQualityInvalidColumn()
         {
             // Arrange
-            Columns columns = new Columns()
+            RegionGenerator columns = new RegionGenerator()
             {
                 QualityColumn = 20
             };
@@ -224,7 +224,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadQualityInvalidValue()
         {
             // Arrange
-            Columns columns = new Columns()
+            RegionGenerator columns = new RegionGenerator()
             {
                 QualityColumn = 4
             };
@@ -244,7 +244,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadFilter()
         {
             // Arrange
-            Columns columns = new Columns()
+            RegionGenerator columns = new RegionGenerator()
             {
                 FilterColumn = 20
             };
@@ -264,7 +264,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadInfo()
         {
             // Arrange
-            Columns columns = new Columns()
+            RegionGenerator columns = new RegionGenerator()
             {
                 InfoColumn = 20
             };
@@ -284,7 +284,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void ColumnsSetters()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             columns.ChrColumn = 2;
             columns.PositionColumn = 2;
             columns.IDColumn = 9;

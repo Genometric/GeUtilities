@@ -14,7 +14,7 @@ namespace GeUtilities.Tests.TRefSeqParser
         public void MultiFeatureFile()
         {
             // Arrange
-            var columns = new Columns
+            var columns = new RegionGenerator
             {
                 StrandColumn = 12
             };

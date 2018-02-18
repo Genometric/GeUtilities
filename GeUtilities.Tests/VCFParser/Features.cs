@@ -14,7 +14,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void MultiVariantFile()
         {
             // Arrange
-            var columns = new Columns
+            var columns = new RegionGenerator
             {
                 StrandColumn = 12
             };
@@ -42,7 +42,7 @@ namespace GeUtilities.Tests.TVCFParser
         public void OneBaseLenghtInterval()
         {
             // Arrange
-            var columns = new Columns();
+            var columns = new RegionGenerator();
             using (TempFileCreator testFile = new TempFileCreator(columns))
             {
                 // Act

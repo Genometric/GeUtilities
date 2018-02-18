@@ -10,7 +10,7 @@ namespace GeUtilities.Tests.TGTFParser
 {
     public class Features
     {
-        internal static GTF<GeneralFeature> ParseGTF(string filePath, Columns columns)
+        internal static GTF<GeneralFeature> ParseGTF(string filePath, RegionGenerator columns)
         {
             GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(
                     filePath,
@@ -30,7 +30,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void FeatureCount()
         {
             // Arrange
-            var columns = new Columns { Feature = "feature" };
+            var columns = new RegionGenerator { Feature = "feature" };
             int featureCount = 5;
             using (TempFileCreator testFile = new TempFileCreator(columns, featuresCount: featureCount))
             {
@@ -46,7 +46,7 @@ namespace GeUtilities.Tests.TGTFParser
         public void MultiFeatureFile()
         {
             // Arrange
-            var columns = new Columns
+            var columns = new RegionGenerator
             {
                 StrandColumn = 12
             };

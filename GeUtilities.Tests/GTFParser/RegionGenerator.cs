@@ -8,7 +8,7 @@ using System.Text;
 
 namespace GeUtilities.Tests.TGTFParser
 {
-    public class Columns
+    public class RegionGenerator
     {
         // NOTE
         // The default column indexes (i.e., the values of properties such as
@@ -146,7 +146,7 @@ namespace GeUtilities.Tests.TGTFParser
             }
         }
 
-        public Columns()
+        public RegionGenerator()
         {
             Source = "Source";
             Feature = "Feature";
