@@ -16,7 +16,7 @@ namespace Genometric.GeUtilities.Parsers
         where I : IInterval<int>, new()
         where S : IStats<int>, new()
     {
-        private ParsedIntervals<I, S> _data;
+        private readonly ParsedIntervals<I, S> _data;
 
         private const UInt32 _FNVPrime_32 = 16777619;
         private const UInt32 _FNVOffsetBasis_32 = 2166136261;
@@ -24,27 +24,27 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// Full path of source file name.
         /// </summary>
-        private string _sourceFilePath;
+        private readonly string _sourceFilePath;
 
         /// <summary>
         /// Sets and gets the column number of chromosome name.
         /// </summary>
-        private byte _chrColumn;
+        private readonly byte _chrColumn;
 
         /// <summary>
         /// Sets and gets column number of peak left position.
         /// </summary>
-        private byte _leftColumn;
+        private readonly byte _leftColumn;
 
         /// <summary>
         /// Sets and gets the column number of peak right position.
         /// </summary>
-        private sbyte _rightColumn;
+        private readonly sbyte _rightColumn;
 
         /// <summary>
         /// Sets and gets the column number of strand.
         /// </summary>
-        private sbyte _strandColumn;
+        private readonly sbyte _strandColumn;
 
         /// <summary>
         /// Sets and gets validity of the interval being parsed.
@@ -105,8 +105,7 @@ namespace Genometric.GeUtilities.Parsers
         /// Sets and gets the number of lines to read from input file.
         /// The default value is 4,294,967,295 (0xFFFFFFFF).
         /// </summary>
-        public uint MaxLinesToRead { set { _maxLinesToRead = value; } get { return _maxLinesToRead; } }
-        private uint _maxLinesToRead = uint.MaxValue;
+        public uint MaxLinesToRead { set; get; }
 
         /// <summary>
         /// Set and gets if the parser should read only regions whose 
@@ -117,15 +116,15 @@ namespace Genometric.GeUtilities.Parsers
         public bool ReadOnlyAssemblyChrs
         {
             set { _readOnlyAssemblyChrs = value; }
-            get { return Assembly == Assemblies.Unknown ? false : _readOnlyAssemblyChrs; }
+            get { return !(Assembly == Assemblies.Unknown) && _readOnlyAssemblyChrs; }
         }
         private bool _readOnlyAssemblyChrs = true;
 
         public ReadOnlyCollection<string> ExcessChrs { get { return _excessChrs.AsReadOnly(); } }
-        private List<string> _excessChrs;
+        private readonly List<string> _excessChrs;
 
         public ReadOnlyCollection<string> MissingChrs { get { return _missingChrs.AsReadOnly(); } }
-        private List<string> _missingChrs;
+        private readonly List<string> _missingChrs;
 
         /// <summary>
         /// Sets and gets the hash function used to create hash 
@@ -141,7 +140,7 @@ namespace Genometric.GeUtilities.Parsers
         /// </summary>
         public Assemblies Assembly { set; get; }
 
-        public Parser(
+        protected Parser(
             string sourceFilePath,
             byte chrColumn,
             byte leftEndColumn,
@@ -160,6 +159,7 @@ namespace Genometric.GeUtilities.Parsers
             _data.FileHashKey = GetFileHashKey(_data.FilePath);
             _excessChrs = new List<string>();
             _missingChrs = new List<string>();
+            MaxLinesToRead = uint.MaxValue;
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace Genometric.GeUtilities.Parsers
                     lineSize += fileReader.CurrentEncoding.GetByteCount(line);
                     Status = (Math.Round((lineSize * 100.0) / fileSize, 0)).ToString();
 
-                    if (line.Trim().Length > 0 && lineCounter <= _maxLinesToRead)
+                    if (line.Trim().Length > 0 && lineCounter <= MaxLinesToRead)
                     {
                         _dropReadingPeak = false;
                         string[] splittedLine = line.Split('\t');
@@ -242,9 +242,9 @@ namespace Genometric.GeUtilities.Parsers
                         }
 
                         strand = '*';
-                        if (_strandColumn != -1 && _strandColumn < line.Length)
-                            if (char.TryParse(splittedLine[_strandColumn], out strand) && strand != '+' && strand != '-' && strand != '*')
-                                strand = '*';
+                        if (_strandColumn != -1 && _strandColumn < line.Length &&
+                           (char.TryParse(splittedLine[_strandColumn], out strand) && strand != '+' && strand != '-' && strand != '*'))
+                            strand = '*';
 
                         switch (HashFunction)
                         {

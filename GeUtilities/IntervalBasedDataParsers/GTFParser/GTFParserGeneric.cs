@@ -13,17 +13,17 @@ namespace Genometric.GeUtilities.Parsers
         /// <summary>
         /// Sets and gets the column number of feature.
         /// </summary>
-        private sbyte _featureColumn;
+        private readonly sbyte _featureColumn;
 
         /// <summary>
         /// Sets and gets the column number of attribute.
         /// </summary>
-        private sbyte _attributeColumn;
+        private readonly sbyte _attributeColumn;
 
-        private sbyte _sourceColumn;
-        private sbyte _scoreColumn;
-        private sbyte _frameColumn;
-        private Dictionary<string, int> _features;
+        private readonly sbyte _sourceColumn;
+        private readonly sbyte _scoreColumn;
+        private readonly sbyte _frameColumn;
+        private readonly Dictionary<string, int> _features;
 
         /// <summary>
         /// Parse General Transfer Format (GTF) format.

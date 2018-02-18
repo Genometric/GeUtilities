@@ -77,7 +77,7 @@ namespace GeUtilities.Tests.TStats
         }
 
         [Fact]
-        private void TestPValueHighestInParsedDataPerChr()
+        public void TestPValueHighestInParsedDataPerChr()
         {
             string[] peaks = new string[]
             {
@@ -98,7 +98,7 @@ namespace GeUtilities.Tests.TStats
         }
 
         [Fact]
-        private void TestPValueHighestInParsedData()
+        public void TestPValueHighestInParsedData()
         {
             string[] peaks = new string[]
             {

@@ -20,7 +20,10 @@ namespace GeUtilities.Tests.TGTFParser
                 _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
                 fs = File.Create(_tempFilePath);
                 using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    fs = null;
                     sw.WriteLine(line);
+                }
             }
             finally
             {
@@ -38,6 +41,7 @@ namespace GeUtilities.Tests.TGTFParser
                 fs = File.Create(_tempFilePath);
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
+                    fs = null;
                     while (headerLineCount-- > 0)
                         sw.WriteLine(columns.GetSampleHeader());
 
@@ -60,6 +64,12 @@ namespace GeUtilities.Tests.TGTFParser
         }
 
         public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
         {
             File.Delete(_tempFilePath);
         }

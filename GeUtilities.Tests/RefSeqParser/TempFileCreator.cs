@@ -20,7 +20,10 @@ namespace GeUtilities.Tests.TRefSeqParser
                 _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
                 fs = File.Create(_tempFilePath);
                 using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    fs = null;
                     sw.WriteLine(line);
+                }
             }
             finally
             {
@@ -38,6 +41,7 @@ namespace GeUtilities.Tests.TRefSeqParser
                 fs = File.Create(_tempFilePath);
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
+                    fs = null;
                     while (headerLineCount-- > 0)
                         sw.WriteLine(columns.GetSampleHeader());
 
@@ -53,6 +57,12 @@ namespace GeUtilities.Tests.TRefSeqParser
         }
 
         public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
         {
             File.Delete(_tempFilePath);
         }
