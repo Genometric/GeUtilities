@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.Parsers;
-using Genometric.GeUtilities.ReferenceGenomes;
 using Xunit;
 
 /// <summary>
@@ -17,33 +16,15 @@ namespace GeUtilities.Tests.TBEDParser
         public void AllDefaultArguments()
         {
             // Arrange
-            var columns = new RegionGenerator();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                BEDParser parser = new BEDParser(testFile.TempFilePath);
-                var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parser = new BEDParser(testFile.TempFilePath);
+                var parsedPeak = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedPeak.CompareTo(columns.Peak) == 0);
-            }
-        }
-
-        [Fact]
-        public void PartiallySetArguments()
-        {
-            // Arrange
-            var columns = new RegionGenerator();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
-            {
-                // Act
-                BEDParser parser = new BEDParser(
-                    testFile.TempFilePath,
-                    dropPeakIfInvalidValue: true);
-                var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
-
-                // Assert
-                Assert.True(parsedPeak.CompareTo(columns.Peak) == 0);
+                Assert.True(parsedPeak.CompareTo(rg.Peak) == 0);
             }
         }
 
@@ -51,23 +32,15 @@ namespace GeUtilities.Tests.TBEDParser
         public void FullySetArguments()
         {
             // Arrange
-            var columns = new RegionGenerator();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                BEDParser parser = new BEDParser(
-                    testFile.TempFilePath,
-                    chrColumn: columns.ChrColumn,
-                    leftEndColumn: columns.LeftColumn,
-                    rightEndColumn: columns.RightColumn,
-                    nameColumn: columns.NameColumn,
-                    valueColumn: columns.ValueColumn,
-                    strandColumn: columns.StrandColumn,
-                    summitColumn: columns.SummitColumn);
-                var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parser = new BEDParser(testFile.TempFilePath, rg.Columns);
+                var parsedPeak = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedPeak.CompareTo(columns.Peak) == 0);
+                Assert.True(parsedPeak.CompareTo(rg.Peak) == 0);
             }
         }
     }
