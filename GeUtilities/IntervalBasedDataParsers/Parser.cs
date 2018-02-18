@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.IntervalParsers;
 using Genometric.GeUtilities.ReferenceGenomes;
 using System;
 using System.Collections.Generic;
@@ -140,19 +141,13 @@ namespace Genometric.GeUtilities.Parsers
         /// </summary>
         public Assemblies Assembly { set; get; }
 
-        protected Parser(
-            string sourceFilePath,
-            byte chrColumn,
-            byte leftEndColumn,
-            sbyte rightEndColumn,
-            sbyte strandColumn,
-            ParsedIntervals<I, S> data)
+        protected Parser(string sourceFilePath, BaseColumns columns, ParsedIntervals<I, S> data)
         {
             _sourceFilePath = sourceFilePath;
-            _chrColumn = chrColumn;
-            _leftColumn = leftEndColumn;
-            _rightColumn = rightEndColumn;
-            _strandColumn = strandColumn;
+            _chrColumn = columns.Chr;
+            _leftColumn = columns.Left;
+            _rightColumn = columns.Right;
+            _strandColumn = columns.Strand;
             _data = data;
             _data.FilePath = Path.GetFullPath(_sourceFilePath);
             _data.FileName = Path.GetFileName(_sourceFilePath);

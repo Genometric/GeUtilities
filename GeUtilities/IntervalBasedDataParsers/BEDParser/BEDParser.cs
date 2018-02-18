@@ -3,43 +3,18 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
+using Genometric.GeUtilities.IntervalParsers;
 
 namespace Genometric.GeUtilities.Parsers
 {
     public class BEDParser : BEDParser<ChIPSeqPeak>
     {
-        public BEDParser(
-            string sourceFilePath,
-            bool dropPeakIfInvalidValue = true) :
-            this(
-                sourceFilePath: sourceFilePath,
-                chrColumn: 0,
-                leftEndColumn: 1,
-                rightEndColumn: 2,
-                nameColumn: 3,
-                valueColumn: 4,
-                strandColumn: -1,
-                summitColumn: -1)
+        public BEDParser(string sourceFilePath) :
+            this(sourceFilePath, new BEDColumns())
         { }
 
-        public BEDParser(
-            string sourceFilePath,
-            byte chrColumn,
-            byte leftEndColumn,
-            sbyte rightEndColumn,
-            byte nameColumn,
-            byte valueColumn,
-            sbyte strandColumn = -1,
-            sbyte summitColumn = -1) :
-            base(
-                sourceFilePath: sourceFilePath,
-                chrColumn: chrColumn,
-                leftEndColumn: leftEndColumn,
-                rightEndColumn: rightEndColumn,
-                nameColumn: nameColumn,
-                valueColumn: valueColumn,
-                strandColumn: strandColumn,
-                summitColumn: summitColumn)
+        public BEDParser(string sourceFilePath, BEDColumns columns) :
+            base(sourceFilePath, columns)
         { }
     }
 }

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.IntervalParsers;
 using System;
 
 namespace Genometric.GeUtilities.Parsers
@@ -74,50 +75,20 @@ namespace Genometric.GeUtilities.Parsers
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        public BEDParser(
-            string sourceFilePath) :
-            this(
-                sourceFilePath: sourceFilePath,
-                chrColumn: 0,
-                leftEndColumn: 1,
-                rightEndColumn: 2,
-                nameColumn: 3,
-                valueColumn: 4,
-                strandColumn: -1,
-                summitColumn: -1)
+        public BEDParser(string sourceFilePath) :
+            this(sourceFilePath, new BEDColumns())
         { }
 
         /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        /// <param name="chrColumn">The column number of chromosome name.</param>
-        /// <param name="leftEndColumn">The column number of peak left-end position.</param>
-        /// <param name="rightEndColumn">The column number of peak right-end position.</param>
-        /// <param name="nameColumn">The column number of peak name.</param>
-        /// <param name="valueColumn">The column number of peak value.</param>
-        /// <param name="summitColumn">The column number of peak summit. If summit is not available, set this value to -1 so that the summit will the mid point of the interval.</param>
-        /// <param name="strandColumn">The column number of peak strand. If input is not stranded this value should be set to -1.</param>
-        public BEDParser(
-            string sourceFilePath,
-            byte chrColumn,
-            byte leftEndColumn,
-            sbyte rightEndColumn,
-            byte nameColumn,
-            byte valueColumn,
-            sbyte strandColumn = -1,
-            sbyte summitColumn = -1) :
-            base(
-                sourceFilePath: sourceFilePath,
-                chrColumn: chrColumn,
-                leftEndColumn: leftEndColumn,
-                rightEndColumn: rightEndColumn,
-                strandColumn: strandColumn,
-                data: new BED<I>())
+        public BEDParser(string sourceFilePath, BEDColumns columns) :
+            base(sourceFilePath, columns, new BED<I>())
         {
-            _nameColumn = nameColumn;
-            _valueColumn = valueColumn;
-            _summitColumn = summitColumn;
+            _nameColumn = columns.Name;
+            _valueColumn = columns.Value;
+            _summitColumn = columns.Summit;
             _mostStringentPeak = new I();
             _mostPermissivePeak = new I();
             _mostStringentPeak.Value = 1;

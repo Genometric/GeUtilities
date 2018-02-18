@@ -10,8 +10,10 @@ namespace Genometric.GeUtilities.IntervalParsers
         public byte Value { set; get; }
         public sbyte Summit { set; get; }
 
-        public BEDColumns()
+        public BEDColumns() : base()
         {
+            Name = 3;
+            Value = 4;
             Summit = -1;
         }
     }
