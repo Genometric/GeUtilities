@@ -52,37 +52,22 @@ namespace Genometric.GeUtilities.Parsers
         #endregion
 
         /// <summary>
-        /// Sets and gets the default p-value that Will be used as region's p-value if the 
+        /// Sets and gets the default p-value that Will be used as a region's p-value if the 
         /// region in source file has an invalid p-value and 'DropPeakIfNoPValueIsGiven = false'.
         /// </summary>
-        public double DefaultValue
-        {
-            set { _defaultValue = value; }
-            get { return _defaultValue; }
-        }
-        private double _defaultValue = 1E-8;
+        public double DefaultValue { set; get; }
 
         /// <summary>
         /// Sets and gets if a region with invalid p-value should be 
         /// read (using default p-value) or dropped. Therefore, if set
         /// to true, any peak that has invalid p-value will be dropped. 
         /// </summary>
-        public bool DropPeakIfInvalidValue
-        {
-            set { _dropPeakIfInvalidValue = value; }
-            get { return _dropPeakIfInvalidValue; }
-        }
-        private bool _dropPeakIfInvalidValue = true;
+        public bool DropPeakIfInvalidValue { set; get; }
 
         /// <summary>
         /// Sets and gets the p-value conversion.
         /// </summary>
-        public PValueFormats PValueFormat
-        {
-            set { _pValueFormat = value; }
-            get { return _pValueFormat; }
-        }
-        private PValueFormats _pValueFormat = PValueFormats.SameAsInput;
+        public PValueFormats PValueFormat { set; get; }
 
 
         /// <summary>
@@ -137,6 +122,9 @@ namespace Genometric.GeUtilities.Parsers
             _mostPermissivePeak = new I();
             _mostStringentPeak.Value = 1;
             _mostPermissivePeak.Value = 0;
+            DefaultValue = 1E-8;
+            DropPeakIfInvalidValue = true;
+            PValueFormat = PValueFormats.SameAsInput;
         }
 
         protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
