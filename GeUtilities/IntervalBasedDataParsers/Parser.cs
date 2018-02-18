@@ -116,7 +116,7 @@ namespace Genometric.GeUtilities.Parsers
         public bool ReadOnlyAssemblyChrs
         {
             set { _readOnlyAssemblyChrs = value; }
-            get { return Assembly == Assemblies.Unknown ? false : _readOnlyAssemblyChrs; }
+            get { return !(Assembly == Assemblies.Unknown) && _readOnlyAssemblyChrs; }
         }
         private bool _readOnlyAssemblyChrs = true;
 
