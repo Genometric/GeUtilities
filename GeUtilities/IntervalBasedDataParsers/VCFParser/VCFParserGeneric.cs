@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.IntervalParsers;
 
 namespace Genometric.GeUtilities.Parsers
 {
@@ -20,45 +21,19 @@ namespace Genometric.GeUtilities.Parsers
 
         #endregion
 
-        public VCFParser(
-            string sourceFilePath) :
-            this(sourceFilePath: sourceFilePath,
-                chrColumn: 0,
-                positionColumn: 1,
-                idColumn: 2,
-                refbColumn: 3,
-                altbColumn: 4,
-                qualityColumn: 5,
-                filterColumn: 6,
-                infoColumn: 7,
-                strandColumn: -1)
+        public VCFParser(string sourceFilePath) :
+            this(sourceFilePath, new VCFColumns())
         { }
 
-        public VCFParser(
-            string sourceFilePath,
-            byte chrColumn,
-            byte positionColumn,
-            byte idColumn,
-            byte refbColumn,
-            byte altbColumn,
-            byte qualityColumn,
-            byte filterColumn,
-            byte infoColumn,
-            sbyte strandColumn) :
-            base(
-                sourceFilePath: sourceFilePath,
-                chrColumn: chrColumn,
-                leftEndColumn: positionColumn,
-                rightEndColumn: -1,
-                strandColumn: strandColumn,
-                data: new VCF<I>())
+        public VCFParser(string sourceFilePath, VCFColumns columns) :
+            base(sourceFilePath, columns, new VCF<I>())
         {
-            _idColumn = idColumn;
-            _refbColumn = refbColumn;
-            _altbColumn = altbColumn;
-            _qualityColumn = qualityColumn;
-            _filterColumn = filterColumn;
-            _infoColumn = infoColumn;
+            _idColumn = columns.ID; ;
+            _refbColumn = columns.RefBase;
+            _altbColumn = columns.AltBase;
+            _qualityColumn = columns.Quality;
+            _filterColumn = columns.Filter;
+            _infoColumn = columns.Info;
         }
 
         protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)

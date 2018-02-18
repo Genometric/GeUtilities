@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
+using Genometric.GeUtilities.IntervalParsers;
 
 namespace Genometric.GeUtilities.Parsers
 {
@@ -10,40 +11,12 @@ namespace Genometric.GeUtilities.Parsers
     {
         public VCFParser(
             string sourceFilePath) :
-            this(sourceFilePath: sourceFilePath,
-                chrColumn: 0,
-                positionColumn: 1,
-                idColumn: 2,
-                refbColumn: 3,
-                altbColumn: 4,
-                qualityColumn: 5,
-                filterColumn: 6,
-                infoColumn: 7,
-                strandColumn: -1)
+            this(sourceFilePath,new VCFColumns())
         { }
 
         public VCFParser(
-            string sourceFilePath,
-            byte chrColumn,
-            byte positionColumn,
-            byte idColumn,
-            byte refbColumn,
-            byte altbColumn,
-            byte qualityColumn,
-            byte filterColumn,
-            byte infoColumn,
-            sbyte strandColumn) :
-            base(
-                sourceFilePath: sourceFilePath,
-                chrColumn: chrColumn,
-                positionColumn: positionColumn,
-                idColumn: idColumn,
-                refbColumn: refbColumn,
-                altbColumn: altbColumn,
-                qualityColumn: qualityColumn,
-                filterColumn: filterColumn,
-                infoColumn: infoColumn,
-                strandColumn: strandColumn)
+            string sourceFilePath, VCFColumns columns) :
+            base(sourceFilePath, columns)
         { }
     }
 }
