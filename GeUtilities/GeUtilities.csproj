@@ -20,13 +20,13 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Release\</OutputPath>
-    <CodeAnalysisRuleSet>GeUtilities-1.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>GeUtilities.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <CodeAnalysisRuleSet>GeUtilities-1.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>GeUtilities.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>

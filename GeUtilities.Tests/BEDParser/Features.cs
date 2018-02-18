@@ -289,7 +289,7 @@ namespace GeUtilities.Tests.TBEDParser
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 parser.Assembly = Assemblies.hg19;
                 parser.ReadOnlyAssemblyChrs = false;
-                var parsedData = parser.Parse();
+                parser.Parse();
 
                 // Assert
                 Assert.True(parser.ExcessChrs.Count == 1);
@@ -307,7 +307,7 @@ namespace GeUtilities.Tests.TBEDParser
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 parser.Assembly = Assemblies.hg19;
                 parser.ReadOnlyAssemblyChrs = false;
-                var parsedData = parser.Parse();
+                parser.Parse();
 
                 // Assert
                 Assert.True(parser.MissingChrs.Count == References.GetGenomeSizes(Assemblies.hg19).Count - 1);
@@ -342,6 +342,74 @@ namespace GeUtilities.Tests.TBEDParser
 
                 // Assert
                 Assert.True(parsedData.Chromosomes.Count == 0);
+            }
+        }
+
+        [Fact]
+        public void TestMaxValue()
+        {
+            // Arrange
+            var p = new ChIPSeqPeak() { Left = 30, Right = 40, Summit = 35, Name = "GeUtilities_01", Value = 0.1 };
+            string[] peaks = new string[]
+            {
+                "chr1\t10\t20\tGeUtilities_00\t0.01",
+                "chr2\t" + p.Left + "\t" + p.Right + "\t" + p.Name + "\t" + p.Value,
+                "chr3\t50\t60\tGeUtilities_02\t0.001",
+                "chr4\t70\t80\tGeUtilities_03\t0.0001",
+            };
+            using (TempFileCreator testFile = new TempFileCreator(peaks))
+            {
+                // Act
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parsedData = parser.Parse();
+
+                // Assert
+                Assert.True(parsedData.PValueMax.CompareTo(p) == 0);
+            }
+        }
+
+        [Fact]
+        public void TestMinValue()
+        {
+            // Arrange
+            var p = new ChIPSeqPeak() { Left = 30, Right = 40, Summit = 35, Name = "GeUtilities_01", Value = 0.0 };
+            string[] peaks = new string[]
+            {
+                "chr1\t10\t20\tGeUtilities_00\t0.1",
+                "chr2\t" + p.Left + "\t" + p.Right + "\t" + p.Name + "\t" + p.Value,
+                "chr3\t50\t60\tGeUtilities_02\t0.01",
+                "chr4\t70\t80\tGeUtilities_03\t0.001",
+            };
+            using (TempFileCreator testFile = new TempFileCreator(peaks))
+            {
+                // Act
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parsedData = parser.Parse();
+
+                // Assert
+                Assert.True(parsedData.PValueMin.CompareTo(p) == 0);
+            }
+        }
+
+        [Fact]
+        public void TestMeanValue()
+        {
+            // Arrange
+            string[] peaks = new string[]
+            {
+                "chr1\t10\t20\tGeUtilities_00\t0.1",
+                "chr1\t30\t40\tGeUtilities_01\t0.01",
+                "chr3\t50\t60\tGeUtilities_02\t0.001",
+                "chr4\t70\t80\tGeUtilities_03\t0.0001",
+            };
+            using (TempFileCreator testFile = new TempFileCreator(peaks))
+            {
+                // Act
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parsedData = parser.Parse();
+
+                // Assert
+                Assert.True(parsedData.PValueMean == 0.027775);
             }
         }
     }

@@ -49,7 +49,7 @@ for:
       secure: 9VWCHMXxOqx9+jGz9YzVcPjuKDQWp2UrSGX2q3ZC1S4mhkqA3kRHf4RtgshQyrio
     codecovtoken:
       secure: grVzO2tsoeq7B3FFfRjyhirsmD11tXDcKoXOK6zjpqyOco2BSFbQ0J0T5qTZKsx7
-    
+  
   build_script:
     - choco install "msbuild-sonarqube-runner" -y
     - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%"

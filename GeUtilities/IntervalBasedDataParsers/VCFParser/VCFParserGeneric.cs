@@ -11,12 +11,12 @@ namespace Genometric.GeUtilities.Parsers
     {
         #region .::.         private properties         .::.
 
-        private byte _idColumn;
-        private byte _refbColumn;
-        private byte _altbColumn;
-        private byte _qualityColumn;
-        private byte _filterColumn;
-        private byte _infoColumn;
+        private readonly byte _idColumn;
+        private readonly byte _refbColumn;
+        private readonly byte _altbColumn;
+        private readonly byte _qualityColumn;
+        private readonly byte _filterColumn;
+        private readonly byte _infoColumn;
 
         #endregion
 
@@ -77,7 +77,7 @@ namespace Genometric.GeUtilities.Parsers
             if (_refbColumn < line.Length)
             {
                 rtv.RefBase = ParseBases(line[_refbColumn]);
-                if (rtv.RefBase == null)
+                if (rtv.RefBase.Length == 0)
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid REF column.");
             }
             else
@@ -88,7 +88,7 @@ namespace Genometric.GeUtilities.Parsers
             if (_altbColumn < line.Length)
             {
                 rtv.AltBase = ParseBases(line[_altbColumn]);
-                if (rtv.AltBase == null)
+                if (rtv.AltBase.Length == 0)
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid ALT column.");
             }
             else
@@ -128,7 +128,7 @@ namespace Genometric.GeUtilities.Parsers
                     case 'T': rtv[i] = Base.T; break;
                     case 'U': rtv[i] = Base.U; break;
                     default:
-                        return null;
+                        return new Base[0];
                 }
             }
             return rtv;

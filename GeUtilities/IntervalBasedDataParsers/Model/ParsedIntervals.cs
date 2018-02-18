@@ -22,7 +22,7 @@ namespace Genometric.GeUtilities.Parsers
         public Assemblies Assembly { set; get; }
         public S Statistics { set; get; }
 
-        public ParsedIntervals()
+        protected ParsedIntervals()
         {
             Messages = new List<string>();
             Chromosomes = new Dictionary<string, Chromosome<I, S>>();

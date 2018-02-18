@@ -10,7 +10,7 @@ using System.IO;
 /// </summary>
 namespace GeUtilities.Tests.TBEDParser
 {
-    internal sealed class TempFileCreator : IDisposable
+    internal class TempFileCreator : IDisposable
     {
         private readonly string _tempFilePath;
         public string TempFilePath { get { return _tempFilePath; } }
@@ -19,72 +19,51 @@ namespace GeUtilities.Tests.TBEDParser
 
         public TempFileCreator(string peak)
         {
-            FileStream fs = null;
-            try
-            {
-                _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
-                fs = File.Create(TempFilePath);
-                using (StreamWriter sw = new StreamWriter(fs))
-                    sw.WriteLine(peak);
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Dispose();
-            }
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+            FileStream stream = File.Create(TempFilePath);
+            using (StreamWriter writter = new StreamWriter(stream))
+                writter.WriteLine(peak);
         }
 
         public TempFileCreator(string[] peaks)
         {
-            FileStream fs = null;
-            try
-            {
-                _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
-                fs = File.Create(TempFilePath);
-                using (StreamWriter sw = new StreamWriter(fs))
-                    foreach (var peak in peaks)
-                        sw.WriteLine(peak);
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Dispose();
-            }
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+            FileStream stream = File.Create(TempFilePath);
+            using (StreamWriter writer = new StreamWriter(stream))
+                foreach (var peak in peaks)
+                    writer.WriteLine(peak);
         }
 
         public TempFileCreator(Columns columns, int headerLineCount = 0, int peaksCount = 1)
         {
-            FileStream fs = null;
-            try
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+            FileStream stream = File.Create(TempFilePath);
+            using (StreamWriter writer = new StreamWriter(stream))
             {
-                _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
-                fs = File.Create(TempFilePath);
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
-                    while (headerLineCount-- > 0)
-                        sw.WriteLine(columns.GetSampleHeader());
+                while (headerLineCount-- > 0)
+                    writer.WriteLine(columns.GetSampleHeader());
 
-                    while (peaksCount-- > 0)
+                while (peaksCount-- > 0)
+                {
+                    writer.WriteLine(columns.GetSampleLine());
+                    if (peaksCount > 0)
                     {
-                        sw.WriteLine(columns.GetSampleLine());
-                        if (peaksCount > 0)
-                        {
-                            columns.Left = columns.Right + 10;
-                            columns.Right = columns.Right + 20;
-                        }
+                        columns.Left = columns.Right + 10;
+                        columns.Right = columns.Right + 20;
                     }
                 }
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Dispose();
             }
         }
 
         public void Dispose()
         {
-            File.Delete(TempFilePath);
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            File.Delete(_tempFilePath);
         }
     }
 }

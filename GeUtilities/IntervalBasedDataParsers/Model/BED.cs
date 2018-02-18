@@ -11,12 +11,12 @@ namespace Genometric.GeUtilities.Parsers
     {   
         public BED()
         {
-            pValueMax = new I();
-            pValueMin = new I();
+            PValueMax = new I();
+            PValueMin = new I();
         }
 
-        public I pValueMax;
-        public I pValueMin;
-        public double pValueMean;
+        public I PValueMax { set; get; }
+        public I PValueMin { set; get; }
+        public double PValueMean { set; get; }
     }
 }

@@ -9,29 +9,29 @@ namespace GeUtilities.Tests.TVCFParser
 {
     public class TempFileCreator : IDisposable
     {
-        private string _tempFilePath;
+        private readonly string _tempFilePath;
         public string TempFilePath { get { return _tempFilePath; } }
 
         public TempFileCreator(string line)
         {
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".vcf";
-            using (FileStream fs = File.Create(_tempFilePath))
-            using (StreamWriter sw = new StreamWriter(fs))
-                sw.WriteLine(line);
+            FileStream stream = File.Create(_tempFilePath);
+            using (StreamWriter writer = new StreamWriter(stream))
+                writer.WriteLine(line);
         }
 
         public TempFileCreator(Columns columns, int headerLineCount = 0, int variantsCount = 1)
         {
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".vcf";
-            using (FileStream fs = File.Create(_tempFilePath))
-            using (StreamWriter sw = new StreamWriter(fs))
+            FileStream stream = File.Create(_tempFilePath);
+            using (StreamWriter writer = new StreamWriter(stream))
             {
                 while (headerLineCount-- > 0)
-                    sw.WriteLine(columns.GetSampleHeader());
+                    writer.WriteLine(columns.GetSampleHeader());
 
                 while (variantsCount-- > 0)
                 {
-                    sw.WriteLine(columns.GetSampleLine());
+                    writer.WriteLine(columns.GetSampleLine());
                     if (variantsCount > 0)
                         columns.Position += 10;
                 }
@@ -39,6 +39,12 @@ namespace GeUtilities.Tests.TVCFParser
         }
 
         public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
         {
             File.Delete(_tempFilePath);
         }

@@ -14,45 +14,33 @@ namespace GeUtilities.Tests.TRefSeqParser
 
         public TempFileCreator(string line)
         {
-            FileStream fs = null;
-            try
-            {
-                _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
-                fs = File.Create(_tempFilePath);
-                using (StreamWriter sw = new StreamWriter(fs))
-                    sw.WriteLine(line);
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Dispose();
-            }
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
+            FileStream stream = File.Create(_tempFilePath);
+            using (StreamWriter writter = new StreamWriter(stream))
+                writter.WriteLine(line);
         }
 
         public TempFileCreator(Columns columns, int headerLineCount = 0, int genesCount = 1)
         {
-            FileStream fs = null;
-            try
+            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
+            FileStream stream = File.Create(_tempFilePath);
+            using (StreamWriter writer = new StreamWriter(stream))
             {
-                _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
-                fs = File.Create(_tempFilePath);
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
-                    while (headerLineCount-- > 0)
-                        sw.WriteLine(columns.GetSampleHeader());
+                while (headerLineCount-- > 0)
+                    writer.WriteLine(columns.GetSampleHeader());
 
-                    while (genesCount-- > 0)
-                        sw.WriteLine(columns.GetSampleLine());
-                }
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Dispose();
+                while (genesCount-- > 0)
+                    writer.WriteLine(columns.GetSampleLine());
             }
         }
 
         public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
         {
             File.Delete(_tempFilePath);
         }
