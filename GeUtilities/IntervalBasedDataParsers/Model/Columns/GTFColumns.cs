@@ -19,7 +19,7 @@ namespace Genometric.GeUtilities.IntervalParsers
             Feature = 2;
             Left = 3;
             Right = 4;
-            Source = 5;
+            Score = 5;
             Strand = 6;
             Frame = 7;
             Attribute = 8;
