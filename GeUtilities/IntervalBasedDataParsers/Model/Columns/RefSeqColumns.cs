@@ -8,5 +8,15 @@ namespace Genometric.GeUtilities.IntervalParsers
     {
         public byte RefSeqID { set; get; }
         public byte GeneSeymbol { set; get; }
+
+        public RefSeqColumns()
+        {
+            Chr = 0;
+            Left = 1;
+            Right = 2;
+            RefSeqID = 3;
+            GeneSeymbol = 4;
+            Strand = -1;
+        }
     }
 }

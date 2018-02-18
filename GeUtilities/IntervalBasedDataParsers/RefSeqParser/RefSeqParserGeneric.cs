@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.IntervalParsers;
 
 namespace Genometric.GeUtilities.Parsers
 {
@@ -27,16 +28,8 @@ namespace Genometric.GeUtilities.Parsers
         /// Parse refseq genes presented in tab-delimited text file.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        public RefSeqParser(
-            string sourceFilePath) :
-            this(
-                sourceFilePath: sourceFilePath,
-                chrColumn: 0,
-                leftEndColumn: 1,
-                rightEndColumn: 2,
-                refSeqIDColumn: 3,
-                geneSymbolColumn: 4,
-                strandColumn: -1)
+        public RefSeqParser(string sourceFilePath) :
+            this(sourceFilePath, new RefSeqColumns())
         { }
 
 
@@ -44,26 +37,11 @@ namespace Genometric.GeUtilities.Parsers
         /// Parse refseq genes presented in tab-delimited text file.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name</param>
-        /// <param name="chrColumn">The column number of chromosome name</param>
-        /// <param name="leftEndColumn">The column number of gene start position</param>
-        /// <param name="rightEndColumn">The column number of gene stop position</param>
-        public RefSeqParser(
-            string sourceFilePath,
-            byte chrColumn,
-            byte leftEndColumn,
-            sbyte rightEndColumn,
-            byte refSeqIDColumn,
-            byte geneSymbolColumn,
-            sbyte strandColumn = -1) :
-            base(sourceFilePath: sourceFilePath,
-                chrColumn: chrColumn,
-                leftEndColumn: leftEndColumn,
-                rightEndColumn: rightEndColumn,
-                strandColumn: strandColumn,
-                data: new RefSeq<I>())
+        public RefSeqParser(string sourceFilePath, RefSeqColumns columns) :
+            base(sourceFilePath, columns, new RefSeq<I>())
         {
-            _refSeqIDColumn = refSeqIDColumn;
-            _geneColumn = geneSymbolColumn;
+            _refSeqIDColumn = columns.RefSeqID;
+            _geneColumn = columns.GeneSeymbol;
         }
 
         protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
