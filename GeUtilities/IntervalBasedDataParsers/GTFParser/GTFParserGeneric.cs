@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.IntervalParsers;
 using System.Collections.Generic;
 
 namespace Genometric.GeUtilities.Parsers
@@ -29,19 +30,8 @@ namespace Genometric.GeUtilities.Parsers
         /// Parse General Transfer Format (GTF) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        public GTFParser(
-            string sourceFilePath) :
-            this(
-                sourceFilePath: sourceFilePath,
-                chrColumn: 0,
-                sourceColumn: 1,
-                featureColumn: 2,
-                leftEndColumn: 3,
-                rightEndColumn: 4,
-                scoreColumn: 5,
-                strandColumn: 6,
-                frameColumn: 7,
-                attributeColumn: 8)
+        public GTFParser(string sourceFilePath) :
+            this(sourceFilePath, new GTFColumns())
         { }
 
 
@@ -49,34 +39,14 @@ namespace Genometric.GeUtilities.Parsers
         /// Parse General Transfer Format (GTF) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        /// <param name="chrColumn">The column number of chromosome name.</param>
-        /// <param name="leftEndColumn">The column number of feature start position.</param>
-        /// <param name="rightEndColumn">The column number of feature stop position.</param>
-        /// <param name="featureColumn">The column number of feature.</param>
-        /// <param name="attributeColumn">The column number of a semicolon-separated list of tag-value pairs, providing additional information about each feature..</param>
-        public GTFParser(
-            string sourceFilePath,
-            byte chrColumn,
-            sbyte sourceColumn,
-            sbyte featureColumn,
-            byte leftEndColumn,
-            sbyte rightEndColumn,
-            sbyte scoreColumn,
-            sbyte strandColumn,
-            sbyte frameColumn,
-            sbyte attributeColumn) :
-            base(sourceFilePath: sourceFilePath,
-                chrColumn: chrColumn,
-                leftEndColumn: leftEndColumn,
-                rightEndColumn: rightEndColumn,
-                strandColumn: strandColumn,
-                data: new GTF<I>())
+        public GTFParser(string sourceFilePath, GTFColumns columns) :
+            base(sourceFilePath, columns, new GTF<I>())
         {
-            _sourceColumn = sourceColumn;
-            _featureColumn = featureColumn;
-            _scoreColumn = scoreColumn;
-            _frameColumn = frameColumn;
-            _attributeColumn = attributeColumn;
+            _sourceColumn = columns.Source;
+            _featureColumn = columns.Feature;
+            _scoreColumn = columns.Score;
+            _frameColumn = columns.Frame;
+            _attributeColumn = columns.Attribute;
             _features = new Dictionary<string, int>();
         }
 

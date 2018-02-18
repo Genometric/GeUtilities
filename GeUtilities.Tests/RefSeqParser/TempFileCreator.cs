@@ -20,7 +20,7 @@ namespace GeUtilities.Tests.TRefSeqParser
                 writter.WriteLine(line);
         }
 
-        public TempFileCreator(Columns columns, int headerLineCount = 0, int genesCount = 1)
+        public TempFileCreator(RegionGenerator columns, int headerLineCount = 0, int genesCount = 1)
         {
             _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
             FileStream stream = File.Create(_tempFilePath);

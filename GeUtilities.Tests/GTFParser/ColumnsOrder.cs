@@ -14,15 +14,15 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestDefaultColumnOrder()
         {
             // Arrange
-            var columns = new Columns();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedFeature = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
+                var parsedFeature = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedFeature.CompareTo(columns.GFeature) == 0);
+                Assert.True(parsedFeature.CompareTo(rg.GFeature) == 0);
             }
         }
 
@@ -40,7 +40,7 @@ namespace GeUtilities.Tests.TGTFParser
             sbyte scoreColumn, sbyte strandColumn, sbyte frameColumn, sbyte attributeColumn)
         {
             // Arrange
-            Columns columns = new Columns()
+            var rg = new RegionGenerator()
             {
                 ChrColumn = chrColumn,
                 SourceColumn = sourceColumn,
@@ -53,14 +53,14 @@ namespace GeUtilities.Tests.TGTFParser
                 AttributeColumn = attributeColumn
             };
 
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, columns);
-                var parsedFeature = parsedGTF.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedFeature.CompareTo(columns.GFeature) == 0);
+                Assert.True(parsedFeature.CompareTo(rg.GFeature) == 0);
             }
         }
 
@@ -68,24 +68,25 @@ namespace GeUtilities.Tests.TGTFParser
         public void ColumnsSetters()
         {
             // Arrange
-            var columns = new Columns();
-            columns.ChrColumn = 2;
-            columns.LeftColumn = 2;
-            columns.RightColumn = 9;
-            columns.StrandColumn = -1;
-            columns.SourceColumn = 2;
-            columns.FeatureColumn = -1;
-            columns.StrandColumn = 0;
-            columns.StrandColumn = 19;
-            columns.FeatureColumn = 8;
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            rg.ChrColumn = 2;
+            rg.LeftColumn = 2;
+            rg.RightColumn = 9;
+            rg.StrandColumn = -1;
+            rg.SourceColumn = 2;
+            rg.FeatureColumn = -1;
+            rg.StrandColumn = 0;
+            rg.StrandColumn = 19;
+            rg.FeatureColumn = 8;
+
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, columns);
-                var parsedFeature = parsedGTF.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedFeature.CompareTo(columns.GFeature) == 0);
+                Assert.True(parsedFeature.CompareTo(rg.GFeature) == 0);
             }
         }
 
@@ -99,17 +100,17 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestSourceColumn(sbyte sourceColumn, string source)
         {
             // Arrange
-            var columns = new Columns
+            var rg = new RegionGenerator
             {
                 Source = source,
                 SourceColumn = sourceColumn
             };
 
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, columns);
-                var parsedFeature = parsedGTF.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedFeature.Source == source);
@@ -126,17 +127,17 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestFeatureColumn(sbyte featureColumn, string feature)
         {
             // Arrange
-            var columns = new Columns
+            var rg = new RegionGenerator
             {
                 Feature = feature,
                 FeatureColumn = featureColumn
             };
 
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, columns);
-                var parsedFeature = parsedGTF.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedFeature.Feature == feature);
@@ -147,16 +148,16 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestInvalidFeatureColumn()
         {
             // Arrange
-            var columns = new Columns
+            var rg = new RegionGenerator
             {
                 // a column number which is more than the number of columns written to the test file.
                 FeatureColumn = 10
             };
 
-            using (TempFileCreator testFile = new TempFileCreator("chr1\tDi4\t.\t10\t20\t100.0\t*\t0\tatt1=1;att2=v2"))
+            using (var testFile = new TempFileCreator("chr1\tDi4\t.\t10\t20\t100.0\t*\t0\tatt1=1;att2=v2"))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, columns);
+                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedGTF.Chromosomes.ContainsKey("chr1"));
@@ -173,17 +174,17 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestScoreColumn(sbyte scoreColumn, double score)
         {
             // Arrange
-            var columns = new Columns
+            var rg = new RegionGenerator
             {
                 Score = score,
                 ScoreColumn = scoreColumn
             };
 
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, columns);
-                var parsedFeature = parsedGTF.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(double.IsNaN(score) ? double.IsNaN(parsedFeature.Score) : parsedFeature.Score == score);
@@ -200,17 +201,17 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestFrameColumn(sbyte frameColumn, string frame)
         {
             // Arrange
-            var columns = new Columns
+            var rg = new RegionGenerator
             {
                 Frame = frame,
                 FrameColumn = frameColumn
             };
 
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, columns);
-                var parsedFeature = parsedGTF.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedFeature.Frame == frame);
@@ -227,17 +228,17 @@ namespace GeUtilities.Tests.TGTFParser
         public void TestAttributeColumn(sbyte attributeColumn, string attribute)
         {
             // Arrange
-            var columns = new Columns
+            var rg = new RegionGenerator
             {
                 Attribute = attribute,
                 AttributeColumn = attributeColumn
             };
 
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, columns);
-                var parsedFeature = parsedGTF.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedFeature.Attribute == attribute);

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
+using Genometric.GeUtilities.IntervalParsers;
 using Genometric.GeUtilities.Parsers;
 using Xunit;
 
@@ -25,7 +26,7 @@ namespace GeUtilities.Tests.TBEDParser
         public void ColumnsShuffle(byte chrColumn, byte leftColumn, sbyte rightColumn, byte nameColumn, byte valueColumn)
         {
             // Arrange
-            var columns = new Columns
+            var rg = new RegionGenerator
             {
                 ChrColumn = chrColumn,
                 LeftColumn = leftColumn,
@@ -34,21 +35,23 @@ namespace GeUtilities.Tests.TBEDParser
                 ValueColumn = valueColumn
             };
 
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(
+                var parser = new BEDParser<ChIPSeqPeak>(
                     testFile.TempFilePath,
-                    chrColumn: chrColumn,
-                    leftEndColumn: leftColumn,
-                    rightEndColumn: rightColumn,
-                    nameColumn: nameColumn,
-                    valueColumn: valueColumn,
-                    strandColumn: -1);
-                var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                    new BEDColumns()
+                    {
+                        Chr = chrColumn,
+                        Left = leftColumn,
+                        Right = rightColumn,
+                        Name = nameColumn,
+                        Value = valueColumn
+                    });
+                var parsedPeak = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedPeak.CompareTo(columns.Peak) == 0);
+                Assert.True(parsedPeak.CompareTo(rg.Peak) == 0);
             }
         }
 
@@ -56,30 +59,25 @@ namespace GeUtilities.Tests.TBEDParser
         public void ColumnsSetters()
         {
             // Arrange
-            var columns = new Columns();
-            columns.ChrColumn = 2;
-            columns.LeftColumn = 2;
-            columns.RightColumn = 9;
-            columns.ValueColumn = 0;
-            columns.SummitColumn = 2;
-            columns.NameColumn = 2;
-            columns.StrandColumn = 0;
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator
+            {
+                ChrColumn = 2,
+                LeftColumn = 2,
+                RightColumn = 9,
+                ValueColumn = 0,
+                SummitColumn = 2,
+                NameColumn = 2,
+                StrandColumn = 0,
+            };
+
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(
-                    testFile.TempFilePath,
-                    chrColumn: columns.ChrColumn,
-                    leftEndColumn: columns.LeftColumn,
-                    rightEndColumn: columns.RightColumn,
-                    nameColumn: columns.NameColumn,
-                    valueColumn: columns.ValueColumn,
-                    summitColumn: columns.SummitColumn,
-                    strandColumn: columns.StrandColumn);
-                var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
+                var parsedPeak = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedPeak.CompareTo(columns.Peak) == 0);
+                Assert.True(parsedPeak.CompareTo(rg.Peak) == 0);
             }
         }
 
@@ -94,24 +92,17 @@ namespace GeUtilities.Tests.TBEDParser
         public void TestSummit(sbyte summitColumn, int summit)
         {
             // Arrange
-            var columns = new Columns { SummitColumn = summitColumn };
-            columns.Summit = summit == -1 ? columns.Left + ((columns.Right - columns.Left) / 2) : summit;
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator { SummitColumn = summitColumn };
+            rg.Summit = summit == -1 ? rg.Left + ((rg.Right - rg.Left) / 2) : summit;
+
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(
-                    testFile.TempFilePath,
-                    chrColumn: columns.ChrColumn,
-                    leftEndColumn: columns.LeftColumn,
-                    rightEndColumn: columns.RightColumn,
-                    nameColumn: columns.NameColumn,
-                    valueColumn: columns.ValueColumn,
-                    summitColumn: columns.SummitColumn,
-                    strandColumn: columns.StrandColumn);
-                var parsedPeak = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
+                var parsedPeak = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedPeak.Summit == columns.Summit);
+                Assert.True(parsedPeak.Summit == rg.Summit);
             }
         }
 
@@ -125,26 +116,19 @@ namespace GeUtilities.Tests.TBEDParser
         public void TestStrand(sbyte strandColumn, char strand)
         {
             // Arrange
-            var columns = new Columns
+            var rg = new RegionGenerator
             {
                 Strand = strand,
                 StrandColumn = strandColumn
             };
 
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(
-                    testFile.TempFilePath,
-                    chrColumn: columns.ChrColumn,
-                    leftEndColumn: columns.LeftColumn,
-                    rightEndColumn: columns.RightColumn,
-                    nameColumn: columns.NameColumn,
-                    valueColumn: columns.ValueColumn,
-                    strandColumn: columns.StrandColumn);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
 
                 // Assert
-                Assert.True(parser.Parse().Chromosomes[columns.Chr].Strands.ContainsKey(strand));
+                Assert.True(parser.Parse().Chromosomes[rg.Chr].Strands.ContainsKey(strand));
             }
         }
 
@@ -159,17 +143,20 @@ namespace GeUtilities.Tests.TBEDParser
                 "chr1\t50\t60\t-\tGeUtilities_02\t111.0",
                 "chr1\t50\t60\t#\tGeUtilities_02\t111.0", // Any strand name other than '+', '-', and '*' will be parsed as '*'.
             };
-            using (TempFileCreator testFile = new TempFileCreator(peaks))
+
+            using (var testFile = new TempFileCreator(peaks))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(
-                    testFile.TempFilePath,
-                    chrColumn: 0,
-                    leftEndColumn: 1,
-                    rightEndColumn: 2,
-                    strandColumn: 3,
-                    nameColumn: 4,
-                    valueColumn: 5);
+                var parser = new BEDParser<ChIPSeqPeak>(
+                    testFile.TempFilePath, new BEDColumns
+                    {
+                        Chr = 0,
+                        Left = 1,
+                        Right = 2,
+                        Strand = 3,
+                        Name = 4,
+                        Value = 5
+                    });
 
                 var parsedData = parser.Parse();
 

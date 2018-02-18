@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
+using Genometric.GeUtilities.IntervalParsers;
 using Genometric.GeUtilities.Parsers;
 using Xunit;
 
@@ -17,15 +18,15 @@ namespace GeUtilities.Tests.TBEDParser
         public void DefaultColumnsOrder()
         {
             // Arrange
-            var columns = new Columns();
-            using (TempFileCreator testFile = new TempFileCreator())
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator())
             {
                 // Act
-                BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
-                var parsedPeak = bedParser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parsedPeak = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedPeak.CompareTo(columns.Peak) == 0);
+                Assert.True(parsedPeak.CompareTo(rg.Peak) == 0);
             }
         }
 
@@ -38,11 +39,13 @@ namespace GeUtilities.Tests.TBEDParser
         public void AvoidHeader(int headerCount, byte readOffset)
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator(new Columns(), headerLineCount: headerCount))
+            using (var testFile = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
-                parser.ReadOffset = readOffset;
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
+                {
+                    ReadOffset = readOffset
+                };
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -60,10 +63,10 @@ namespace GeUtilities.Tests.TBEDParser
         public void ReadChr(string chr)
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator(new Columns { Chr = chr }))
+            using (var testFile = new TempFileCreator(new RegionGenerator { Chr = chr }))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -77,10 +80,10 @@ namespace GeUtilities.Tests.TBEDParser
         public void FailReadChr(string chr)
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator(new Columns { Chr = "chr1" }))
+            using (var testFile = new TempFileCreator(new RegionGenerator { Chr = "chr1" }))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -92,15 +95,15 @@ namespace GeUtilities.Tests.TBEDParser
         public void ReadStrand()
         {
             // Arrange
-            var columns = new Columns();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // ACt
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands.ContainsKey(columns.Strand));
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands.ContainsKey(rg.Strand));
             }
         }
 
@@ -108,15 +111,15 @@ namespace GeUtilities.Tests.TBEDParser
         public void ReadLeft()
         {
             // Arrange
-            var columns = new Columns();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Left == columns.Left);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Left == rg.Left);
             }
         }
 
@@ -124,10 +127,10 @@ namespace GeUtilities.Tests.TBEDParser
         public void FailReadLeft()
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator("chr1\t10V\t20\tGeUtilities_01\t123.4"))
+            using (var testFile = new TempFileCreator("chr1\t10V\t20\tGeUtilities_01\t123.4"))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -139,15 +142,15 @@ namespace GeUtilities.Tests.TBEDParser
         public void ReadRight()
         {
             // Arrange
-            var columns = new Columns();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (TempFileCreator testFile = new TempFileCreator(rg))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Right == columns.Right);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Right == rg.Right);
             }
         }
 
@@ -155,10 +158,10 @@ namespace GeUtilities.Tests.TBEDParser
         public void FailReadRightInvalidValue()
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator("chr1\t10\t20V\tGeUtilities_01\t123.4"))
+            using (var testFile = new TempFileCreator("chr1\t10\t20V\tGeUtilities_01\t123.4"))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -170,10 +173,10 @@ namespace GeUtilities.Tests.TBEDParser
         public void FailReadRightColumnIndexOutOfRange()
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123.4"))
+            using (var testFile = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123.4"))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, 0, 1, 10, 3, 4);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, new BEDColumns() { Right = 10 });
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -185,15 +188,15 @@ namespace GeUtilities.Tests.TBEDParser
         public void ReadName()
         {
             // Arrange
-            var columns = new Columns();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Name == columns.Name);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Name == rg.Name);
             }
         }
 
@@ -201,15 +204,15 @@ namespace GeUtilities.Tests.TBEDParser
         public void ReadValue()
         {
             // Arrange
-            var columns = new Columns();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Value == columns.Value);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Value == rg.Value);
             }
         }
 
@@ -217,10 +220,10 @@ namespace GeUtilities.Tests.TBEDParser
         public void FailReadValue()
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123..45"))
+            using (var testFile = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123..45"))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -232,15 +235,15 @@ namespace GeUtilities.Tests.TBEDParser
         public void AssignHashKey()
         {
             // Arrange
-            var columns = new Columns();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].HashKey != 0);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].HashKey != 0);
             }
         }
     }

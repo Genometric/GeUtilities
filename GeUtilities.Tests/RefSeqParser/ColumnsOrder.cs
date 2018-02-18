@@ -28,7 +28,7 @@ namespace GeUtilities.Tests.TRefSeqParser
             sbyte strandColumn)
         {
             // Arrange
-            var columns = new Columns()
+            var rg = new RegionGenerator()
             {
                 ChrColumn = chrColumn,
                 LeftColumn = leftColumn,
@@ -38,21 +38,14 @@ namespace GeUtilities.Tests.TRefSeqParser
                 StrandColumn = strandColumn
             };
 
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                RefSeqParser<Gene> parser = new RefSeqParser<Gene>(
-                    testFile.TempFilePath,
-                    chrColumn: columns.ChrColumn,
-                    leftEndColumn: columns.LeftColumn,
-                    rightEndColumn: columns.RightColumn,
-                    refSeqIDColumn: columns.RefSeqIDColumn,
-                    geneSymbolColumn: columns.GeneSymbolColumn,
-                    strandColumn: columns.StrandColumn);
-                var parsedGene = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parser = new RefSeqParser<Gene>(testFile.TempFilePath, rg.Columns);
+                var parsedGene = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedGene.CompareTo(columns.Gene) == 0);
+                Assert.True(parsedGene.CompareTo(rg.Gene) == 0);
             }
         }
     }

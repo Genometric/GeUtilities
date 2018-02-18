@@ -10,19 +10,9 @@ namespace GeUtilities.Tests.TGTFParser
 {
     public class Features
     {
-        internal static GTF<GeneralFeature> ParseGTF(string filePath, Columns columns)
+        internal static GTF<GeneralFeature> ParseGTF(string filePath, RegionGenerator rg)
         {
-            GTFParser<GeneralFeature> parser = new GTFParser<GeneralFeature>(
-                    filePath,
-                    chrColumn: columns.ChrColumn,
-                    sourceColumn: columns.SourceColumn,
-                    featureColumn: columns.FeatureColumn,
-                    leftEndColumn: columns.LeftColumn,
-                    rightEndColumn: columns.RightColumn,
-                    scoreColumn: columns.ScoreColumn,
-                    strandColumn: columns.StrandColumn,
-                    frameColumn: columns.FrameColumn,
-                    attributeColumn: columns.AttributeColumn);
+            var parser = new GTFParser<GeneralFeature>(filePath, rg.Columns);
             return parser.Parse();
         }
 
@@ -30,15 +20,15 @@ namespace GeUtilities.Tests.TGTFParser
         public void FeatureCount()
         {
             // Arrange
-            var columns = new Columns { Feature = "feature" };
+            var rg = new RegionGenerator { Feature = "feature" };
             int featureCount = 5;
-            using (TempFileCreator testFile = new TempFileCreator(columns, featuresCount: featureCount))
+            using (var testFile = new TempFileCreator(rg, featuresCount: featureCount))
             {
                 // Act
-                var parsedGTF = ParseGTF(testFile.TempFilePath, columns);
+                var parsedGTF = ParseGTF(testFile.TempFilePath, rg);
 
                 // Assert
-                Assert.True(parsedGTF.DeterminedFeatures[columns.Feature] == featureCount);
+                Assert.True(parsedGTF.DeterminedFeatures[rg.Feature] == featureCount);
             }
         }
 
@@ -46,17 +36,17 @@ namespace GeUtilities.Tests.TGTFParser
         public void MultiFeatureFile()
         {
             // Arrange
-            var columns = new Columns
+            var rg = new RegionGenerator
             {
                 StrandColumn = 12
             };
-            using (TempFileCreator testFile = new TempFileCreator(columns, featuresCount: 10, headerLineCount: 2))
+            using (var testFile = new TempFileCreator(rg, featuresCount: 10, headerLineCount: 2))
             {
                 // Act
-                var parsedData = ParseGTF(testFile.TempFilePath, columns);
+                var parsedData = ParseGTF(testFile.TempFilePath, rg);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals.Count == 10);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.Count == 10);
             }
         }
     }

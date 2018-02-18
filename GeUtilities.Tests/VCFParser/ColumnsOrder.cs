@@ -10,35 +10,25 @@ namespace GeUtilities.Tests.TVCFParser
 {
     public class ColumnsOrder
     {
-        private VCF<Variant> ParseVCF(string filePath, Columns vcfColumns)
+        private VCF<Variant> ParseVCF(string filePath, RegionGenerator rg)
         {
-            VCFParser<Variant> vcfParser = new VCFParser<Variant>(
-                    filePath,
-                    chrColumn: vcfColumns.ChrColumn,
-                    positionColumn: vcfColumns.PositionColumn,
-                    idColumn: vcfColumns.IDColumn,
-                    refbColumn: vcfColumns.RefbColumn,
-                    altbColumn: vcfColumns.AltbColumn,
-                    qualityColumn: vcfColumns.QualityColumn,
-                    filterColumn: vcfColumns.FilterColumn,
-                    infoColumn: vcfColumns.InfoColumn,
-                    strandColumn: vcfColumns.StrandColumn);
-            return vcfParser.Parse();
+            var parser = new VCFParser<Variant>(filePath, rg.Columns);
+            return parser.Parse();
         }
 
         [Fact]
         public void TestDefaultVCFColumnOrder()
         {
             // Arrange
-            var columns = new Columns();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                VCFParser<Variant> parser = new VCFParser<Variant>(testFile.TempFilePath);
-                var parsedVariant = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parser = new VCFParser<Variant>(testFile.TempFilePath);
+                var parsedVariant = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedVariant.CompareTo(columns.Variant) == 0);
+                Assert.True(parsedVariant.CompareTo(rg.Variant) == 0);
             }
         }
 
@@ -56,7 +46,7 @@ namespace GeUtilities.Tests.TVCFParser
             byte qualityColumn, byte filterColumn, byte infoColumn, sbyte strandColumn)
         {
             // Arrange
-            Columns columns = new Columns()
+            var rg = new RegionGenerator()
             {
                 ChrColumn = chrColumn,
                 PositionColumn = positionColumn,
@@ -69,14 +59,14 @@ namespace GeUtilities.Tests.TVCFParser
                 StrandColumn = strandColumn
             };
 
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, columns);
-                var parsedVariant = parsedVCF.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
+                var parsedVariant = parsedVCF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedVariant.CompareTo(columns.Variant) == 0);
+                Assert.True(parsedVariant.CompareTo(rg.Variant) == 0);
             }
         }
 
@@ -84,16 +74,13 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadPosition()
         {
             // Arrange
-            Columns columns = new Columns()
-            {
-                PositionColumn = 20
-            };
-
+            var rg = new RegionGenerator() { PositionColumn = 20 };
             string line = "chr1\tXYZ\tAAC\tCCA\t123.456\tFilter\tInfo\t*";
-            using (TempFileCreator testFile = new TempFileCreator(line))
+
+            using (var testFile = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, columns);
+                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -104,16 +91,13 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadID()
         {
             // Arrange
-            Columns columns = new Columns()
-            {
-                IDColumn = 20
-            };
-
+            var rg = new RegionGenerator() { IDColumn = 20 };
             string line = "chr1\t10\tAAC\tCCA\t123.456\tFilter\tInfo\t*";
-            using (TempFileCreator testFile = new TempFileCreator(line))
+
+            using (var testFile = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, columns);
+                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -124,16 +108,13 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadRefbpInvalidColumn()
         {
             // Arrange
-            Columns columns = new Columns()
-            {
-                RefbColumn = 20
-            };
-
+            var rg = new RegionGenerator() { RefbColumn = 20 };
             string line = "chr1\t10\tAAC\tCCA\t123.456\tFilter\tInfo\t*";
-            using (TempFileCreator testFile = new TempFileCreator(line))
+
+            using (var testFile = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, columns);
+                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -144,16 +125,13 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadRefbpInvalidValue()
         {
             // Arrange
-            Columns columns = new Columns()
-            {
-                RefbColumn = 2
-            };
-
+            var rg = new RegionGenerator() { RefbColumn = 2 };
             string line = "chr1\t10\tXYZ\tCCA\t123.456\tFilter\tInfo\t*";
-            using (TempFileCreator testFile = new TempFileCreator(line))
+
+            using (var testFile = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, columns);
+                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -164,16 +142,13 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadAltbpInvalidColumn()
         {
             // Arrange
-            Columns columns = new Columns()
-            {
-                AltbColumn = 20
-            };
-
+            var rg = new RegionGenerator() { AltbColumn = 20 };
             string line = "chr1\t10\tAAC\tCCA\t123.456\tFilter\tInfo\t*";
-            using (TempFileCreator testFile = new TempFileCreator(line))
+
+            using (var testFile = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, columns);
+                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -184,16 +159,13 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadAltbpInvalidValue()
         {
             // Arrange
-            Columns columns = new Columns()
-            {
-                AltbColumn = 3
-            };
-
+            var rg = new RegionGenerator() { AltbColumn = 3 };
             string line = "chr1\t10\tACC\tXYZ\t123.456\tFilter\tInfo\t*";
-            using (TempFileCreator testFile = new TempFileCreator(line))
+
+            using (var testFile = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, columns);
+                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -204,16 +176,13 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadQualityInvalidColumn()
         {
             // Arrange
-            Columns columns = new Columns()
-            {
-                QualityColumn = 20
-            };
-
+            var rg = new RegionGenerator() { QualityColumn = 20 };
             string line = "chr1\t10\tACC\tCCA\t123.456\tFilter\tInfo\t*";
-            using (TempFileCreator testFile = new TempFileCreator(line))
+
+            using (var testFile = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, columns);
+                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -224,16 +193,13 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadQualityInvalidValue()
         {
             // Arrange
-            Columns columns = new Columns()
-            {
-                QualityColumn = 4
-            };
-
+            var rg = new RegionGenerator() { QualityColumn = 4 };
             string line = "chr1\t10\tACC\tCCA\t12.3.456\tFilter\tInfo\t*";
-            using (TempFileCreator testFile = new TempFileCreator(line))
+
+            using (var testFile = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, columns);
+                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -244,16 +210,13 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadFilter()
         {
             // Arrange
-            Columns columns = new Columns()
-            {
-                FilterColumn = 20
-            };
-
+            var rg = new RegionGenerator() { FilterColumn = 20 };
             string line = "chr1\t10\tACC\tCCA\t123.456\tFilter\tInfo\t*";
-            using (TempFileCreator testFile = new TempFileCreator(line))
+
+            using (var testFile = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, columns);
+                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -264,16 +227,13 @@ namespace GeUtilities.Tests.TVCFParser
         public void FailToReadInfo()
         {
             // Arrange
-            Columns columns = new Columns()
-            {
-                InfoColumn = 20
-            };
-
+            var rg = new RegionGenerator() { InfoColumn = 20 };
             string line = "chr1\t10\tACC\tCCA\t123.456\tFilter\tInfo\t*";
-            using (TempFileCreator testFile = new TempFileCreator(line))
+
+            using (var testFile = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, columns);
+                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -284,25 +244,28 @@ namespace GeUtilities.Tests.TVCFParser
         public void ColumnsSetters()
         {
             // Arrange
-            var columns = new Columns();
-            columns.ChrColumn = 2;
-            columns.PositionColumn = 2;
-            columns.IDColumn = 9;
-            columns.RefbColumn = 0;
-            columns.AltbColumn = 2;
-            columns.QualityColumn = 2;
-            columns.FilterColumn = 0;
-            columns.InfoColumn = 6;
-            columns.StrandColumn = 12;
-            columns.InfoColumn = 12;
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator
+            {
+                ChrColumn = 2,
+                PositionColumn = 2,
+                IDColumn = 9,
+                RefbColumn = 0,
+                AltbColumn = 2,
+                QualityColumn = 2,
+                FilterColumn = 0,
+                InfoColumn = 6,
+                StrandColumn = 12
+            };
+            rg.InfoColumn = 12;
+
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, columns);
-                var parsedPeak = parsedVCF.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
+                var parsedPeak = parsedVCF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedPeak.CompareTo(columns.Variant) == 0);
+                Assert.True(parsedPeak.CompareTo(rg.Variant) == 0);
             }
         }
     }

@@ -14,18 +14,15 @@ namespace GeUtilities.Tests.TVCFParser
         public void MultiVariantFile()
         {
             // Arrange
-            var columns = new Columns
-            {
-                StrandColumn = 12
-            };
-            using (TempFileCreator testFile = new TempFileCreator(columns, variantsCount: 10, headerLineCount: 2))
+            var rg = new RegionGenerator { StrandColumn = 12 };
+            using (var testFile = new TempFileCreator(rg, variantsCount: 10, headerLineCount: 2))
             {
                 // Act
-                VCFParser<Variant> parser = new VCFParser<Variant>(testFile.TempFilePath);
+                var parser = new VCFParser<Variant>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals.Count == 10);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.Count == 10);
             }
         }
 
@@ -42,15 +39,15 @@ namespace GeUtilities.Tests.TVCFParser
         public void OneBaseLenghtInterval()
         {
             // Arrange
-            var columns = new Columns();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                VCFParser<Variant> parser = new VCFParser<Variant>(testFile.TempFilePath);
+                var parser = new VCFParser<Variant>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].Right == columns.Position + 1);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Right == rg.Position + 1);
             }
         }
     }

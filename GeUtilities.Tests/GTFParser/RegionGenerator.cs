@@ -3,113 +3,103 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
+using Genometric.GeUtilities.IntervalParsers;
 using System;
 using System.Text;
 
 namespace GeUtilities.Tests.TGTFParser
 {
-    public class Columns
+    public class RegionGenerator
     {
-        // NOTE
-        // The default column indexes (i.e., the values of properties such as
-        // ChrColumn, LeftColumn, and etc.) must match the parsers defaults.
+        public GTFColumns Columns { private set; get; }
 
-        private byte _chrColumn = 0;
         public byte ChrColumn
         {
-            get { return _chrColumn; }
+            get { return Columns.Chr; }
             set
             {
-                Swap((sbyte)value, (sbyte)_chrColumn);
-                _chrColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.Chr);
+                Columns.Chr = value;
             }
         }
 
-        private sbyte _sourceColumn = 1;
         public sbyte SourceColumn
         {
-            get { return _sourceColumn; }
+            get { return Columns.Source; }
             set
             {
-                Swap(value, _sourceColumn);
-                _sourceColumn = value;
+                Swap(value, Columns.Source);
+                Columns.Source = value;
             }
         }
 
-        private sbyte _featureColumn = 2;
         public sbyte FeatureColumn
         {
-            get { return _featureColumn; }
+            get { return Columns.Feature; }
             set
             {
-                Swap(value, _featureColumn);
-                _featureColumn = value;
+                Swap(value, Columns.Feature);
+                Columns.Feature = value;
             }
         }
 
-        private byte _leftColumn = 3;
         public byte LeftColumn
         {
-            get { return _leftColumn; }
+            get { return Columns.Left; }
             set
             {
-                Swap((sbyte)value, (sbyte)_leftColumn);
-                _leftColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.Left);
+                Columns.Left = value;
             }
         }
 
-        private sbyte _rightColumn = 4;
         public sbyte RightColumn
         {
-            get { return _rightColumn; }
+            get { return Columns.Right; }
             set
             {
-                Swap(value, _rightColumn);
-                _rightColumn = value;
+                Swap(value, Columns.Right);
+                Columns.Right = value;
             }
         }
 
-        private sbyte _scoreColumn = 5;
         public sbyte ScoreColumn
         {
-            get { return _scoreColumn; }
+            get { return Columns.Score; }
             set
             {
-                Swap(value, _scoreColumn);
-                _scoreColumn = value;
+                Swap(value, Columns.Score);
+                Columns.Score = value;
             }
         }
 
-        private sbyte _strandColumn = 6;
         public sbyte StrandColumn
         {
-            get { return _strandColumn; }
+            get { return Columns.Strand; }
             set
             {
-                Swap(value, _strandColumn);
-                _strandColumn = value;
+                Swap(value, Columns.Strand);
+                Columns.Strand = value;
             }
         }
 
-        private sbyte _frameColumn = 7;
         public sbyte FrameColumn
         {
-            get { return _frameColumn; }
+            get { return Columns.Frame; }
             set
             {
-                Swap(value, _frameColumn);
-                _frameColumn = value;
+                Swap(value, Columns.Frame);
+                Columns.Frame = value;
             }
         }
 
-        private sbyte _attributeColumn = 8;
         public sbyte AttributeColumn
         {
-            get { return _attributeColumn; }
+            get { return Columns.Attribute; }
             set
             {
-                Swap(value, _attributeColumn);
-                _attributeColumn = value;
+                Swap(value, Columns.Attribute);
+                Columns.Attribute = value;
             }
         }
 
@@ -146,8 +136,26 @@ namespace GeUtilities.Tests.TGTFParser
             }
         }
 
-        public Columns()
+        public RegionGenerator()
         {
+            // NOTE
+            // The following default column indexes must match the
+            // GTF file type specifications. These specifications can 
+            // be obtained from various resources such as Ensembl: 
+            // https://uswest.ensembl.org/info/website/upload/gff.html
+            Columns = new GTFColumns()
+            {
+                Chr = 0,
+                Source = 1,
+                Feature = 2,
+                Left = 3,
+                Right = 4,
+                Score = 5,
+                Strand = 6,
+                Frame = 7,
+                Attribute = 8
+            };
+
             Source = "Source";
             Feature = "Feature";
             Chr = "chr1";
@@ -164,15 +172,15 @@ namespace GeUtilities.Tests.TGTFParser
             if (newValue < 0)
                 newValue = (sbyte)(MaxColumnIndex() + 1);
 
-            if (_chrColumn == oldValue) _chrColumn = (byte)newValue;
-            else if (_sourceColumn == oldValue) _sourceColumn = newValue;
-            else if (_featureColumn == oldValue) _featureColumn = newValue;
-            else if (_leftColumn == oldValue) _leftColumn = (byte)newValue;
-            else if (_rightColumn == oldValue) _rightColumn = newValue;
-            else if (_scoreColumn == oldValue) _scoreColumn = newValue;
-            else if (_strandColumn == oldValue) _strandColumn = newValue;
-            else if (_frameColumn == oldValue) _frameColumn = newValue;
-            else if (_attributeColumn == oldValue) _attributeColumn = newValue;
+            if (Columns.Chr == oldValue) Columns.Chr = (byte)newValue;
+            else if (Columns.Source == oldValue) Columns.Source = newValue;
+            else if (Columns.Feature == oldValue) Columns.Feature = newValue;
+            else if (Columns.Left == oldValue) Columns.Left = (byte)newValue;
+            else if (Columns.Right == oldValue) Columns.Right = newValue;
+            else if (Columns.Score == oldValue) Columns.Score = newValue;
+            else if (Columns.Strand == oldValue) Columns.Strand = newValue;
+            else if (Columns.Frame == oldValue) Columns.Frame = newValue;
+            else if (Columns.Attribute == oldValue) Columns.Attribute = newValue;
         }
 
         public sbyte MaxColumnIndex()

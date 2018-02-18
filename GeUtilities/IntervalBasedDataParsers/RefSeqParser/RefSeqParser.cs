@@ -3,38 +3,18 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
+using Genometric.GeUtilities.IntervalParsers;
 
 namespace Genometric.GeUtilities.Parsers
 {
     public class RefSeqParser : RefSeqParser<Gene>
     {
-        public RefSeqParser(
-            string sourceFilePath) :
-            this(sourceFilePath: sourceFilePath,
-                chrColumn: 0,
-                leftEndColumn: 1,
-                rightEndColumn: 2,
-                refSeqIDColumn: 3,
-                geneSymbolColumn: 4,
-                strandColumn: -1)
+        public RefSeqParser(string sourceFilePath) :
+            this(sourceFilePath, new RefSeqColumns())
         { }
 
-        public RefSeqParser(
-            string sourceFilePath,
-            byte chrColumn,
-            byte leftEndColumn,
-            sbyte rightEndColumn,
-            byte refSeqIDColumn,
-            byte geneSymbolColumn,
-            sbyte strandColumn = -1) :
-            base(
-                sourceFilePath: sourceFilePath,
-                chrColumn: chrColumn,
-                leftEndColumn: leftEndColumn,
-                rightEndColumn: rightEndColumn,
-                refSeqIDColumn: refSeqIDColumn,
-                geneSymbolColumn: geneSymbolColumn,
-                strandColumn: strandColumn)
+        public RefSeqParser(string sourceFilePath, RefSeqColumns columns) :
+            base(sourceFilePath, columns)
         { }
     }
 }

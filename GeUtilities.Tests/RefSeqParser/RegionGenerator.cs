@@ -3,80 +3,73 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
+using Genometric.GeUtilities.IntervalParsers;
 using System;
 using System.Text;
 
 namespace GeUtilities.Tests.TRefSeqParser
 {
-    public class Columns
+    public class RegionGenerator
     {
-        // NOTE
-        // The default column indexes (i.e., the values of properties such as
-        // ChrColumn, LeftColumn, and etc.) must match the parsers defaults.
+        public RefSeqColumns Columns { private set; get; }
 
-        private byte _chrColumn = 0;
         public byte ChrColumn
         {
-            get { return _chrColumn; }
+            get { return Columns.Chr; }
             set
             {
-                Swap((sbyte)value, (sbyte)_chrColumn);
-                _chrColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.Chr);
+                Columns.Chr = value;
             }
         }
 
-        private byte _leftColumn = 1;
         public byte LeftColumn
         {
-            get { return _leftColumn; }
+            get { return Columns.Left; }
             set
             {
-                Swap((sbyte)value, (sbyte)_leftColumn);
-                _leftColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.Left);
+                Columns.Left = value;
             }
         }
 
-        private sbyte _rightColumn = 2;
         public sbyte RightColumn
         {
-            get { return _rightColumn; }
+            get { return Columns.Right; }
             set
             {
-                Swap(value, _rightColumn);
-                _rightColumn = value;
+                Swap(value, Columns.Right);
+                Columns.Right = value;
             }
         }
 
-        private byte _refSeqIDColumn = 3;
         public byte RefSeqIDColumn
         {
-            get { return _refSeqIDColumn; }
+            get { return Columns.RefSeqID; }
             set
             {
-                Swap((sbyte)value, (sbyte)_refSeqIDColumn);
-                _refSeqIDColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.RefSeqID);
+                Columns.RefSeqID = value;
             }
         }
 
-        private byte _geneSymbolColumn = 4;
         public byte GeneSymbolColumn
         {
-            get { return _geneSymbolColumn; }
+            get { return Columns.GeneSeymbol; }
             set
             {
-                Swap((sbyte)value, (sbyte)_geneSymbolColumn);
-                _geneSymbolColumn = value;
+                Swap((sbyte)value, (sbyte)Columns.GeneSeymbol);
+                Columns.GeneSeymbol = value;
             }
         }
 
-        private sbyte _strandColumn = -1;
         public sbyte StrandColumn
         {
-            get { return _strandColumn; }
+            get { return Columns.Strand; }
             set
             {
-                Swap(value, _strandColumn);
-                _strandColumn = value;
+                Swap(value, Columns.Strand);
+                Columns.Strand = value;
             }
         }
 
@@ -106,7 +99,18 @@ namespace GeUtilities.Tests.TRefSeqParser
             }
         }
 
-        public Columns() {
+        public RegionGenerator()
+        {
+            Columns = new RefSeqColumns()
+            {
+                Chr = 0,
+                Left = 1,
+                Right = 2,
+                RefSeqID = 3,
+                GeneSeymbol = 4,
+                Strand = -1,
+            };
+
             Chr = "chr1";
             Left = 10;
             Right = 20;
@@ -120,12 +124,12 @@ namespace GeUtilities.Tests.TRefSeqParser
             if (newValue < 0)
                 newValue = (sbyte)(MaxColumnIndex() + 1);
 
-            if (_chrColumn == oldValue) _chrColumn = (byte)newValue;
-            else if (_leftColumn == oldValue) _leftColumn = (byte)newValue;
-            else if (_rightColumn == oldValue) _rightColumn = newValue;
-            else if (_refSeqIDColumn == oldValue) _refSeqIDColumn = (byte)newValue;
-            else if (_geneSymbolColumn == oldValue) _geneSymbolColumn = (byte)newValue;
-            else if (_strandColumn == oldValue) _strandColumn = newValue;
+            if (Columns.Chr == oldValue) Columns.Chr = (byte)newValue;
+            else if (Columns.Left == oldValue) Columns.Left = (byte)newValue;
+            else if (Columns.Right == oldValue) Columns.Right = newValue;
+            else if (Columns.RefSeqID == oldValue) Columns.RefSeqID = (byte)newValue;
+            else if (Columns.GeneSeymbol == oldValue) Columns.GeneSeymbol = (byte)newValue;
+            else if (Columns.Strand == oldValue) Columns.Strand = newValue;
         }
 
         public sbyte MaxColumnIndex()
