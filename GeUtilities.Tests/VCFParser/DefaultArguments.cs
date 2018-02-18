@@ -14,15 +14,15 @@ namespace GeUtilities.Tests.TVCFParser
         public void AssignHashKey()
         {
             // Arrange
-            var columns = new RegionGenerator();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                VCFParser<Variant> parser = new VCFParser<Variant>(testFile.TempFilePath);
+                var parser = new VCFParser<Variant>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0].HashKey != 0);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].HashKey != 0);
             }
         }
 
@@ -35,10 +35,10 @@ namespace GeUtilities.Tests.TVCFParser
         public void AvoidHeader(int headerCount, byte readOffset)
         {
             // Arrange
-            using (TempFileCreator testFile = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
+            using (var testFile = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
             {
                 // Act
-                VCFParser<Variant> parser = new VCFParser<Variant>(testFile.TempFilePath);
+                var parser = new VCFParser<Variant>(testFile.TempFilePath);
                 parser.ReadOffset = readOffset;
                 var parsedData = parser.Parse();
 

@@ -13,15 +13,15 @@ namespace GeUtilities.Tests.TVCFParser
         public void AllDefaultArguments()
         {
             // Arrange
-            var columns = new RegionGenerator();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                VCFParser parser = new VCFParser(testFile.TempFilePath);
-                var parsedVariant = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parser = new VCFParser(testFile.TempFilePath);
+                var parsedVariant = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedVariant.CompareTo(columns.Variant) == 0);
+                Assert.True(parsedVariant.CompareTo(rg.Variant) == 0);
             }
         }
 
@@ -29,25 +29,15 @@ namespace GeUtilities.Tests.TVCFParser
         public void FullySetArguments()
         {
             // Arrange
-            var columns = new RegionGenerator();
-            using (TempFileCreator testFile = new TempFileCreator(columns))
+            var rg = new RegionGenerator();
+            using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                VCFParser parser = new VCFParser(
-                    testFile.TempFilePath,
-                    chrColumn: columns.ChrColumn,
-                    positionColumn: columns.PositionColumn,
-                    idColumn: columns.IDColumn,
-                    refbColumn: columns.RefbColumn,
-                    altbColumn: columns.AltbColumn,
-                    qualityColumn: columns.QualityColumn,
-                    filterColumn: columns.FilterColumn,
-                    infoColumn: columns.InfoColumn,
-                    strandColumn: columns.StrandColumn);
-                var parsedVariant = parser.Parse().Chromosomes[columns.Chr].Strands[columns.Strand].Intervals[0];
+                var parser = new VCFParser(testFile.TempFilePath, rg.Columns);
+                var parsedVariant = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
-                Assert.True(parsedVariant.CompareTo(columns.Variant) == 0);
+                Assert.True(parsedVariant.CompareTo(rg.Variant) == 0);
             }
         }
     }
