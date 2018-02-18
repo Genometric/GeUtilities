@@ -140,7 +140,7 @@ namespace Genometric.GeUtilities.Parsers
         /// </summary>
         public Assemblies Assembly { set; get; }
 
-        public Parser(
+        protected Parser(
             string sourceFilePath,
             byte chrColumn,
             byte leftEndColumn,
