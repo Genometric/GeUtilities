@@ -128,7 +128,7 @@ namespace Genometric.GeUtilities.Parsers
                     case 'T': rtv[i] = Base.T; break;
                     case 'U': rtv[i] = Base.U; break;
                     default:
-                        return null;
+                        return new Base[0];
                 }
             }
             return rtv;
