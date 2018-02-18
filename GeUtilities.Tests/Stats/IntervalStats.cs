@@ -20,7 +20,7 @@ namespace GeUtilities.Tests.TStats
                     Left = intersCoord[i],
                     Right = intersCoord[i + 1],
                     Name = "GeUtilities_" + i,
-                    Summit = intersCoord[i] + ((intersCoord[i + 1] - intersCoord[i])) / 2,
+                    Summit = intersCoord[i] + (intersCoord[i + 1] - intersCoord[i]) / 2,
                     Value = 100.0
                 };
             return rtv;
