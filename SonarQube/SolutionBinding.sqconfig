@@ -1,0 +1,14 @@
+{
+  "ServerUri": "https://sonarcloud.io/dashboard?id=geutilities/",
+  "Organization": {
+    "Key": "genometric",
+    "Name": "Genometric"
+  },
+  "ProjectKey": "geutilities",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AWDzsaaqr86VThkHOFLo",
+      "ProfileTimestamp": "2018-02-13T22:15:56-08:00"
+    }
+  }
+}
