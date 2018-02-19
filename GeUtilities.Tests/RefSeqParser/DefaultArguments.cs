@@ -5,6 +5,7 @@
 using Genometric.GeUtilities.IntervalParsers.Model.Defaults;
 using Genometric.GeUtilities.IntervalParsers;
 using Xunit;
+using Genometric.GeUtilities.IntervalParsers.Model.Columns;
 
 namespace GeUtilities.Tests.TRefSeqParser
 {

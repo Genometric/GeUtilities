@@ -5,6 +5,7 @@
 using Genometric.GeUtilities.IntervalParsers.Model.Defaults;
 using Genometric.GeUtilities.IntervalParsers;
 using Xunit;
+using Genometric.GeUtilities.IntervalParsers.Model.Columns;
 
 /// <summary>
 /// This namespace contains Tests for both base and BED parsers.

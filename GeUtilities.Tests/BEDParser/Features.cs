@@ -8,6 +8,7 @@ using Genometric.GeUtilities.ReferenceGenomes;
 using System;
 using System.IO;
 using Xunit;
+using Genometric.GeUtilities.IntervalParsers.Model.Columns;
 
 /// <summary>
 /// This namespace contains Tests for both base and BED parsers.

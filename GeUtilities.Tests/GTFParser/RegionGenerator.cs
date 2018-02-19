@@ -3,9 +3,9 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalParsers.Model.Defaults;
-using Genometric.GeUtilities.IntervalParsers;
 using System;
 using System.Text;
+using Genometric.GeUtilities.IntervalParsers.Model.Columns;
 
 namespace GeUtilities.Tests.TGTFParser
 {

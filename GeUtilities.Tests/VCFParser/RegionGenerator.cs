@@ -4,9 +4,9 @@
 
 using Genometric.GeUtilities.IGenomics;
 using Genometric.GeUtilities.IntervalParsers.Model.Defaults;
-using Genometric.GeUtilities.IntervalParsers;
 using System;
 using System.Text;
+using Genometric.GeUtilities.IntervalParsers.Model.Columns;
 
 namespace GeUtilities.Tests.TVCFParser
 {

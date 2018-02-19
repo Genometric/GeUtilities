@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.IntervalParsers.Model.Columns;
 using Genometric.GeUtilities.ReferenceGenomes;
 using System;
 using System.Collections.Generic;
