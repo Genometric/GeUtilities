@@ -33,7 +33,7 @@ namespace GeUtilities.Tests.IntervalParsers.TStats
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 })]
         public void TestCount(int[] intersCoord)
         {
-            var stats = new Genometric.GeUtilities.IntervalParsers.BEDStats();
+            var stats = new Genometric.GeUtilities.IntervalParsers.BedStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 
@@ -47,7 +47,7 @@ namespace GeUtilities.Tests.IntervalParsers.TStats
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 40)]
         public void TestWidthMax(int[] intersCoord, int maxWidth)
         {
-            var stats = new Genometric.GeUtilities.IntervalParsers.BEDStats();
+            var stats = new Genometric.GeUtilities.IntervalParsers.BedStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 
@@ -61,7 +61,7 @@ namespace GeUtilities.Tests.IntervalParsers.TStats
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 2)]
         public void TestWidthMin(int[] intersCoord, uint minWidth)
         {
-            var stats = new Genometric.GeUtilities.IntervalParsers.BEDStats();
+            var stats = new Genometric.GeUtilities.IntervalParsers.BedStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 
@@ -75,7 +75,7 @@ namespace GeUtilities.Tests.IntervalParsers.TStats
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 17.333)]
         public void TestWidthMean(int[] intersCoord, double mean)
         {
-            var stats = new Genometric.GeUtilities.IntervalParsers.BEDStats();
+            var stats = new Genometric.GeUtilities.IntervalParsers.BedStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 
@@ -89,7 +89,7 @@ namespace GeUtilities.Tests.IntervalParsers.TStats
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 16.3571)]
         public void TestWidthPSTDV(int[] intersCoord, double pstdv)
         {
-            var stats = new Genometric.GeUtilities.IntervalParsers.BEDStats();
+            var stats = new Genometric.GeUtilities.IntervalParsers.BedStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 

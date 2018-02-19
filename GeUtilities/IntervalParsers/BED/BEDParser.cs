@@ -7,13 +7,13 @@ using Genometric.GeUtilities.IntervalParsers.Model.Defaults;
 
 namespace Genometric.GeUtilities.IntervalParsers
 {
-    public class BEDParser : BEDParser<ChIPSeqPeak>
+    public class BedParser : BedParser<ChIPSeqPeak>
     {
-        public BEDParser(string sourceFilePath) :
+        public BedParser(string sourceFilePath) :
             this(sourceFilePath, new BEDColumns())
         { }
 
-        public BEDParser(string sourceFilePath, BEDColumns columns) :
+        public BedParser(string sourceFilePath, BEDColumns columns) :
             base(sourceFilePath, columns)
         { }
     }

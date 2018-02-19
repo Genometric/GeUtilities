@@ -6,7 +6,7 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.IntervalParsers
 {
-    public class BED<I> : ParsedIntervals<I, BEDStats>
+    public class BED<I> : ParsedIntervals<I, BedStats>
         where I : IChIPSeqPeak, new()
     {   
         public BED()
