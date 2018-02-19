@@ -48,14 +48,6 @@ namespace Genometric.GeUtilities.IntervalParsers
         private readonly sbyte _strandColumn;
 
         /// <summary>
-        /// Sets and gets validity of the interval being parsed.
-        /// In other words, indicates if the required fields of 
-        /// the interval are parsed correctly. For instance, if
-        /// the chromosome attribute of the peak is read.
-        /// </summary>
-        private bool _dropReadingPeak;
-
-        /// <summary>
         /// When read process is finished, this variable contains the number
         /// of dropped regions.
         /// </summary>
@@ -66,6 +58,14 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// This information will be updated based on the selected species.
         /// </summary>
         private ReadOnlyDictionary<string, int> _assemblyData;
+
+        /// <summary>
+        /// Sets and gets validity of the interval being parsed.
+        /// In other words, indicates if the required fields of 
+        /// the interval are parsed correctly. For instance, if
+        /// the chromosome attribute of the peak is read.
+        /// </summary>
+        private bool DropReadingPeak { set; get; }
 
         #region .::.         Status variable and it's event controllers   .::.
 
@@ -172,7 +172,7 @@ namespace Genometric.GeUtilities.IntervalParsers
             string line;
             UInt32 lineCounter = 0;
             Messages = new List<string>();
-            _dropReadingPeak = false;
+            DropReadingPeak = false;
             byte readOffset = ReadOffset;
 
             FileInfo fileInfo = new FileInfo(_sourceFilePath);
@@ -197,7 +197,7 @@ namespace Genometric.GeUtilities.IntervalParsers
 
                     if (line.Trim().Length > 0 && lineCounter <= MaxLinesToRead)
                     {
-                        _dropReadingPeak = false;
+                        DropReadingPeak = false;
                         string[] splittedLine = line.Split('\t');
 
                         if (!(_leftColumn < splittedLine.Length && int.TryParse(splittedLine[_leftColumn], out left)))
@@ -213,7 +213,7 @@ namespace Genometric.GeUtilities.IntervalParsers
                         }
 
                         I readingInterval = BuildInterval(left, right, splittedLine, lineCounter);
-                        if (_dropReadingPeak)
+                        if (DropReadingPeak)
                             continue;
 
                         chrName = null;
@@ -355,7 +355,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         protected void DropLine(string message)
         {
             Messages.Add(message);
-            _dropReadingPeak = true;
+            DropReadingPeak = true;
             _dropedLinesCount++;
         }
     }
