@@ -38,8 +38,10 @@ namespace GeUtilities.Tests.TVCFParser
             using (var testFile = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
             {
                 // Act
-                var parser = new VCFParser<Variant>(testFile.TempFilePath);
-                parser.ReadOffset = readOffset;
+                var parser = new VCFParser<Variant>(testFile.TempFilePath)
+                {
+                    ReadOffset = readOffset
+                };
                 var parsedData = parser.Parse();
 
                 // Assert

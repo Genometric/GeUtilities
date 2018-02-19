@@ -7,12 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeUtilities", "GeUtilities\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeUtilities.Tests", "GeUtilities.Tests\GeUtilities.Tests.csproj", "{6BEC93C7-A3DD-481E-AF23-8235A6FAC179}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{1E7601F4-F3BA-40C5-8BF4-3758DFC7AA4F}"
-	ProjectSection(SolutionItems) = preProject
-		SonarQube\geutilitiesCSharp.ruleset = SonarQube\geutilitiesCSharp.ruleset
-		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
