@@ -22,7 +22,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
         {
             // Arrange
             string fileName = "a_file_name_which_does_not_exist_1234567890";
-            var parser = new BedParser<ChIPSeqPeak>(fileName);
+            var parser = new BEDParser<ChIPSeqPeak>(fileName);
 
             // Act
             Exception exception = Assert.Throws<FileNotFoundException>(() => parser.Parse());
@@ -39,7 +39,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123..45"))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath)
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
                 {
                     DropPeakIfInvalidValue = true
                 };
@@ -58,7 +58,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123..45"))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath)
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
                 {
                     DropPeakIfInvalidValue = false,
                     DefaultValue = defaultValue
@@ -78,7 +78,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath, new BEDColumns() { Value = 9 })
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, new BEDColumns() { Value = 9 })
                 {
                     DropPeakIfInvalidValue = true
                 };
@@ -97,7 +97,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath, new BEDColumns() { Value = 9 })
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, new BEDColumns() { Value = 9 })
                 {
                     DropPeakIfInvalidValue = false
                 };
@@ -120,7 +120,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath)
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
                 {
                     PValueFormat = pvalueFormat
                 };
@@ -143,7 +143,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg, peaksCount: numberOfPeaksToWrite))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath)
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
                 {
                     MaxLinesToRead = numberOfPeaksToRead
                 };
@@ -162,7 +162,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg, peaksCount: 4))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath)
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
                 {
                     MaxLinesToRead = 0
                 };
@@ -181,7 +181,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath, new BEDColumns() { Name = 12 })
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, new BEDColumns() { Name = 12 })
                 {
                     DropPeakIfInvalidValue = false
                 };
@@ -202,7 +202,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath)
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
                 {
                     HashFunction = hashFunction
                 };
@@ -221,7 +221,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath, new BEDColumns() { Value = 9 })
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, new BEDColumns() { Value = 9 })
                 {
                     DropPeakIfInvalidValue = true
                 };
@@ -242,7 +242,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath)
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
                 {
                     Assembly = Assemblies.hg19,
                     ReadOnlyAssemblyChrs = true
@@ -264,7 +264,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (TempFileCreator testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath)
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
                 {
                     Assembly = Assemblies.hg19,
                     ReadOnlyAssemblyChrs = true
@@ -287,7 +287,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                BedParser<ChIPSeqPeak> parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath)
+                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
                 {
                     Assembly = Assemblies.hg19,
                     ReadOnlyAssemblyChrs = false
@@ -307,7 +307,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath)
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
                 {
                     Assembly = Assemblies.hg19,
                     ReadOnlyAssemblyChrs = false
@@ -327,7 +327,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg, headerLineCount: 2, peaksCount: 10))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -342,7 +342,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator("             "))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -365,7 +365,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(peaks))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -388,7 +388,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(peaks))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert
@@ -410,7 +410,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(peaks))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedData = parser.Parse();
 
                 // Assert

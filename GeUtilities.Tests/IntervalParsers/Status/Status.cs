@@ -28,7 +28,7 @@ namespace GeUtilities.Tests.IntervalParsers.TStatus
             using (var testFile = new BED.TempFileCreator(new BED.RegionGenerator()))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
 
                 // Assert
                 Assert.True(parser.Status == "0");
@@ -42,7 +42,7 @@ namespace GeUtilities.Tests.IntervalParsers.TStatus
             using (var testFile = new BED.TempFileCreator(new BED.RegionGenerator()))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 parser.Parse();
 
                 // Assert
@@ -57,7 +57,7 @@ namespace GeUtilities.Tests.IntervalParsers.TStatus
             using (var testFile = new GTF.TempFileCreator(new GTF.RegionGenerator()))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 parser.Parse();
 
                 // Assert
@@ -72,7 +72,7 @@ namespace GeUtilities.Tests.IntervalParsers.TStatus
             using (var testFile = new RefSeq.TempFileCreator(new RefSeq.RegionGenerator()))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 parser.Parse();
 
                 // Assert
@@ -87,7 +87,7 @@ namespace GeUtilities.Tests.IntervalParsers.TStatus
             using (var testFile = new VCF.TempFileCreator(new VCF.RegionGenerator()))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 parser.Parse();
 
                 // Assert
@@ -103,7 +103,7 @@ namespace GeUtilities.Tests.IntervalParsers.TStatus
             using (var testFile = new BED.TempFileCreator(new BED.RegionGenerator(), peaksCount: 50))
             {
                 // Act
-                var bedParser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 bedParser.StatusChanged += ParserStatusChanged;
                 bedParser.Parse();
 

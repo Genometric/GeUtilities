@@ -7,7 +7,7 @@ using System;
 
 namespace Genometric.GeUtilities.IntervalParsers
 {
-    public sealed class BedStats : IntervalStats
+    public sealed class BEDStats : IntervalStats
     {
         private double _sumPValue;
         private double _sumSqrdPValue;
@@ -28,7 +28,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// </summary>
         public double PValuePSTDV { private set; get; }
 
-        public BedStats() : base()
+        public BEDStats() : base()
         {
             PValueLowest = 1;
         }

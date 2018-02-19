@@ -38,7 +38,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(
+                var parser = new BEDParser<ChIPSeqPeak>(
                     testFile.TempFilePath,
                     new BEDColumns()
                     {
@@ -73,7 +73,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
                 var parsedPeak = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -98,7 +98,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
                 var parsedPeak = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -125,7 +125,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
 
                 // Assert
                 Assert.True(parser.Parse().Chromosomes[rg.Chr].Strands.ContainsKey(strand));
@@ -147,7 +147,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(peaks))
             {
                 // Act
-                var parser = new BedParser<ChIPSeqPeak>(
+                var parser = new BEDParser<ChIPSeqPeak>(
                     testFile.TempFilePath, new BEDColumns
                     {
                         Chr = 0,
