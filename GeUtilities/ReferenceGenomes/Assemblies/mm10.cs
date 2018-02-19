@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace Genometric.GeUtilities.ReferenceGenomes
 {
-    internal static class mm10
+    internal static class Mm10
     {
         private static Dictionary<string, int> _data = new Dictionary<string, int>
             {

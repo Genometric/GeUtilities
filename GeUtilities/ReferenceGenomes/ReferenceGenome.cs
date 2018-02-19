@@ -13,8 +13,8 @@ namespace Genometric.GeUtilities.ReferenceGenomes
         {
             switch (assemblies)
             {
-                case Assemblies.hg19: return hg19.Data;
-                case Assemblies.mm10: return mm10.Data;
+                case Assemblies.hg19: return Hg19.Data;
+                case Assemblies.mm10: return Mm10.Data;
                 case Assemblies.Unknown:
                 default:
                     return new ReadOnlyDictionary<string, int>(new Dictionary<string, int>());
