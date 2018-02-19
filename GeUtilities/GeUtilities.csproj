@@ -10,10 +10,12 @@
     <PackageProjectUrl>https://github.com/Genometric/GeUtilities</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Genometric/GeUtilities</RepositoryUrl>
     <RootNamespace>Genometric.GeUtilities</RootNamespace>
-    <Version>2.0.0</Version>
+    <Version>3.0.0</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Genometric.GeUtilities</PackageId>
+    <Description>This package implements a set of tools required to develop any genome data analysis program.</Description>
+    <PackageReleaseNotes>A major overhaul on the interfaces, and function and name space naming.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
