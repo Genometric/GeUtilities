@@ -4,6 +4,9 @@
 | :-----------: | :--------------------------: | 
 | [![Build status](https://ci.appveyor.com/api/projects/status/4pyyaxw3bx87yyd9?svg=true)](https://ci.appveyor.com/project/VJalili/geutilities) | [![Build Status](https://travis-ci.org/Genometric/GeUtilities.svg?branch=travis.yml)](https://travis-ci.org/Genometric/GeUtilities) |
 
+https://sonarcloud.io/images/project_badges/sonarcloud-black.svg
+https://sonarcloud.io/api/project_badges/measure?project=geutilities&metric=alert_status https://sonarcloud.io/api/project_badges/measure?project=geutilities&metric=ncloc
+
 | Code Quality Metric     | Evaluation |
 | :---------------------- | :--------- | 
 | [Code Coverage](https://en.wikipedia.org/wiki/Code_coverage)   | [![codecov](https://codecov.io/gh/Genometric/GeUtilities/branch/master/graph/badge.svg)](https://codecov.io/gh/Genometric/GeUtilities) |
