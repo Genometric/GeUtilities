@@ -18,10 +18,10 @@ namespace GeUtilities.Tests.ModelTests
         {
             // Arrange
             string peak = "chr1\t10\t20\tName\t100.0";
-            using (TempFileCreator testFile = new TempFileCreator(peak))
+            using (var testFile = new TempFileCreator(peak))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedBED = parser.Parse();
 
                 // Assert
@@ -34,10 +34,10 @@ namespace GeUtilities.Tests.ModelTests
         {
             // Arrange
             string peak = "chr1\t10\t20\tName\t100.0";
-            using (TempFileCreator testFile = new TempFileCreator(peak))
+            using (var testFile = new TempFileCreator(peak))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedBED = parser.Parse();
 
                 // Assert
@@ -50,10 +50,10 @@ namespace GeUtilities.Tests.ModelTests
         {
             // Arrange
             string peak = "chr1\t10\t20\tName\t100.0";
-            using (TempFileCreator testFile = new TempFileCreator(peak))
+            using (var testFile = new TempFileCreator(peak))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 var parsedBED = parser.Parse();
 
                 // Assert
@@ -69,11 +69,13 @@ namespace GeUtilities.Tests.ModelTests
         {
             // Arrange
             string peak = "chr1\t10\t20\tName\t100.0";
-            using (TempFileCreator testFile = new TempFileCreator(peak))
+            using (var testFile = new TempFileCreator(peak))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
-                parser.Assembly = assembly;
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
+                {
+                    Assembly = assembly
+                };
                 var parsedBED = parser.Parse();
 
                 // Assert
