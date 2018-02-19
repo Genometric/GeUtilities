@@ -10,8 +10,8 @@
     <projectUrl>https://github.com/Genometric/GeUtilities</projectUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>GeUtilities</description>
-    <releaseNotes>First public release.</releaseNotes>
+    <releaseNotes>A major overhaul on the interfaces, and function and name space naming.</releaseNotes>
     <copyright>Copyright 2018</copyright>
-    <tags>Genome</tags>
+    <tags>Genome; Genomics; ChIP-seq; BED; GTF; VCF; RefSeq; Parser; NGS</tags>
   </metadata>
 </package>
