@@ -1,8 +1,15 @@
 # GeUtilities
 
-| Build Windows | Build Linux ubuntu.14.04-x64 | 
-| :-----------: | :--------------------------: | 
-| [![Build status](https://ci.appveyor.com/api/projects/status/4pyyaxw3bx87yyd9?svg=true)](https://ci.appveyor.com/project/VJalili/geutilities) | [![Build Status](https://travis-ci.org/Genometric/GeUtilities.svg?branch=travis.yml)](https://travis-ci.org/Genometric/GeUtilities) |
+
+## Build and Test Status of the Repository
+
+|                    | x64 Release |
+| :----------------- | :---------- |
+| Windows            | [![Build status](https://ci.appveyor.com/api/projects/status/4pyyaxw3bx87yyd9?svg=true)](https://ci.appveyor.com/project/VJalili/geutilities) |
+| Linux Ubuntu 14.04 | [![Build Status](https://travis-ci.org/Genometric/GeUtilities.svg?branch=travis.yml)](https://travis-ci.org/Genometric/GeUtilities) |
+
+
+## Code Quality Metrics
 
 [![measure](https://sonarcloud.io/api/project_badges/measure?project=geutilities&metric=alert_status)](https://sonarcloud.io/dashboard/index/geutilities)     [![codecov](https://codecov.io/gh/Genometric/GeUtilities/branch/master/graph/badge.svg)](https://codecov.io/gh/Genometric/GeUtilities)
 
