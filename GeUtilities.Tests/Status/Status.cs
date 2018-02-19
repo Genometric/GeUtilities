@@ -43,7 +43,7 @@ namespace GeUtilities.Tests.TStatus
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
-                var parsedBED = parser.Parse();
+                parser.Parse();
 
                 // Assert
                 Assert.True(parser.Status == "100");
@@ -58,7 +58,7 @@ namespace GeUtilities.Tests.TStatus
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
-                var parsedBED = parser.Parse();
+                parser.Parse();
 
                 // Assert
                 Assert.True(parser.Status == "100");
@@ -73,7 +73,7 @@ namespace GeUtilities.Tests.TStatus
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
-                var parsedBED = parser.Parse();
+                parser.Parse();
 
                 // Assert
                 Assert.True(parser.Status == "100");
@@ -88,7 +88,7 @@ namespace GeUtilities.Tests.TStatus
             {
                 // Act
                 BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
-                var parsedBED = parser.Parse();
+                parser.Parse();
 
                 // Assert
                 Assert.True(parser.Status == "100");
@@ -105,7 +105,7 @@ namespace GeUtilities.Tests.TStatus
                 // Act
                 BEDParser<ChIPSeqPeak> bedParser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
                 bedParser.StatusChanged += ParserStatusChanged;
-                var parsedBED = bedParser.Parse();
+                bedParser.Parse();
 
                 // Asserted in 'ParserStatusChanged'
             }
