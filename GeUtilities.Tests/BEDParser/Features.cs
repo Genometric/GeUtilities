@@ -2,9 +2,8 @@
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
-using Genometric.GeUtilities.IntervalBasedDataParsers.Model.Defaults;
+using Genometric.GeUtilities.IntervalParsers.Model.Defaults;
 using Genometric.GeUtilities.IntervalParsers;
-using Genometric.GeUtilities.Parsers;
 using Genometric.GeUtilities.ReferenceGenomes;
 using System;
 using System.IO;
@@ -193,8 +192,8 @@ namespace GeUtilities.Tests.TBEDParser
         }
 
         [Theory]
-        [InlineData(Genometric.GeUtilities.Parsers.HashFunctions.FNV)]
-        [InlineData(Genometric.GeUtilities.Parsers.HashFunctions.One_at_a_Time)]
+        [InlineData(Genometric.GeUtilities.IntervalParsers.HashFunctions.FNV)]
+        [InlineData(Genometric.GeUtilities.IntervalParsers.HashFunctions.One_at_a_Time)]
         public void HashFunctions(HashFunctions hashFunction)
         {
             // Arrange
