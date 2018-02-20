@@ -62,6 +62,7 @@ for:
         Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
         bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml" -t $env:codecovtoken
     - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%" /d:sonar.cs.xunit.reportsPaths="GeUtilities.Tests\XUnitResults.xml"
+    - MSBuild.exe /t:Rebuild
     - ps: cd GeUtilities.Tests
     - ps: dotnet xunit -xml XUnitResults.xml
     - ps: cd ..
@@ -104,6 +105,7 @@ for:
         Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
         bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml" -t $env:codecovtoken
     - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%" /d:sonar.cs.xunit.reportsPaths="GeUtilities.Tests\XUnitResults.xml"
+    - MSBuild.exe /t:Rebuild
     - ps: cd GeUtilities.Tests
     - ps: dotnet xunit -xml XUnitResults.xml
     - ps: cd ..
