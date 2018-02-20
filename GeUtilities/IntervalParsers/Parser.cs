@@ -141,6 +141,11 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// </summary>
         public Assemblies Assembly { set; get; }
 
+        /// <summary>
+        /// Sets and gets the fields separator. 
+        /// </summary>
+        public char Delimiter { set; get; }
+
         protected Parser(string sourceFilePath, BaseColumns columns, ParsedIntervals<I, S> data)
         {
             _sourceFilePath = sourceFilePath;
@@ -155,6 +160,7 @@ namespace Genometric.GeUtilities.IntervalParsers
             _excessChrs = new List<string>();
             _missingChrs = new List<string>();
             MaxLinesToRead = uint.MaxValue;
+            Delimiter = '\t';
         }
 
         /// <summary>
@@ -198,7 +204,7 @@ namespace Genometric.GeUtilities.IntervalParsers
                     if (line.Trim().Length > 0 && lineCounter <= MaxLinesToRead)
                     {
                         DropReadingPeak = false;
-                        string[] splittedLine = line.Split('\t');
+                        string[] splittedLine = line.Split(Delimiter);
 
                         if (!(_leftColumn < splittedLine.Length && int.TryParse(splittedLine[_leftColumn], out left)))
                         {
