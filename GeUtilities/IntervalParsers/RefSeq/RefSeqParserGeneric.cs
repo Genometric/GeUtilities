@@ -28,8 +28,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// Parse refseq genes presented in tab-delimited text file.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        public RefSeqParser(string sourceFilePath) :
-            this(sourceFilePath, new RefSeqColumns())
+        public RefSeqParser() : this(new RefSeqColumns())
         { }
 
 
@@ -37,8 +36,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// Parse refseq genes presented in tab-delimited text file.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name</param>
-        public RefSeqParser(string sourceFilePath, RefSeqColumns columns) :
-            base(sourceFilePath, columns, new RefSeq<I>())
+        public RefSeqParser(RefSeqColumns columns) : base(columns)
         {
             _refSeqIDColumn = columns.RefSeqID;
             _geneColumn = columns.GeneSeymbol;
@@ -75,9 +73,9 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// Reads the regions presented in source file and generates chromosome-wide statistics regarding regions length and p-values. 
         /// </summary>
         /// <returns>Returns an object of Input_BED_Data class</returns>
-        public new RefSeq<I> Parse()
+        public RefSeq<I> Parse(string sourceFilePath)
         {
-            var parsingResult = (RefSeq<I>)base.Parse();
+            var parsingResult = (RefSeq<I>)Parse(sourceFilePath, new RefSeq<I>());
             Status = "100";
             return parsingResult;
         }

@@ -35,11 +35,10 @@ namespace GeUtilities.Tests.IntervalParsers.BED
                 ValueColumn = valueColumn
             };
 
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
                 var parser = new BEDParser<ChIPSeqPeak>(
-                    testFile.TempFilePath,
                     new BEDColumns()
                     {
                         Chr = chrColumn,
@@ -48,7 +47,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
                         Name = nameColumn,
                         Value = valueColumn
                     });
-                var parsedPeak = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedPeak = parser.Parse(file.Path).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedPeak.CompareTo(rg.Peak) == 0);
@@ -70,11 +69,11 @@ namespace GeUtilities.Tests.IntervalParsers.BED
                 StrandColumn = 0,
             };
 
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
-                var parsedPeak = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parser = new BEDParser<ChIPSeqPeak>(rg.Columns);
+                var parsedPeak = parser.Parse(file.Path).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedPeak.CompareTo(rg.Peak) == 0);
@@ -95,11 +94,11 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             var rg = new RegionGenerator { SummitColumn = summitColumn };
             rg.Summit = summit == -1 ? rg.Left + ((rg.Right - rg.Left) / 2) : summit;
 
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
-                var parsedPeak = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parser = new BEDParser<ChIPSeqPeak>(rg.Columns);
+                var parsedPeak = parser.Parse(file.Path).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedPeak.Summit == rg.Summit);
@@ -122,13 +121,13 @@ namespace GeUtilities.Tests.IntervalParsers.BED
                 StrandColumn = strandColumn
             };
 
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath, rg.Columns);
+                var parser = new BEDParser<ChIPSeqPeak>(rg.Columns);
 
                 // Assert
-                Assert.True(parser.Parse().Chromosomes[rg.Chr].Strands.ContainsKey(strand));
+                Assert.True(parser.Parse(file.Path).Chromosomes[rg.Chr].Strands.ContainsKey(strand));
             }
         }
 
@@ -144,11 +143,11 @@ namespace GeUtilities.Tests.IntervalParsers.BED
                 "chr1\t50\t60\t#\tGeUtilities_02\t111.0", // Any strand name other than '+', '-', and '*' will be parsed as '*'.
             };
 
-            using (var testFile = new TempFileCreator(peaks))
+            using (var file = new TempFileCreator(peaks))
             {
                 // Act
                 var parser = new BEDParser<ChIPSeqPeak>(
-                    testFile.TempFilePath, new BEDColumns
+                    new BEDColumns
                     {
                         Chr = 0,
                         Left = 1,
@@ -158,7 +157,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
                         Value = 5
                     });
 
-                var parsedData = parser.Parse();
+                var parsedData = parser.Parse(file.Path);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes["chr1"].Strands.ContainsKey('*'));

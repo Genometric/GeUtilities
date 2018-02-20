@@ -74,17 +74,14 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
-        /// <param name="sourceFilePath">Full path of source file name.</param>
-        public BEDParser(string sourceFilePath) :
-            this(sourceFilePath, new BEDColumns())
+        public BEDParser() : this(new BEDColumns())
         { }
 
         /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        public BEDParser(string sourceFilePath, BEDColumns columns) :
-            base(sourceFilePath, columns, new BED<I>())
+        public BEDParser(BEDColumns columns) : base(columns)
         {
             _nameColumn = columns.Name;
             _valueColumn = columns.Value;
@@ -168,9 +165,9 @@ namespace Genometric.GeUtilities.IntervalParsers
             return rtv;
         }
 
-        public new BED<I> Parse()
+        public BED<I> Parse(string sourceFilePath)
         {
-            var rtv = (BED<I>)base.Parse();
+            var rtv = (BED<I>)Parse(sourceFilePath, new BED<I>());
 
             if (_defaultValueUtilizationCount > 0)
                 Messages.Insert(0, "\tDefault p-value used for " + _defaultValueUtilizationCount.ToString() + " times");

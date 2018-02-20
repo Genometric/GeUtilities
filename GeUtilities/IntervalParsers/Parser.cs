@@ -17,7 +17,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         where I : IInterval<int>, new()
         where S : IStats<int>, new()
     {
-        private readonly ParsedIntervals<I, S> _data;
+        private ParsedIntervals<I, S> _data;
 
         private const UInt32 _FNVPrime_32 = 16777619;
         private const UInt32 _FNVOffsetBasis_32 = 2166136261;
@@ -25,7 +25,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// <summary>
         /// Full path of source file name.
         /// </summary>
-        private readonly string _sourceFilePath;
+        private string _sourceFilePath;
 
         /// <summary>
         /// Sets and gets the column number of chromosome name.
@@ -122,10 +122,10 @@ namespace Genometric.GeUtilities.IntervalParsers
         private bool _readOnlyAssemblyChrs = true;
 
         public ReadOnlyCollection<string> ExcessChrs { get { return _excessChrs.AsReadOnly(); } }
-        private readonly List<string> _excessChrs;
+        private List<string> _excessChrs;
 
         public ReadOnlyCollection<string> MissingChrs { get { return _missingChrs.AsReadOnly(); } }
-        private readonly List<string> _missingChrs;
+        private List<string> _missingChrs;
 
         /// <summary>
         /// Sets and gets the hash function used to create hash 
@@ -146,38 +146,55 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// </summary>
         public char Delimiter { set; get; }
 
-        protected Parser(string sourceFilePath, BaseColumns columns, ParsedIntervals<I, S> data)
+        protected Parser(BaseColumns columns)
         {
-            _sourceFilePath = sourceFilePath;
             _chrColumn = columns.Chr;
             _leftColumn = columns.Left;
             _rightColumn = columns.Right;
             _strandColumn = columns.Strand;
+            MaxLinesToRead = uint.MaxValue;
+            Delimiter = '\t';
+        }
+
+        protected ParsedIntervals<I, S> Parse(string sourceFilePath, ParsedIntervals<I, S> data)
+        {
+            _sourceFilePath = sourceFilePath;
             _data = data;
             _data.FilePath = Path.GetFullPath(_sourceFilePath);
             _data.FileName = Path.GetFileName(_sourceFilePath);
             _data.FileHashKey = GetFileHashKey(_data.FilePath);
             _excessChrs = new List<string>();
             _missingChrs = new List<string>();
-            MaxLinesToRead = uint.MaxValue;
-            Delimiter = '\t';
+            Messages = new List<string>();
+
+            _assemblyData = References.GetGenomeSizes(Assembly);
+            if (!File.Exists(_sourceFilePath))
+                throw new FileNotFoundException(string.Format("The file `{0}` does not exist or is inaccessible.", _sourceFilePath));
+
+            Parse();
+
+            if (_dropedLinesCount > 0)
+                Messages.Insert(0, "\t" + _dropedLinesCount.ToString() + " Lines dropped");
+            _data.Messages = Messages;
+
+            if (Assembly != Assemblies.Unknown)
+                ReadMissingAndExcessChrs();
+
+            _data.Assembly = Assembly;
+            return _data;
         }
 
         /// <summary>
         /// Reads the regions presented in source file; and generates chromosome-wide statistics.
         /// </summary>
         /// <returns>Returns parsed intervals.</returns>
-        protected ParsedIntervals<I, S> Parse()
+        private void Parse()
         {
-            _assemblyData = References.GetGenomeSizes(Assembly);
-            if (!File.Exists(_sourceFilePath))
-                throw new FileNotFoundException(string.Format("The file `{0}` does not exist or is inaccessible.", _sourceFilePath));
-
             int left = 0;
             int right = 0;
             string line;
             UInt32 lineCounter = 0;
-            Messages = new List<string>();
+
             DropReadingPeak = false;
             byte readOffset = ReadOffset;
 
@@ -263,16 +280,6 @@ namespace Genometric.GeUtilities.IntervalParsers
                     }
                 }
             }
-
-            if (_dropedLinesCount > 0)
-                Messages.Insert(0, "\t" + _dropedLinesCount.ToString() + " Lines dropped");
-            _data.Messages = Messages;
-
-            if (Assembly != Assemblies.Unknown)
-                ReadMissingAndExcessChrs();
-
-            _data.Assembly = Assembly;
-            return _data;
         }
 
         /// <summary>

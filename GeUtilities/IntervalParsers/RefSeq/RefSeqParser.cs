@@ -9,12 +9,10 @@ namespace Genometric.GeUtilities.IntervalParsers
 {
     public class RefSeqParser : RefSeqParser<Gene>
     {
-        public RefSeqParser(string sourceFilePath) :
-            this(sourceFilePath, new RefSeqColumns())
+        public RefSeqParser() : this(new RefSeqColumns())
         { }
 
-        public RefSeqParser(string sourceFilePath, RefSeqColumns columns) :
-            base(sourceFilePath, columns)
+        public RefSeqParser(RefSeqColumns columns) : base(columns)
         { }
     }
 }
