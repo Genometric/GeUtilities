@@ -61,7 +61,9 @@ for:
         $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
         Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
         bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml" -t $env:codecovtoken
-    - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%" /d:sonar.cs.xunit.reportsPaths="GeUtilities.Tests/GeUtilities_coverage.xml"
+    - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%" /d:sonar.cs.xunit.reportsPaths="%CD%\XUnitResults.xml"
+    - MSBuild.exe /t:Rebuild
+    - packages\xunit.runner.console.2.3.1\tools\xunit.console.exe GeUtilities.Tests\bin\Debug\GeUtilities.Tests.dll -xml XUnitResults.xml
     - MSBuild.SonarQube.Runner.exe end
   
   artifacts: 
@@ -100,7 +102,9 @@ for:
         $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
         Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
         bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml" -t $env:codecovtoken
-    - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%" /d:sonar.cs.xunit.reportsPaths="GeUtilities.Tests/GeUtilities_coverage.xml"
+    - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%" /d:sonar.cs.xunit.reportsPaths="%CD%\XUnitResults.xml"
+    - MSBuild.exe /t:Rebuild
+    - packages\xunit.runner.console.2.3.1\tools\xunit.console.exe GeUtilities.Tests\bin\Debug\GeUtilities.Tests.dll -xml XUnitResults.xml
     - MSBuild.SonarQube.Runner.exe end
     
   artifacts: 
