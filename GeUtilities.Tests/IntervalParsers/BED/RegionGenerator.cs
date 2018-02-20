@@ -184,19 +184,20 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             return header.ToString();
         }
 
-        public string GetSampleLine()
+        public string GetSampleLine(char delimiter = '\t')
         {
             var lineBuilder = new StringBuilder("");
+            string d = delimiter.ToString();
 
             for (sbyte i = 0; i <= MaxColumnIndex(); i++)
-                if (ChrColumn == i) lineBuilder.Append(Chr + "\t");
-                else if (LeftColumn == i) lineBuilder.Append(Left + "\t");
-                else if (RightColumn == i) lineBuilder.Append(Right + "\t");
-                else if (NameColumn == i) lineBuilder.Append(Name + "\t");
-                else if (ValueColumn == i) lineBuilder.Append(Value + "\t");
-                else if (StrandColumn == i) lineBuilder.Append(Strand + "\t");
-                else if (SummitColumn == i) lineBuilder.Append(Summit + "\t");
-                else lineBuilder.Append("AbCd\t");
+                if (ChrColumn == i) lineBuilder.Append(Chr + d);
+                else if (LeftColumn == i) lineBuilder.Append(Left + d);
+                else if (RightColumn == i) lineBuilder.Append(Right + d);
+                else if (NameColumn == i) lineBuilder.Append(Name + d);
+                else if (ValueColumn == i) lineBuilder.Append(Value + d);
+                else if (StrandColumn == i) lineBuilder.Append(Strand + d);
+                else if (SummitColumn == i) lineBuilder.Append(Summit + d);
+                else lineBuilder.Append("AbCd" + d);
 
             return lineBuilder.ToString();
         }

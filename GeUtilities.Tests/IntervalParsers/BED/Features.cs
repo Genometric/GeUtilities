@@ -417,5 +417,30 @@ namespace GeUtilities.Tests.IntervalParsers.BED
                 Assert.True(parsedData.PValueMean == 0.027775);
             }
         }
+
+        [Theory]
+        [InlineData(' ')]
+        [InlineData(',')]
+        [InlineData(';')]
+        [InlineData('\t')]
+        public void TestDelimiter(char delimiter)
+        {
+            // Arrange
+            string chr = "chr1";
+            char strand = '*';
+            var rg = new RegionGenerator { Chr = chr, Strand = strand };
+            using (var testFile = new TempFileCreator(rg.GetSampleLine(delimiter)))
+            {
+                // Act
+                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
+                {
+                    Delimiter = delimiter
+                };
+                var parsedData = parser.Parse();
+
+                // Assert
+                Assert.True(parsedData.Chromosomes[chr].Strands[strand].Intervals[0].CompareTo(rg.Peak) == 0);
+            }
+        }
     }
 }
