@@ -5,7 +5,6 @@
 using Genometric.GeUtilities.IntervalParsers;
 using Genometric.GeUtilities.IntervalParsers.Model.Columns;
 using Genometric.GeUtilities.IntervalParsers.Model.Defaults;
-using System.IO;
 using Xunit;
 
 /// <summary>
@@ -252,7 +251,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
         public void DefaultDelimiterIsTab()
         {
             // Arrange & Act
-            var parser = new BEDParser(Path.GetTempPath());
+            var parser = new BEDParser();
 
             // Assert
             Assert.True(parser.Delimiter == '\t');

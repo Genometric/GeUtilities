@@ -429,14 +429,14 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             string chr = "chr1";
             char strand = '*';
             var rg = new RegionGenerator { Chr = chr, Strand = strand };
-            using (var testFile = new TempFileCreator(rg.GetSampleLine(delimiter)))
+            using (var file = new TempFileCreator(rg.GetSampleLine(delimiter)))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
+                var parser = new BEDParser<ChIPSeqPeak>()
                 {
                     Delimiter = delimiter
                 };
-                var parsedData = parser.Parse();
+                var parsedData = parser.Parse(file.Path);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[chr].Strands[strand].Intervals[0].CompareTo(rg.Peak) == 0);
