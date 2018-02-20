@@ -73,9 +73,9 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// Reads the regions presented in source file and generates chromosome-wide statistics regarding regions length and p-values. 
         /// </summary>
         /// <returns>Returns an object of Input_BED_Data class</returns>
-        public new RefSeq<I> Parse(string sourceFilePath)
+        public RefSeq<I> Parse(string sourceFilePath)
         {
-            var parsingResult = (RefSeq<I>)base.Parse(sourceFilePath, new RefSeq<I>());
+            var parsingResult = (RefSeq<I>)Parse(sourceFilePath, new RefSeq<I>());
             Status = "100";
             return parsingResult;
         }
