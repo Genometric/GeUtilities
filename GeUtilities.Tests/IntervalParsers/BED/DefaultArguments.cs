@@ -5,6 +5,7 @@
 using Genometric.GeUtilities.IntervalParsers;
 using Genometric.GeUtilities.IntervalParsers.Model.Columns;
 using Genometric.GeUtilities.IntervalParsers.Model.Defaults;
+using System.IO;
 using Xunit;
 
 /// <summary>
@@ -245,6 +246,16 @@ namespace GeUtilities.Tests.IntervalParsers.BED
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].HashKey != 0);
             }
+        }
+
+        [Fact]
+        public void DefaultDelimiterIsTab()
+        {
+            // Arrange & Act
+            var parser = new BEDParser(Path.GetTempPath());
+
+            // Assert
+            Assert.True(parser.Delimiter == '\t');
         }
     }
 }
