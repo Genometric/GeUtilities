@@ -9,12 +9,10 @@ namespace Genometric.GeUtilities.IntervalParsers
 {
     public class BEDParser : BEDParser<ChIPSeqPeak>
     {
-        public BEDParser(string sourceFilePath) :
-            this(sourceFilePath, new BEDColumns())
+        public BEDParser() : this(new BEDColumns())
         { }
 
-        public BEDParser(string sourceFilePath, BEDColumns columns) :
-            base(sourceFilePath, columns)
+        public BEDParser(BEDColumns columns) : base(columns)
         { }
     }
 }
