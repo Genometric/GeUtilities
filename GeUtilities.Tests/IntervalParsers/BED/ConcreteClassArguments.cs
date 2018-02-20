@@ -20,8 +20,8 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser(testFile.TempFilePath);
-                var parsedPeak = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parser = new BEDParser();
+                var parsedPeak = parser.Parse(testFile.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedPeak.CompareTo(rg.Peak) == 0);
@@ -36,8 +36,8 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser(testFile.TempFilePath, rg.Columns);
-                var parsedPeak = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parser = new BEDParser(rg.Columns);
+                var parsedPeak = parser.Parse(testFile.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedPeak.CompareTo(rg.Peak) == 0);

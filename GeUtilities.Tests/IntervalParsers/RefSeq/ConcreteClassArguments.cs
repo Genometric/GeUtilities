@@ -17,8 +17,8 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new RefSeqParser(testFile.TempFilePath);
-                var parsedGene = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parser = new RefSeqParser();
+                var parsedGene = parser.Parse(testFile.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedGene.CompareTo(rg.Gene) == 0);
@@ -33,8 +33,8 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new RefSeqParser(testFile.TempFilePath, rg.Columns);
-                var parsedGene = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parser = new RefSeqParser(rg.Columns);
+                var parsedGene = parser.Parse(testFile.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedGene.CompareTo(rg.Gene) == 0);

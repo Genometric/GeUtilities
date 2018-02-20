@@ -22,11 +22,11 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var testFile = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath)
+                var parser = new GTFParser<GeneralFeature>()
                 {
                     ReadOffset = readOffset
                 };
-                var parsedData = parser.Parse();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes.Count == 1);
@@ -47,8 +47,8 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new GTFParser<GeneralFeature>();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes.ContainsKey(chr));
@@ -65,8 +65,8 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new GTFParser<GeneralFeature>();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 // Assert
                 Assert.False(parsedData.Chromosomes.ContainsKey(chr));
@@ -81,8 +81,8 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new GTFParser<GeneralFeature>();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands.ContainsKey(rg.Strand));
@@ -97,8 +97,8 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new GTFParser<GeneralFeature>();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Left == rg.Left);
@@ -112,8 +112,8 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var testFile = new TempFileCreator("chr1\tSource\tFeature\t10V\t20\t100.0\t*\t0\tatt1=1;att2=v2"))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new GTFParser<GeneralFeature>();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 // Assert
                 Assert.False(parsedData.Chromosomes.ContainsKey("chr1"));
@@ -128,8 +128,8 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new GTFParser<GeneralFeature>();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Right == rg.Right);
@@ -143,8 +143,8 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var testFile = new TempFileCreator("chr1\tSource\tFeature\t10\t20V\t100.0\t*\t0\tatt1=1;att2=v2"))
             {
                 // ACt
-                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new GTFParser<GeneralFeature>();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 // Assert
                 Assert.False(parsedData.Chromosomes.ContainsKey("chr1"));
@@ -159,8 +159,8 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new GTFParser<GeneralFeature>();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Source == rg.Source);
@@ -175,8 +175,8 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new GTFParser<GeneralFeature>();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Feature == rg.Feature);
@@ -191,8 +191,8 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new GTFParser<GeneralFeature>();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Score == rg.Score);
@@ -207,8 +207,8 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new GTFParser<GeneralFeature>();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Attribute == rg.Attribute);
@@ -223,8 +223,8 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new GTFParser<GeneralFeature>();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].HashKey != 0);

@@ -89,11 +89,11 @@ namespace GeUtilities.Tests.IntervalParsers.TStats
 
             using (var testFile = new TempFileCreator(peaks))
             {
-                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
+                var parser = new BEDParser<ChIPSeqPeak>()
                 {
                     PValueFormat = PValueFormats.SameAsInput
                 };
-                var parsedData = parser.Parse();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 Assert.True(parsedData.Chromosomes["chr1"].Statistics.PValueHighest == 0.1);
             }
@@ -112,11 +112,11 @@ namespace GeUtilities.Tests.IntervalParsers.TStats
 
             using (var testFile = new TempFileCreator(peaks))
             {
-                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
+                var parser = new BEDParser<ChIPSeqPeak>()
                 {
                     PValueFormat = PValueFormats.SameAsInput
                 };
-                var parsedData = parser.Parse();
+                var parsedData = parser.Parse(testFile.TempFilePath);
 
                 Assert.True(parsedData.Statistics.PValueHighest == 0.2);
             }

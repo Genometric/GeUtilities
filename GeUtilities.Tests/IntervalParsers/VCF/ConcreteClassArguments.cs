@@ -17,8 +17,8 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new VCFParser(testFile.TempFilePath);
-                var parsedVariant = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parser = new VCFParser();
+                var parsedVariant = parser.Parse(testFile.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedVariant.CompareTo(rg.Variant) == 0);
@@ -33,8 +33,8 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             using (var testFile = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new VCFParser(testFile.TempFilePath, rg.Columns);
-                var parsedVariant = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parser = new VCFParser(rg.Columns);
+                var parsedVariant = parser.Parse(testFile.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedVariant.CompareTo(rg.Variant) == 0);

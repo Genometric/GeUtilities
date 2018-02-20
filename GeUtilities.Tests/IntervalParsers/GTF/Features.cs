@@ -12,8 +12,8 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
     {
         internal static GTF<GeneralFeature> ParseGTF(string filePath, RegionGenerator rg)
         {
-            var parser = new GTFParser<GeneralFeature>(filePath, rg.Columns);
-            return parser.Parse();
+            var parser = new GTFParser<GeneralFeature>(rg.Columns);
+            return parser.Parse(filePath);
         }
 
         [Fact]
