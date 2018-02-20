@@ -9,12 +9,10 @@ namespace Genometric.GeUtilities.IntervalParsers
 {
     public class GTFParser : GTFParser<GeneralFeature>
     {
-        public GTFParser(string sourceFilePath) :
-           this(sourceFilePath, new GTFColumns())
+        public GTFParser() : this(new GTFColumns())
         { }
 
-        public GTFParser(string sourceFilePath, GTFColumns columns) :
-           base(sourceFilePath, columns)
+        public GTFParser(GTFColumns columns) : base(columns)
         { }
     }
 }
