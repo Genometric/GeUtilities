@@ -38,11 +38,11 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
                 StrandColumn = strandColumn
             };
 
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
                 var parser = new RefSeqParser<Gene>(rg.Columns);
-                var parsedGene = parser.Parse(testFile.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedGene = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedGene.CompareTo(rg.Gene) == 0);

@@ -14,11 +14,11 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
         {
             // Arrange
             var rg = new RegionGenerator();
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
                 var parser = new GTFParser();
-                var parsedFeature = parser.Parse(testFile.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedFeature = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedFeature.CompareTo(rg.GFeature) == 0);
@@ -30,11 +30,11 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
         {
             // Arrange
             var rg = new RegionGenerator();
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
                 var parser = new GTFParser(rg.Columns);
-                var parsedFeature = parser.Parse(testFile.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedFeature = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedFeature.CompareTo(rg.GFeature) == 0);

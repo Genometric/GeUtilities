@@ -12,23 +12,23 @@ namespace GeUtilities.Tests.IntervalParsers.BED
 {
     internal class TempFileCreator : IDisposable
     {
-        private readonly string _tempFilePath;
-        public string TempFilePath { get { return _tempFilePath; } }
+        private readonly string _path;
+        public string Path { get { return _path; } }
 
         public TempFileCreator() : this(new RegionGenerator()) { }
 
         public TempFileCreator(string peak)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
-            FileStream stream = File.Create(TempFilePath);
+            _path = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+            FileStream stream = File.Create(Path);
             using (StreamWriter writter = new StreamWriter(stream))
                 writter.WriteLine(peak);
         }
 
         public TempFileCreator(string[] peaks)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
-            FileStream stream = File.Create(TempFilePath);
+            _path = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+            FileStream stream = File.Create(Path);
             using (StreamWriter writer = new StreamWriter(stream))
                 foreach (var peak in peaks)
                     writer.WriteLine(peak);
@@ -36,8 +36,8 @@ namespace GeUtilities.Tests.IntervalParsers.BED
 
         public TempFileCreator(RegionGenerator columns, int headerLineCount = 0, int peaksCount = 1)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
-            FileStream stream = File.Create(TempFilePath);
+            _path = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+            FileStream stream = File.Create(Path);
             using (StreamWriter writer = new StreamWriter(stream))
             {
                 while (headerLineCount-- > 0)
@@ -63,7 +63,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
 
         protected virtual void Dispose(bool disposing)
         {
-            File.Delete(_tempFilePath);
+            File.Delete(_path);
         }
     }
 }

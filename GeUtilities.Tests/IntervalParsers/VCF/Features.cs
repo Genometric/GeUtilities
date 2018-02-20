@@ -15,11 +15,11 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
         {
             // Arrange
             var rg = new RegionGenerator { StrandColumn = 12 };
-            using (var testFile = new TempFileCreator(rg, variantsCount: 10, headerLineCount: 2))
+            using (var file = new TempFileCreator(rg, variantsCount: 10, headerLineCount: 2))
             {
                 // Act
                 var parser = new VCFParser<Variant>();
-                var parsedData = parser.Parse(testFile.TempFilePath);
+                var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.Count == 10);
@@ -40,11 +40,11 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
         {
             // Arrange
             var rg = new RegionGenerator();
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
                 var parser = new VCFParser<Variant>();
-                var parsedData = parser.Parse(testFile.TempFilePath);
+                var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Right == rg.Position + 1);

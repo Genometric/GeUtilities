@@ -15,11 +15,11 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
         {
             // Arrange
             var rg = new RegionGenerator();
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
                 var parser = new VCFParser<Variant>();
-                var parsedData = parser.Parse(testFile.TempFilePath);
+                var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].HashKey != 0);
@@ -35,14 +35,14 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
         public void AvoidHeader(int headerCount, byte readOffset)
         {
             // Arrange
-            using (var testFile = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
+            using (var file = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
             {
                 // Act
                 var parser = new VCFParser<Variant>()
                 {
                     ReadOffset = readOffset
                 };
-                var parsedData = parser.Parse(testFile.TempFilePath);
+                var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes.Count == 1);
