@@ -64,7 +64,7 @@ for:
     - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%" /d:sonar.cs.opencover.reportsPaths=".\GeUtilities_coverage.xml"
     - MSBuild.exe /t:Rebuild
     - ps: cd GeUtilities.Tests
-    - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"xunit -noshadow" -filter:"+[*]* -[GeUtilities.Tests*]*" -output:".\GeUtilities_coverage.xml"
+    - OpenCover.Console.exe -register:"user" -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"xunit -noshadow" -filter:"+[*]* -[GeUtilities.Tests*]*" -oldStyle -output:".\GeUtilities_coverage.xml"
     - ps: cd ..
     - MSBuild.SonarQube.Runner.exe end /d:"sonar.login=%sonartoken%"
   
@@ -107,7 +107,7 @@ for:
     - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%" /d:sonar.cs.opencover.reportsPaths=".\GeUtilities_coverage.xml"
     - MSBuild.exe /t:Rebuild
     - ps: cd GeUtilities.Tests
-    - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"xunit -noshadow" -filter:"+[*]* -[GeUtilities.Tests*]*" -output:".\GeUtilities_coverage.xml"
+    - OpenCover.Console.exe -register:"user" -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"xunit -noshadow" -filter:"+[*]* -[GeUtilities.Tests*]*" -oldStyle -output:".\GeUtilities_coverage.xml"
     - ps: cd ..
     - MSBuild.SonarQube.Runner.exe end /d:"sonar.login=%sonartoken%"
     
