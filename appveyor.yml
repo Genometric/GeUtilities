@@ -61,10 +61,10 @@ for:
         $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
         Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
         bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml" -t $env:codecovtoken
-    - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%" /d:sonar.cs.opencover.reportsPaths=".\GeUtilities_coverage.xml"
+    - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%" /d:sonar.cs.opencover.reportsPaths="\GeUtilities.Tests\GeUtilities_coverage.xml"
     - MSBuild.exe /t:Rebuild
     - ps: cd GeUtilities.Tests
-    - OpenCover.Console.exe -register:"user" -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"xunit -noshadow" -filter:"+[*]* -[GeUtilities.Tests*]*" -oldStyle -output:".\GeUtilities_coverage.xml"
+    - OpenCover.Console.exe -register:"user" -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"xunit -noshadow" -filter:"+[*]*" -oldStyle -output:"GeUtilities_coverage.xml"
     - ps: cd ..
     - MSBuild.SonarQube.Runner.exe end /d:"sonar.login=%sonartoken%"
   
@@ -104,10 +104,10 @@ for:
         $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
         Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
         bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml" -t $env:codecovtoken
-    - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%" /d:sonar.cs.opencover.reportsPaths=".\GeUtilities_coverage.xml"
+    - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%" /d:sonar.cs.opencover.reportsPaths="\GeUtilities.Tests\GeUtilities_coverage.xml"
     - MSBuild.exe /t:Rebuild
     - ps: cd GeUtilities.Tests
-    - OpenCover.Console.exe -register:"user" -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"xunit -noshadow" -filter:"+[*]* -[GeUtilities.Tests*]*" -oldStyle -output:".\GeUtilities_coverage.xml"
+    - OpenCover.Console.exe -register:"user" -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"xunit -noshadow" -filter:"+[*]*" -oldStyle -output:"GeUtilities_coverage.xml"
     - ps: cd ..
     - MSBuild.SonarQube.Runner.exe end /d:"sonar.login=%sonartoken%"
     
