@@ -9,8 +9,16 @@
     <licenseUrl>https://github.com/Genometric/GeUtilities/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Genometric/GeUtilities</projectUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>GeUtilities</description>
-    <releaseNotes>A major overhaul on the interfaces, and function and name space naming.</releaseNotes>
+    <description>Genome Utilities (GeUtilities) provides open-source building-blocks for genomic data analysis tools.</description>
+    <releaseNotes>
+      A major overhaul on the interfaces, functions signatures, and namespace naming. Namely:
+      - Parsers constructors take least possible information, and all the other configuration could be set on an instance of the parser class;
+      - Parsers now have two versions: generic and concrete type. This makes it simpler to user with minimal configuration while keeping generic design intact;
+      - By moving source file name from constructor to Parse function, now single instance of Parser can be used to parse multiple files;
+      - A major overhaul of classes inheritance with the objective of making them more coherent;
+      - Can parse data with any delimiter (with default being `tab`);
+      - Improved continues integration concerning code quality.
+    </releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>Genome; Genomics; ChIP-seq; BED; GTF; VCF; RefSeq; Parser; NGS</tags>
   </metadata>
