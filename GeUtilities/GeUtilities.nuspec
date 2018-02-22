@@ -9,7 +9,7 @@
     <licenseUrl>https://github.com/Genometric/GeUtilities/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Genometric/GeUtilities</projectUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>GeUtilities</description>
+    <description>Genome Utilities (GeUtilities) provides open-source building-blocks for genomic data analysis tools.</description>
     <releaseNotes>A major overhaul on the interfaces, and function and name space naming.</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>Genome; Genomics; ChIP-seq; BED; GTF; VCF; RefSeq; Parser; NGS</tags>
