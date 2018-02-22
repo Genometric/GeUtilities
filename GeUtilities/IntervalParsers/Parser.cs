@@ -214,11 +214,12 @@ namespace Genometric.GeUtilities.IntervalParsers
 
                 while ((line = fileReader.ReadLine()) != null)
                 {
-                    lineCounter++;
+                    if (++lineCounter > MaxLinesToRead) break;
+
                     lineSize += fileReader.CurrentEncoding.GetByteCount(line);
                     Status = (Math.Round((lineSize * 100.0) / fileSize, 0)).ToString();
 
-                    if (line.Trim().Length > 0 && lineCounter <= MaxLinesToRead)
+                    if (line.Trim().Length > 0)
                     {
                         DropReadingPeak = false;
                         string[] splittedLine = line.Split(Delimiter);
