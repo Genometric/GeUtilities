@@ -15,11 +15,11 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
         {
             // Arrange
             var rg = new RegionGenerator();
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>(testFile.TempFilePath);
-                var parsedFeature = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parser = new GTFParser<GeneralFeature>();
+                var parsedFeature = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedFeature.CompareTo(rg.GFeature) == 0);
@@ -53,10 +53,10 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
                 AttributeColumn = attributeColumn
             };
 
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
                 var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -79,10 +79,10 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             rg.StrandColumn = 19;
             rg.FeatureColumn = 8;
 
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
                 var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -106,10 +106,10 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
                 SourceColumn = sourceColumn
             };
 
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
                 var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -133,10 +133,10 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
                 FeatureColumn = featureColumn
             };
 
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
                 var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -154,10 +154,10 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
                 FeatureColumn = 10
             };
 
-            using (var testFile = new TempFileCreator("chr1\tDi4\t.\t10\t20\t100.0\t*\t0\tatt1=1;att2=v2"))
+            using (var file = new TempFileCreator("chr1\tDi4\t.\t10\t20\t100.0\t*\t0\tatt1=1;att2=v2"))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedGTF.Chromosomes.ContainsKey("chr1"));
@@ -180,10 +180,10 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
                 ScoreColumn = scoreColumn
             };
 
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
                 var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -207,10 +207,10 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
                 FrameColumn = frameColumn
             };
 
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
                 var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -234,10 +234,10 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
                 AttributeColumn = attributeColumn
             };
 
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parsedGTF = Features.ParseGTF(testFile.TempFilePath, rg);
+                var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
                 var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert

@@ -21,12 +21,10 @@ namespace Genometric.GeUtilities.IntervalParsers
 
         #endregion
 
-        public VCFParser(string sourceFilePath) :
-            this(sourceFilePath, new VCFColumns())
+        public VCFParser() : this(new VCFColumns())
         { }
 
-        public VCFParser(string sourceFilePath, VCFColumns columns) :
-            base(sourceFilePath, columns, new VCF<I>())
+        public VCFParser(VCFColumns columns) : base(columns)
         {
             _idColumn = columns.ID; ;
             _refbColumn = columns.RefBase;
@@ -109,9 +107,9 @@ namespace Genometric.GeUtilities.IntervalParsers
             return rtv;
         }
 
-        public new VCF<I> Parse()
+        public VCF<I> Parse(string sourceFilePath)
         {
-            var rtv = (VCF<I>)base.Parse();
+            var rtv = (VCF<I>)Parse(sourceFilePath, new VCF<I>());
             Status = "100";
             return rtv;
         }

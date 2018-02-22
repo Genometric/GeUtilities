@@ -16,11 +16,11 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
         {
             // Arrange
             var rg = new RegionGenerator();
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new RefSeqParser<Gene>(testFile.TempFilePath);
-                var parsedGene = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parser = new RefSeqParser<Gene>();
+                var parsedGene = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedGene.CompareTo(rg.Gene) == 0);
@@ -38,11 +38,11 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
         {
             // Arrange
             var rg = new RegionGenerator { Chr = chr };
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new RefSeqParser<Gene>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new RefSeqParser<Gene>();
+                var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes.ContainsKey(chr));
@@ -56,11 +56,11 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
         {
             // Arrange
             var rg = new RegionGenerator { Chr = "chr1" };
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new RefSeqParser<Gene>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new RefSeqParser<Gene>();
+                var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
                 Assert.False(parsedData.Chromosomes.ContainsKey(chr));
@@ -78,11 +78,11 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
                 Strand = strand,
                 StrandColumn = 5
             };
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var genesParser = new RefSeqParser<Gene>(testFile.TempFilePath, rg.Columns);
-                var parsedData = genesParser.Parse();
+                var genesParser = new RefSeqParser<Gene>(rg.Columns);
+                var parsedData = genesParser.Parse(file.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands.ContainsKey(strand));
@@ -94,11 +94,11 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
         {
             // Arrange
             var rg = new RegionGenerator { RefSeqID = "RefSeqID_001" };
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new RefSeqParser<Gene>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new RefSeqParser<Gene>();
+                var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].RefSeqID == rg.RefSeqID);
@@ -109,11 +109,11 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
         public void FailReadRefSeqID()
         {
             // Arrange
-            using (var testFile = new TempFileCreator("chr1\t10\t20\tRefSeq\tGeneSymbol"))
+            using (var file = new TempFileCreator("chr1\t10\t20\tRefSeq\tGeneSymbol"))
             {
                 // Act
-                var parser = new RefSeqParser<Gene>(testFile.TempFilePath, new RefSeqColumns() { RefSeqID = 10 });
-                var parsedData = parser.Parse();
+                var parser = new RefSeqParser<Gene>(new RefSeqColumns() { RefSeqID = 10 });
+                var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
                 Assert.False(parsedData.Chromosomes.ContainsKey("chr1"));
@@ -125,11 +125,11 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
         {
             // Arrange
             var rg = new RegionGenerator { GeneSymbol = "Symbol_001" };
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new RefSeqParser<Gene>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new RefSeqParser<Gene>();
+                var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].GeneSymbol == rg.GeneSymbol);
@@ -140,11 +140,11 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
         public void FailReadGeneSymbol()
         {
             // Arrange
-            using (var testFile = new TempFileCreator("chr1\t10\t20\tRefSeq\tGeneSymbol"))
+            using (var file = new TempFileCreator("chr1\t10\t20\tRefSeq\tGeneSymbol"))
             {
                 // Act
-                var parser = new RefSeqParser<Gene>(testFile.TempFilePath, new RefSeqColumns() { GeneSeymbol = 10 });
-                var parsedData = parser.Parse();
+                var parser = new RefSeqParser<Gene>(new RefSeqColumns() { GeneSeymbol = 10 });
+                var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
                 Assert.False(parsedData.Chromosomes.ContainsKey("chr1"));
@@ -160,14 +160,14 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
         public void AvoidHeader(int headerCount, byte readOffset)
         {
             // Arrange
-            using (var testFile = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
+            using (var file = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
             {
                 // Act
-                var parser = new RefSeqParser<Gene>(testFile.TempFilePath)
+                var parser = new RefSeqParser<Gene>()
                 {
                     ReadOffset = readOffset
                 };
-                var parsedData = parser.Parse();
+                var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes.Count == 1);
@@ -179,11 +179,11 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
         {
             // Arrange
             var rg = new RegionGenerator();
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new RefSeqParser<Gene>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new RefSeqParser<Gene>();
+                var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].HashKey != 0);

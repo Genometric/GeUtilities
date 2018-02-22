@@ -12,8 +12,8 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
     {
         internal static GTF<GeneralFeature> ParseGTF(string filePath, RegionGenerator rg)
         {
-            var parser = new GTFParser<GeneralFeature>(filePath, rg.Columns);
-            return parser.Parse();
+            var parser = new GTFParser<GeneralFeature>(rg.Columns);
+            return parser.Parse(filePath);
         }
 
         [Fact]
@@ -22,10 +22,10 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             // Arrange
             var rg = new RegionGenerator { Feature = "feature" };
             int featureCount = 5;
-            using (var testFile = new TempFileCreator(rg, featuresCount: featureCount))
+            using (var file = new TempFileCreator(rg, featuresCount: featureCount))
             {
                 // Act
-                var parsedGTF = ParseGTF(testFile.TempFilePath, rg);
+                var parsedGTF = ParseGTF(file.TempFilePath, rg);
 
                 // Assert
                 Assert.True(parsedGTF.DeterminedFeatures[rg.Feature] == featureCount);
@@ -40,10 +40,10 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             {
                 StrandColumn = 12
             };
-            using (var testFile = new TempFileCreator(rg, featuresCount: 10, headerLineCount: 2))
+            using (var file = new TempFileCreator(rg, featuresCount: 10, headerLineCount: 2))
             {
                 // Act
-                var parsedData = ParseGTF(testFile.TempFilePath, rg);
+                var parsedData = ParseGTF(file.TempFilePath, rg);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.Count == 10);

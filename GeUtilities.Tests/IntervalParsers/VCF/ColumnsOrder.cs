@@ -12,8 +12,8 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
     {
         private VCF<Variant> ParseVCF(string filePath, RegionGenerator rg)
         {
-            var parser = new VCFParser<Variant>(filePath, rg.Columns);
-            return parser.Parse();
+            var parser = new VCFParser<Variant>(rg.Columns);
+            return parser.Parse(filePath);
         }
 
         [Fact]
@@ -21,11 +21,11 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
         {
             // Arrange
             var rg = new RegionGenerator();
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new VCFParser<Variant>(testFile.TempFilePath);
-                var parsedVariant = parser.Parse().Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parser = new VCFParser<Variant>();
+                var parsedVariant = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
                 Assert.True(parsedVariant.CompareTo(rg.Variant) == 0);
@@ -59,10 +59,10 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
                 StrandColumn = strandColumn
             };
 
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
+                var parsedVCF = ParseVCF(file.TempFilePath, rg);
                 var parsedVariant = parsedVCF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -77,10 +77,10 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             var rg = new RegionGenerator() { PositionColumn = 20 };
             string line = "chr1\tXYZ\tAAC\tCCA\t123.456\tFilter\tInfo\t*";
 
-            using (var testFile = new TempFileCreator(line))
+            using (var file = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
+                var parsedVCF = ParseVCF(file.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -94,10 +94,10 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             var rg = new RegionGenerator() { IDColumn = 20 };
             string line = "chr1\t10\tAAC\tCCA\t123.456\tFilter\tInfo\t*";
 
-            using (var testFile = new TempFileCreator(line))
+            using (var file = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
+                var parsedVCF = ParseVCF(file.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -111,10 +111,10 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             var rg = new RegionGenerator() { RefbColumn = 20 };
             string line = "chr1\t10\tAAC\tCCA\t123.456\tFilter\tInfo\t*";
 
-            using (var testFile = new TempFileCreator(line))
+            using (var file = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
+                var parsedVCF = ParseVCF(file.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -128,10 +128,10 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             var rg = new RegionGenerator() { RefbColumn = 2 };
             string line = "chr1\t10\tXYZ\tCCA\t123.456\tFilter\tInfo\t*";
 
-            using (var testFile = new TempFileCreator(line))
+            using (var file = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
+                var parsedVCF = ParseVCF(file.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -145,10 +145,10 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             var rg = new RegionGenerator() { AltbColumn = 20 };
             string line = "chr1\t10\tAAC\tCCA\t123.456\tFilter\tInfo\t*";
 
-            using (var testFile = new TempFileCreator(line))
+            using (var file = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
+                var parsedVCF = ParseVCF(file.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -162,10 +162,10 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             var rg = new RegionGenerator() { AltbColumn = 3 };
             string line = "chr1\t10\tACC\tXYZ\t123.456\tFilter\tInfo\t*";
 
-            using (var testFile = new TempFileCreator(line))
+            using (var file = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
+                var parsedVCF = ParseVCF(file.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -179,10 +179,10 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             var rg = new RegionGenerator() { QualityColumn = 20 };
             string line = "chr1\t10\tACC\tCCA\t123.456\tFilter\tInfo\t*";
 
-            using (var testFile = new TempFileCreator(line))
+            using (var file = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
+                var parsedVCF = ParseVCF(file.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -196,10 +196,10 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             var rg = new RegionGenerator() { QualityColumn = 4 };
             string line = "chr1\t10\tACC\tCCA\t12.3.456\tFilter\tInfo\t*";
 
-            using (var testFile = new TempFileCreator(line))
+            using (var file = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
+                var parsedVCF = ParseVCF(file.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -213,10 +213,10 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             var rg = new RegionGenerator() { FilterColumn = 20 };
             string line = "chr1\t10\tACC\tCCA\t123.456\tFilter\tInfo\t*";
 
-            using (var testFile = new TempFileCreator(line))
+            using (var file = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
+                var parsedVCF = ParseVCF(file.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -230,10 +230,10 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             var rg = new RegionGenerator() { InfoColumn = 20 };
             string line = "chr1\t10\tACC\tCCA\t123.456\tFilter\tInfo\t*";
 
-            using (var testFile = new TempFileCreator(line))
+            using (var file = new TempFileCreator(line))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
+                var parsedVCF = ParseVCF(file.TempFilePath, rg);
 
                 // Assert
                 Assert.False(parsedVCF.Chromosomes.ContainsKey("chr1"));
@@ -258,10 +258,10 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             };
             rg.InfoColumn = 12;
 
-            using (var testFile = new TempFileCreator(rg))
+            using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parsedVCF = ParseVCF(testFile.TempFilePath, rg);
+                var parsedVCF = ParseVCF(file.TempFilePath, rg);
                 var parsedPeak = parsedVCF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert

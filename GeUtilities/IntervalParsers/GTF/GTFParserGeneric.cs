@@ -30,8 +30,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// Parse General Transfer Format (GTF) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        public GTFParser(string sourceFilePath) :
-            this(sourceFilePath, new GTFColumns())
+        public GTFParser() : this(new GTFColumns())
         { }
 
 
@@ -39,8 +38,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// Parse General Transfer Format (GTF) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        public GTFParser(string sourceFilePath, GTFColumns columns) :
-            base(sourceFilePath, columns, new GTF<I>())
+        public GTFParser(GTFColumns columns) : base(columns)
         {
             _sourceColumn = columns.Source;
             _featureColumn = columns.Feature;
@@ -96,9 +94,9 @@ namespace Genometric.GeUtilities.IntervalParsers
             return rtv;
         }
 
-        public new GTF<I> Parse()
+        public GTF<I> Parse(string sourceFilePath)
         {
-            var parsedData = (GTF<I>)base.Parse();
+            var parsedData = (GTF<I>)base.Parse(sourceFilePath, new GTF<I>());
             parsedData.DeterminedFeatures = new Dictionary<string, int>(_features);
             Status = "100";
             return parsedData;

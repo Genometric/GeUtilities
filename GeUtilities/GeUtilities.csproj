@@ -10,12 +10,16 @@
     <PackageProjectUrl>https://github.com/Genometric/GeUtilities</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Genometric/GeUtilities</RepositoryUrl>
     <RootNamespace>Genometric.GeUtilities</RootNamespace>
-    <Version>3.0.0</Version>
+    <Version>4.0.0</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Genometric.GeUtilities</PackageId>
-    <Description>This package implements a set of tools required to develop any genome data analysis program.</Description>
-    <PackageReleaseNotes>A major overhaul on the interfaces, and function and name space naming.</PackageReleaseNotes>
+    <Description>Genome Utilities (GeUtilities) provides open-source building-blocks for genomic data analysis tools.</Description>
+    <PackageReleaseNotes>A major overhaul on the interfaces, functions signatures, and namespace naming. Namely:
+- Parsers constructors take least possible information, and all the other configuration could be set on an instace of the parser class. 
+- By moving source file name from constructor to Parse function, now single instance of Parser can be used to parse multiple files.
+- A major overhaul of classes inheritance with the objective of making them more coherent.</PackageReleaseNotes>
+    <PackageTags>genomics; genome analysis; building-blocks; parser; BED; VCF; GTF; RefSeq;</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

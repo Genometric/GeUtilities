@@ -18,11 +18,11 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests
         {
             // Arrange
             string peak = "chr1\t10\t20\tName\t100.0";
-            using (var testFile = new TempFileCreator(peak))
+            using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
-                var parsedBED = parser.Parse();
+                var parser = new BEDParser<ChIPSeqPeak>();
+                var parsedBED = parser.Parse(file.Path);
 
                 // Assert
                 Assert.True(parsedBED.FileHashKey != 0);
@@ -34,14 +34,14 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests
         {
             // Arrange
             string peak = "chr1\t10\t20\tName\t100.0";
-            using (var testFile = new TempFileCreator(peak))
+            using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
-                var parsedBED = parser.Parse();
+                var parser = new BEDParser<ChIPSeqPeak>();
+                var parsedBED = parser.Parse(file.Path);
 
                 // Assert
-                Assert.True(parsedBED.FileName == Path.GetFileName(testFile.TempFilePath));
+                Assert.True(parsedBED.FileName == Path.GetFileName(file.Path));
             }
         }
 
@@ -50,14 +50,14 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests
         {
             // Arrange
             string peak = "chr1\t10\t20\tName\t100.0";
-            using (var testFile = new TempFileCreator(peak))
+            using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath);
-                var parsedBED = parser.Parse();
+                var parser = new BEDParser<ChIPSeqPeak>();
+                var parsedBED = parser.Parse(file.Path);
 
                 // Assert
-                Assert.True(parsedBED.FilePath == Path.GetFullPath(testFile.TempFilePath));
+                Assert.True(parsedBED.FilePath == Path.GetFullPath(file.Path));
             }
         }
 
@@ -69,14 +69,14 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests
         {
             // Arrange
             string peak = "chr1\t10\t20\tName\t100.0";
-            using (var testFile = new TempFileCreator(peak))
+            using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(testFile.TempFilePath)
+                var parser = new BEDParser<ChIPSeqPeak>()
                 {
                     Assembly = assembly
                 };
-                var parsedBED = parser.Parse();
+                var parsedBED = parser.Parse(file.Path);
 
                 // Assert
                 Assert.True(parsedBED.Assembly == assembly);

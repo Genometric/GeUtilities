@@ -15,11 +15,11 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
         {
             // Arrange
             var rg = new RegionGenerator { StrandColumn = 12 };
-            using (var testFile = new TempFileCreator(rg, genesCount: 10, headerLineCount: 2))
+            using (var file = new TempFileCreator(rg, genesCount: 10, headerLineCount: 2))
             {
                 // Act
-                var parser = new RefSeqParser<Gene>(testFile.TempFilePath);
-                var parsedData = parser.Parse();
+                var parser = new RefSeqParser<Gene>();
+                var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.Count == 10);
