@@ -214,70 +214,70 @@ namespace Genometric.GeUtilities.IntervalParsers
 
                 while ((line = fileReader.ReadLine()) != null)
                 {
-                    lineCounter++;
+                    if (++lineCounter > MaxLinesToRead) break;
+
                     lineSize += fileReader.CurrentEncoding.GetByteCount(line);
                     Status = (Math.Round((lineSize * 100.0) / fileSize, 0)).ToString();
 
-                    if (line.Trim().Length > 0 && lineCounter <= MaxLinesToRead)
+                    if (line.Trim().Length <= 0) continue;
+
+                    DropReadingPeak = false;
+                    string[] splittedLine = line.Split(Delimiter);
+
+                    if (!(_leftColumn < splittedLine.Length && int.TryParse(splittedLine[_leftColumn], out left)))
                     {
-                        DropReadingPeak = false;
-                        string[] splittedLine = line.Split(Delimiter);
-
-                        if (!(_leftColumn < splittedLine.Length && int.TryParse(splittedLine[_leftColumn], out left)))
-                        {
-                            DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid start/position column number");
-                            continue;
-                        }
-
-                        if (_rightColumn >= 0 && !(_rightColumn < splittedLine.Length && int.TryParse(splittedLine[_rightColumn], out right)))
-                        {
-                            DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid stop column number");
-                            continue;
-                        }
-
-                        I readingInterval = BuildInterval(left, right, splittedLine, lineCounter);
-                        if (DropReadingPeak)
-                            continue;
-
-                        chrName = null;
-                        if (_chrColumn < splittedLine.Length)
-                        {
-                            if (Regex.IsMatch(splittedLine[_chrColumn].ToLower(), "chr"))
-                                chrName = splittedLine[_chrColumn];
-                            else if (int.TryParse(splittedLine[_chrColumn], out int chrNumber))
-                                chrName = "chr" + chrNumber;
-                            else if (_assemblyData.ContainsKey("chr" + splittedLine[_chrColumn]))
-                                chrName = "chr" + splittedLine[_chrColumn];
-                            else
-                                chrName = splittedLine[_chrColumn];
-                            if (ReadOnlyAssemblyChrs && !_assemblyData.ContainsKey(chrName))
-                                chrName = null;
-                        }
-                        if (chrName == null)
-                        {
-                            DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid chromosome number ( " + splittedLine[_chrColumn].ToString() + " )");
-                            continue;
-                        }
-
-                        strand = '*';
-                        if (_strandColumn != -1 && _strandColumn < line.Length &&
-                           (char.TryParse(splittedLine[_strandColumn], out strand) && strand != '+' && strand != '-' && strand != '*'))
-                            strand = '*';
-
-                        switch (HashFunction)
-                        {
-                            case HashFunctions.FNV:
-                                readingInterval.HashKey = FNVHashFunction(readingInterval, lineCounter);
-                                break;
-
-                            default:
-                                readingInterval.HashKey = OneAtATimeHashFunction(readingInterval, lineCounter);
-                                break;
-                        }
-
-                        _data.Add(readingInterval, chrName, strand);
-                        _data.IntervalsCount++;
+                        DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid start/position column number");
+                        continue;
                     }
+
+                    if (_rightColumn >= 0 && !(_rightColumn < splittedLine.Length && int.TryParse(splittedLine[_rightColumn], out right)))
+                    {
+                        DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid stop column number");
+                        continue;
+                    }
+
+                    I readingInterval = BuildInterval(left, right, splittedLine, lineCounter);
+                    if (DropReadingPeak)
+                        continue;
+
+                    chrName = null;
+                    if (_chrColumn < splittedLine.Length)
+                    {
+                        if (Regex.IsMatch(splittedLine[_chrColumn].ToLower(), "chr"))
+                            chrName = splittedLine[_chrColumn];
+                        else if (int.TryParse(splittedLine[_chrColumn], out int chrNumber))
+                            chrName = "chr" + chrNumber;
+                        else if (_assemblyData.ContainsKey("chr" + splittedLine[_chrColumn]))
+                            chrName = "chr" + splittedLine[_chrColumn];
+                        else
+                            chrName = splittedLine[_chrColumn];
+                        if (ReadOnlyAssemblyChrs && !_assemblyData.ContainsKey(chrName))
+                            chrName = null;
+                    }
+                    if (chrName == null)
+                    {
+                        DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid chromosome number ( " + splittedLine[_chrColumn].ToString() + " )");
+                        continue;
+                    }
+
+                    strand = '*';
+                    if (_strandColumn != -1 && _strandColumn < line.Length &&
+                       (char.TryParse(splittedLine[_strandColumn], out strand) && strand != '+' && strand != '-' && strand != '*'))
+                        strand = '*';
+
+                    switch (HashFunction)
+                    {
+                        case HashFunctions.FNV:
+                            readingInterval.HashKey = FNVHashFunction(readingInterval, lineCounter);
+                            break;
+
+                        default:
+                            readingInterval.HashKey = OneAtATimeHashFunction(readingInterval, lineCounter);
+                            break;
+                    }
+
+                    _data.Add(readingInterval, chrName, strand);
+                    _data.IntervalsCount++;
                 }
             }
         }
