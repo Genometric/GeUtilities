@@ -16,8 +16,13 @@
     <PackageLicenseUrl>https://github.com/Genometric/GeUtilities/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Genometric/GeUtilities</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Genometric/GeUtilities</RepositoryUrl>
-    <Version>2.0.0</Version>
+    <Version>3.0.0</Version>
     <Description>Implements unit test functions for the GeUtilities.</Description>
+    <PackageTags>genomics; genome analysis; building-blocks; parser; BED; VCF; GTF; RefSeq;</PackageTags>
+    <PackageReleaseNotes>A major overhaul on the interfaces, functions signatures, and namespace naming. Namely:
+- Parsers constructors take least possible information, and all the other configuration could be set on an instace of the parser class. 
+- By moving source file name from constructor to Parse function, now single instance of Parser can be used to parse multiple files.
+- A major overhaul of classes inheritance with the objective of making them more coherent.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
