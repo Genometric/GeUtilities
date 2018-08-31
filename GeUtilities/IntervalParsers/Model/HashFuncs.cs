@@ -17,7 +17,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// Returns hash key based on One-at-a-Time method
         /// generated based on Dr. Dobb's left methods.
         /// </summary>
-        /// <returns>Hashkey of the interval.</returns>
+        /// <returns>Hash key of the interval.</returns>
         public static UInt32 OneAtATimeHashFunction(UInt32 fileHashKey, I readingPeak, UInt32 lineNo)
         {
             string key = fileHashKey + "_" + readingPeak.Left.ToString() + "_" + readingPeak.Right.ToString() + "_" + lineNo.ToString();
