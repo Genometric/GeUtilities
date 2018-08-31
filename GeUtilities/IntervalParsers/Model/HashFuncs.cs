@@ -10,20 +10,20 @@ namespace Genometric.GeUtilities.IntervalParsers
     public static class HashFuncs<I>
         where I : IInterval<int>, new()
     {
-        private const UInt32 _FNVPrime_32 = 16777619;
-        private const UInt32 _FNVOffsetBasis_32 = 2166136261;
+        private const uint _FNVPrime_32 = 16777619;
+        private const uint _FNVOffsetBasis_32 = 2166136261;
 
         /// <summary>
         /// Returns hash key based on One-at-a-Time method
         /// generated based on Dr. Dobb's left methods.
         /// </summary>
         /// <returns>Hash key of the interval.</returns>
-        public static UInt32 OneAtATimeHashFunction(UInt32 fileHashKey, I readingPeak, UInt32 lineNo)
+        public static uint OneAtATimeHashFunction(uint fileHashKey, I readingPeak, uint lineNo)
         {
             string key = fileHashKey + "_" + readingPeak.Left.ToString() + "_" + readingPeak.Right.ToString() + "_" + lineNo.ToString();
             int l = key.Length;
 
-            UInt32 hashKey = 0;
+            uint hashKey = 0;
             for (int i = 0; i < l; i++)
             {
                 hashKey += key[i];
@@ -37,10 +37,10 @@ namespace Genometric.GeUtilities.IntervalParsers
 
             return hashKey;
         }
-        public static UInt32 FNVHashFunction(UInt32 fileHashKey, I readingPeak, UInt32 lineNo)
+        public static uint FNVHashFunction(uint fileHashKey, I readingPeak, uint lineNo)
         {
             string key = fileHashKey + "_" + readingPeak.Left.ToString() + "_" + readingPeak.Right.ToString() + "_" + lineNo.ToString();
-            UInt32 hash = _FNVOffsetBasis_32;
+            uint hash = _FNVOffsetBasis_32;
             for (var i = 0; i < key.Length; i++)
             {
                 hash = hash ^ key[i]; // exclusive OR
