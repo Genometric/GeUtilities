@@ -19,9 +19,6 @@ namespace Genometric.GeUtilities.IntervalParsers
     {
         private ParsedIntervals<I, S> _data;
 
-        private const UInt32 _FNVPrime_32 = 16777619;
-        private const UInt32 _FNVOffsetBasis_32 = 2166136261;
-
         /// <summary>
         /// Full path of source file name.
         /// </summary>
@@ -268,11 +265,11 @@ namespace Genometric.GeUtilities.IntervalParsers
                     switch (HashFunction)
                     {
                         case HashFunctions.FNV:
-                            readingInterval.HashKey = FNVHashFunction(readingInterval, lineCounter);
+                            readingInterval.HashKey = HashFuncs<I>.FNVHashFunction(_data.FileHashKey, readingInterval, lineCounter);
                             break;
 
                         default:
-                            readingInterval.HashKey = OneAtATimeHashFunction(readingInterval, lineCounter);
+                            readingInterval.HashKey = HashFuncs<I>.OneAtATimeHashFunction(_data.FileHashKey, readingInterval, lineCounter);
                             break;
                     }
 
@@ -328,42 +325,7 @@ namespace Genometric.GeUtilities.IntervalParsers
             return hashKey;
         }
 
-        /// <summary>
-        /// Returns hash key based on One-at-a-Time method
-        /// generated based on Dr. Dobb's left methods.
-        /// </summary>
-        /// <returns>Hashkey of the interval.</returns>
-        private UInt32 OneAtATimeHashFunction(I readingPeak, UInt32 lineNo)
-        {
-            string key = _data.FileHashKey + "_" + readingPeak.Left.ToString() + "_" + readingPeak.Right.ToString() + "_" + lineNo.ToString();
-            int l = key.Length;
-
-            UInt32 hashKey = 0;
-            for (int i = 0; i < l; i++)
-            {
-                hashKey += key[i];
-                hashKey += (hashKey << 10);
-                hashKey ^= (hashKey >> 6);
-            }
-
-            hashKey += (hashKey << 3);
-            hashKey ^= (hashKey >> 11);
-            hashKey += (hashKey << 15);
-
-            return hashKey;
-        }
-        private UInt32 FNVHashFunction(I readingPeak, UInt32 lineNo)
-        {
-            string key = _data.FileHashKey + "_" + readingPeak.Left.ToString() + "_" + readingPeak.Right.ToString() + "_" + lineNo.ToString();
-            UInt32 hash = _FNVOffsetBasis_32;
-            for (var i = 0; i < key.Length; i++)
-            {
-                hash = hash ^ key[i]; // exclusive OR
-                hash *= _FNVPrime_32;
-            }
-
-            return hash;
-        }
+        
 
         protected void DropLine(string message)
         {
