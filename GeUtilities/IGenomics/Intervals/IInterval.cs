@@ -19,8 +19,17 @@ namespace Genometric.GeUtilities.IGenomics
         C Right { set; get; }
 
         /// <summary>
-        /// Sets and gets the hashKey of the interval.
+        /// Gets the hashKey of the interval. 
+        /// 
+        /// <para>
+        /// The key must satisfy the following conditions:
+        /// (1) Any two different intervals, 
+        /// have different hash keys;
+        /// 
+        /// (2) Two equal hash keys imply the equality 
+        /// of the intervals.
+        /// </para>
         /// </summary>
-        uint HashKey { set; get; }
+        int GetHashCode();
     }
 }
