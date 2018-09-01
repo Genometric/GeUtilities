@@ -48,5 +48,16 @@ namespace Genometric.GeUtilities.IntervalParsers
 
             return hash;
         }
+        public static uint FNVHashFunction(string bytes)
+        {
+            uint hash = _FNVOffsetBasis_32;
+            for (var i = 0; i < bytes.Length; i++)
+            {
+                hash = hash ^ bytes[i]; // exclusive OR
+                hash *= _FNVPrime_32;
+            }
+
+            return hash;
+        }
     }
 }
