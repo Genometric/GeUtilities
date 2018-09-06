@@ -14,14 +14,14 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
 
         }
 
-        public Interval(int left, int right, string bytes)
+        public Interval(int left, int right, string hashSeed)
         {
             Left = left;
             Right = right;
 
             unchecked
             {
-                _hashKey = (int)HashFuncs<Interval>.FNVHashFunction(left.ToString() + right.ToString() + bytes);
+                _hashKey = (int)HashFuncs<Interval>.FNVHashFunction(left.ToString() + right.ToString() + hashSeed);
             }
         }
 
