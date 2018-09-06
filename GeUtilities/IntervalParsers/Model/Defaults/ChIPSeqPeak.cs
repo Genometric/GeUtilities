@@ -9,10 +9,17 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
 {
     public class ChIPSeqPeak : Interval, IChIPSeqPeak
     {
+        public ChIPSeqPeak(int left, int right, double value, int summit, string name, string hashSeed = "") :
+            base(left, right, value.ToString() + summit.ToString() + name + hashSeed)
+        {
+            Value = value;
+            Summit = summit;
+            Name = name;
+        }
+
         public double Value { set; get; }
         public int Summit { set; get; }
         public string Name { set; get; }
-        public uint HashKey { set; get; }
 
         public new int CompareTo(object obj)
         {
