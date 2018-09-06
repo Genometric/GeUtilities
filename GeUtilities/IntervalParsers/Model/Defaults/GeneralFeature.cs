@@ -7,18 +7,26 @@ using System;
 
 namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
 {
-    public class GeneralFeature : IGeneralFeature
+    public class GeneralFeature : Interval, IGeneralFeature
     {
+        public GeneralFeature(int left, int right, string source, string feature, double score,
+            string frame, string attribute, string hashSeed = "") :
+            base(left, right, source + feature + score.ToString() + frame + attribute + hashSeed)
+        {
+            Source = source;
+            Feature = feature;
+            Score = score;
+            Frame = frame;
+            Attribute = attribute;
+        }
+
         public string Source { set; get; }
         public string Feature { set; get; }
-        public int Left { set; get; }
-        public int Right { set; get; }
         public double Score { set; get; }
         public string Frame { set; get; }
         public string Attribute { set; get; }
-        public uint HashKey { set; get; }
 
-        public int CompareTo(object obj)
+        public new int CompareTo(object obj)
         {
             if (obj == null) return 1;
             if (obj is GeneralFeature)
