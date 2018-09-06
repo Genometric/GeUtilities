@@ -8,7 +8,7 @@ using Genometric.GeUtilities.IntervalParsers.Model.Columns;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public class RefSeqParser<I> : Parser<I, IntervalStats>
-        where I : IRefSeq, new()
+        where I : IRefSeq
     {
         #region .::.         private properties         .::.
 

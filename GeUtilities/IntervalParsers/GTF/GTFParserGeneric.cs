@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public class GTFParser<I> : Parser<I, IntervalStats>
-        where I : IGeneralFeature, new()
+        where I : IGeneralFeature
     {
         /// <summary>
         /// Sets and gets the column number of feature.

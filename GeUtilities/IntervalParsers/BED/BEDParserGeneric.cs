@@ -9,7 +9,7 @@ using System;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public class BEDParser<I> : Parser<I, BEDStats>
-        where I : IChIPSeqPeak, new()
+        where I : IChIPSeqPeak
     {
         #region .::.         private properties         .::.
 

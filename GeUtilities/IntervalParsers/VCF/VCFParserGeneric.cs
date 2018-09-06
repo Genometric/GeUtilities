@@ -8,7 +8,7 @@ using Genometric.GeUtilities.IntervalParsers.Model.Columns;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public class VCFParser<I> : Parser<I, IntervalStats>
-        where I : IVariant, new()
+        where I : IVariant
     {
         #region .::.         private properties         .::.
 

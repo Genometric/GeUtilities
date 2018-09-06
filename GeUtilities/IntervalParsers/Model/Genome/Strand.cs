@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public class Strand<I>
-        where I : IInterval<int>, new()
+        where I : IInterval<int>
     {
         private readonly List<I> _intervals;
         public ReadOnlyCollection<I> Intervals

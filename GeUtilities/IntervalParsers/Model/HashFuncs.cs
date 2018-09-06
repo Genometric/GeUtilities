@@ -7,7 +7,7 @@ using Genometric.GeUtilities.IGenomics;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public static class HashFuncs<I>
-        where I : IInterval<int>, new()
+        where I : IInterval<int>
     {
         private const uint _FNVPrime_32 = 16777619;
         private const uint _FNVOffsetBasis_32 = 2166136261;

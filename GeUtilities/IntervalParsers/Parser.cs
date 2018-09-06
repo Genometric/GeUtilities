@@ -14,8 +14,8 @@ using System.Text.RegularExpressions;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public abstract class Parser<I, S>
-        where I : IInterval<int>, new()
-        where S : IStats<int>, new()
+        where I : IInterval<int>
+        where S : IStats<int>
     {
         private ParsedIntervals<I, S> _data;
 

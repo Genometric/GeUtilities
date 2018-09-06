@@ -8,8 +8,8 @@ using System.Collections.Generic;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public class Chromosome<I, S>
-        where I : IInterval<int>, new()
-        where S : IStats<int>, new()
+        where I : IInterval<int>
+        where S : IStats<int>
     {
         public S Statistics { set; get; }
         public Dictionary<char, Strand<I>> Strands { set; get; }
