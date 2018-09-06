@@ -44,7 +44,7 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
 
         public int CompareTo(object obj)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Comparison with other object types is not implemented.");
         }
     }
 }
