@@ -23,16 +23,19 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         }
 
         [Theory]
-        [InlineData(10, 20, 10, 20, true)]
-        [InlineData(10, 20, 10, 30, false)]
-        [InlineData(10, 20, 20, 10, false)]
-        [InlineData(10, 20, 30, 40, false)]
-        public void AssertEquality(int aLeft, int aRight, int bLeft, int bRight, bool expectedResult)
+        [InlineData(10, 20, "G", 10, 20, "G", true)]
+        [InlineData(10, 20, "G", 10, 30, "G", false)]
+        [InlineData(10, 20, "G", 20, 10, "G", false)]
+        [InlineData(10, 20, "G", 30, 40, "G", false)]
+        [InlineData(10, 20, "A", 10, 20, "B", false)]
+        [InlineData(10, 20, "A", 10, 20, "a", false)]
+        [InlineData(10, 20, "", 10, 20, "AA", false)]
+        public void AssertEquality(int aLeft, int aRight, string aHashSeed, int bLeft, int bRight, string bHashSeed, bool expectedResult)
         {
             // Arrange
             var constructor = new IntervalConstructor();
-            var intA = constructor.Construct(aLeft, aRight);
-            var intB = constructor.Construct(bLeft, bRight);
+            var intA = constructor.Construct(aLeft, aRight, aHashSeed);
+            var intB = constructor.Construct(bLeft, bRight, bHashSeed);
 
             // Act
             var comparison = intA.Equals(intB);
