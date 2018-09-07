@@ -2,12 +2,9 @@
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
-using Genometric.GeUtilities.IGenomics;
-
 namespace Genometric.GeUtilities.IntervalParsers
 {
-    public static class HashFuncs<I>
-        where I : IInterval<int>
+    public static class HashFuncs
     {
         private const uint _FNVPrime_32 = 16777619;
         private const uint _FNVOffsetBasis_32 = 2166136261;
