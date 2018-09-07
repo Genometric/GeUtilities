@@ -11,12 +11,12 @@ namespace Genometric.GeUtilities.IGenomics
         /// <summary>
         /// Sets and gets the left-end of the interval.
         /// </summary>
-        C Left { set; get; }
+        C Left { get; }
 
         /// <summary>
         /// Sets and gets the right-end of the interval.
         /// </summary>
-        C Right { set; get; }
+        C Right { get; }
 
         /// <summary>
         /// Gets the hashKey of the interval. 
