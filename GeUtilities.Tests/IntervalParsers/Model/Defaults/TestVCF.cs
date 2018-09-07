@@ -136,5 +136,18 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             // Assert
             Assert.True(variant.GetHashCode() != 0);
         }
+
+        [Fact]
+        public void ConstructVariantWithNullRefBase()
+        {
+            // Arrange
+            var constructor = new VariantConstructor();
+
+            // Act
+            var variant = constructor.Construct(10, 11, "ID", null, ConvertStringToBasePair("UGCA"), 123.4, "Filter", "Info");
+
+            // Assert
+            Assert.True(variant.GetHashCode() != 0);
+        }
     }
 }
