@@ -192,27 +192,6 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             }
         }
 
-        [Theory]
-        [InlineData(Genometric.GeUtilities.IntervalParsers.HashFunctions.FNV)]
-        [InlineData(Genometric.GeUtilities.IntervalParsers.HashFunctions.One_at_a_Time)]
-        public void HashFunctions(HashFunctions hashFunction)
-        {
-            // Arrange
-            var rg = new RegionGenerator();
-            using (var file = new TempFileCreator(rg))
-            {
-                // Act
-                var parser = new BEDParser()
-                {
-                    HashFunction = hashFunction
-                };
-                var parsedData = parser.Parse(file.Path);
-
-                // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].GetHashCode() != 0);
-            }
-        }
-
         [Fact]
         public void LogErrorIfFailedToReadALine()
         {

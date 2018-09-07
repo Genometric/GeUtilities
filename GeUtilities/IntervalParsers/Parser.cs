@@ -125,12 +125,6 @@ namespace Genometric.GeUtilities.IntervalParsers
         private List<string> _missingChrs;
 
         /// <summary>
-        /// Sets and gets the hash function used to create hash 
-        /// value of each parsed interval. 
-        /// </summary>
-        public HashFunctions HashFunction { set; get; }
-
-        /// <summary>
         /// Set and gets the assembly of source file. 
         /// The assembly info are used for variety of purposes,
         /// e.g., to determine if a region has a 
