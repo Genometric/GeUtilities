@@ -57,5 +57,19 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             // Assert
             Assert.False(comparison);
         }
+
+        [Fact]
+        public void IntervalNotEqualOtherType()
+        {
+            // Arrange
+            var constructor = new IntervalConstructor();
+            var interval = constructor.Construct(10, 20);
+
+            // Act
+            var comparison = interval.Equals("Genometric");
+
+            // Assert
+            Assert.False(comparison);
+        }
     }
 }
