@@ -13,12 +13,12 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// <summary>
         /// Gets and sets the column number of refseq ID.
         /// </summary>
-        private byte _refSeqIDColumn { set; get; }
+        private readonly byte _refSeqIDColumn;
 
         /// <summary>
         /// Gets and sets the column number of official gene symbol.
         /// </summary>
-        private byte _geneColumn { set; get; }
+        private readonly byte _geneColumn;
 
         private readonly IRefSeqConstructor<I> _constructor;
 
