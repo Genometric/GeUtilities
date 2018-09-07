@@ -22,7 +22,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// </summary>
         private byte _geneColumn { set; get; }
 
-        private IRefSeqConstructor<I> _constructor;
+        private readonly IRefSeqConstructor<I> _constructor;
 
         #endregion
 

@@ -25,7 +25,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         private readonly sbyte _scoreColumn;
         private readonly sbyte _frameColumn;
         private readonly Dictionary<string, int> _features;
-        private IGeneralFeatureConstructor<I> _constructor;
+        private readonly IGeneralFeatureConstructor<I> _constructor;
 
         /// <summary>
         /// Parse General Transfer Format (GTF) format.

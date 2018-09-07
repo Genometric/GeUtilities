@@ -18,7 +18,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         private readonly byte _qualityColumn;
         private readonly byte _filterColumn;
         private readonly byte _infoColumn;
-        private IVariantConstructor<I> _constructor;
+        private readonly IVariantConstructor<I> _constructor;
 
         #endregion
 
