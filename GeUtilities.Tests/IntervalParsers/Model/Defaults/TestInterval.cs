@@ -21,5 +21,24 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             // Assert
             Assert.True(interval.Left == 10 && interval.Right == 20);
         }
+
+        [Theory]
+        [InlineData(10, 20, 10, 20, true)]
+        [InlineData(10, 20, 10, 30, false)]
+        [InlineData(10, 20, 20, 10, false)]
+        [InlineData(10, 20, 30, 40, false)]
+        public void AssertEquality(int aLeft, int aRight, int bLeft, int bRight, bool expectedResult)
+        {
+            // Arrange
+            var constructor = new IntervalConstructor();
+            var intA = constructor.Construct(aLeft, aRight);
+            var intB = constructor.Construct(bLeft, bRight);
+
+            // Act
+            var comparison = intA.Equals(intB);
+
+            // Assert
+            Assert.Equal(expectedResult, comparison);
+        }
     }
 }
