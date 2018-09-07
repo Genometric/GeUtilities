@@ -17,9 +17,9 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
             Name = name;
         }
 
-        public double Value { set; get; }
-        public int Summit { set; get; }
-        public string Name { set; get; }
+        public double Value { private set;  get; }
+        public int Summit { private set; get; }
+        public string Name { private set; get; }
 
         public new int CompareTo(object obj)
         {

@@ -16,8 +16,8 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
             GeneSymbol = geneSymbol;
         }
 
-        public string RefSeqID { set; get; }
-        public string GeneSymbol { set; get; }
+        public string RefSeqID { private set; get; }
+        public string GeneSymbol { private set; get; }
 
         public new int CompareTo(object obj)
         {

@@ -20,11 +20,11 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
             Attribute = attribute;
         }
 
-        public string Source { set; get; }
-        public string Feature { set; get; }
-        public double Score { set; get; }
-        public string Frame { set; get; }
-        public string Attribute { set; get; }
+        public string Source { private set; get; }
+        public string Feature { private set; get; }
+        public double Score { private set; get; }
+        public string Frame { private set; get; }
+        public string Attribute { private set; get; }
 
         public new int CompareTo(object obj)
         {
