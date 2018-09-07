@@ -10,8 +10,6 @@ namespace Genometric.GeUtilities.IntervalParsers
     public class RefSeqParser<I> : Parser<I, IntervalStats>
         where I : IRefSeq
     {
-        #region .::.         private properties         .::.
-
         /// <summary>
         /// Gets and sets the column number of refseq ID.
         /// </summary>
@@ -23,8 +21,6 @@ namespace Genometric.GeUtilities.IntervalParsers
         private byte _geneColumn { set; get; }
 
         private readonly IRefSeqConstructor<I> _constructor;
-
-        #endregion
 
         /// <summary>
         /// Parse refseq genes presented in tab-delimited text file.

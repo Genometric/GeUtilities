@@ -11,8 +11,6 @@ namespace Genometric.GeUtilities.IntervalParsers
     public class BEDParser<I> : Parser<I, BEDStats>
         where I : IChIPSeqPeak
     {
-        #region .::.         private properties         .::.
-
         /// <summary>
         /// Sets and gets the column number of peak name.
         /// </summary>
@@ -51,8 +49,6 @@ namespace Genometric.GeUtilities.IntervalParsers
         private double _pValueSum;
 
         private readonly IChIPSeqPeakConstructor<I> _constructor;
-
-        #endregion
 
         /// <summary>
         /// Sets and gets the default p-value that Will be used as a region's p-value if the 

@@ -10,8 +10,6 @@ namespace Genometric.GeUtilities.IntervalParsers
     public class VCFParser<I> : Parser<I, IntervalStats>
         where I : IVariant
     {
-        #region .::.         private properties         .::.
-
         private readonly byte _idColumn;
         private readonly byte _refbColumn;
         private readonly byte _altbColumn;
@@ -19,8 +17,6 @@ namespace Genometric.GeUtilities.IntervalParsers
         private readonly byte _filterColumn;
         private readonly byte _infoColumn;
         private readonly IVariantConstructor<I> _constructor;
-
-        #endregion
 
         public VCFParser(VCFColumns columns, IVariantConstructor<I> constructor) : base(columns)
         {
