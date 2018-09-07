@@ -6,7 +6,7 @@ using System;
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IInterval<C> : IComparable
+    public interface IInterval<out C> : IComparable
     {
         /// <summary>
         /// Sets and gets the left-end of the interval.
