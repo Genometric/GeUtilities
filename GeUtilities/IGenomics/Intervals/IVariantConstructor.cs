@@ -7,6 +7,7 @@ namespace Genometric.GeUtilities.IGenomics
     public interface IVariantConstructor<out I>
         where I : IVariant
     {
-        I Construct(int left, int right, string id, Base[] refBase, Base[] altBase, double quality, string filter, string info, string hashSeed = "");
+        I Construct(int left, int right, string id, Base[] refBase, Base[] altBase, double quality,
+            string filter, string info, string hashSeed = "");
     }
 }
