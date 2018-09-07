@@ -9,11 +9,6 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
 {
     public class Interval : IInterval<int>
     {
-        public Interval()
-        {
-
-        }
-
         public Interval(int left, int right, string hashSeed)
         {
             Left = left;
