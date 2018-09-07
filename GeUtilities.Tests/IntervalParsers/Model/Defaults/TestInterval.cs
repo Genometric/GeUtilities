@@ -43,5 +43,19 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             // Assert
             Assert.Equal(expectedResult, comparison);
         }
+
+        [Fact]
+        public void IntervalNotEqualNullObject()
+        {
+            // Arrange
+            var constructor = new IntervalConstructor();
+            var interval = constructor.Construct(10, 20);
+
+            // Act
+            var comparison = interval.Equals(null);
+
+            // Assert
+            Assert.False(comparison);
+        }
     }
 }
