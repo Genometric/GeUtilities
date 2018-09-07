@@ -89,13 +89,7 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
         {
             get
             {
-                return new Gene()
-                {
-                    Left = Left,
-                    Right = Right,
-                    RefSeqID = RefSeqID,
-                    GeneSymbol = GeneSymbol,
-                };
+                return new Gene(Left, Right, RefSeqID, GeneSymbol);
             }
         }
 

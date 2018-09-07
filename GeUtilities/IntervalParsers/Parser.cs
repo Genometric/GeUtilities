@@ -15,7 +15,7 @@ namespace Genometric.GeUtilities.IntervalParsers
 {
     public abstract class Parser<I, S>
         where I : IInterval<int>
-        where S : IStats<int>
+        where S : IStats<int>, new()
     {
         private ParsedIntervals<I, S> _data;
 
@@ -233,7 +233,7 @@ namespace Genometric.GeUtilities.IntervalParsers
                         continue;
                     }
 
-                    I readingInterval = BuildInterval(left, right, splittedLine, lineCounter);
+                    I readingInterval = BuildInterval(left, right, splittedLine, lineCounter, _data.FileHashKey + lineCounter.ToString());
                     if (DropReadingPeak)
                         continue;
 
@@ -262,17 +262,6 @@ namespace Genometric.GeUtilities.IntervalParsers
                        (char.TryParse(splittedLine[_strandColumn], out strand) && strand != '+' && strand != '-' && strand != '*'))
                         strand = '*';
 
-                    switch (HashFunction)
-                    {
-                        case HashFunctions.FNV:
-                            readingInterval.HashKey = HashFuncs<I>.FNVHashFunction(_data.FileHashKey, readingInterval, lineCounter);
-                            break;
-
-                        default:
-                            readingInterval.HashKey = HashFuncs<I>.OneAtATimeHashFunction(_data.FileHashKey, readingInterval, lineCounter);
-                            break;
-                    }
-
                     _data.Add(readingInterval, chrName, strand);
                     _data.IntervalsCount++;
                 }
@@ -288,7 +277,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// </summary>
         /// <param name="line">The spitted line read from input.</param>
         /// <returns>The interval this line delegates.</returns>
-        protected abstract I BuildInterval(int left, int right, string[] line, UInt32 lineCounter);
+        protected abstract I BuildInterval(int left, int right, string[] line, UInt32 lineCounter, string hashSeed);
 
         private void ReadMissingAndExcessChrs()
         {

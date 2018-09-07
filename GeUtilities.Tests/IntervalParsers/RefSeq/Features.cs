@@ -18,7 +18,7 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
             using (var file = new TempFileCreator(rg, genesCount: 10, headerLineCount: 2))
             {
                 // Act
-                var parser = new RefSeqParser<Gene>();
+                var parser = new RefSeqParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert

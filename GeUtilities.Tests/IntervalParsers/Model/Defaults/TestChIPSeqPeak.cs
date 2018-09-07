@@ -12,14 +12,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
     {
         internal static ChIPSeqPeak GetTempChIPSeqPeak()
         {
-            return new ChIPSeqPeak()
-            {
-                Left = 10,
-                Right = 20,
-                Value = 100.0,
-                Summit = 15,
-                Name = "GeUtilities"
-            };
+            return new ChIPSeqPeak(10, 20, 100.0, 15, "GeUtilities");
         }
 
         [Theory]
@@ -40,23 +33,8 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             int bLeft, int bRight, double bValue, int bSummit, string bName)
         {
             // Arrange
-            var aPeak = new ChIPSeqPeak()
-            {
-                Left = aLeft,
-                Right = aRight,
-                Value = aValue,
-                Summit = aSummit,
-                Name = aName
-            };
-
-            var bPeak = new ChIPSeqPeak()
-            {
-                Left = bLeft,
-                Right = bRight,
-                Value = bValue,
-                Summit = bSummit,
-                Name = bName
-            };
+            var aPeak = new ChIPSeqPeak(aLeft, aRight, aValue, aSummit, aName);
+            var bPeak = new ChIPSeqPeak(bLeft, bRight, bValue, bSummit, bName);
 
             // Act & Assert
             Assert.True(aPeak.CompareTo(bPeak) == comparisonResult);

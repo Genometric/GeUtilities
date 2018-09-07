@@ -41,7 +41,7 @@ namespace GeUtilities.Tests.IntervalParsers.RefSeq
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new RefSeqParser<Gene>(rg.Columns);
+                var parser = new RefSeqParser(rg.Columns);
                 var parsedGene = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert

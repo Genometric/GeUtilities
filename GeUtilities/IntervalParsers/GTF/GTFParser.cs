@@ -12,7 +12,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         public GTFParser() : this(new GTFColumns())
         { }
 
-        public GTFParser(GTFColumns columns) : base(columns)
+        public GTFParser(GTFColumns columns) : base(columns, new GeneralFeatureConstructor())
         { }
     }
 }

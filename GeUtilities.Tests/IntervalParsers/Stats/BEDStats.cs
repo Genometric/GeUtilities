@@ -16,15 +16,12 @@ namespace GeUtilities.Tests.IntervalParsers.TStats
         {
             var rtv = new ChIPSeqPeak[pValues.Length];
             for (int i = 0; i < pValues.Length; i++)
-                rtv[i] = new ChIPSeqPeak()
-                {
-                    HashKey = (uint)i,
-                    Left = 10 * i,
-                    Right = (10 * i) + 8,
-                    Name = "GeUtilities_" + i,
-                    Summit = (10 * i) + ((((10 * i) + 8) - (10 * i)) / 2),
-                    Value = pValues[i]
-                };
+                rtv[i] = new ChIPSeqPeak(
+                    left: 10 * i,
+                    right: (10 * i) + 8,
+                    value: pValues[i],
+                    summit: (10 * i) + ((((10 * i) + 8) - (10 * i)) / 2),
+                    name: "GeUtilities_" + i);
             return rtv;
         }
 
@@ -89,7 +86,7 @@ namespace GeUtilities.Tests.IntervalParsers.TStats
 
             using (var file = new TempFileCreator(peaks))
             {
-                var parser = new BEDParser<ChIPSeqPeak>()
+                var parser = new BEDParser()
                 {
                     PValueFormat = PValueFormats.SameAsInput
                 };
@@ -112,7 +109,7 @@ namespace GeUtilities.Tests.IntervalParsers.TStats
 
             using (var file = new TempFileCreator(peaks))
             {
-                var parser = new BEDParser<ChIPSeqPeak>()
+                var parser = new BEDParser()
                 {
                     PValueFormat = PValueFormats.SameAsInput
                 };

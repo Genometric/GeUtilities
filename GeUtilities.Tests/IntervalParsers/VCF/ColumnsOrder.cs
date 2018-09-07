@@ -12,7 +12,7 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
     {
         private VCF<Variant> ParseVCF(string filePath, RegionGenerator rg)
         {
-            var parser = new VCFParser<Variant>(rg.Columns);
+            var parser = new VCFParser(rg.Columns);
             return parser.Parse(filePath);
         }
 
@@ -24,7 +24,7 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new VCFParser<Variant>();
+                var parser = new VCFParser();
                 var parsedVariant = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert

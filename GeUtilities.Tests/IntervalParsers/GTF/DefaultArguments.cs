@@ -22,7 +22,7 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var file = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>()
+                var parser = new GTFParser()
                 {
                     ReadOffset = readOffset
                 };
@@ -47,7 +47,7 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>();
+                var parser = new GTFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -65,7 +65,7 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>();
+                var parser = new GTFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -81,7 +81,7 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>();
+                var parser = new GTFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -97,7 +97,7 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>();
+                var parser = new GTFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -112,7 +112,7 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var file = new TempFileCreator("chr1\tSource\tFeature\t10V\t20\t100.0\t*\t0\tatt1=1;att2=v2"))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>();
+                var parser = new GTFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -128,7 +128,7 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>();
+                var parser = new GTFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -143,7 +143,7 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var file = new TempFileCreator("chr1\tSource\tFeature\t10\t20V\t100.0\t*\t0\tatt1=1;att2=v2"))
             {
                 // ACt
-                var parser = new GTFParser<GeneralFeature>();
+                var parser = new GTFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -159,7 +159,7 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>();
+                var parser = new GTFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -175,7 +175,7 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>();
+                var parser = new GTFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -191,7 +191,7 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>();
+                var parser = new GTFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -207,7 +207,7 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>();
+                var parser = new GTFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -223,11 +223,11 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>();
+                var parser = new GTFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].HashKey != 0);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].GetHashCode() != 0);
             }
         }
     }

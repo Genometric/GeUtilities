@@ -21,7 +21,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests
             using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>();
+                var parser = new BEDParser();
                 var parsedBED = parser.Parse(file.Path);
 
                 // Assert
@@ -37,7 +37,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests
             using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>();
+                var parser = new BEDParser();
                 var parsedBED = parser.Parse(file.Path);
 
                 // Assert
@@ -53,7 +53,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests
             using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>();
+                var parser = new BEDParser();
                 var parsedBED = parser.Parse(file.Path);
 
                 // Assert
@@ -72,7 +72,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests
             using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>()
+                var parser = new BEDParser()
                 {
                     Assembly = assembly
                 };

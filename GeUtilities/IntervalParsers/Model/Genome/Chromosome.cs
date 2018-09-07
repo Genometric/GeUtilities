@@ -9,7 +9,7 @@ namespace Genometric.GeUtilities.IntervalParsers
 {
     public class Chromosome<I, S>
         where I : IInterval<int>
-        where S : IStats<int>
+        where S : IStats<int>, new()
     {
         public S Statistics { set; get; }
         public Dictionary<char, Strand<I>> Strands { set; get; }

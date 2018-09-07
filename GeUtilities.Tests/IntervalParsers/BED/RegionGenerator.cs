@@ -104,14 +104,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
         {
             get
             {
-                return new ChIPSeqPeak
-                {
-                    Left = Left,
-                    Right = Right,
-                    Summit = Summit,
-                    Name = Name,
-                    Value = Value
-                };
+                return new ChIPSeqPeak(Left, Right, Value, Summit, Name);
             }
         }
 

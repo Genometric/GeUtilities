@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public class GTF<I> : ParsedIntervals<I, IntervalStats>
-        where I : IGeneralFeature, new()
+        where I : IGeneralFeature
     {
         public Dictionary<string, int> DeterminedFeatures { set; get; }
     }

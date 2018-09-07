@@ -18,13 +18,11 @@ namespace Genometric.GeUtilities.IntervalParsers
         private readonly byte _qualityColumn;
         private readonly byte _filterColumn;
         private readonly byte _infoColumn;
+        private IVariantConstructor<I> _constructor;
 
         #endregion
 
-        public VCFParser() : this(new VCFColumns())
-        { }
-
-        public VCFParser(VCFColumns columns) : base(columns)
+        public VCFParser(VCFColumns columns, IVariantConstructor<I> constructor) : base(columns)
         {
             _idColumn = columns.ID; ;
             _refbColumn = columns.RefBase;
@@ -32,25 +30,22 @@ namespace Genometric.GeUtilities.IntervalParsers
             _qualityColumn = columns.Quality;
             _filterColumn = columns.Filter;
             _infoColumn = columns.Info;
+            _constructor = constructor;
         }
 
-        protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
+        protected override I BuildInterval(int left, int right, string[] line, uint lineCounter, string hashSeed)
         {
-            I rtv = new I
-            {
-                Left = left,
-                Right = left + 1
-            };
-
+            string id = null;
             if (_idColumn < line.Length)
-                rtv.ID = line[_idColumn];
+                id = line[_idColumn];
             else
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid ID column.");
 
+            Base[] refBase = new Base[0];
             if (_refbColumn < line.Length)
             {
-                rtv.RefBase = ParseBases(line[_refbColumn]);
-                if (rtv.RefBase.Length == 0)
+                refBase = ParseBases(line[_refbColumn]);
+                if (refBase.Length == 0)
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid REF column.");
             }
             else
@@ -58,10 +53,11 @@ namespace Genometric.GeUtilities.IntervalParsers
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid REF column.");
             }
 
+            Base[] altBase = new Base[0];
             if (_altbColumn < line.Length)
             {
-                rtv.AltBase = ParseBases(line[_altbColumn]);
-                if (rtv.AltBase.Length == 0)
+                altBase = ParseBases(line[_altbColumn]);
+                if (altBase.Length == 0)
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid ALT column.");
             }
             else
@@ -69,20 +65,23 @@ namespace Genometric.GeUtilities.IntervalParsers
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid ALT column.");
             }
 
-            if (_qualityColumn < line.Length && double.TryParse(line[_qualityColumn], out double quality))
-                rtv.Quality = quality;
-            else
+            double quality = 0;
+            if (!(_qualityColumn < line.Length && double.TryParse(line[_qualityColumn], out quality)))
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid quality column.");
 
+            string filter = null;
             if (_filterColumn < line.Length)
-                rtv.Filter = line[_filterColumn];
+                filter = line[_filterColumn];
             else
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid filter column.");
 
+            string info = null;
             if (_infoColumn < line.Length)
-                rtv.Info = line[_infoColumn];
+                info = line[_infoColumn];
             else
                 DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid info column.");
+
+            I rtv = _constructor.Construct(left, right, id, refBase, altBase, quality, filter, info, hashSeed);
 
             return rtv;
         }

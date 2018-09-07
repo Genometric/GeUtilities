@@ -14,15 +14,12 @@ namespace GeUtilities.Tests.IntervalParsers.TStats
         {
             var rtv = new ChIPSeqPeak[intersCoord.Length / 2];
             for (int i = 0; i < intersCoord.Length; i += 2)
-                rtv[i / 2] = new ChIPSeqPeak()
-                {
-                    HashKey = (uint)i,
-                    Left = intersCoord[i],
-                    Right = intersCoord[i + 1],
-                    Name = "GeUtilities_" + i,
-                    Summit = intersCoord[i] + (intersCoord[i + 1] - intersCoord[i]) / 2,
-                    Value = 100.0
-                };
+                rtv[i / 2] = new ChIPSeqPeak(
+                    left: intersCoord[i],
+                    right: intersCoord[i + 1],
+                    value: 100.0,
+                    summit: intersCoord[i] + (intersCoord[i + 1] - intersCoord[i]) / 2,
+                    name: "GeUtilities_" + i);
             return rtv;
         }
 

@@ -18,7 +18,7 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             using (var file = new TempFileCreator(rg, variantsCount: 10, headerLineCount: 2))
             {
                 // Act
-                var parser = new VCFParser<Variant>();
+                var parser = new VCFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -43,7 +43,7 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new VCFParser<Variant>();
+                var parser = new VCFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert

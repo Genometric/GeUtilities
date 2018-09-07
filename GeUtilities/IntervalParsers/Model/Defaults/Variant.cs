@@ -9,9 +9,10 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
 {
     public class Variant : Interval, IVariant
     {
-        public Variant(int left, int right, string id, Base[] refBase, Base[] altBase, double quality, 
-            string filter, string info, string hashSeed) :
-            base(left, right, id + refBase.ToString() + altBase.ToString() + quality.ToString() + filter + info + hashSeed)
+        public Variant(int left, int right, string id, Base[] refBase, Base[] altBase, double quality,
+            string filter, string info, string hashSeed = "") :
+            base(left, right, id + (refBase == null ? "" : refBase.ToString())
+                + (altBase == null ? "" : altBase.ToString()) + quality.ToString() + filter + info + hashSeed)
         {
             ID = id;
             RefBase = refBase;

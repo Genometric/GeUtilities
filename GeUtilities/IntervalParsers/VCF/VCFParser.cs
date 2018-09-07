@@ -12,7 +12,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         public VCFParser() : this(new VCFColumns())
         { }
 
-        public VCFParser(VCFColumns columns) : base(columns)
+        public VCFParser(VCFColumns columns) : base(columns, new VariantConstructor())
         { }
     }
 }
