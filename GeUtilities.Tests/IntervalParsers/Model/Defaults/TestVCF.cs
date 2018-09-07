@@ -123,5 +123,18 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             // Act & Assert
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
         }
+
+        [Fact]
+        public void ConstructVariantWithNullAltBase()
+        {
+            // Arrange
+            var constructor = new VariantConstructor();
+
+            // Act
+            var variant = constructor.Construct(10, 11, "ID", ConvertStringToBasePair("ACGN"), null, 123.4, "Filter", "Info");
+
+            // Assert
+            Assert.True(variant.GetHashCode() != 0);
+        }
     }
 }
