@@ -16,7 +16,7 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
 
             unchecked
             {
-                _hashKey = (int)HashFuncs.FNVHashFunction(left.ToString() + right.ToString() + hashSeed);
+                _hashKey = (int)HashFunctions.FNVHashFunction(left.ToString() + right.ToString() + hashSeed);
             }
         }
 

@@ -4,7 +4,7 @@
 
 namespace Genometric.GeUtilities.IntervalParsers
 {
-    public static class HashFuncs
+    public static class HashFunctions
     {
         private const uint _FNVPrime_32 = 16777619;
         private const uint _FNVOffsetBasis_32 = 2166136261;
