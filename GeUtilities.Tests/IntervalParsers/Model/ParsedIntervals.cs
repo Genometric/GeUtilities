@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalParsers;
-using Genometric.GeUtilities.IntervalParsers.Model.Defaults;
 using Genometric.GeUtilities.ReferenceGenomes;
 using GeUtilities.Tests.IntervalParsers.BED;
 using System.IO;
