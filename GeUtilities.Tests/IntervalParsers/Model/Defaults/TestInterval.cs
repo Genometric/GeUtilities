@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalParsers.Model.Defaults;
+using System;
 using Xunit;
 
 namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
@@ -70,6 +71,21 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
 
             // Assert
             Assert.False(comparison);
+        }
+
+        [Fact]
+        public void NotImplementedCompareTo()
+        {
+            // Arrange
+            var constructor = new IntervalConstructor();
+            var intA = constructor.Construct(10, 20);
+            var intB = constructor.Construct(30, 40);
+
+            // Act & Assert
+            Exception exception = Assert.Throws<NotImplementedException>(() => intA.CompareTo(intB));
+
+            // Act & Assert
+            Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
         }
     }
 }
