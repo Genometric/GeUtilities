@@ -35,8 +35,12 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
             if (compareResult != 0) return compareResult;
             compareResult = Right.CompareTo(other.Right);
             if (compareResult != 0) return compareResult;
+            if (RefSeqID == null) return -1;
+            if (other.RefSeqID == null) return 1;
             compareResult = RefSeqID.CompareTo(other.RefSeqID);
             if (compareResult != 0) return compareResult;
+            if (GeneSymbol == null) return -1;
+            if (other.GeneSymbol == null) return 1;
             return GeneSymbol.CompareTo(other.GeneSymbol);
         }
     }

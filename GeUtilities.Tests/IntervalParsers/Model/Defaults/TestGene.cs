@@ -83,5 +83,41 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             Assert.False(String.IsNullOrEmpty(exception.Message));
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
         }
+
+        [Theory]
+        [InlineData("id", "id", 0)]
+        [InlineData("id", null, 1)]
+        [InlineData(null, "id", -1)]
+        [InlineData(null, null, -1)]
+        public void CompareTwoGenesWithNullRefSeqID(string aRefSeqID, string bRefSeqID, int expectedResult)
+        {
+            // Arrange
+            var geneA = new Gene(10, 20, aRefSeqID, "symbol");
+            var geneB = new Gene(10, 20, bRefSeqID, "symbol");
+
+            // Act
+            var comparison = geneA.CompareTo(geneB);
+
+            // Assert
+            Assert.Equal(expectedResult, comparison);
+        }
+
+        [Theory]
+        [InlineData("symbol", "symbol", 0)]
+        [InlineData("symbol", null, 1)]
+        [InlineData(null, "symbol", -1)]
+        [InlineData(null, null, -1)]
+        public void CompareTwoGenesWithNullSymbol(string aSymbol, string bSymbol, int expectedResult)
+        {
+            // Arrange
+            var geneA = new Gene(10, 20, "id", aSymbol);
+            var geneB = new Gene(10, 20, "id", bSymbol);
+
+            // Act
+            var comparison = geneA.CompareTo(geneB);
+
+            // Assert
+            Assert.Equal(expectedResult, comparison);
+        }
     }
 }
