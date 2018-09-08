@@ -10,7 +10,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
 {
     public class TestGeneralFeature
     {
-        internal static GeneralFeature GetTempGeneralFeature()
+        internal static GeneralFeature GetGeneralFeature()
         {
             return new GeneralFeature(10, 20, "Source", "Feature", 100.0, "Frame", "Attribute");
         }
@@ -48,7 +48,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void ComparisonTestWithNullObject()
         {
             // Arrange
-            var gf = GetTempGeneralFeature();
+            var gf = GetGeneralFeature();
 
             // Act & Assert
             Assert.True(gf.CompareTo(null) == 1);
@@ -58,7 +58,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void ComparisonTestWithNullObject2()
         {
             // Arrange
-            var gf = GetTempGeneralFeature();
+            var gf = GetGeneralFeature();
 
             // Act & Assert
             Assert.True(gf.CompareTo((object)null) == 1);
@@ -68,8 +68,8 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void ComparisonTestWithAPeakAsObject()
         {
             // Arrange
-            var aGF = GetTempGeneralFeature();
-            var bGF = GetTempGeneralFeature();
+            var aGF = GetGeneralFeature();
+            var bGF = GetGeneralFeature();
 
             // Act & Assert
             Assert.True(aGF.CompareTo((object)bGF) == 0);
@@ -79,7 +79,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void CheckNotImplementedComparison()
         {
             // Arrange
-            var aGF = GetTempGeneralFeature();
+            var aGF = GetGeneralFeature();
             var aPeak = TestChIPSeqPeak.GetPeak();
 
             // Act & Assert

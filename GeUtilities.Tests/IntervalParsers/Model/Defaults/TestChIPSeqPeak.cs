@@ -69,7 +69,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         {
             // Arrange
             var aPeak = GetPeak();
-            var aGene = TestGene.GetTempGene();
+            var aGene = TestGene.GetGene();
 
             // Act
             Exception exception = Assert.Throws<NotImplementedException>(() => aPeak.CompareTo(aGene));
