@@ -41,6 +41,8 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
             if (compareResult != 0) return compareResult;
             compareResult = Summit.CompareTo(other.Summit);
             if (compareResult != 0) return compareResult;
+            if (Name == null) return -1;
+            if (other.Name == null) return 1;
             return Name.CompareTo(other.Name);
         }
     }

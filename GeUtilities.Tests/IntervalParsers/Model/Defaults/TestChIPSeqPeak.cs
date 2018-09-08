@@ -85,5 +85,23 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             Assert.False(String.IsNullOrEmpty(exception.Message));
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
         }
+
+        [Theory]
+        [InlineData("name", "name", 0)]
+        [InlineData("name", null, 1)]
+        [InlineData(null, "name", -1)]
+        [InlineData(null, null, -1)]
+        public void CompareTwoPeaksWithNullName(string aName, string bName, int expectedResult)
+        {
+            // Arrange
+            var peakA = new ChIPSeqPeak(10, 20, 100, 15, aName);
+            var peakB = new ChIPSeqPeak(10, 20, 100, 15, bName);
+
+            // Act
+            var comparison = peakA.CompareTo(peakB);
+
+            // Assert
+            Assert.Equal(expectedResult, comparison);
+        }
     }
 }
