@@ -6,7 +6,7 @@ using System;
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IVariant : IInterval<int>, IComparable<IVariant>
+    public interface IVariant : IInterval, IComparable<IVariant>
     {
         string ID { get; }
         Base[] RefBase { get; }

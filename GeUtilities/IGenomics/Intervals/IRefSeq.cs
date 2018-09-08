@@ -6,7 +6,7 @@ using System;
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IRefSeq : IInterval<int>, IComparable<IRefSeq>
+    public interface IRefSeq : IInterval, IComparable<IRefSeq>
     {
         string RefSeqID { get; }
         string GeneSymbol { get; }

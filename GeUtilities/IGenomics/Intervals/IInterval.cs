@@ -6,6 +6,8 @@ using System;
 
 namespace Genometric.GeUtilities.IGenomics
 {
+    public interface IInterval : IInterval<int> { }
+
     public interface IInterval<out C> : IComparable
     {
         /// <summary>
