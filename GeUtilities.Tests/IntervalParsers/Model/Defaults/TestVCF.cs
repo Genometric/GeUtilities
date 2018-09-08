@@ -11,6 +11,35 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
 {
     public class TestVCF
     {
+        public enum Parameter { None, Left, Right, ID, RefBase, AltBase, Quality, Filter, Info};
+
+        internal static Variant GetVariant(Parameter param = Parameter.None, object value = null)
+        {
+            int left = 10;
+            int right = 11;
+            string id = "ID";
+            Base[] refBase = ConvertStringToBasePair("ACGN");
+            Base[] altBase = ConvertStringToBasePair("UGCA");
+            double quality = 123.4;
+            string filter = "Filter";
+            string info = "Info";
+
+            switch (param)
+            {
+                case Parameter.Left: left = (int)value; break;
+                case Parameter.Right: right = (int)value; break;
+                case Parameter.ID: id = (string)value; break;
+                case Parameter.RefBase: refBase = (string)value == null ? null : ConvertStringToBasePair((string)value); break;
+                case Parameter.AltBase: altBase = (string)value == null ? null : ConvertStringToBasePair((string)value); break;
+                case Parameter.Quality: quality = (double)value; break;
+                case Parameter.Filter: filter = (string)value; break;
+                case Parameter.Info: info = (string)value; break;
+                default: break;
+            }
+
+            return new Variant(left, right, id, refBase, altBase, quality, filter, info);
+        }
+
         internal static Variant GetTempVCF(int left = 10, int right = 11, string id = "ID", string refBase = "ACGN", string altBase = "UGCA", double quality = 123.4, string filter = "Filter", string info = "Info")
         {
             var rBase = refBase == null ? null : ConvertStringToBasePair(refBase);
@@ -152,94 +181,39 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             Assert.True(variant.GetHashCode() != 0);
         }
 
-        [Theory]
-        [InlineData("id", "id", 0)]
-        [InlineData("id", null, 1)]
-        [InlineData(null, "id", -1)]
-        [InlineData(null, null, -1)]
-        public void CompareTwoVariantsWithNullID(string aID, string bID, int expectedResult)
-        {
-            // Arrange
-            var varA = GetTempVCF(id: aID);
-            var varB = GetTempVCF(id: bID);
-
-            // Act
-            var comparison = varA.CompareTo(varB);
-
-            // Assert
-            Assert.Equal(expectedResult, comparison);
-        }
 
         [Theory]
-        [InlineData("filter", "filter", 0)]
-        [InlineData("filter", null, 1)]
-        [InlineData(null, "filter", -1)]
-        [InlineData(null, null, -1)]
-        public void CompareTwoVariantsWithNullFilter(string aFilter, string bFilter, int expectedResult)
+        [InlineData(Parameter.ID, "GU", "GU", 0)]
+        [InlineData(Parameter.ID, "GU", null, 1)]
+        [InlineData(Parameter.ID, null, "GU", -1)]
+        [InlineData(Parameter.ID, null, null, -1)]
+        [InlineData(Parameter.Info, "GU", "GU", 0)]
+        [InlineData(Parameter.Info, "GU", null, 1)]
+        [InlineData(Parameter.Info, null, "GU", -1)]
+        [InlineData(Parameter.Info, null, null, -1)]
+        [InlineData(Parameter.Filter, "GU", "GU", 0)]
+        [InlineData(Parameter.Filter, "GU", null, 1)]
+        [InlineData(Parameter.Filter, null, "GU", -1)]
+        [InlineData(Parameter.Filter, null, null, -1)]
+        [InlineData(Parameter.RefBase, "GU", "GU", 0)]
+        [InlineData(Parameter.RefBase, "GU", null, 1)]
+        [InlineData(Parameter.RefBase, null, "GU", -1)]
+        [InlineData(Parameter.RefBase, null, null, -1)]
+        [InlineData(Parameter.AltBase, "GU", "GU", 0)]
+        [InlineData(Parameter.AltBase, "GU", null, 1)]
+        [InlineData(Parameter.AltBase, null, "GU", -1)]
+        [InlineData(Parameter.AltBase, null, null, -1)]
+        public void CompareTwoVariantsWithNullProperties(Parameter param, object v1, object v2, int expected)
         {
             // Arrange
-            var varA = GetTempVCF(filter: aFilter);
-            var varB = GetTempVCF(filter: bFilter);
+            var a = GetVariant(param, v1);
+            var b = GetVariant(param, v2);
 
             // Act
-            var comparison = varA.CompareTo(varB);
+            var actual = a.CompareTo(b);
 
             // Assert
-            Assert.Equal(expectedResult, comparison);
-        }
-
-        [Theory]
-        [InlineData("info", "info", 0)]
-        [InlineData("info", null, 1)]
-        [InlineData(null, "info", -1)]
-        [InlineData(null, null, -1)]
-        public void CompareTwoVariantsWithNullInfo(string aInfo, string bInfo, int expectedResult)
-        {
-            // Arrange
-            var varA = GetTempVCF(info: aInfo);
-            var varB = GetTempVCF(info: bInfo);
-
-            // Act
-            var comparison = varA.CompareTo(varB);
-
-            // Assert
-            Assert.Equal(expectedResult, comparison);
-        }
-
-        [Theory]
-        [InlineData("UGCA", "UGCA", 0)]
-        [InlineData("UGCA", null, 1)]
-        [InlineData(null, "UGCA", -1)]
-        [InlineData(null, null, -1)]
-        public void CompareTwoVariantsWithNullRefBase(string aRef, string bRef, int expectedResult)
-        {
-            // Arrange
-            var varA = GetTempVCF(refBase: aRef);
-            var varB = GetTempVCF(refBase: bRef);
-
-            // Act
-            var comparison = varA.CompareTo(varB);
-
-            // Assert
-            Assert.Equal(expectedResult, comparison);
-        }
-
-        [Theory]
-        [InlineData("ACGU", "ACGU", 0)]
-        [InlineData("ACGU", null, 1)]
-        [InlineData(null, "ACGU", -1)]
-        [InlineData(null, null, -1)]
-        public void CompareTwoVariantsWithNullAltBase(string aAlt, string bAlt, int expectedResult)
-        {
-            // Arrange
-            var varA = GetTempVCF(altBase: aAlt);
-            var varB = GetTempVCF(altBase: bAlt);
-
-            // Act
-            var comparison = varA.CompareTo(varB);
-
-            // Assert
-            Assert.Equal(expectedResult, comparison);
+            Assert.Equal(expected, actual);
         }
     }
 }
