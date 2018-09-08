@@ -20,11 +20,11 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
             Attribute = attribute;
         }
 
-        public string Source { private set; get; }
-        public string Feature { private set; get; }
-        public double Score { private set; get; }
-        public string Frame { private set; get; }
-        public string Attribute { private set; get; }
+        public string Source { get; }
+        public string Feature { get; }
+        public double Score { get; }
+        public string Frame { get; }
+        public string Attribute { get; }
 
         public new int CompareTo(object obj)
         {
@@ -38,8 +38,12 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
         public int CompareTo(IGeneralFeature other)
         {
             if (other == null) return 1;
+            if (Source == null) return -1;
+            if (other.Source == null) return 1;
             int compareResult = Source.CompareTo(other.Source);
             if (compareResult != 0) return compareResult;
+            if (Feature == null) return -1;
+            if (other.Feature == null) return 1;
             compareResult = Feature.CompareTo(other.Feature);
             if (compareResult != 0) return compareResult;
             compareResult = Left.CompareTo(other.Left);
@@ -48,8 +52,12 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
             if (compareResult != 0) return compareResult;
             compareResult = Score.CompareTo(other.Score);
             if (compareResult != 0) return compareResult;
+            if (Frame == null) return -1;
+            if (other.Frame == null) return 1;
             compareResult = Frame.CompareTo(other.Frame);
             if (compareResult != 0) return compareResult;
+            if (Attribute == null) return -1;
+            if (other.Attribute == null) return 1;
             return Attribute.CompareTo(other.Attribute);
         }
     }

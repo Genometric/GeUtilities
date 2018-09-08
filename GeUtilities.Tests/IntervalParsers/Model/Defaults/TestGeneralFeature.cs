@@ -10,45 +10,38 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
 {
     public class TestGeneralFeature
     {
-        internal static GeneralFeature GetTempGeneralFeature()
-        {
-            return new GeneralFeature(10, 20, "Source", "Feature", 100.0, "Frame", "Attribute");
-        }
+        public enum Parameter { None, Left, Right, Source, Feature, Score, Frame, Attribute };
 
-        [Theory]
-        [InlineData(0, "So", "Fe", 10, 20, 100.0, "Fr", "At", "So", "Fe", 10, 20, 100.0, "Fr", "At")]
-        [InlineData(-1, "S", "Fe", 10, 20, 100.0, "Fr", "At", "So", "Fe", 10, 20, 100.0, "Fr", "At")]
-        [InlineData(-1, "So", "F", 10, 20, 100.0, "Fr", "At", "So", "Fe", 10, 20, 100.0, "Fr", "At")]
-        [InlineData(-1, "So", "Fe", 8, 20, 100.0, "Fr", "At", "So", "Fe", 10, 20, 100.0, "Fr", "At")]
-        [InlineData(-1, "So", "Fe", 10, 15, 100.0, "Fr", "At", "So", "Fe", 10, 20, 100.0, "Fr", "At")]
-        [InlineData(-1, "So", "Fe", 10, 20, 90.0, "Fr", "At", "So", "Fe", 10, 20, 100.0, "Fr", "At")]
-        [InlineData(-1, "So", "Fe", 10, 20, 100.0, "F", "At", "So", "Fe", 10, 20, 100.0, "Fr", "At")]
-        [InlineData(-1, "So", "Fe", 10, 20, 100.0, "Fr", "A", "So", "Fe", 10, 20, 100.0, "Fr", "At")]
-        [InlineData(1, "So", "Fe", 10, 20, 100.0, "Fr", "At", "S", "Fe", 10, 20, 100.0, "Fr", "At")]
-        [InlineData(1, "So", "Fe", 10, 20, 100.0, "Fr", "At", "So", "F", 10, 20, 100.0, "Fr", "At")]
-        [InlineData(1, "So", "Fe", 10, 20, 100.0, "Fr", "At", "So", "Fe", 8, 20, 100.0, "Fr", "At")]
-        [InlineData(1, "So", "Fe", 10, 20, 100.0, "Fr", "At", "So", "Fe", 10, 15, 100.0, "Fr", "At")]
-        [InlineData(1, "So", "Fe", 10, 20, 100.0, "Fr", "At", "So", "Fe", 10, 20, 90.0, "Fr", "At")]
-        [InlineData(1, "So", "Fe", 10, 20, 100.0, "Fr", "At", "So", "Fe", 10, 20, 100.0, "F", "At")]
-        [InlineData(1, "So", "Fe", 10, 20, 100.0, "Fr", "At", "So", "Fe", 10, 20, 100.0, "Fr", "A")]
-        public void ComparisonTest(
-            int comparisonResult,
-            string aSource, string aFeature, int aLeft, int aRight, double aScore, string aFrame, string aAttribute,
-            string bSource, string bFeature, int bLeft, int bRight, double bScore, string bFrame, string bAttribute)
+        internal static GeneralFeature GetFeature(Parameter param = Parameter.None, object value = null)
         {
-            // Arrange
-            var aGF = new GeneralFeature(aLeft, aRight, aSource, aFeature, aScore, aFrame, aAttribute);
-            var bGF = new GeneralFeature(bLeft, bRight, bSource, bFeature, bScore, bFrame, bAttribute);
+            int left = 10;
+            int right = 20;
+            string source = "Source";
+            string feature = "Feature";
+            double score = 100.0;
+            string frame = "Frame";
+            string attribute = "Attribute";
 
-            // Act & Assert
-            Assert.True(aGF.CompareTo(bGF) == comparisonResult);
+            switch (param)
+            {
+                case Parameter.Left: left = (int)value; break;
+                case Parameter.Right: right = (int)value; break;
+                case Parameter.Source: source = (string)value; break;
+                case Parameter.Feature: feature = (string)value; break;
+                case Parameter.Score: score = (double)value; break;
+                case Parameter.Frame: frame = (string)value; break;
+                case Parameter.Attribute: attribute = (string)value; break;
+                default: break;
+            }
+
+            return new GeneralFeature(left, right, source, feature, score, frame, attribute);
         }
 
         [Fact]
         public void ComparisonTestWithNullObject()
         {
             // Arrange
-            var gf = GetTempGeneralFeature();
+            var gf = GetFeature();
 
             // Act & Assert
             Assert.True(gf.CompareTo(null) == 1);
@@ -58,7 +51,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void ComparisonTestWithNullObject2()
         {
             // Arrange
-            var gf = GetTempGeneralFeature();
+            var gf = GetFeature();
 
             // Act & Assert
             Assert.True(gf.CompareTo((object)null) == 1);
@@ -68,8 +61,8 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void ComparisonTestWithAPeakAsObject()
         {
             // Arrange
-            var aGF = GetTempGeneralFeature();
-            var bGF = GetTempGeneralFeature();
+            var aGF = GetFeature();
+            var bGF = GetFeature();
 
             // Act & Assert
             Assert.True(aGF.CompareTo((object)bGF) == 0);
@@ -79,14 +72,61 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void CheckNotImplementedComparison()
         {
             // Arrange
-            var aGF = GetTempGeneralFeature();
-            var aPeak = TestChIPSeqPeak.GetTempChIPSeqPeak();
+            var aGF = GetFeature();
+            var aPeak = TestChIPSeqPeak.GetPeak();
 
             // Act & Assert
             Exception exception = Assert.Throws<NotImplementedException>((() => aGF.CompareTo(aPeak)));
 
             // Act & Assert
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
+        }
+
+        [Theory]
+        [InlineData(Parameter.None, null, null, 0)]
+        [InlineData(Parameter.Left, 10, 8, 1)]
+        [InlineData(Parameter.Left, 8, 10, -1)]
+
+        [InlineData(Parameter.Right, 10, 8, 1)]
+        [InlineData(Parameter.Right, 8, 10, -1)]
+
+        [InlineData(Parameter.Score, 100.0, 80.0, 1)]
+        [InlineData(Parameter.Score, 80.0, 100.0, -1)]
+
+        [InlineData(Parameter.Source, "GU", "G", 1)]
+        [InlineData(Parameter.Source, "G", "GU", -1)]
+        [InlineData(Parameter.Source, "GU", null, 1)]
+        [InlineData(Parameter.Source, null, "GU", -1)]
+        [InlineData(Parameter.Source, null, null, -1)]
+
+        [InlineData(Parameter.Feature, "GU", "G", 1)]
+        [InlineData(Parameter.Feature, "G", "GU", -1)]
+        [InlineData(Parameter.Feature, "GU", null, 1)]
+        [InlineData(Parameter.Feature, null, "GU", -1)]
+        [InlineData(Parameter.Feature, null, null, -1)]
+
+        [InlineData(Parameter.Frame, "GU", "G", 1)]
+        [InlineData(Parameter.Frame, "G", "GU", -1)]
+        [InlineData(Parameter.Frame, "GU", null, 1)]
+        [InlineData(Parameter.Frame, null, "GU", -1)]
+        [InlineData(Parameter.Frame, null, null, -1)]
+
+        [InlineData(Parameter.Attribute, "GU", "G", 1)]
+        [InlineData(Parameter.Attribute, "G", "GU", -1)]
+        [InlineData(Parameter.Attribute, "GU", null, 1)]
+        [InlineData(Parameter.Attribute, null, "GU", -1)]
+        [InlineData(Parameter.Attribute, null, null, -1)]
+        public void CompareTo(Parameter param, object v1, object v2, int expected)
+        {
+            // Arrange
+            var a = GetFeature(param, v1);
+            var b = GetFeature(param, v2);
+
+            // Act
+            var actual = a.CompareTo(b);
+
+            // Assert
+            Assert.Equal(expected, actual);
         }
     }
 }

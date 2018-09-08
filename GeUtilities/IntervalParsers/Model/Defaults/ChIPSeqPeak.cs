@@ -17,9 +17,9 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
             Name = name;
         }
 
-        public double Value { private set;  get; }
-        public int Summit { private set; get; }
-        public string Name { private set; get; }
+        public double Value { get; }
+        public int Summit { get; }
+        public string Name { get; }
 
         public new int CompareTo(object obj)
         {
@@ -41,6 +41,8 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
             if (compareResult != 0) return compareResult;
             compareResult = Summit.CompareTo(other.Summit);
             if (compareResult != 0) return compareResult;
+            if (Name == null) return -1;
+            if (other.Name == null) return 1;
             return Name.CompareTo(other.Name);
         }
     }

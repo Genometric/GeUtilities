@@ -10,41 +10,34 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
 {
     public class TestChIPSeqPeak
     {
-        internal static ChIPSeqPeak GetTempChIPSeqPeak()
-        {
-            return new ChIPSeqPeak(10, 20, 100.0, 15, "GeUtilities");
-        }
+        public enum Parameter { None, Left, Right, Value, Summit, Name };
 
-        [Theory]
-        [InlineData(0, 10, 20, 100.0, 15, "GeUtilities", 10, 20, 100.0, 15, "GeUtilities")]
-        [InlineData(-1, 8, 20, 100.0, 15, "GeUtilities", 10, 20, 100.0, 15, "GeUtilities")]
-        [InlineData(-1, 10, 16, 100.0, 15, "GeUtilities", 10, 20, 100.0, 15, "GeUtilities")]
-        [InlineData(-1, 10, 20, 90.0, 15, "GeUtilities", 10, 20, 100.0, 15, "GeUtilities")]
-        [InlineData(-1, 10, 20, 100.0, 12, "GeUtilities", 10, 20, 100.0, 15, "GeUtilities")]
-        [InlineData(-1, 10, 20, 100.0, 15, "GeU", 10, 20, 100.0, 15, "GeUtilities")]
-        [InlineData(1, 10, 20, 100.0, 15, "GeUtilities", 8, 20, 100.0, 15, "GeUtilities")]
-        [InlineData(1, 10, 20, 100.0, 15, "GeUtilities", 10, 18, 100.0, 15, "GeUtilities")]
-        [InlineData(1, 10, 20, 100.0, 15, "GeUtilities", 10, 20, 90.0, 15, "GeUtilities")]
-        [InlineData(1, 10, 20, 100.0, 15, "GeUtilities", 10, 20, 100.0, 12, "GeUtilities")]
-        [InlineData(1, 10, 20, 100.0, 15, "GeUtilities", 10, 20, 100.0, 15, "GeU")]
-        public void ComparisonTest(
-            int comparisonResult,
-            int aLeft, int aRight, double aValue, int aSummit, string aName,
-            int bLeft, int bRight, double bValue, int bSummit, string bName)
+        internal static ChIPSeqPeak GetPeak(Parameter param = Parameter.None, object value = null)
         {
-            // Arrange
-            var aPeak = new ChIPSeqPeak(aLeft, aRight, aValue, aSummit, aName);
-            var bPeak = new ChIPSeqPeak(bLeft, bRight, bValue, bSummit, bName);
+            int left = 10;
+            int right = 20;
+            int summit = 15;
+            double pValue = 100.0;
+            string name = "GeUtilities";
 
-            // Act & Assert
-            Assert.True(aPeak.CompareTo(bPeak) == comparisonResult);
+            switch (param)
+            {
+                case Parameter.Left: left = (int)value; break;
+                case Parameter.Right: right = (int)value; break;
+                case Parameter.Value: pValue = (double)value; break;
+                case Parameter.Summit: summit = (int)value; break;
+                case Parameter.Name: name = (string)value; break;
+                default: break;
+            }
+
+            return new ChIPSeqPeak(left, right, pValue, summit, name);
         }
 
         [Fact]
         public void ComparisonTestWithNullObject()
         {
             // Arrange
-            var peak = GetTempChIPSeqPeak();
+            var peak = GetPeak();
 
             // Act & Assert
             Assert.True(peak.CompareTo(null) == 1);
@@ -54,7 +47,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void ComparisonTestWithNullObject2()
         {
             // Arrange
-            var peak = GetTempChIPSeqPeak();
+            var peak = GetPeak();
 
             // Act & Assert
             Assert.True(peak.CompareTo((object)null) == 1);
@@ -64,8 +57,8 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void ComparisonTestWithAPeakAsObject()
         {
             // Arrange
-            var aPeak = GetTempChIPSeqPeak();
-            var bPeak = GetTempChIPSeqPeak();
+            var aPeak = GetPeak();
+            var bPeak = GetPeak();
 
             // Act & Assert
             Assert.True(aPeak.CompareTo((object)bPeak) == 0);
@@ -75,8 +68,8 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void CheckNotImplementedComparison()
         {
             // Arrange
-            var aPeak = GetTempChIPSeqPeak();
-            var aGene = TestGene.GetTempGene();
+            var aPeak = GetPeak();
+            var aGene = TestGene.GetGene();
 
             // Act
             Exception exception = Assert.Throws<NotImplementedException>(() => aPeak.CompareTo(aGene));
@@ -84,6 +77,34 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             // Assert
             Assert.False(String.IsNullOrEmpty(exception.Message));
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
+        }
+
+        [Theory]
+        [InlineData(Parameter.None, null, null, 0)]
+        [InlineData(Parameter.Left, 10, 8, 1)]
+        [InlineData(Parameter.Left, 8, 10, -1)]
+        [InlineData(Parameter.Right, 20, 16, 1)]
+        [InlineData(Parameter.Right, 16, 20, -1)]
+        [InlineData(Parameter.Value, 100.0, 90.0, 1)]
+        [InlineData(Parameter.Value, 90.0, 100.0, -1)]
+        [InlineData(Parameter.Summit, 15, 12, 1)]
+        [InlineData(Parameter.Summit, 12, 15, -1)]
+        [InlineData(Parameter.Name, "GU", "G", 1)]
+        [InlineData(Parameter.Name, "G", "GU", -1)]
+        [InlineData(Parameter.Name, "GU", null, 1)]
+        [InlineData(Parameter.Name, null, "GU", -1)]
+        [InlineData(Parameter.Name, null, null, -1)]
+        public void CompareTo(Parameter param, object v1, object v2, int expected)
+        {
+            // Arrange
+            var a = GetPeak(param, v1);
+            var b = GetPeak(param, v2);
+
+            // Act
+            var actual = a.CompareTo(b);
+
+            // Assert
+            Assert.Equal(expected, actual);
         }
     }
 }
