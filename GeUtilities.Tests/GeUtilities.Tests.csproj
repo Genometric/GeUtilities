@@ -23,6 +23,8 @@
 - Parsers constructors take least possible information, and all the other configuration could be set on an instace of the parser class. 
 - By moving source file name from constructor to Parse function, now single instance of Parser can be used to parse multiple files.
 - A major overhaul of classes inheritance with the objective of making them more coherent.</PackageReleaseNotes>
+    <AssemblyName>Genometric.GeUtilities.Tests</AssemblyName>
+    <RootNamespace>Genometric.GeUtilities.Tests</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
