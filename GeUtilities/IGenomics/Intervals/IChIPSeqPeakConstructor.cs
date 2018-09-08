@@ -2,13 +2,11 @@
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
-using System;
-
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IRefSeq : IInterval<int>, IComparable<IRefSeq>
+    public interface IChIPSeqPeakConstructor<out I>
+        where I: IChIPSeqPeak
     {
-        string RefSeqID { get; }
-        string GeneSymbol { get; }
+        I Construct(int left, int right, string name, int summit, double value, string hashSeed = "");
     }
 }

@@ -7,19 +7,29 @@ using System;
 
 namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
 {
-    public class Variant : IVariant
+    public class Variant : Interval, IVariant
     {
-        public int Left { set; get; }
-        public int Right { set; get; }
-        public string ID { set; get; }
-        public Base[] RefBase { set; get; }
-        public Base[] AltBase { set; get; }
-        public double Quality { set; get; }
-        public string Filter { set; get; }
-        public string Info { set; get; }
-        public uint HashKey { set; get; }
+        public Variant(int left, int right, string id, Base[] refBase, Base[] altBase, double quality,
+            string filter, string info, string hashSeed = "") :
+            base(left, right, id + (refBase == null ? "" : refBase.ToString())
+                + (altBase == null ? "" : altBase.ToString()) + quality.ToString() + filter + info + hashSeed)
+        {
+            ID = id;
+            RefBase = refBase;
+            AltBase = altBase;
+            Quality = quality;
+            Filter = filter;
+            Info = info;
+        }
 
-        public int CompareTo(object obj)
+        public string ID { private set; get; }
+        public Base[] RefBase { private set; get; }
+        public Base[] AltBase { private set; get; }
+        public double Quality { private set; get; }
+        public string Filter { private set; get; }
+        public string Info { private set; get; }
+
+        public new int CompareTo(object obj)
         {
             if (obj == null) return 1;
             if (obj is Variant)

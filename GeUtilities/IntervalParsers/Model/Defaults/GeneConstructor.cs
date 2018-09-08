@@ -4,13 +4,13 @@
 
 using Genometric.GeUtilities.IGenomics;
 
-namespace Genometric.GeUtilities.IntervalParsers
+namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
 {
-    public class BED<I> : ParsedIntervals<I, BEDStats>
-        where I : IChIPSeqPeak
+    public class GeneConstructor : IRefSeqConstructor<Gene>
     {
-        public I PValueMax { set; get; }
-        public I PValueMin { set; get; }
-        public double PValueMean { set; get; }
+        public Gene Construct(int left, int right, string refSeqID, string geneSymbol, string hashSeed = "")
+        {
+            return new Gene(left, right, refSeqID, geneSymbol, hashSeed);
+        }
     }
 }

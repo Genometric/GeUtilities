@@ -8,8 +8,8 @@ namespace Genometric.GeUtilities.IGenomics
 {
     public interface IChIPSeqPeak : IInterval<int>, IComparable<IChIPSeqPeak>
     {
-        string Name { set; get; }
-        int Summit { set; get; }
-        double Value { set; get; }
+        string Name { get; }
+        int Summit { get; }
+        double Value { get; }
     }
 }

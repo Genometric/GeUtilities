@@ -8,17 +8,17 @@ namespace Genometric.GeUtilities.IGenomics
 {
     public interface IVariant : IInterval<int>, IComparable<IVariant>
     {
-        string ID { set; get; }
-        Base[] RefBase { set; get; }
-        Base[] AltBase { set; get; }
+        string ID { get; }
+        Base[] RefBase { get; }
+        Base[] AltBase { get; }
 
         /// <summary>
         /// Phred-scaled quality score for the assertion made in altered-base.
         /// </summary>
-        double Quality { set; get; }
+        double Quality { get; }
 
-        string Filter { set; get; }
+        string Filter { get; }
 
-        string Info { set; get; }
+        string Info { get; }
     }
 }

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public abstract class ParsedIntervals<I, S>
-        where I : IInterval<int>, new()
+        where I : IInterval<int>
         where S : IStats<int>, new()
     {
         public string FileName { set; get; }

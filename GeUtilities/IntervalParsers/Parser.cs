@@ -14,13 +14,10 @@ using System.Text.RegularExpressions;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public abstract class Parser<I, S>
-        where I : IInterval<int>, new()
+        where I : IInterval<int>
         where S : IStats<int>, new()
     {
         private ParsedIntervals<I, S> _data;
-
-        private const UInt32 _FNVPrime_32 = 16777619;
-        private const UInt32 _FNVOffsetBasis_32 = 2166136261;
 
         /// <summary>
         /// Full path of source file name.
@@ -128,12 +125,6 @@ namespace Genometric.GeUtilities.IntervalParsers
         private List<string> _missingChrs;
 
         /// <summary>
-        /// Sets and gets the hash function used to create hash 
-        /// value of each parsed interval. 
-        /// </summary>
-        public HashFunctions HashFunction { set; get; }
-
-        /// <summary>
         /// Set and gets the assembly of source file. 
         /// The assembly info are used for variety of purposes,
         /// e.g., to determine if a region has a 
@@ -236,7 +227,7 @@ namespace Genometric.GeUtilities.IntervalParsers
                         continue;
                     }
 
-                    I readingInterval = BuildInterval(left, right, splittedLine, lineCounter);
+                    I readingInterval = BuildInterval(left, right, splittedLine, lineCounter, _data.FileHashKey + lineCounter.ToString());
                     if (DropReadingPeak)
                         continue;
 
@@ -265,17 +256,6 @@ namespace Genometric.GeUtilities.IntervalParsers
                        (char.TryParse(splittedLine[_strandColumn], out strand) && strand != '+' && strand != '-' && strand != '*'))
                         strand = '*';
 
-                    switch (HashFunction)
-                    {
-                        case HashFunctions.FNV:
-                            readingInterval.HashKey = FNVHashFunction(readingInterval, lineCounter);
-                            break;
-
-                        default:
-                            readingInterval.HashKey = OneAtATimeHashFunction(readingInterval, lineCounter);
-                            break;
-                    }
-
                     _data.Add(readingInterval, chrName, strand);
                     _data.IntervalsCount++;
                 }
@@ -291,7 +271,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// </summary>
         /// <param name="line">The spitted line read from input.</param>
         /// <returns>The interval this line delegates.</returns>
-        protected abstract I BuildInterval(int left, int right, string[] line, UInt32 lineCounter);
+        protected abstract I BuildInterval(int left, int right, string[] line, UInt32 lineCounter, string hashSeed);
 
         private void ReadMissingAndExcessChrs()
         {
@@ -328,42 +308,7 @@ namespace Genometric.GeUtilities.IntervalParsers
             return hashKey;
         }
 
-        /// <summary>
-        /// Returns hash key based on One-at-a-Time method
-        /// generated based on Dr. Dobb's left methods.
-        /// </summary>
-        /// <returns>Hashkey of the interval.</returns>
-        private UInt32 OneAtATimeHashFunction(I readingPeak, UInt32 lineNo)
-        {
-            string key = _data.FileHashKey + "_" + readingPeak.Left.ToString() + "_" + readingPeak.Right.ToString() + "_" + lineNo.ToString();
-            int l = key.Length;
-
-            UInt32 hashKey = 0;
-            for (int i = 0; i < l; i++)
-            {
-                hashKey += key[i];
-                hashKey += (hashKey << 10);
-                hashKey ^= (hashKey >> 6);
-            }
-
-            hashKey += (hashKey << 3);
-            hashKey ^= (hashKey >> 11);
-            hashKey += (hashKey << 15);
-
-            return hashKey;
-        }
-        private UInt32 FNVHashFunction(I readingPeak, UInt32 lineNo)
-        {
-            string key = _data.FileHashKey + "_" + readingPeak.Left.ToString() + "_" + readingPeak.Right.ToString() + "_" + lineNo.ToString();
-            UInt32 hash = _FNVOffsetBasis_32;
-            for (var i = 0; i < key.Length; i++)
-            {
-                hash = hash ^ key[i]; // exclusive OR
-                hash *= _FNVPrime_32;
-            }
-
-            return hash;
-        }
+        
 
         protected void DropLine(string message)
         {

@@ -7,16 +7,21 @@ using System;
 
 namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
 {
-    public class ChIPSeqPeak : IChIPSeqPeak
+    public class ChIPSeqPeak : Interval, IChIPSeqPeak
     {
-        public int Left { set; get; }
-        public int Right { set; get; }
-        public double Value { set; get; }
-        public int Summit { set; get; }
-        public string Name { set; get; }
-        public uint HashKey { set; get; }
+        public ChIPSeqPeak(int left, int right, double value, int summit, string name, string hashSeed = "") :
+            base(left, right, value.ToString() + summit.ToString() + name + hashSeed)
+        {
+            Value = value;
+            Summit = summit;
+            Name = name;
+        }
 
-        public int CompareTo(object obj)
+        public double Value { private set;  get; }
+        public int Summit { private set; get; }
+        public string Name { private set; get; }
+
+        public new int CompareTo(object obj)
         {
             if (obj == null) return 1;
             if (obj is ChIPSeqPeak)

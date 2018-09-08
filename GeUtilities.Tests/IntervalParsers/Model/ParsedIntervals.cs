@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalParsers;
-using Genometric.GeUtilities.IntervalParsers.Model.Defaults;
 using Genometric.GeUtilities.ReferenceGenomes;
 using GeUtilities.Tests.IntervalParsers.BED;
 using System.IO;
@@ -21,7 +20,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests
             using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>();
+                var parser = new BEDParser();
                 var parsedBED = parser.Parse(file.Path);
 
                 // Assert
@@ -37,7 +36,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests
             using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>();
+                var parser = new BEDParser();
                 var parsedBED = parser.Parse(file.Path);
 
                 // Assert
@@ -53,7 +52,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests
             using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>();
+                var parser = new BEDParser();
                 var parsedBED = parser.Parse(file.Path);
 
                 // Assert
@@ -72,7 +71,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests
             using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>()
+                var parser = new BEDParser()
                 {
                     Assembly = assembly
                 };

@@ -4,9 +4,13 @@
 
 using Genometric.GeUtilities.IGenomics;
 
-namespace Genometric.GeUtilities.IntervalParsers
+namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
 {
-    public class RefSeq<I> : ParsedIntervals<I, IntervalStats>
-        where I : IRefSeq
-    { }
+    public class IntervalConstructor : IIntervalConstructor<Interval>
+    {
+        public Interval Construct(int left, int right, string hashSeed = "")
+        {
+            return new Interval(left, right, hashSeed);
+        }
+    }
 }

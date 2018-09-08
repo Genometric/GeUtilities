@@ -12,16 +12,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
     {
         internal static GeneralFeature GetTempGeneralFeature()
         {
-            return new GeneralFeature()
-            {
-                Source = "Source",
-                Feature = "Feature",
-                Left = 10,
-                Right = 20,
-                Score = 100.0,
-                Frame = "Frame",
-                Attribute = "Attribute"
-            };
+            return new GeneralFeature(10, 20, "Source", "Feature", 100.0, "Frame", "Attribute");
         }
 
         [Theory]
@@ -46,27 +37,8 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             string bSource, string bFeature, int bLeft, int bRight, double bScore, string bFrame, string bAttribute)
         {
             // Arrange
-            var aGF = new GeneralFeature()
-            {
-                Source = aSource,
-                Feature = aFeature,
-                Left = aLeft,
-                Right = aRight,
-                Score = aScore,
-                Frame = aFrame,
-                Attribute = aAttribute
-            };
-
-            var bGF = new GeneralFeature()
-            {
-                Source = bSource,
-                Feature = bFeature,
-                Left = bLeft,
-                Right = bRight,
-                Score = bScore,
-                Frame = bFrame,
-                Attribute = bAttribute
-            };
+            var aGF = new GeneralFeature(aLeft, aRight, aSource, aFeature, aScore, aFrame, aAttribute);
+            var bGF = new GeneralFeature(bLeft, bRight, bSource, bFeature, bScore, bFrame, bAttribute);
 
             // Act & Assert
             Assert.True(aGF.CompareTo(bGF) == comparisonResult);

@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalParsers;
-using Genometric.GeUtilities.IntervalParsers.Model.Defaults;
 using Xunit;
 
 namespace GeUtilities.Tests.IntervalParsers.GTF
@@ -18,7 +17,7 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser<GeneralFeature>();
+                var parser = new GTFParser();
                 var parsedFeature = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert

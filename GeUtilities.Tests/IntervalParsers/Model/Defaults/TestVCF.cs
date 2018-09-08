@@ -13,16 +13,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
     {
         internal static Variant GetTempVCF()
         {
-            return new Variant()
-            {
-                Left = 10,
-                ID = "ID",
-                RefBase = ConvertStringToBasePair("ACGN"),
-                AltBase = ConvertStringToBasePair("UGCA"),
-                Quality = 123.4,
-                Filter = "Filter",
-                Info = "Info"
-            };
+            return new Variant(10, 11, "ID", ConvertStringToBasePair("ACGN"), ConvertStringToBasePair("UGCA"), 123.4, "Filter", "Info");
         }
 
         private static Base[] ConvertStringToBasePair(string input)
@@ -63,27 +54,26 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             int bLeft, string bID, string bRefbp, string bAltbp, double bQuality, string bFilter, string bInfo)
         {
             // Arrange
-            var aVariant = new Variant()
-            {
-                Left = aLeft,
-                ID = aID,
-                RefBase = ConvertStringToBasePair(aRefbp),
-                AltBase = ConvertStringToBasePair(aAltbp),
-                Quality = aQuality,
-                Filter = aFilter,
-                Info = aInfo
-            };
+            var aVariant = new Variant(
+                left: aLeft,
+                right: aLeft + 1,
+                id: aID,
+                refBase: ConvertStringToBasePair(aRefbp),
+                altBase: ConvertStringToBasePair(aAltbp),
+                quality: aQuality,
+                filter: aFilter,
+                info: aInfo);
 
-            var bVariant = new Variant()
-            {
-                Left = bLeft,
-                ID = bID,
-                RefBase = ConvertStringToBasePair(bRefbp),
-                AltBase = ConvertStringToBasePair(bAltbp),
-                Quality = bQuality,
-                Filter = bFilter,
-                Info = bInfo
-            };
+            var bVariant = new Variant(
+                left: bLeft,
+                right: bLeft + 1,
+                id: bID,
+                refBase: ConvertStringToBasePair(bRefbp),
+                altBase: ConvertStringToBasePair(bAltbp),
+                quality: bQuality,
+                filter: bFilter,
+                info: bInfo);
+
 
             // Act & Assert
             Assert.True(aVariant.CompareTo(bVariant) == comparisonResult);
@@ -132,6 +122,32 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
 
             // Act & Assert
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
+        }
+
+        [Fact]
+        public void ConstructVariantWithNullAltBase()
+        {
+            // Arrange
+            var constructor = new VariantConstructor();
+
+            // Act
+            var variant = constructor.Construct(10, 11, "ID", ConvertStringToBasePair("ACGN"), null, 123.4, "Filter", "Info");
+
+            // Assert
+            Assert.True(variant.GetHashCode() != 0);
+        }
+
+        [Fact]
+        public void ConstructVariantWithNullRefBase()
+        {
+            // Arrange
+            var constructor = new VariantConstructor();
+
+            // Act
+            var variant = constructor.Construct(10, 11, "ID", null, ConvertStringToBasePair("UGCA"), 123.4, "Filter", "Info");
+
+            // Assert
+            Assert.True(variant.GetHashCode() != 0);
         }
     }
 }

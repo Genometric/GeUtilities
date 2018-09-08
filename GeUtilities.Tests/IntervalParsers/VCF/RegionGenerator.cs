@@ -126,17 +126,13 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
         {
             get
             {
-                return new Variant()
-                {
-                    Left = Position,
-                    Right = Position + 1,
-                    ID = Id,
-                    Quality = Quality,
-                    Filter = Filter,
-                    Info = Info,
-                    AltBase = AltBase ?? (new Base[] { Base.U, Base.T, Base.N }),
-                    RefBase = RefBase ?? (new Base[] { Base.A, Base.C, Base.G })
-                };
+                return new Variant(
+                    left: Position,
+                    right: Position + 1,
+                    id: Id,
+                    refBase: RefBase ?? (new Base[] { Base.A, Base.C, Base.G }),
+                    altBase: AltBase ?? (new Base[] { Base.U, Base.T, Base.N }),
+                    quality: Quality, filter: Filter, info: Info);
             }
         }
 

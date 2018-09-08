@@ -123,16 +123,7 @@ namespace GeUtilities.Tests.IntervalParsers.GTF
 
         public GeneralFeature GFeature { get
             {
-                return new GeneralFeature
-                {
-                    Source = Source,
-                    Feature = Feature,
-                    Left = Left,
-                    Right = Right,
-                    Score = Score,
-                    Frame = Frame,
-                    Attribute = Attribute,
-                };
+                return new GeneralFeature(Left, Right, Source, Feature, Score, Frame, Attribute);
             }
         }
 

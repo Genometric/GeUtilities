@@ -9,10 +9,8 @@ using System;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public class BEDParser<I> : Parser<I, BEDStats>
-        where I : IChIPSeqPeak, new()
+        where I : IChIPSeqPeak
     {
-        #region .::.         private properties         .::.
-
         /// <summary>
         /// Sets and gets the column number of peak name.
         /// </summary>
@@ -50,7 +48,7 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// </summary>
         private double _pValueSum;
 
-        #endregion
+        private readonly IChIPSeqPeakConstructor<I> _constructor;
 
         /// <summary>
         /// Sets and gets the default p-value that Will be used as a region's p-value if the 
@@ -70,46 +68,33 @@ namespace Genometric.GeUtilities.IntervalParsers
         /// </summary>
         public PValueFormats PValueFormat { set; get; }
 
-
-        /// <summary>
-        /// Parse standard Browser Extensible Data (BED) format.
-        /// </summary>
-        public BEDParser() : this(new BEDColumns())
-        { }
-
         /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        public BEDParser(BEDColumns columns) : base(columns)
+        public BEDParser(BEDColumns columns, IChIPSeqPeakConstructor<I> constructor) : base(columns)
         {
+            _constructor = constructor;
             _nameColumn = columns.Name;
             _valueColumn = columns.Value;
             _summitColumn = columns.Summit;
-            _mostStringentPeak = new I();
-            _mostPermissivePeak = new I();
-            _mostStringentPeak.Value = 1;
-            _mostPermissivePeak.Value = 0;
+            _mostStringentPeak = _constructor.Construct(0, 2, "", 1, 1);
+            _mostPermissivePeak = _constructor.Construct(0, 2, "", 1, 0);
             DefaultValue = 1E-8;
             DropPeakIfInvalidValue = true;
             PValueFormat = PValueFormats.SameAsInput;
         }
 
-        protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
+        protected override I BuildInterval(int left, int right, string[] line, uint lineCounter, string hashSeed)
         {
-            I rtv = new I
-            {
-                Left = left,
-                Right = right
-            };
-
             #region .::.     Process p-value         .::.
 
+            double value = 0;
             if (_valueColumn < line.Length)
             {
                 if (double.TryParse(line[_valueColumn], out double pValue))
                 {
-                    rtv.Value = PValueConvertor(pValue);
+                    value = PValueConvertor(pValue);
                 }
                 else if (DropPeakIfInvalidValue)
                 {
@@ -117,19 +102,8 @@ namespace Genometric.GeUtilities.IntervalParsers
                 }
                 else
                 {
-                    rtv.Value = DefaultValue;
+                    value = DefaultValue;
                     _defaultValueUtilizationCount++;
-                }
-
-                if (!double.IsNaN(rtv.Value))
-                {
-                    _pValueSum += rtv.Value;
-
-                    if (rtv.Value > _mostPermissivePeak.Value)
-                        _mostPermissivePeak = rtv;
-
-                    if (rtv.Value < _mostStringentPeak.Value)
-                        _mostStringentPeak = rtv;
                 }
             }
             else
@@ -140,27 +114,30 @@ namespace Genometric.GeUtilities.IntervalParsers
                 }
                 else
                 {
-                    rtv.Value = DefaultValue;
+                    value = DefaultValue;
                     _defaultValueUtilizationCount++;
                 }
             }
 
             #endregion
-            #region .::.     Process I Name          .::.
 
-            if (_nameColumn < line.Length) rtv.Name = line[_nameColumn];
-            else rtv.Name = null;
+            if (!((_summitColumn != -1 && _summitColumn < line.Length) && int.TryParse(line[_summitColumn], out int summit)))
+                summit = (int)Math.Round((left + right) / 2.0);
 
-            #endregion
+            I rtv = (I)_constructor.Construct(left, right,
+                _nameColumn < line.Length ? line[_nameColumn]: null,
+                summit, value, hashSeed);
 
-            #region .::.     Process Summit          .::.
+            if (_valueColumn < line.Length && !double.IsNaN(value))
+            {
+                _pValueSum += value;
 
-            if ((_summitColumn != -1 && _summitColumn < line.Length) && int.TryParse(line[_summitColumn], out int summit))
-                rtv.Summit = summit;
-            else
-                rtv.Summit = (int)Math.Round((left + right) / 2.0);
+                if (value > _mostPermissivePeak.Value)
+                    _mostPermissivePeak = rtv;
 
-            #endregion
+                if (value < _mostStringentPeak.Value)
+                    _mostStringentPeak = rtv;
+            }
 
             return rtv;
         }

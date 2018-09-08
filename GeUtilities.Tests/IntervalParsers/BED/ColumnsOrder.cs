@@ -4,7 +4,6 @@
 
 using Genometric.GeUtilities.IntervalParsers;
 using Genometric.GeUtilities.IntervalParsers.Model.Columns;
-using Genometric.GeUtilities.IntervalParsers.Model.Defaults;
 using Xunit;
 
 /// <summary>
@@ -38,7 +37,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(
+                var parser = new BEDParser(
                     new BEDColumns()
                     {
                         Chr = chrColumn,
@@ -72,7 +71,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(rg.Columns);
+                var parser = new BEDParser(rg.Columns);
                 var parsedPeak = parser.Parse(file.Path).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -97,7 +96,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(rg.Columns);
+                var parser = new BEDParser(rg.Columns);
                 var parsedPeak = parser.Parse(file.Path).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -124,7 +123,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(rg.Columns);
+                var parser = new BEDParser(rg.Columns);
 
                 // Assert
                 Assert.True(parser.Parse(file.Path).Chromosomes[rg.Chr].Strands.ContainsKey(strand));
@@ -146,7 +145,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(peaks))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(
+                var parser = new BEDParser(
                     new BEDColumns
                     {
                         Chr = 0,

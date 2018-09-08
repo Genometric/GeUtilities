@@ -12,13 +12,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
     {
         internal static Gene GetTempGene()
         {
-            return new Gene()
-            {
-                Left = 10,
-                Right = 20,
-                RefSeqID = "RefSeqID",
-                GeneSymbol = "GeneSymbol"
-            };
+            return new Gene(10, 20, "RefSeqID", "GeneSymbol");
         }
 
         [Theory]
@@ -37,21 +31,8 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             int bLeft, int bRight, string bRefSeqID, string bGeneSymbol)
         {
             // Arrange
-            var aGene = new Gene()
-            {
-                Left = aLeft,
-                Right = aRight,
-                RefSeqID = aRefSeqID,
-                GeneSymbol = aGeneSymbol
-            };
-
-            var bGene = new Gene()
-            {
-                Left = bLeft,
-                Right = bRight,
-                RefSeqID = bRefSeqID,
-                GeneSymbol = bGeneSymbol
-            };
+            var aGene = new Gene(aLeft, aRight, aRefSeqID, aGeneSymbol);
+            var bGene = new Gene(bLeft, bRight, bRefSeqID, bGeneSymbol);
 
             // Act & Assert
             Assert.True(aGene.CompareTo(bGene) == comparisonResult);

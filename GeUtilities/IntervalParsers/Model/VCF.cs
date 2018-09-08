@@ -7,7 +7,7 @@ using Genometric.GeUtilities.IGenomics;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public class VCF<I> : ParsedIntervals<I, IntervalStats>
-        where I : IVariant, new()
+        where I : IVariant
     {
         public VCF()
         { }

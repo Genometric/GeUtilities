@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public class Chromosome<I, S>
-        where I : IInterval<int>, new()
+        where I : IInterval<int>
         where S : IStats<int>, new()
     {
         public S Statistics { set; get; }

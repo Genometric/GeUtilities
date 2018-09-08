@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IntervalParsers;
-using Genometric.GeUtilities.IntervalParsers.Model.Defaults;
 using Xunit;
 
 namespace GeUtilities.Tests.IntervalParsers.VCF
@@ -18,11 +17,11 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new VCFParser<Variant>();
+                var parser = new VCFParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].HashKey != 0);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].GetHashCode() != 0);
             }
         }
 
@@ -38,7 +37,7 @@ namespace GeUtilities.Tests.IntervalParsers.VCF
             using (var file = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
             {
                 // Act
-                var parser = new VCFParser<Variant>()
+                var parser = new VCFParser()
                 {
                     ReadOffset = readOffset
                 };

@@ -22,7 +22,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
         {
             // Arrange
             string fileName = "a_file_name_which_does_not_exist_1234567890";
-            var parser = new BEDParser<ChIPSeqPeak>();
+            var parser = new BEDParser();
 
             // Act
             Exception exception = Assert.Throws<FileNotFoundException>(() => parser.Parse(fileName));
@@ -39,7 +39,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123..45"))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>()
+                var parser = new BEDParser()
                 {
                     DropPeakIfInvalidValue = true
                 };
@@ -58,7 +58,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123..45"))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>()
+                var parser = new BEDParser()
                 {
                     DropPeakIfInvalidValue = false,
                     DefaultValue = defaultValue
@@ -78,7 +78,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(new BEDColumns() { Value = 9 })
+                var parser = new BEDParser(new BEDColumns() { Value = 9 })
                 {
                     DropPeakIfInvalidValue = true
                 };
@@ -97,7 +97,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(new BEDColumns() { Value = 9 })
+                var parser = new BEDParser(new BEDColumns() { Value = 9 })
                 {
                     DropPeakIfInvalidValue = false
                 };
@@ -120,7 +120,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>()
+                var parser = new BEDParser()
                 {
                     PValueFormat = pvalueFormat
                 };
@@ -143,7 +143,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg, peaksCount: numberOfPeaksToWrite))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>()
+                var parser = new BEDParser()
                 {
                     MaxLinesToRead = numberOfPeaksToRead
                 };
@@ -162,7 +162,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg, peaksCount: 4))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>()
+                var parser = new BEDParser()
                 {
                     MaxLinesToRead = 0
                 };
@@ -181,7 +181,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(new BEDColumns() { Name = 12 })
+                var parser = new BEDParser(new BEDColumns() { Name = 12 })
                 {
                     DropPeakIfInvalidValue = false
                 };
@@ -189,27 +189,6 @@ namespace GeUtilities.Tests.IntervalParsers.BED
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Name == null);
-            }
-        }
-
-        [Theory]
-        [InlineData(Genometric.GeUtilities.IntervalParsers.HashFunctions.FNV)]
-        [InlineData(Genometric.GeUtilities.IntervalParsers.HashFunctions.One_at_a_Time)]
-        public void HashFunctions(HashFunctions hashFunction)
-        {
-            // Arrange
-            var rg = new RegionGenerator();
-            using (var file = new TempFileCreator(rg))
-            {
-                // Act
-                var parser = new BEDParser<ChIPSeqPeak>()
-                {
-                    HashFunction = hashFunction
-                };
-                var parsedData = parser.Parse(file.Path);
-
-                // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].HashKey != 0);
             }
         }
 
@@ -221,7 +200,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>(new BEDColumns() { Value = 9 })
+                var parser = new BEDParser(new BEDColumns() { Value = 9 })
                 {
                     DropPeakIfInvalidValue = true
                 };
@@ -242,7 +221,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>()
+                var parser = new BEDParser()
                 {
                     Assembly = Assemblies.hg19,
                     ReadOnlyAssemblyChrs = true
@@ -264,7 +243,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>()
+                var parser = new BEDParser()
                 {
                     Assembly = Assemblies.hg19,
                     ReadOnlyAssemblyChrs = true
@@ -287,7 +266,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                BEDParser<ChIPSeqPeak> parser = new BEDParser<ChIPSeqPeak>()
+                BEDParser<ChIPSeqPeak> parser = new BEDParser()
                 {
                     Assembly = Assemblies.hg19,
                     ReadOnlyAssemblyChrs = false
@@ -307,7 +286,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>()
+                var parser = new BEDParser()
                 {
                     Assembly = Assemblies.hg19,
                     ReadOnlyAssemblyChrs = false
@@ -327,7 +306,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg, headerLineCount: 2, peaksCount: 10))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>();
+                var parser = new BEDParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -342,7 +321,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator("             "))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>();
+                var parser = new BEDParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -354,7 +333,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
         public void TestMaxValue()
         {
             // Arrange
-            var p = new ChIPSeqPeak() { Left = 30, Right = 40, Summit = 35, Name = "GeUtilities_01", Value = 0.1 };
+            var p = new ChIPSeqPeak(30, 40, 0.1, 35, "GeUtilities_01"); ;
             string[] peaks = new string[]
             {
                 "chr1\t10\t20\tGeUtilities_00\t0.01",
@@ -365,7 +344,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(peaks))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>();
+                var parser = new BEDParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -377,7 +356,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
         public void TestMinValue()
         {
             // Arrange
-            var p = new ChIPSeqPeak() { Left = 30, Right = 40, Summit = 35, Name = "GeUtilities_01", Value = 0.0 };
+            var p = new ChIPSeqPeak(30, 40, 0.0, 35, "GeUtilities_01");
             string[] peaks = new string[]
             {
                 "chr1\t10\t20\tGeUtilities_00\t0.1",
@@ -388,7 +367,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(peaks))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>();
+                var parser = new BEDParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -410,7 +389,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(peaks))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>();
+                var parser = new BEDParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -432,7 +411,7 @@ namespace GeUtilities.Tests.IntervalParsers.BED
             using (var file = new TempFileCreator(rg.GetSampleLine(delimiter)))
             {
                 // Act
-                var parser = new BEDParser<ChIPSeqPeak>()
+                var parser = new BEDParser()
                 {
                     Delimiter = delimiter
                 };

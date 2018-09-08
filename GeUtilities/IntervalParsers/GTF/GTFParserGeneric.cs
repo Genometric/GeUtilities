@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Genometric.GeUtilities.IntervalParsers
 {
     public class GTFParser<I> : Parser<I, IntervalStats>
-        where I : IGeneralFeature, new()
+        where I : IGeneralFeature
     {
         /// <summary>
         /// Sets and gets the column number of feature.
@@ -25,20 +25,13 @@ namespace Genometric.GeUtilities.IntervalParsers
         private readonly sbyte _scoreColumn;
         private readonly sbyte _frameColumn;
         private readonly Dictionary<string, int> _features;
+        private readonly IGeneralFeatureConstructor<I> _constructor;
 
         /// <summary>
         /// Parse General Transfer Format (GTF) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        public GTFParser() : this(new GTFColumns())
-        { }
-
-
-        /// <summary>
-        /// Parse General Transfer Format (GTF) format.
-        /// </summary>
-        /// <param name="sourceFilePath">Full path of source file name.</param>
-        public GTFParser(GTFColumns columns) : base(columns)
+        public GTFParser(GTFColumns columns, IGeneralFeatureConstructor<I> constructor) : base(columns)
         {
             _sourceColumn = columns.Source;
             _featureColumn = columns.Feature;
@@ -46,50 +39,37 @@ namespace Genometric.GeUtilities.IntervalParsers
             _frameColumn = columns.Frame;
             _attributeColumn = columns.Attribute;
             _features = new Dictionary<string, int>();
+            _constructor = constructor;
         }
 
-        protected override I BuildInterval(int left, int right, string[] line, uint lineCounter)
+        protected override I BuildInterval(int left, int right, string[] line, uint lineCounter, string hashSeed)
         {
-            I rtv = new I
-            {
-                Left = left,
-                Right = right
-            };
+            if (!(_scoreColumn != -1 && _scoreColumn < line.Length && double.TryParse(line[_scoreColumn], out double score)))
+                score = double.NaN;
 
-            if (_sourceColumn != -1 && _sourceColumn < line.Length)
-                rtv.Source = line[_sourceColumn];
-            else
-                rtv.Source = null;
-
-            if (_scoreColumn != -1 && _scoreColumn < line.Length && double.TryParse(line[_scoreColumn], out double score))
-                rtv.Score = score;
-            else
-                rtv.Score = double.NaN;
-
-            if (_frameColumn != -1 && _frameColumn < line.Length)
-                rtv.Frame = line[_frameColumn];
-            else
-                rtv.Frame = null;
-
+            string feature = null;
             if (_featureColumn != -1)
                 if (_featureColumn < line.Length)
                 {
-                    rtv.Feature = line[_featureColumn];
+                    feature = line[_featureColumn];
 
-                    if (!_features.ContainsKey(rtv.Feature))
-                        _features.Add(rtv.Feature, 1);
+                    if (!_features.ContainsKey(feature))
+                        _features.Add(feature, 1);
                     else
-                        _features[rtv.Feature]++;
+                        _features[feature]++;
                 }
                 else
                 {
                     DropLine("\tLine " + lineCounter.ToString() + "\t:\tInvalid feature column number");
                 }
 
-            if (_attributeColumn != -1 && _attributeColumn < line.Length)
-                rtv.Attribute = line[_attributeColumn];
-            else
-                rtv.Attribute = null;
+            I rtv = _constructor.Construct(left, right,
+                source: _sourceColumn != -1 && _sourceColumn < line.Length ? line[_sourceColumn] : null,
+                feature: feature,
+                score: score,
+                frame: _frameColumn != -1 && _frameColumn < line.Length ? line[_frameColumn] : null,
+                attribute: _attributeColumn != -1 && _attributeColumn < line.Length ? line[_attributeColumn] : null,
+                hashSeed: hashSeed);
 
             return rtv;
         }

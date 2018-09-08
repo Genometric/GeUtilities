@@ -7,15 +7,19 @@ using System;
 
 namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
 {
-    public class Gene : IRefSeq
+    public class Gene : Interval, IRefSeq
     {
-        public int Left { set; get; }
-        public int Right { set; get; }
-        public string RefSeqID { set; get; }
-        public string GeneSymbol { set; get; }
-        public uint HashKey { set; get; }
+        public Gene(int left, int right, string refSeqID, string geneSymbol, string hashSeed = "") :
+            base(left, right, refSeqID + geneSymbol + hashSeed)
+        {
+            RefSeqID = refSeqID;
+            GeneSymbol = geneSymbol;
+        }
 
-        public int CompareTo(object obj)
+        public string RefSeqID { private set; get; }
+        public string GeneSymbol { private set; get; }
+
+        public new int CompareTo(object obj)
         {
             if (obj == null) return 1;
             if (obj is Gene)
