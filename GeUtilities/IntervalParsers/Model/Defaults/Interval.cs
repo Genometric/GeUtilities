@@ -20,8 +20,9 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
             }
         }
 
-        public int Left { private set; get; }
-        public int Right { private set; get; }
+        public int Left { get; }
+        public int Right { get; }
+
 
         private readonly int _hashKey;
         public override int GetHashCode()
