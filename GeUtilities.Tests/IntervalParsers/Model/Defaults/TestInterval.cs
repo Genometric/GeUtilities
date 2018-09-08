@@ -10,6 +10,25 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
 {
     public class TestInterval
     {
+        public enum Parameter { None, Left, Right, Seed };
+
+        internal static Interval GetInterval(Parameter param = Parameter.None, object value = null)
+        {
+            int left = 10;
+            int right = 20;
+            string seed = "";
+
+            switch (param)
+            {
+                case Parameter.Left: left = (int)value; break;
+                case Parameter.Right: right = (int)value; break;
+                case Parameter.Seed: seed = (string)value; break;
+                default: break;
+            }
+
+            return new Interval(left, right, seed);
+        }
+
         [Fact]
         public void ConstructInterval()
         {
@@ -21,28 +40,6 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
 
             // Assert
             Assert.True(interval.Left == 10 && interval.Right == 20);
-        }
-
-        [Theory]
-        [InlineData(10, 20, "G", 10, 20, "G", true)]
-        [InlineData(10, 20, "G", 10, 30, "G", false)]
-        [InlineData(10, 20, "G", 20, 10, "G", false)]
-        [InlineData(10, 20, "G", 30, 40, "G", false)]
-        [InlineData(10, 20, "A", 10, 20, "B", false)]
-        [InlineData(10, 20, "A", 10, 20, "a", false)]
-        [InlineData(10, 20, "", 10, 20, "AA", false)]
-        public void AssertEquality(int aLeft, int aRight, string aHashSeed, int bLeft, int bRight, string bHashSeed, bool expectedResult)
-        {
-            // Arrange
-            var constructor = new IntervalConstructor();
-            var intA = constructor.Construct(aLeft, aRight, aHashSeed);
-            var intB = constructor.Construct(bLeft, bRight, bHashSeed);
-
-            // Act
-            var comparison = intA.Equals(intB);
-
-            // Assert
-            Assert.Equal(expectedResult, comparison);
         }
 
         [Fact]
@@ -86,6 +83,27 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
 
             // Act & Assert
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
+        }
+
+        [Theory]
+        [InlineData(Parameter.None, null, null, true)]
+        [InlineData(Parameter.Left, 10, 8, false)]
+        [InlineData(Parameter.Left, 8, 10, false)]
+        [InlineData(Parameter.Right, 20, 18, false)]
+        [InlineData(Parameter.Right, 18, 20, false)]
+        [InlineData(Parameter.Seed, "GU", "G", false)]
+        [InlineData(Parameter.Seed, "G", "GU", false)]
+        public void Equal(Parameter param, object v1, object v2, bool expected)
+        {
+            // Arrange
+            var a = GetInterval(param, v1);
+            var b = GetInterval(param, v2);
+
+            // Act
+            var actual = a.Equals(b);
+
+            // Assert
+            Assert.Equal(expected, actual);
         }
     }
 }
