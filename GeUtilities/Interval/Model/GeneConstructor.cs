@@ -4,7 +4,7 @@
 
 using Genometric.GeUtilities.IGenomics;
 
-namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
+namespace Genometric.GeUtilities.Interval.Model
 {
     public class GeneConstructor : IRefSeqConstructor<Gene>
     {

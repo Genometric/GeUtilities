@@ -4,7 +4,7 @@
 
 using Genometric.GeUtilities.IGenomics;
 
-namespace Genometric.GeUtilities.IntervalParsers
+namespace Genometric.GeUtilities.Interval.Parsers.Model
 {
     public class RefSeq<I> : ParsedIntervals<I, IntervalStats>
         where I : IRefSeq

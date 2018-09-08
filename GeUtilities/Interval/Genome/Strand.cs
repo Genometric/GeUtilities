@@ -6,7 +6,7 @@ using Genometric.GeUtilities.IGenomics;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Genometric.GeUtilities.IntervalParsers
+namespace Genometric.GeUtilities.Interval.Genome
 {
     public class Strand<I>
         where I : IInterval<int>

@@ -3,11 +3,12 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.Interval.Genome;
 using Genometric.GeUtilities.ReferenceGenomes;
 using System;
 using System.Collections.Generic;
 
-namespace Genometric.GeUtilities.IntervalParsers
+namespace Genometric.GeUtilities.Interval.Parsers.Model
 {
     public abstract class ParsedIntervals<I, S>
         where I : IInterval<int>

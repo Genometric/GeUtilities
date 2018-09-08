@@ -3,9 +3,10 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.Interval.Functions;
 using System;
 
-namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
+namespace Genometric.GeUtilities.Interval.Model
 {
     public class Interval : IInterval<int>
     {

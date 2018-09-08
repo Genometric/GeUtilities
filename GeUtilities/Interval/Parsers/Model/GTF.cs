@@ -5,7 +5,7 @@
 using Genometric.GeUtilities.IGenomics;
 using System.Collections.Generic;
 
-namespace Genometric.GeUtilities.IntervalParsers
+namespace Genometric.GeUtilities.Interval.Parsers.Model
 {
     public class GTF<I> : ParsedIntervals<I, IntervalStats>
         where I : IGeneralFeature

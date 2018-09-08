@@ -3,10 +3,10 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using Genometric.GeUtilities.IntervalParsers.Model.Columns;
+using Genometric.GeUtilities.Interval.Parsers.Model;
 using System.Collections.Generic;
 
-namespace Genometric.GeUtilities.IntervalParsers
+namespace Genometric.GeUtilities.Interval.Parsers
 {
     public class GTFParser<I> : Parser<I, IntervalStats>
         where I : IGeneralFeature

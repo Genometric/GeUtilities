@@ -5,7 +5,7 @@
 using Genometric.GeUtilities.IGenomics;
 using System;
 
-namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
+namespace Genometric.GeUtilities.Interval.Model
 {
     public class ChIPSeqPeak : Interval, IChIPSeqPeak
     {

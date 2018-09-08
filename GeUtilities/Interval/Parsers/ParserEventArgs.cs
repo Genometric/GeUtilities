@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Genometric.GeUtilities.IntervalParsers
+namespace Genometric.GeUtilities.Interval.Parsers.Model
 {
     public class ParserEventArgs : EventArgs
     {

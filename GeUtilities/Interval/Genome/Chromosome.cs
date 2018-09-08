@@ -5,7 +5,7 @@
 using Genometric.GeUtilities.IGenomics;
 using System.Collections.Generic;
 
-namespace Genometric.GeUtilities.IntervalParsers
+namespace Genometric.GeUtilities.Interval.Genome
 {
     public class Chromosome<I, S>
         where I : IInterval<int>

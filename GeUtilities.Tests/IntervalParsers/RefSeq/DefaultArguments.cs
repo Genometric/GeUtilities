@@ -2,8 +2,7 @@
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
-using Genometric.GeUtilities.IntervalParsers;
-using Genometric.GeUtilities.IntervalParsers.Model.Columns;
+using Genometric.GeUtilities.Interval.Parsers.Model;
 using Xunit;
 
 namespace GeUtilities.Tests.IntervalParsers.RefSeq

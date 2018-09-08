@@ -5,7 +5,7 @@
 using Genometric.GeUtilities.IGenomics;
 using System;
 
-namespace Genometric.GeUtilities.IntervalParsers
+namespace Genometric.GeUtilities.Interval.Parsers.Model
 {
     public class IntervalStats : IStats<int>
     {
