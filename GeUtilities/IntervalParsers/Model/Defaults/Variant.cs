@@ -22,12 +22,12 @@ namespace Genometric.GeUtilities.IntervalParsers.Model.Defaults
             Info = info;
         }
 
-        public string ID { private set; get; }
-        public Base[] RefBase { private set; get; }
-        public Base[] AltBase { private set; get; }
-        public double Quality { private set; get; }
-        public string Filter { private set; get; }
-        public string Info { private set; get; }
+        public string ID { get; }
+        public Base[] RefBase { get; }
+        public Base[] AltBase { get; }
+        public double Quality { get; }
+        public string Filter { get; }
+        public string Info { get; }
 
         public new int CompareTo(object obj)
         {
