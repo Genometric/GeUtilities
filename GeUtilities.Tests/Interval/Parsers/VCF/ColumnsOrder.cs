@@ -6,7 +6,7 @@ using Genometric.GeUtilities.Interval.Model;
 using Genometric.GeUtilities.Interval.Parsers.Model;
 using Xunit;
 
-namespace GeUtilities.Tests.IntervalParsers.VCF
+namespace GeUtilities.Tests.Interval.Parsers.VCF
 {
     public class ColumnsOrder
     {

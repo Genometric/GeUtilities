@@ -5,7 +5,7 @@
 using Genometric.GeUtilities.Interval.Parsers.Model;
 using Xunit;
 
-namespace GeUtilities.Tests.IntervalParsers.RefSeq
+namespace GeUtilities.Tests.Interval.Parsers.RefSeq
 {
     public class DefaultArguments
     {

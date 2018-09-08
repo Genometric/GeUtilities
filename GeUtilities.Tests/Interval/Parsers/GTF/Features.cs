@@ -7,7 +7,7 @@ using Genometric.GeUtilities.Interval.Parsers;
 using Genometric.GeUtilities.Interval.Parsers.Model;
 using Xunit;
 
-namespace GeUtilities.Tests.IntervalParsers.GTF
+namespace GeUtilities.Tests.Interval.Parsers.GTF
 {
     public class Features
     {

@@ -4,11 +4,11 @@
 
 using Genometric.GeUtilities.Interval.Model;
 using Genometric.GeUtilities.Interval.Parsers;
-using GeUtilities.Tests.IntervalParsers.BED;
+using GeUtilities.Tests.Interval.Parsers.BED;
 using System;
 using Xunit;
 
-namespace GeUtilities.Tests.IntervalParsers.TStats
+namespace GeUtilities.Tests.Interval.Parsers.Stats
 {
     public class BEDStats
     {

@@ -13,7 +13,7 @@ using Xunit;
 /// <summary>
 /// This namespace contains Tests for both base and BED parsers.
 /// </summary>
-namespace GeUtilities.Tests.IntervalParsers.BED
+namespace GeUtilities.Tests.Interval.Parsers.BED
 {
     public class Features
     {

@@ -8,7 +8,7 @@ using Genometric.GeUtilities.Interval.Parsers.Model;
 using System;
 using System.Text;
 
-namespace GeUtilities.Tests.IntervalParsers.VCF
+namespace GeUtilities.Tests.Interval.Parsers.VCF
 {
     public class RegionGenerator
     {

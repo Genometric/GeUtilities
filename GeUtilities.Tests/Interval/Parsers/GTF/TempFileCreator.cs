@@ -5,7 +5,7 @@
 using System;
 using System.IO;
 
-namespace GeUtilities.Tests.IntervalParsers.GTF
+namespace GeUtilities.Tests.Interval.Parsers.GTF
 {
     public class TempFileCreator : IDisposable
     {

@@ -6,13 +6,13 @@ using Genometric.GeUtilities.Interval.Model;
 using System;
 using Xunit;
 
-namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
+namespace GeUtilities.Tests.Interval.Model
 {
     public class TestInterval
     {
         public enum Parameter { None, Left, Right, Seed };
 
-        internal static Interval GetInterval(Parameter param = Parameter.None, object value = null)
+        internal static Genometric.GeUtilities.Interval.Model.Interval GetInterval(Parameter param = Parameter.None, object value = null)
         {
             int left = 10;
             int right = 20;
@@ -26,7 +26,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
                 default: break;
             }
 
-            return new Interval(left, right, seed);
+            return new Genometric.GeUtilities.Interval.Model.Interval(left, right, seed);
         }
 
         [Fact]
