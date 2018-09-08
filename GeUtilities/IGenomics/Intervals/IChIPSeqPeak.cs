@@ -6,7 +6,7 @@ using System;
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IChIPSeqPeak : IInterval<int>, IComparable<IChIPSeqPeak>
+    public interface IChIPSeqPeak : IInterval, IComparable<IChIPSeqPeak>
     {
         string Name { get; }
         int Summit { get; }

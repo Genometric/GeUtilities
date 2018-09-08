@@ -6,7 +6,7 @@ using System;
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IGeneralFeature : IInterval<int>, IComparable<IGeneralFeature>
+    public interface IGeneralFeature : IInterval, IComparable<IGeneralFeature>
     {
         string Source { get; }
         string Feature { get; }
