@@ -74,7 +74,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         {
             // Arrange
             var aGene = GetTempGene();
-            var aPeak = TestChIPSeqPeak.GetTempChIPSeqPeak();
+            var aPeak = TestChIPSeqPeak.GetPeak();
 
             // Act
             Exception exception = Assert.Throws<NotImplementedException>(() => aGene.CompareTo(aPeak));

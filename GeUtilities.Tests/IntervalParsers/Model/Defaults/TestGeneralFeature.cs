@@ -80,7 +80,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         {
             // Arrange
             var aGF = GetTempGeneralFeature();
-            var aPeak = TestChIPSeqPeak.GetTempChIPSeqPeak();
+            var aPeak = TestChIPSeqPeak.GetPeak();
 
             // Act & Assert
             Exception exception = Assert.Throws<NotImplementedException>((() => aGF.CompareTo(aPeak)));

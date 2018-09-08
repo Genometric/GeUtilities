@@ -92,7 +92,7 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         {
             // Arrange
             var aVariant = GetVariant();
-            var aPeak = TestChIPSeqPeak.GetTempChIPSeqPeak();
+            var aPeak = TestChIPSeqPeak.GetPeak();
 
             // Act & Assert
             Exception exception = Assert.Throws<NotImplementedException>(() => aVariant.CompareTo(aPeak));
