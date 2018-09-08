@@ -88,5 +88,77 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             // Act & Assert
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
         }
+
+        [Theory]
+        [InlineData("source", "source", 0)]
+        [InlineData("source", null, 1)]
+        [InlineData(null, "source", -1)]
+        [InlineData(null, null, -1)]
+        public void CompareTwoFeaturesWithNullSource(string aSource, string bSource, int expectedResult)
+        {
+            // Arrange
+            var featureA = new GeneralFeature(10, 20, aSource, "feature", 100, "frame", "attribute");
+            var featureB = new GeneralFeature(10, 20, bSource, "feature", 100, "frame", "attribute");
+
+            // Act
+            var comparison = featureA.CompareTo(featureB);
+
+            // Assert
+            Assert.Equal(expectedResult, comparison);
+        }
+
+        [Theory]
+        [InlineData("feature", "feature", 0)]
+        [InlineData("feature", null, 1)]
+        [InlineData(null, "feature", -1)]
+        [InlineData(null, null, -1)]
+        public void CompareTwoFeaturesWithNullFeature(string aFeature, string bFeature, int expectedResult)
+        {
+            // Arrange
+            var featureA = new GeneralFeature(10, 20, "source", aFeature, 100, "frame", "attribute");
+            var featureB = new GeneralFeature(10, 20, "source", bFeature, 100, "frame", "attribute");
+
+            // Act
+            var comparison = featureA.CompareTo(featureB);
+
+            // Assert
+            Assert.Equal(expectedResult, comparison);
+        }
+
+        [Theory]
+        [InlineData("frame", "frame", 0)]
+        [InlineData("frame", null, 1)]
+        [InlineData(null, "frame", -1)]
+        [InlineData(null, null, -1)]
+        public void CompareTwoFeaturesWithNullFrame(string aFrame, string bFrame, int expectedResult)
+        {
+            // Arrange
+            var featureA = new GeneralFeature(10, 20, "source", "feature", 100, aFrame, "attribute");
+            var featureB = new GeneralFeature(10, 20, "source", "feature", 100, bFrame, "attribute");
+
+            // Act
+            var comparison = featureA.CompareTo(featureB);
+
+            // Assert
+            Assert.Equal(expectedResult, comparison);
+        }
+
+        [Theory]
+        [InlineData("attribute", "attribute", 0)]
+        [InlineData("attribute", null, 1)]
+        [InlineData(null, "attribute", -1)]
+        [InlineData(null, null, -1)]
+        public void CompareTwoFeaturesWithNullAttribute(string aAttribute, string bAttribute, int expectedResult)
+        {
+            // Arrange
+            var featureA = new GeneralFeature(10, 20, "source", "feature", 100, "frame", aAttribute);
+            var featureB = new GeneralFeature(10, 20, "source", "feature", 100, "frame", bAttribute);
+
+            // Act
+            var comparison = featureA.CompareTo(featureB);
+
+            // Assert
+            Assert.Equal(expectedResult, comparison);
+        }
     }
 }
