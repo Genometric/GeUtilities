@@ -2,7 +2,7 @@
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
-using Genometric.GeUtilities.Interval.Model;
+using Genometric.GeUtilities.Intervals.Model;
 using System;
 using Xunit;
 
@@ -12,7 +12,7 @@ namespace GeUtilities.Tests.Interval.Model
     {
         public enum Parameter { None, Left, Right, Seed };
 
-        internal static Genometric.GeUtilities.Interval.Model.Interval GetInterval(Parameter param = Parameter.None, object value = null)
+        internal static Genometric.GeUtilities.Intervals.Model.Interval GetInterval(Parameter param = Parameter.None, object value = null)
         {
             int left = 10;
             int right = 20;
@@ -26,7 +26,7 @@ namespace GeUtilities.Tests.Interval.Model
                 default: break;
             }
 
-            return new Genometric.GeUtilities.Interval.Model.Interval(left, right, seed);
+            return new Genometric.GeUtilities.Intervals.Model.Interval(left, right, seed);
         }
 
         [Fact]

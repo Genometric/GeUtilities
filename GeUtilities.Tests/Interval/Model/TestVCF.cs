@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using Genometric.GeUtilities.Interval.Model;
+using Genometric.GeUtilities.Intervals.Model;
 using System;
 using Xunit;
 

@@ -2,8 +2,8 @@
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
-using Genometric.GeUtilities.Interval.Parsers;
-using Genometric.GeUtilities.Interval.Parsers.Model;
+using Genometric.GeUtilities.Intervals.Parsers;
+using Genometric.GeUtilities.Intervals.Parsers.Model;
 using Xunit;
 
 /// <summary>

@@ -3,8 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using Genometric.GeUtilities.Interval.Model;
-using Genometric.GeUtilities.Interval.Parsers.Model;
+using Genometric.GeUtilities.Intervals.Model;
+using Genometric.GeUtilities.Intervals.Parsers.Model;
 using System;
 using System.Text;
 
