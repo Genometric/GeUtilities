@@ -11,9 +11,11 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
 {
     public class TestVCF
     {
-        internal static Variant GetTempVCF()
+        internal static Variant GetTempVCF(int left = 10, int right = 11, string id = "ID", string refBase = "ACGN", string altBase = "UGCA", double quality = 123.4, string filter = "Filter", string info = "Info")
         {
-            return new Variant(10, 11, "ID", ConvertStringToBasePair("ACGN"), ConvertStringToBasePair("UGCA"), 123.4, "Filter", "Info");
+            var rBase = refBase == null ? null : ConvertStringToBasePair(refBase);
+            var aBase = altBase == null ? null : ConvertStringToBasePair(altBase);
+            return new Variant(left, right, id, rBase, aBase, quality, filter, info);
         }
 
         private static Base[] ConvertStringToBasePair(string input)
@@ -158,8 +160,8 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void CompareTwoVariantsWithNullID(string aID, string bID, int expectedResult)
         {
             // Arrange
-            var varA = new Variant(10, 20, aID, ConvertStringToBasePair("UGCA"), ConvertStringToBasePair("ACGU"), 100, "filter", "info");
-            var varB = new Variant(10, 20, bID, ConvertStringToBasePair("UGCA"), ConvertStringToBasePair("ACGU"), 100, "filter", "info");
+            var varA = GetTempVCF(id: aID);
+            var varB = GetTempVCF(id: bID);
 
             // Act
             var comparison = varA.CompareTo(varB);
@@ -176,8 +178,8 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void CompareTwoVariantsWithNullFilter(string aFilter, string bFilter, int expectedResult)
         {
             // Arrange
-            var varA = new Variant(10, 20, "id", ConvertStringToBasePair("UGCA"), ConvertStringToBasePair("ACGU"), 100, aFilter, "info");
-            var varB = new Variant(10, 20, "id", ConvertStringToBasePair("UGCA"), ConvertStringToBasePair("ACGU"), 100, bFilter, "info");
+            var varA = GetTempVCF(filter: aFilter);
+            var varB = GetTempVCF(filter: bFilter);
 
             // Act
             var comparison = varA.CompareTo(varB);
@@ -194,8 +196,8 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void CompareTwoVariantsWithNullInfo(string aInfo, string bInfo, int expectedResult)
         {
             // Arrange
-            var varA = new Variant(10, 20, "id", ConvertStringToBasePair("UGCA"), ConvertStringToBasePair("ACGU"), 100, "filter", aInfo);
-            var varB = new Variant(10, 20, "id", ConvertStringToBasePair("UGCA"), ConvertStringToBasePair("ACGU"), 100, "filter", bInfo);
+            var varA = GetTempVCF(info: aInfo);
+            var varB = GetTempVCF(info: bInfo);
 
             // Act
             var comparison = varA.CompareTo(varB);
@@ -212,8 +214,8 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void CompareTwoVariantsWithNullRefBase(string aRef, string bRef, int expectedResult)
         {
             // Arrange
-            var varA = new Variant(10, 20, "id", aRef == null ? null: ConvertStringToBasePair(aRef), ConvertStringToBasePair("ACGU"), 100, "filter", "info");
-            var varB = new Variant(10, 20, "id", bRef == null ? null : ConvertStringToBasePair(bRef), ConvertStringToBasePair("ACGU"), 100, "filter", "info");
+            var varA = GetTempVCF(refBase: aRef);
+            var varB = GetTempVCF(refBase: bRef);
 
             // Act
             var comparison = varA.CompareTo(varB);
@@ -230,8 +232,8 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
         public void CompareTwoVariantsWithNullAltBase(string aAlt, string bAlt, int expectedResult)
         {
             // Arrange
-            var varA = new Variant(10, 20, "id", ConvertStringToBasePair("UGCA"), aAlt == null ? null : ConvertStringToBasePair(aAlt), 100, "filter", "info");
-            var varB = new Variant(10, 20, "id", ConvertStringToBasePair("UGCA"), bAlt == null ? null : ConvertStringToBasePair(bAlt), 100, "filter", "info");
+            var varA = GetTempVCF(altBase: aAlt);
+            var varB = GetTempVCF(altBase: bAlt);
 
             // Act
             var comparison = varA.CompareTo(varB);
