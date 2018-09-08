@@ -149,5 +149,95 @@ namespace GeUtilities.Tests.IntervalParsers.ModelTests.Defaults
             // Assert
             Assert.True(variant.GetHashCode() != 0);
         }
+
+        [Theory]
+        [InlineData("id", "id", 0)]
+        [InlineData("id", null, 1)]
+        [InlineData(null, "id", -1)]
+        [InlineData(null, null, -1)]
+        public void CompareTwoVariantsWithNullID(string aID, string bID, int expectedResult)
+        {
+            // Arrange
+            var varA = new Variant(10, 20, aID, ConvertStringToBasePair("UGCA"), ConvertStringToBasePair("ACGU"), 100, "filter", "info");
+            var varB = new Variant(10, 20, bID, ConvertStringToBasePair("UGCA"), ConvertStringToBasePair("ACGU"), 100, "filter", "info");
+
+            // Act
+            var comparison = varA.CompareTo(varB);
+
+            // Assert
+            Assert.Equal(expectedResult, comparison);
+        }
+
+        [Theory]
+        [InlineData("filter", "filter", 0)]
+        [InlineData("filter", null, 1)]
+        [InlineData(null, "filter", -1)]
+        [InlineData(null, null, -1)]
+        public void CompareTwoVariantsWithNullFilter(string aFilter, string bFilter, int expectedResult)
+        {
+            // Arrange
+            var varA = new Variant(10, 20, "id", ConvertStringToBasePair("UGCA"), ConvertStringToBasePair("ACGU"), 100, aFilter, "info");
+            var varB = new Variant(10, 20, "id", ConvertStringToBasePair("UGCA"), ConvertStringToBasePair("ACGU"), 100, bFilter, "info");
+
+            // Act
+            var comparison = varA.CompareTo(varB);
+
+            // Assert
+            Assert.Equal(expectedResult, comparison);
+        }
+
+        [Theory]
+        [InlineData("info", "info", 0)]
+        [InlineData("info", null, 1)]
+        [InlineData(null, "info", -1)]
+        [InlineData(null, null, -1)]
+        public void CompareTwoVariantsWithNullInfo(string aInfo, string bInfo, int expectedResult)
+        {
+            // Arrange
+            var varA = new Variant(10, 20, "id", ConvertStringToBasePair("UGCA"), ConvertStringToBasePair("ACGU"), 100, "filter", aInfo);
+            var varB = new Variant(10, 20, "id", ConvertStringToBasePair("UGCA"), ConvertStringToBasePair("ACGU"), 100, "filter", bInfo);
+
+            // Act
+            var comparison = varA.CompareTo(varB);
+
+            // Assert
+            Assert.Equal(expectedResult, comparison);
+        }
+
+        [Theory]
+        [InlineData("UGCA", "UGCA", 0)]
+        [InlineData("UGCA", null, 1)]
+        [InlineData(null, "UGCA", -1)]
+        [InlineData(null, null, -1)]
+        public void CompareTwoVariantsWithNullRefBase(string aRef, string bRef, int expectedResult)
+        {
+            // Arrange
+            var varA = new Variant(10, 20, "id", aRef == null ? null: ConvertStringToBasePair(aRef), ConvertStringToBasePair("ACGU"), 100, "filter", "info");
+            var varB = new Variant(10, 20, "id", bRef == null ? null : ConvertStringToBasePair(bRef), ConvertStringToBasePair("ACGU"), 100, "filter", "info");
+
+            // Act
+            var comparison = varA.CompareTo(varB);
+
+            // Assert
+            Assert.Equal(expectedResult, comparison);
+        }
+
+        [Theory]
+        [InlineData("ACGU", "ACGU", 0)]
+        [InlineData("ACGU", null, 1)]
+        [InlineData(null, "ACGU", -1)]
+        [InlineData(null, null, -1)]
+        public void CompareTwoVariantsWithNullAltBase(string aAlt, string bAlt, int expectedResult)
+        {
+            // Arrange
+            var varA = new Variant(10, 20, "id", ConvertStringToBasePair("UGCA"), aAlt == null ? null : ConvertStringToBasePair(aAlt), 100, "filter", "info");
+            var varB = new Variant(10, 20, "id", ConvertStringToBasePair("UGCA"), bAlt == null ? null : ConvertStringToBasePair(bAlt), 100, "filter", "info");
+
+            // Act
+            var comparison = varA.CompareTo(varB);
+
+            // Assert
+            Assert.Equal(expectedResult, comparison);
+        }
     }
 }
