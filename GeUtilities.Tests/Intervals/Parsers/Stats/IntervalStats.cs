@@ -6,7 +6,7 @@ using Genometric.GeUtilities.Intervals.Model;
 using System;
 using Xunit;
 
-namespace GeUtilities.Tests.Intervals.Parsers.Stats
+namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
 {
     public class IntervalStats
     {

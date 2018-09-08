@@ -6,7 +6,7 @@ using Genometric.GeUtilities.Intervals.Model;
 using System;
 using Xunit;
 
-namespace GeUtilities.Tests.Intervals.Model
+namespace Genometric.GeUtilities.Tests.Intervals.Model
 {
     public class TestGeneralFeature
     {

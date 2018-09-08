@@ -10,7 +10,7 @@ using System.Text;
 /// <summary>
 /// This namespace contains Tests for both base and BED parsers.
 /// </summary>
-namespace GeUtilities.Tests.Intervals.Parsers.BED
+namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
 {
     public class RegionGenerator
     {

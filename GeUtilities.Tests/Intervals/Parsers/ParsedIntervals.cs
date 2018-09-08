@@ -4,11 +4,11 @@
 
 using Genometric.GeUtilities.Intervals.Parsers;
 using Genometric.GeUtilities.ReferenceGenomes;
-using GeUtilities.Tests.Intervals.Parsers.BED;
+using Genometric.GeUtilities.Tests.Intervals.Parsers.BED;
 using System.IO;
 using Xunit;
 
-namespace GeUtilities.Tests.Intervals.Parsers
+namespace Genometric.GeUtilities.Tests.Intervals.Parsers
 {
     public class ParsedIntervals
     {

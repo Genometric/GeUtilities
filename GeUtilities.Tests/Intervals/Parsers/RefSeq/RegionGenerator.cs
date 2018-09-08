@@ -7,7 +7,7 @@ using Genometric.GeUtilities.Intervals.Parsers.Model;
 using System;
 using System.Text;
 
-namespace GeUtilities.Tests.Intervals.Parsers.RefSeq
+namespace Genometric.GeUtilities.Tests.Intervals.Parsers.RefSeq
 {
     public class RegionGenerator
     {

@@ -5,7 +5,7 @@
 using System;
 using System.IO;
 
-namespace GeUtilities.Tests.Intervals.Parsers.RefSeq
+namespace Genometric.GeUtilities.Tests.Intervals.Parsers.RefSeq
 {
     public class TempFileCreator : IDisposable
     {
