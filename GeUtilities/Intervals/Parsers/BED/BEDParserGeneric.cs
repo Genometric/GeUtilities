@@ -69,6 +69,12 @@ namespace Genometric.GeUtilities.Intervals.Parsers
         public PValueFormats PValueFormat { set; get; }
 
         /// <summary>
+        /// Sets and gets if the parser should assert if 
+        /// a determined p-value falls in [0, 1] range.
+        /// </summary>
+        public bool ValidatePValue { set; get; }
+
+        /// <summary>
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
@@ -82,6 +88,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers
             _mostPermissivePeak = _constructor.Construct(0, 2, "", 1, 0);
             DefaultValue = 1E-8;
             DropPeakIfInvalidValue = true;
+            ValidatePValue = true;
             PValueFormat = PValueFormats.SameAsInput;
         }
 
@@ -118,6 +125,9 @@ namespace Genometric.GeUtilities.Intervals.Parsers
                     _defaultValueUtilizationCount++;
                 }
             }
+
+            if (ValidatePValue && (value < 0 || value > 1))
+                DropLine("\tLine " + lineCounter.ToString() + string.Format("\t:\tInvalid p-value ({0})", value));
 
             #endregion
 
