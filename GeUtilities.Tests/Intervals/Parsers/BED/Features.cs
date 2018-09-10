@@ -133,10 +133,13 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
         }
 
         [Theory]
-        [InlineData(-1, PValueFormats.SameAsInput)]
-        [InlineData(-1, PValueFormats.minus1_Log10_pValue)]
-        [InlineData(10000, PValueFormats.SameAsInput)]
-        public void DropPeakIfInvalidPValue(double value, PValueFormats pvalueFormat)
+        [InlineData(-1, PValueFormats.SameAsInput, true, false)]
+        [InlineData(-1, PValueFormats.SameAsInput, false, true)]
+        [InlineData(10000, PValueFormats.SameAsInput, true, false)]
+        [InlineData(10000, PValueFormats.SameAsInput, false, true)]
+        [InlineData(-1, PValueFormats.minus1_Log10_pValue, true, false)]
+        [InlineData(-1, PValueFormats.minus1_Log10_pValue, false, true)]
+        public void PValueAssertion(double value, PValueFormats pvalueFormat, bool validate, bool expected)
         {
             // Arrange
             var rg = new RegionGenerator { Value = value };
@@ -146,12 +149,13 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             {
                 var parser = new BEDParser()
                 {
-                    PValueFormat = pvalueFormat
+                    PValueFormat = pvalueFormat,
+                    ValidatePValue = validate
                 };
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
-                Assert.True(!parsedData.Chromosomes.Any());
+                Assert.True(parsedData.Chromosomes.Any() == expected);
             }
         }
 
