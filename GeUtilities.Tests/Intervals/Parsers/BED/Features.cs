@@ -134,6 +134,8 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
 
         [Theory]
         [InlineData(-1, PValueFormats.SameAsInput)]
+        [InlineData(-1, PValueFormats.minus1_Log10_pValue)]
+        [InlineData(10000, PValueFormats.SameAsInput)]
         public void DropPeakIfInvalidPValue(double value, PValueFormats pvalueFormat)
         {
             // Arrange
