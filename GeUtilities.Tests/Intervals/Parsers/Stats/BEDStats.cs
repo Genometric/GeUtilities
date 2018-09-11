@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
 {
-    public class BEDStats
+    public class BedStats
     {
         private ChIPSeqPeak[] CreatePeaks(double[] pValues)
         {
