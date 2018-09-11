@@ -6,7 +6,7 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.Intervals.Parsers.Model
 {
-    public class VCFParser<I> : Parser<I, IntervalStats>
+    public class VcfParser<I> : Parser<I, IntervalStats>
         where I : IVariant
     {
         private readonly byte _idColumn;
@@ -17,7 +17,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
         private readonly byte _infoColumn;
         private readonly IVariantConstructor<I> _constructor;
 
-        public VCFParser(VCFColumns columns, IVariantConstructor<I> constructor) : base(columns)
+        public VcfParser(VCFColumns columns, IVariantConstructor<I> constructor) : base(columns)
         {
             _idColumn = columns.ID; ;
             _refbColumn = columns.RefBase;

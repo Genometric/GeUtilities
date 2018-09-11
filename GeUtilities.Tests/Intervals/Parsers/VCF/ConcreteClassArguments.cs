@@ -17,7 +17,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.VCF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new VCFParser();
+                var parser = new VcfParser();
                 var parsedVariant = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -33,7 +33,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.VCF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new VCFParser(rg.Columns);
+                var parser = new VcfParser(rg.Columns);
                 var parsedVariant = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert

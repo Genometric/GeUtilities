@@ -6,12 +6,12 @@ using Genometric.GeUtilities.Intervals.Model;
 
 namespace Genometric.GeUtilities.Intervals.Parsers.Model
 {
-    public class VCFParser : VCFParser<Variant>
+    public class VcfParser : VcfParser<Variant>
     {
-        public VCFParser() : this(new VCFColumns())
+        public VcfParser() : this(new VCFColumns())
         { }
 
-        public VCFParser(VCFColumns columns) : base(columns, new VariantConstructor())
+        public VcfParser(VCFColumns columns) : base(columns, new VariantConstructor())
         { }
     }
 }
