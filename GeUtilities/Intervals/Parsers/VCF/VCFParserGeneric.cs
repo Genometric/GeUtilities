@@ -18,7 +18,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers
         private readonly byte _infoColumn;
         private readonly IVariantConstructor<I> _constructor;
 
-        public VcfParser(VCFColumns columns, IVariantConstructor<I> constructor) : base(columns)
+        public VcfParser(VcfColumns columns, IVariantConstructor<I> constructor) : base(columns)
         {
             _idColumn = columns.ID; ;
             _refbColumn = columns.RefBase;

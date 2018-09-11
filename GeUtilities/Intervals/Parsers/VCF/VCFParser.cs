@@ -9,10 +9,10 @@ namespace Genometric.GeUtilities.Intervals.Parsers
 {
     public class VcfParser : VcfParser<Variant>
     {
-        public VcfParser() : this(new VCFColumns())
+        public VcfParser() : this(new VcfColumns())
         { }
 
-        public VcfParser(VCFColumns columns) : base(columns, new VariantConstructor())
+        public VcfParser(VcfColumns columns) : base(columns, new VariantConstructor())
         { }
     }
 }

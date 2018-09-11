@@ -4,7 +4,7 @@
 
 namespace Genometric.GeUtilities.Intervals.Parsers.Model
 {
-    public class VCFColumns : BaseColumns
+    public class VcfColumns : BaseColumns
     {
         public byte ID { set; get; }
         public byte RefBase { set; get; }
@@ -13,7 +13,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
         public byte Filter { set; get; }
         public byte Info { set; get; }
 
-        public VCFColumns()
+        public VcfColumns()
         {
             Chr = 0;
             Left = 1;
