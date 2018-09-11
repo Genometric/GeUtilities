@@ -9,10 +9,10 @@ namespace Genometric.GeUtilities.Intervals.Parsers
 {
     public class GtfParser : GtfParser<GeneralFeature>
     {
-        public GtfParser() : this(new GTFColumns())
+        public GtfParser() : this(new GtfColumns())
         { }
 
-        public GtfParser(GTFColumns columns) : base(columns, new GeneralFeatureConstructor())
+        public GtfParser(GtfColumns columns) : base(columns, new GeneralFeatureConstructor())
         { }
     }
 }
