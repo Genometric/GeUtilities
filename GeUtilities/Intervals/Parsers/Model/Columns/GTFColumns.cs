@@ -4,7 +4,7 @@
 
 namespace Genometric.GeUtilities.Intervals.Parsers.Model
 {
-    public class GTFColumns : BaseColumns
+    public class GtfColumns : BaseColumns
     {
         public sbyte Source { set; get; }
         public sbyte Feature { set; get; }
@@ -12,7 +12,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
         public sbyte Frame { set; get; }
         public sbyte Attribute { set; get; }
 
-        public GTFColumns()
+        public GtfColumns()
         {
             Chr = 0;
             Source = 1;

@@ -2,7 +2,7 @@
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
-using Genometric.GeUtilities.Intervals.Parsers.Model;
+using Genometric.GeUtilities.Intervals.Parsers;
 using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Parsers.VCF
@@ -17,7 +17,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.VCF
             using (var file = new TempFileCreator(rg, variantsCount: 10, headerLineCount: 2))
             {
                 // Act
-                var parser = new VCFParser();
+                var parser = new VcfParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -42,7 +42,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.VCF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new VCFParser();
+                var parser = new VcfParser();
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert

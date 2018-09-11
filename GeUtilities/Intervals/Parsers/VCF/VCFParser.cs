@@ -3,15 +3,16 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.Intervals.Model;
+using Genometric.GeUtilities.Intervals.Parsers.Model;
 
-namespace Genometric.GeUtilities.Intervals.Parsers.Model
+namespace Genometric.GeUtilities.Intervals.Parsers
 {
-    public class VCFParser : VCFParser<Variant>
+    public class VcfParser : VcfParser<Variant>
     {
-        public VCFParser() : this(new VCFColumns())
+        public VcfParser() : this(new VcfColumns())
         { }
 
-        public VCFParser(VCFColumns columns) : base(columns, new VariantConstructor())
+        public VcfParser(VcfColumns columns) : base(columns, new VariantConstructor())
         { }
     }
 }

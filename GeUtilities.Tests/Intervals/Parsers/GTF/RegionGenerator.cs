@@ -11,7 +11,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.GTF
 {
     public class RegionGenerator
     {
-        public GTFColumns Columns { private set; get; }
+        public GtfColumns Columns { private set; get; }
 
         public byte ChrColumn
         {
@@ -134,7 +134,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.GTF
             // GTF file type specifications. These specifications can 
             // be obtained from various resources such as Ensembl: 
             // https://uswest.ensembl.org/info/website/upload/gff.html
-            Columns = new GTFColumns()
+            Columns = new GtfColumns()
             {
                 Chr = 0,
                 Source = 1,

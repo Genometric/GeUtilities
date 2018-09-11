@@ -8,7 +8,7 @@ using System;
 
 namespace Genometric.GeUtilities.Intervals.Parsers
 {
-    public class BEDParser<I> : Parser<I, BEDStats>
+    public class BedParser<I> : Parser<I, BEDStats>
         where I : IChIPSeqPeak
     {
         /// <summary>
@@ -78,7 +78,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        public BEDParser(BEDColumns columns, IChIPSeqPeakConstructor<I> constructor) : base(columns)
+        public BedParser(BedColumns columns, IChIPSeqPeakConstructor<I> constructor) : base(columns)
         {
             _constructor = constructor;
             _nameColumn = columns.Name;
@@ -152,9 +152,9 @@ namespace Genometric.GeUtilities.Intervals.Parsers
             return rtv;
         }
 
-        public BED<I> Parse(string sourceFilePath)
+        public Bed<I> Parse(string sourceFilePath)
         {
-            var rtv = (BED<I>)Parse(sourceFilePath, new BED<I>());
+            var rtv = (Bed<I>)Parse(sourceFilePath, new Bed<I>());
 
             if (_defaultValueUtilizationCount > 0)
                 Messages.Insert(0, "\tDefault p-value used for " + _defaultValueUtilizationCount.ToString() + " times");

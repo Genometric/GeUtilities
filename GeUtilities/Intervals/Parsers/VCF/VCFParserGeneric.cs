@@ -3,10 +3,11 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.Intervals.Parsers.Model;
 
-namespace Genometric.GeUtilities.Intervals.Parsers.Model
+namespace Genometric.GeUtilities.Intervals.Parsers
 {
-    public class VCFParser<I> : Parser<I, IntervalStats>
+    public class VcfParser<I> : Parser<I, IntervalStats>
         where I : IVariant
     {
         private readonly byte _idColumn;
@@ -17,7 +18,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
         private readonly byte _infoColumn;
         private readonly IVariantConstructor<I> _constructor;
 
-        public VCFParser(VCFColumns columns, IVariantConstructor<I> constructor) : base(columns)
+        public VcfParser(VcfColumns columns, IVariantConstructor<I> constructor) : base(columns)
         {
             _idColumn = columns.ID; ;
             _refbColumn = columns.RefBase;
@@ -101,9 +102,9 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
             return rtv;
         }
 
-        public VCF<I> Parse(string sourceFilePath)
+        public Vcf<I> Parse(string sourceFilePath)
         {
-            var rtv = (VCF<I>)Parse(sourceFilePath, new VCF<I>());
+            var rtv = (Vcf<I>)Parse(sourceFilePath, new Vcf<I>());
             Status = "100";
             return rtv;
         }

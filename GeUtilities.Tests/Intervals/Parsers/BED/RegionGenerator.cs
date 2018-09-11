@@ -14,7 +14,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
 {
     public class RegionGenerator
     {
-        public BEDColumns Columns { private set; get; }
+        public BedColumns Columns { private set; get; }
 
         public byte ChrColumn
         {
@@ -115,7 +115,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             // BED file type specifications. These specifications can 
             // be obtained from various resources such as Ensembl: 
             // https://uswest.ensembl.org/info/website/upload/bed.html
-            Columns = new BEDColumns()
+            Columns = new BedColumns()
             {
                 Chr = 0,
                 Left = 1,

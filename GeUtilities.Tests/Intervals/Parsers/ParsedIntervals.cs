@@ -20,7 +20,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers
             using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedBED = parser.Parse(file.Path);
 
                 // Assert
@@ -36,7 +36,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers
             using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedBED = parser.Parse(file.Path);
 
                 // Assert
@@ -52,7 +52,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers
             using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedBED = parser.Parse(file.Path);
 
                 // Assert
@@ -71,7 +71,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers
             using (var file = new TempFileCreator(peak))
             {
                 // Act
-                var parser = new BEDParser()
+                var parser = new BedParser()
                 {
                     Assembly = assembly
                 };

@@ -12,7 +12,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.VCF
 {
     public class RegionGenerator
     {
-        public VCFColumns Columns { private set; get; }
+        public VcfColumns Columns { private set; get; }
 
         public byte ChrColumn
         {
@@ -143,7 +143,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.VCF
             // VCF file type specifications. These specifications can 
             // be obtained from various resources such as the following: 
             // http://www.internationalgenome.org/wiki/Analysis/vcf4.0
-            Columns = new VCFColumns()
+            Columns = new VcfColumns()
             {
                 Chr = 0,
                 Left = 1,

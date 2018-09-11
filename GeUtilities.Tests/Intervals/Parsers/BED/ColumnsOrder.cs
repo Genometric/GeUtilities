@@ -37,8 +37,8 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser(
-                    new BEDColumns()
+                var parser = new BedParser(
+                    new BedColumns()
                     {
                         Chr = chrColumn,
                         Left = leftColumn,
@@ -71,7 +71,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser(rg.Columns);
+                var parser = new BedParser(rg.Columns);
                 var parsedPeak = parser.Parse(file.Path).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -96,7 +96,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser(rg.Columns);
+                var parser = new BedParser(rg.Columns);
                 var parsedPeak = parser.Parse(file.Path).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -123,7 +123,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser(rg.Columns);
+                var parser = new BedParser(rg.Columns);
 
                 // Assert
                 Assert.True(parser.Parse(file.Path).Chromosomes[rg.Chr].Strands.ContainsKey(strand));
@@ -145,8 +145,8 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(peaks))
             {
                 // Act
-                var parser = new BEDParser(
-                    new BEDColumns
+                var parser = new BedParser(
+                    new BedColumns
                     {
                         Chr = 0,
                         Left = 1,

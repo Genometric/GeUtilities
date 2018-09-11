@@ -17,7 +17,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.GTF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser();
+                var parser = new GtfParser();
                 var parsedFeature = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -33,7 +33,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.GTF
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new GTFParser(rg.Columns);
+                var parser = new GtfParser(rg.Columns);
                 var parsedFeature = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert

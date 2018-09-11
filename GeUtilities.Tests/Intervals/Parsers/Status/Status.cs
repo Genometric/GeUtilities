@@ -28,7 +28,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Status
             using (var file = new BED.TempFileCreator(new BED.RegionGenerator()))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
 
                 // Assert
                 Assert.True(parser.Status == "0");
@@ -42,7 +42,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Status
             using (var file = new BED.TempFileCreator(new BED.RegionGenerator()))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 parser.Parse(file.Path);
 
                 // Assert
@@ -57,7 +57,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Status
             using (var file = new GTF.TempFileCreator(new GTF.RegionGenerator()))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -72,7 +72,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Status
             using (var file = new RefSeq.TempFileCreator(new RefSeq.RegionGenerator()))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -87,7 +87,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Status
             using (var file = new VCF.TempFileCreator(new VCF.RegionGenerator()))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 parser.Parse(file.TempFilePath);
 
                 // Assert
@@ -103,7 +103,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Status
             using (var file = new BED.TempFileCreator(new BED.RegionGenerator(), peaksCount: 50))
             {
                 // Act
-                var bedParser = new BEDParser();
+                var bedParser = new BedParser();
                 bedParser.StatusChanged += ParserStatusChanged;
                 bedParser.Parse(file.Path);
 
