@@ -78,7 +78,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        public BedParser(BEDColumns columns, IChIPSeqPeakConstructor<I> constructor) : base(columns)
+        public BedParser(BedColumns columns, IChIPSeqPeakConstructor<I> constructor) : base(columns)
         {
             _constructor = constructor;
             _nameColumn = columns.Name;

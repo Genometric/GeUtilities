@@ -175,7 +175,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123.4"))
             {
                 // Act
-                var parser = new BedParser(new BEDColumns() { Right = 10 });
+                var parser = new BedParser(new BedColumns() { Right = 10 });
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert

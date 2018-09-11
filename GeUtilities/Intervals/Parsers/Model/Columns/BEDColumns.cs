@@ -4,13 +4,13 @@
 
 namespace Genometric.GeUtilities.Intervals.Parsers.Model
 {
-    public class BEDColumns : BaseColumns
+    public class BedColumns : BaseColumns
     {
         public byte Name { set; get; }
         public byte Value { set; get; }
         public sbyte Summit { set; get; }
 
-        public BEDColumns() : base()
+        public BedColumns() : base()
         {
             Name = 3;
             Value = 4;

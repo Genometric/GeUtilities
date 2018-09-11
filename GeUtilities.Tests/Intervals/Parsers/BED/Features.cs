@@ -79,7 +79,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser(new BEDColumns() { Value = 9 })
+                var parser = new BedParser(new BedColumns() { Value = 9 })
                 {
                     DropPeakIfInvalidValue = true
                 };
@@ -98,7 +98,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser(new BEDColumns() { Value = 9 })
+                var parser = new BedParser(new BedColumns() { Value = 9 })
                 {
                     DropPeakIfInvalidValue = false
                 };
@@ -209,7 +209,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser(new BEDColumns() { Name = 12 })
+                var parser = new BedParser(new BedColumns() { Name = 12 })
                 {
                     DropPeakIfInvalidValue = false
                 };
@@ -228,7 +228,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser(new BEDColumns() { Value = 9 })
+                var parser = new BedParser(new BedColumns() { Value = 9 })
                 {
                     DropPeakIfInvalidValue = true
                 };

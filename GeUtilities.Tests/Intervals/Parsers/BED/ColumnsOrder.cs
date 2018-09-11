@@ -38,7 +38,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             {
                 // Act
                 var parser = new BedParser(
-                    new BEDColumns()
+                    new BedColumns()
                     {
                         Chr = chrColumn,
                         Left = leftColumn,
@@ -146,7 +146,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             {
                 // Act
                 var parser = new BedParser(
-                    new BEDColumns
+                    new BedColumns
                     {
                         Chr = 0,
                         Left = 1,
