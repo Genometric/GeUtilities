@@ -152,9 +152,9 @@ namespace Genometric.GeUtilities.Intervals.Parsers
             return rtv;
         }
 
-        public BED<I> Parse(string sourceFilePath)
+        public Bed<I> Parse(string sourceFilePath)
         {
-            var rtv = (BED<I>)Parse(sourceFilePath, new BED<I>());
+            var rtv = (Bed<I>)Parse(sourceFilePath, new Bed<I>());
 
             if (_defaultValueUtilizationCount > 0)
                 Messages.Insert(0, "\tDefault p-value used for " + _defaultValueUtilizationCount.ToString() + " times");
