@@ -8,6 +8,7 @@ using Genometric.GeUtilities.Intervals.Parsers.Model;
 using Genometric.GeUtilities.ReferenceGenomes;
 using System;
 using System.IO;
+using System.Linq;
 using Xunit;
 
 /// <summary>
@@ -54,7 +55,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
         public void UseDefaultPValueForPeaksWithInvalidPValue()
         {
             // Arrange
-            double defaultValue = 1122.33;
+            double defaultValue = 0.112233;
             using (var file = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123..45"))
             {
                 // Act
@@ -128,6 +129,33 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
 
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Value == originalValue);
+            }
+        }
+
+        [Theory]
+        [InlineData(-1, PValueFormats.SameAsInput, true, false)]
+        [InlineData(-1, PValueFormats.SameAsInput, false, true)]
+        [InlineData(10000, PValueFormats.SameAsInput, true, false)]
+        [InlineData(10000, PValueFormats.SameAsInput, false, true)]
+        [InlineData(-1, PValueFormats.minus1_Log10_pValue, true, false)]
+        [InlineData(-1, PValueFormats.minus1_Log10_pValue, false, true)]
+        public void PValueAssertion(double value, PValueFormats pvalueFormat, bool validate, bool expected)
+        {
+            // Arrange
+            var rg = new RegionGenerator { Value = value };
+
+            // Act
+            using (var file = new TempFileCreator(rg))
+            {
+                var parser = new BEDParser()
+                {
+                    PValueFormat = pvalueFormat,
+                    ValidatePValue = validate
+                };
+                var parsedData = parser.Parse(file.Path);
+
+                // Assert
+                Assert.True(parsedData.Chromosomes.Any() == expected);
             }
         }
 

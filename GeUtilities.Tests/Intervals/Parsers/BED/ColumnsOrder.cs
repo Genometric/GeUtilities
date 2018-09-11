@@ -136,10 +136,10 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             // Arrange
             string[] peaks = new string[]
             {
-                "chr1\t10\t20\t*\tGeUtilities_00\t100.0",
-                "chr1\t30\t40\t+\tGeUtilities_01\t110.0",
-                "chr1\t50\t60\t-\tGeUtilities_02\t111.0",
-                "chr1\t50\t60\t#\tGeUtilities_02\t111.0", // Any strand name other than '+', '-', and '*' will be parsed as '*'.
+                "chr1\t10\t20\t*\tGeUtilities_00\t0.1",
+                "chr1\t30\t40\t+\tGeUtilities_01\t0.11",
+                "chr1\t50\t60\t-\tGeUtilities_02\t0.111",
+                "chr1\t50\t60\t#\tGeUtilities_02\t0.111", // Any strand name other than '+', '-', and '*' will be parsed as '*'.
             };
 
             using (var file = new TempFileCreator(peaks))

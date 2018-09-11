@@ -131,7 +131,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             Right = 20;
             Summit = 15;
             Name = "GeUtilities_01";
-            Value = 123.45;
+            Value = 0.12345;
             Strand = '*';
         }
 
