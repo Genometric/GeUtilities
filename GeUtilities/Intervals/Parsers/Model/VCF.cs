@@ -6,10 +6,10 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.Intervals.Parsers.Model
 {
-    public class VCF<I> : ParsedIntervals<I, IntervalStats>
+    public class Vcf<I> : ParsedIntervals<I, IntervalStats>
         where I : IVariant
     {
-        public VCF()
+        public Vcf()
         { }
     }
 }

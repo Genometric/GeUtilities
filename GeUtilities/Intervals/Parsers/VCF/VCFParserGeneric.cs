@@ -102,9 +102,9 @@ namespace Genometric.GeUtilities.Intervals.Parsers
             return rtv;
         }
 
-        public VCF<I> Parse(string sourceFilePath)
+        public Vcf<I> Parse(string sourceFilePath)
         {
-            var rtv = (VCF<I>)Parse(sourceFilePath, new VCF<I>());
+            var rtv = (Vcf<I>)Parse(sourceFilePath, new Vcf<I>());
             Status = "100";
             return rtv;
         }

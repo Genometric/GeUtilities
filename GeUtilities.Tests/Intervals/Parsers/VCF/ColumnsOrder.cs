@@ -11,7 +11,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.VCF
 {
     public class ColumnsOrder
     {
-        private VCF<Variant> ParseVCF(string filePath, RegionGenerator rg)
+        private Vcf<Variant> ParseVCF(string filePath, RegionGenerator rg)
         {
             var parser = new VcfParser(rg.Columns);
             return parser.Parse(filePath);
