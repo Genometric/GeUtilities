@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Genometric.GeUtilities.Intervals.Parsers
 {
-    public class GTFParser<I> : Parser<I, IntervalStats>
+    public class GtfParser<I> : Parser<I, IntervalStats>
         where I : IGeneralFeature
     {
         /// <summary>
@@ -31,7 +31,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers
         /// Parse General Transfer Format (GTF) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        public GTFParser(GTFColumns columns, IGeneralFeatureConstructor<I> constructor) : base(columns)
+        public GtfParser(GTFColumns columns, IGeneralFeatureConstructor<I> constructor) : base(columns)
         {
             _sourceColumn = columns.Source;
             _featureColumn = columns.Feature;

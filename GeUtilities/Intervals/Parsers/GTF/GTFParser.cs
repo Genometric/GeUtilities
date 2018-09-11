@@ -7,12 +7,12 @@ using Genometric.GeUtilities.Intervals.Parsers.Model;
 
 namespace Genometric.GeUtilities.Intervals.Parsers
 {
-    public class GTFParser : GTFParser<GeneralFeature>
+    public class GtfParser : GtfParser<GeneralFeature>
     {
-        public GTFParser() : this(new GTFColumns())
+        public GtfParser() : this(new GTFColumns())
         { }
 
-        public GTFParser(GTFColumns columns) : base(columns, new GeneralFeatureConstructor())
+        public GtfParser(GTFColumns columns) : base(columns, new GeneralFeatureConstructor())
         { }
     }
 }

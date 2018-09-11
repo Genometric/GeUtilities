@@ -13,7 +13,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.GTF
     {
         internal static GTF<GeneralFeature> ParseGTF(string filePath, RegionGenerator rg)
         {
-            var parser = new GTFParser(rg.Columns);
+            var parser = new GtfParser(rg.Columns);
             return parser.Parse(filePath);
         }
 
