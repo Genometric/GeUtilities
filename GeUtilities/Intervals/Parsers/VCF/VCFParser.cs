@@ -3,8 +3,9 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.Intervals.Model;
+using Genometric.GeUtilities.Intervals.Parsers.Model;
 
-namespace Genometric.GeUtilities.Intervals.Parsers.Model
+namespace Genometric.GeUtilities.Intervals.Parsers
 {
     public class VcfParser : VcfParser<Variant>
     {
