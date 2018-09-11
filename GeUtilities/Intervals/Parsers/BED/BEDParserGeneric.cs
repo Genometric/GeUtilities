@@ -8,7 +8,7 @@ using System;
 
 namespace Genometric.GeUtilities.Intervals.Parsers
 {
-    public class BEDParser<I> : Parser<I, BEDStats>
+    public class BedParser<I> : Parser<I, BEDStats>
         where I : IChIPSeqPeak
     {
         /// <summary>
@@ -78,7 +78,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        public BEDParser(BEDColumns columns, IChIPSeqPeakConstructor<I> constructor) : base(columns)
+        public BedParser(BEDColumns columns, IChIPSeqPeakConstructor<I> constructor) : base(columns)
         {
             _constructor = constructor;
             _nameColumn = columns.Name;

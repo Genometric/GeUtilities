@@ -21,7 +21,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator())
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedPeak = parser.Parse(file.Path).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
 
                 // Assert
@@ -41,7 +41,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(new RegionGenerator(), headerLineCount: headerCount))
             {
                 // Act
-                var parser = new BEDParser()
+                var parser = new BedParser()
                 {
                     ReadOffset = readOffset
                 };
@@ -65,7 +65,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(new RegionGenerator { Chr = chr }))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -82,7 +82,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(new RegionGenerator { Chr = "chr1" }))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -98,7 +98,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // ACt
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -114,7 +114,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -129,7 +129,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator("chr1\t10V\t20\tGeUtilities_01\t123.4"))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -145,7 +145,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -160,7 +160,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator("chr1\t10\t20V\tGeUtilities_01\t123.4"))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -175,7 +175,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123.4"))
             {
                 // Act
-                var parser = new BEDParser(new BEDColumns() { Right = 10 });
+                var parser = new BedParser(new BEDColumns() { Right = 10 });
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -191,7 +191,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -207,7 +207,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -222,7 +222,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator("chr1\t10\t20\tGeUtilities_01\t123..45"))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -238,7 +238,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BEDParser();
+                var parser = new BedParser();
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
@@ -250,7 +250,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
         public void DefaultDelimiterIsTab()
         {
             // Arrange & Act
-            var parser = new BEDParser();
+            var parser = new BedParser();
 
             // Assert
             Assert.True(parser.Delimiter == '\t');

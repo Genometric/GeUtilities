@@ -7,12 +7,12 @@ using Genometric.GeUtilities.Intervals.Parsers.Model;
 
 namespace Genometric.GeUtilities.Intervals.Parsers
 {
-    public class BEDParser : BEDParser<ChIPSeqPeak>
+    public class BedParser : BedParser<ChIPSeqPeak>
     {
-        public BEDParser() : this(new BEDColumns())
+        public BedParser() : this(new BEDColumns())
         { }
 
-        public BEDParser(BEDColumns columns) : base(columns, new ChIPSeqPeakConstructor())
+        public BedParser(BEDColumns columns) : base(columns, new ChIPSeqPeakConstructor())
         { }
     }
 }

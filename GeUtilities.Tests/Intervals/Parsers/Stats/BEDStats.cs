@@ -86,7 +86,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
 
             using (var file = new TempFileCreator(peaks))
             {
-                var parser = new BEDParser()
+                var parser = new BedParser()
                 {
                     PValueFormat = PValueFormats.SameAsInput
                 };
@@ -109,7 +109,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
 
             using (var file = new TempFileCreator(peaks))
             {
-                var parser = new BEDParser()
+                var parser = new BedParser()
                 {
                     PValueFormat = PValueFormats.SameAsInput
                 };
