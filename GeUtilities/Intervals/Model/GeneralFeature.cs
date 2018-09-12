@@ -26,6 +26,25 @@ namespace Genometric.GeUtilities.Intervals.Model
         public string Frame { get; }
         public string Attribute { get; }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (GetType() != obj.GetType()) return false;
+            if (!base.Equals(obj)) return false;
+            var other = (GeneralFeature)obj;
+            return
+                Source == other.Source &&
+                Feature == other.Feature &&
+                Score == other.Score &&
+                Frame == other.Frame &&
+                Attribute == other.Attribute;
+        }
+
         public new int CompareTo(object obj)
         {
             if (obj == null) return 1;
