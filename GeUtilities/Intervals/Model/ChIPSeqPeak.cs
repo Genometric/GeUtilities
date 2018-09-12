@@ -24,7 +24,7 @@ namespace Genometric.GeUtilities.Intervals.Model
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
-            if (obj.GetType() != typeof(ChIPSeqPeak)) return false;
+            if (GetType() != obj.GetType()) return false;
             if (!base.Equals(obj)) return false;
             var other = (ChIPSeqPeak)obj;
             return
