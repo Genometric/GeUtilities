@@ -21,6 +21,18 @@ namespace Genometric.GeUtilities.Intervals.Model
         public int Summit { get; }
         public string Name { get; }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (obj.GetType() != typeof(ChIPSeqPeak)) return false;
+            if (!base.Equals(obj)) return false;
+            var other = (ChIPSeqPeak)obj;
+            return
+                Value == other.Value &&
+                Summit == other.Summit &&
+                Name == other.Name;
+        }
+
         public new int CompareTo(object obj)
         {
             if (obj == null) return 1;
