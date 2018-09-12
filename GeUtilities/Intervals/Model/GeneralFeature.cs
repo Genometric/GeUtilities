@@ -33,25 +33,14 @@ namespace Genometric.GeUtilities.Intervals.Model
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (GetType() != obj.GetType()) return false;
-            if (!base.Equals(obj)) return false;
-            var other = (GeneralFeature)obj;
-            return
-                Source == other.Source &&
-                Feature == other.Feature &&
-                Score == other.Score &&
-                Frame == other.Frame &&
-                Attribute == other.Attribute;
+            return CompareTo(obj) == 0;
         }
 
         public new int CompareTo(object obj)
         {
-            if (obj == null) return 1;
-            if (obj is GeneralFeature)
-                return CompareTo(obj as GeneralFeature);
-            else
-                throw new NotImplementedException("Comparison with other object types is not implemented.");
+            if (obj == null || GetType() != obj.GetType())
+                return 1;
+            return CompareTo((GeneralFeature)obj);
         }
 
         public int CompareTo(IGeneralFeature other)
