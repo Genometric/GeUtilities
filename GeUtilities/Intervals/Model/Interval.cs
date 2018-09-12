@@ -35,7 +35,8 @@ namespace Genometric.GeUtilities.Intervals.Model
         {
             if (obj == null) return false;
             if (obj.GetType() != typeof(Interval)) return false;
-            return _hashKey == obj.GetHashCode();
+            Interval other = (Interval)obj;
+            return Left == other.Left && Right == other.Right;
         }
 
         public int CompareTo(object obj)
