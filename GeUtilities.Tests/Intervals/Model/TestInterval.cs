@@ -91,8 +91,8 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
         [InlineData(Parameter.Left, 8, 10, false)]
         [InlineData(Parameter.Right, 20, 18, false)]
         [InlineData(Parameter.Right, 18, 20, false)]
-        [InlineData(Parameter.Seed, "GU", "G", false)]
-        [InlineData(Parameter.Seed, "G", "GU", false)]
+        [InlineData(Parameter.Seed, "GU", "G", true)]
+        [InlineData(Parameter.Seed, "G", "GU", true)]
         public void Equal(Parameter param, object v1, object v2, bool expected)
         {
             // Arrange
