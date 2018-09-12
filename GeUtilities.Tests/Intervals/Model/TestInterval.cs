@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.Intervals.Model;
-using System;
 using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Model
@@ -82,40 +81,25 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
             Assert.False(peak.Equals(interval));
         }
 
-        [Fact]
-        public void NotImplementedCompareTo()
-        {
-            // Arrange
-            var constructor = new IntervalConstructor();
-            var intA = constructor.Construct(10, 20);
-            var intB = constructor.Construct(30, 40);
-
-            // Act & Assert
-            Exception exception = Assert.Throws<NotImplementedException>(() => intA.CompareTo(intB));
-
-            // Act & Assert
-            Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
-        }
-
         [Theory]
-        [InlineData(Parameter.None, null, null, true)]
-        [InlineData(Parameter.Left, 10, 8, false)]
-        [InlineData(Parameter.Left, 8, 10, false)]
-        [InlineData(Parameter.Right, 20, 18, false)]
-        [InlineData(Parameter.Right, 18, 20, false)]
-        [InlineData(Parameter.Seed, "GU", "G", true)]
-        [InlineData(Parameter.Seed, "G", "GU", true)]
-        public void Equal(Parameter param, object v1, object v2, bool expected)
+        [InlineData(Parameter.None, null, null, 0)]
+        [InlineData(Parameter.Left, 10, 8, 1)]
+        [InlineData(Parameter.Left, 8, 10, -1)]
+        [InlineData(Parameter.Right, 20, 18, 1)]
+        [InlineData(Parameter.Right, 18, 20, -1)]
+        public void Equal(Parameter param, object v1, object v2, int expected)
         {
             // Arrange
             var a = GetInterval(param, v1);
             var b = GetInterval(param, v2);
 
             // Act
-            var actual = a.Equals(b);
+            var actual = a.CompareTo(b);
+            var equal = expected == 0;
 
             // Assert
             Assert.Equal(expected, actual);
+            Assert.True(a.Equals(b) == equal);
         }
     }
 }

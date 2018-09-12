@@ -4,7 +4,6 @@
 
 using Genometric.GeUtilities.IGenomics;
 using Genometric.GeUtilities.Intervals.Functions;
-using System;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
@@ -33,15 +32,21 @@ namespace Genometric.GeUtilities.Intervals.Model
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (GetType() != obj.GetType()) return false;
-            Interval other = (Interval)obj;
-            return Left == other.Left && Right == other.Right;
+            return CompareTo(obj) == 0;
         }
 
         public int CompareTo(object obj)
         {
-            throw new NotImplementedException("Comparison with other object types is not implemented.");
+            if (obj == null || GetType() != obj.GetType())
+                return 1;
+            return CompareTo((Interval)obj);
+        }
+
+        public int CompareTo(IInterval<int> other)
+        {
+            int compareResult = Left.CompareTo(other.Left);
+            if (compareResult != 0) return compareResult;
+            return Right.CompareTo(other.Right);
         }
     }
 }
