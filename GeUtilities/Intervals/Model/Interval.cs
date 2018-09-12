@@ -34,7 +34,7 @@ namespace Genometric.GeUtilities.Intervals.Model
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
-            if (obj.GetType() != typeof(Interval)) return false;
+            if (GetType() != obj.GetType()) return false;
             Interval other = (Interval)obj;
             return Left == other.Left && Right == other.Right;
         }
