@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using System;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
@@ -26,38 +25,48 @@ namespace Genometric.GeUtilities.Intervals.Model
         public string Frame { get; }
         public string Attribute { get; }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return CompareTo(obj) == 0;
+        }
+
         public new int CompareTo(object obj)
         {
-            if (obj == null) return 1;
-            if (obj is GeneralFeature)
-                return CompareTo(obj as GeneralFeature);
-            else
-                throw new NotImplementedException("Comparison with other object types is not implemented.");
+            if (obj == null || GetType() != obj.GetType())
+                return 1;
+            return CompareTo((GeneralFeature)obj);
         }
 
         public int CompareTo(IGeneralFeature other)
         {
-            if (other == null) return 1;
-            if (Source == null) return -1;
-            if (other.Source == null) return 1;
-            int compareResult = Source.CompareTo(other.Source);
+            if (Frame == null ||
+                Source == null ||
+                Feature == null ||
+                Attribute == null)
+                return -1;
+
+            if (other == null ||
+                other.Frame == null ||
+                other.Source == null ||
+                other.Feature == null ||
+                other.Attribute == null)
+                return 1;
+
+            int compareResult = base.CompareTo(other);
             if (compareResult != 0) return compareResult;
-            if (Feature == null) return -1;
-            if (other.Feature == null) return 1;
+            compareResult = Source.CompareTo(other.Source);
+            if (compareResult != 0) return compareResult;
             compareResult = Feature.CompareTo(other.Feature);
-            if (compareResult != 0) return compareResult;
-            compareResult = Left.CompareTo(other.Left);
-            if (compareResult != 0) return compareResult;
-            compareResult = Right.CompareTo(other.Right);
             if (compareResult != 0) return compareResult;
             compareResult = Score.CompareTo(other.Score);
             if (compareResult != 0) return compareResult;
-            if (Frame == null) return -1;
-            if (other.Frame == null) return 1;
             compareResult = Frame.CompareTo(other.Frame);
             if (compareResult != 0) return compareResult;
-            if (Attribute == null) return -1;
-            if (other.Attribute == null) return 1;
             return Attribute.CompareTo(other.Attribute);
         }
     }

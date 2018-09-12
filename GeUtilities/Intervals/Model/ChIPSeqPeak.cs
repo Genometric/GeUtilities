@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using System;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
@@ -21,28 +20,37 @@ namespace Genometric.GeUtilities.Intervals.Model
         public int Summit { get; }
         public string Name { get; }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return CompareTo(obj) == 0;
+        }
+
         public new int CompareTo(object obj)
         {
-            if (obj == null) return 1;
-            if (obj is ChIPSeqPeak)
-                return CompareTo(obj as ChIPSeqPeak);
-            else
-                throw new NotImplementedException("Comparison with other object types is not implemented.");
+            if (obj == null || GetType() != obj.GetType())
+                return 1;
+            return CompareTo((ChIPSeqPeak)obj);
         }
 
         public int CompareTo(IChIPSeqPeak other)
         {
-            if (other == null) return 1;
-            int compareResult = Left.CompareTo(other.Left);
-            if (compareResult != 0) return compareResult;
-            compareResult = Right.CompareTo(other.Right);
+            if (Name == null) return -1;
+
+            if (other == null ||
+                other.Name == null)
+                return 1;
+
+            int compareResult = base.CompareTo(other);
             if (compareResult != 0) return compareResult;
             compareResult = Value.CompareTo(other.Value);
             if (compareResult != 0) return compareResult;
             compareResult = Summit.CompareTo(other.Summit);
             if (compareResult != 0) return compareResult;
-            if (Name == null) return -1;
-            if (other.Name == null) return 1;
             return Name.CompareTo(other.Name);
         }
     }

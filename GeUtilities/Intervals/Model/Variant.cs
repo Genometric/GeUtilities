@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using System;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
@@ -29,40 +28,52 @@ namespace Genometric.GeUtilities.Intervals.Model
         public string Filter { get; }
         public string Info { get; }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return CompareTo(obj) == 0;
+        }
+
         public new int CompareTo(object obj)
         {
-            if (obj == null) return 1;
-            if (obj is Variant)
-                return CompareTo(obj as Variant);
-            else
-                throw new NotImplementedException("Comparison with other object types is not implemented.");
+            if (obj == null || GetType() != obj.GetType())
+                return 1;
+            return CompareTo((Variant)obj);
         }
 
         public int CompareTo(IVariant other)
         {
-            if (other == null) return 1;
-            int compareResult = Left.CompareTo(other.Left);
+            if (ID == null ||
+                Info == null ||
+                Filter == null ||
+                RefBase == null ||
+                AltBase == null)
+                return -1;
+
+            if (other == null ||
+                other.ID == null ||
+                other.Info == null ||
+                other.Filter == null ||
+                other.RefBase == null ||
+                other.AltBase == null)
+                return 1;
+
+            int compareResult = base.CompareTo(other);
             if (compareResult != 0) return compareResult;
-            if (ID == null) return -1;
-            if (other.ID == null) return 1;
             compareResult = ID.CompareTo(other.ID);
             if (compareResult != 0) return compareResult;
             compareResult = Quality.CompareTo(other.Quality);
             if (compareResult != 0) return compareResult;
-            if (Filter == null) return -1;
-            if (other.Filter == null) return 1;
             compareResult = Filter.CompareTo(other.Filter);
             if (compareResult != 0) return compareResult;
-            if (Info == null) return -1;
-            if (other.Info == null) return 1;
             compareResult = Info.CompareTo(other.Info);
             if (compareResult != 0) return compareResult;
-            if (RefBase == null) return -1;
-            if (other.RefBase == null) return 1;
             compareResult = (string.Join("", RefBase)).CompareTo(string.Join("", other.RefBase));
             if (compareResult != 0) return compareResult;
-            if (AltBase == null) return -1;
-            if (other.AltBase == null) return 1;
             return (string.Join("", AltBase)).CompareTo(string.Join("", other.AltBase));
         }
     }
