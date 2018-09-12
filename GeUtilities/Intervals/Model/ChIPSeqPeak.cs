@@ -21,6 +21,11 @@ namespace Genometric.GeUtilities.Intervals.Model
         public int Summit { get; }
         public string Name { get; }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
