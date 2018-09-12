@@ -79,17 +79,6 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
         }
 
-        [Fact]
-        public void TwoEqualChIPSeqPeaks()
-        {
-            // Arrange
-            var a = GetPeak();
-            var b = GetPeak();
-
-            // Act & Assert
-            Assert.True(a.Equals(b));
-        }
-
         [Theory]
         [InlineData(Parameter.None, null, null, 0)]
         [InlineData(Parameter.Left, 10, 8, 1)]
@@ -113,9 +102,11 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
 
             // Act
             var actual = a.CompareTo(b);
+            var equal = expected == 0;
 
             // Assert
             Assert.Equal(expected, actual);
+            Assert.True(a.Equals(b) == equal);
         }
     }
 }

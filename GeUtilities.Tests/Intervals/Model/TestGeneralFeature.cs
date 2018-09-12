@@ -79,28 +79,6 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
             Assert.True(aVariant.CompareTo(aPeak) == 1);
         }
 
-        [Fact]
-        public void TwoEqualFeatures()
-        {
-            // Arrange
-            var a = GetFeature();
-            var b = GetFeature();
-
-            // Act & Assert
-            Assert.True(a.Equals(b));
-        }
-
-        [Fact]
-        public void TwoNotEqualFeatures()
-        {
-            // Arrange
-            var a = GetFeature();
-            var b = GetFeature(Parameter.Left, 1);
-
-            // Act & Assert
-            Assert.False(a.Equals(b));
-        }
-
         [Theory]
         [InlineData(Parameter.None, null, null, 0)]
         [InlineData(Parameter.Left, 10, 8, 1)]
@@ -143,9 +121,11 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
 
             // Act
             var actual = a.CompareTo(b);
+            var equal = expected == 0;
 
             // Assert
             Assert.Equal(expected, actual);
+            Assert.True(a.Equals(b) == equal);
         }
     }
 }
