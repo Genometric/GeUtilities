@@ -82,6 +82,28 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
             Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
         }
 
+        [Fact]
+        public void TwoEqualFeatures()
+        {
+            // Arrange
+            var a = GetFeature();
+            var b = GetFeature();
+
+            // Act & Assert
+            Assert.True(a.Equals(b));
+        }
+
+        [Fact]
+        public void TwoNotEqualFeatures()
+        {
+            // Arrange
+            var a = GetFeature();
+            var b = GetFeature(Parameter.Left, 1);
+
+            // Act & Assert
+            Assert.False(a.Equals(b));
+        }
+
         [Theory]
         [InlineData(Parameter.None, null, null, 0)]
         [InlineData(Parameter.Left, 10, 8, 1)]
