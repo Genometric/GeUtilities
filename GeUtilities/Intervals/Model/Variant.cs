@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using System;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
@@ -36,26 +35,14 @@ namespace Genometric.GeUtilities.Intervals.Model
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (GetType() != obj.GetType()) return false;
-            if (!base.Equals(obj)) return false;
-            var other = (Variant)obj;
-            return
-                ID == other.ID &&
-                (string.Join("", RefBase)).CompareTo(string.Join("", other.RefBase)) == 0 &&
-                (string.Join("", AltBase)).CompareTo(string.Join("", other.AltBase)) == 0 &&
-                Quality == other.Quality &&
-                Filter == other.Filter &&
-                Info == other.Info;
+            return CompareTo(obj) == 0;
         }
 
         public new int CompareTo(object obj)
         {
-            if (obj == null) return 1;
-            if (obj is Variant)
-                return CompareTo(obj as Variant);
-            else
-                throw new NotImplementedException("Comparison with other object types is not implemented.");
+            if (obj == null || GetType() != obj.GetType())
+                return 1;
+            return CompareTo((Variant)obj);
         }
 
         public int CompareTo(IVariant other)
