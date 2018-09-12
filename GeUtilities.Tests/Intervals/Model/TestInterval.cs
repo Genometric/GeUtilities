@@ -71,6 +71,18 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
         }
 
         [Fact]
+        public void AnInstanceOfIntervalClassDoesNotEqualAnInstanceOfADerivedType()
+        {
+            // Arrange
+            var interval = GetInterval();
+            var peak = TestChIPSeqPeak.GetPeak();
+
+            // Act & Assert
+            Assert.False(interval.Equals(peak));
+            Assert.False(peak.Equals(interval));
+        }
+
+        [Fact]
         public void NotImplementedCompareTo()
         {
             // Arrange
