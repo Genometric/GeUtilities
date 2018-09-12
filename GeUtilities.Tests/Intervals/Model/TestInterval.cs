@@ -12,7 +12,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
     {
         public enum Parameter { None, Left, Right, Seed };
 
-        internal static Genometric.GeUtilities.Intervals.Model.Interval GetInterval(Parameter param = Parameter.None, object value = null)
+        internal static Interval GetInterval(Parameter param = Parameter.None, object value = null)
         {
             int left = 10;
             int right = 20;
