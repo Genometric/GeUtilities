@@ -37,15 +37,19 @@ namespace Genometric.GeUtilities.Intervals.Model
 
         public int CompareTo(IRefSeq other)
         {
-            if (other == null) return 1;
+            if (RefSeqID == null ||
+                GeneSymbol == null)
+                return -1;
+
+            if (other == null ||
+                other.RefSeqID == null ||
+                other.GeneSymbol == null)
+                return 1;
+
             int compareResult = base.CompareTo(other);
             if (compareResult != 0) return compareResult;
-            if (RefSeqID == null) return -1;
-            if (other.RefSeqID == null) return 1;
             compareResult = RefSeqID.CompareTo(other.RefSeqID);
             if (compareResult != 0) return compareResult;
-            if (GeneSymbol == null) return -1;
-            if (other.GeneSymbol == null) return 1;
             return GeneSymbol.CompareTo(other.GeneSymbol);
         }
     }
