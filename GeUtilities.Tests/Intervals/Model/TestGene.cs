@@ -63,18 +63,14 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
         }
 
         [Fact]
-        public void CheckNotImplementedComparison()
+        public void ThisProceedsDifferentType()
         {
             // Arrange
             var aGene = GetGene();
             var aPeak = TestChIPSeqPeak.GetPeak();
 
-            // Act
-            Exception exception = Assert.Throws<NotImplementedException>(() => aGene.CompareTo(aPeak));
-
-            // Assert
-            Assert.False(String.IsNullOrEmpty(exception.Message));
-            Assert.Equal("Comparison with other object types is not implemented.", exception.Message);
+            // Act & Assert
+            Assert.True(aGene.CompareTo(aPeak) == 1);
         }
 
         [Theory]

@@ -72,11 +72,11 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
         public void ThisProceedsDifferentType()
         {
             // Arrange
-            var aVariant = GetFeature();
+            var aFeature = GetFeature();
             var aPeak = TestChIPSeqPeak.GetPeak();
 
             // Act & Assert
-            Assert.True(aVariant.CompareTo(aPeak) == 1);
+            Assert.True(aFeature.CompareTo(aPeak) == 1);
         }
 
         [Theory]
