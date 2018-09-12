@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using System;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
@@ -39,9 +38,7 @@ namespace Genometric.GeUtilities.Intervals.Model
         public int CompareTo(IRefSeq other)
         {
             if (other == null) return 1;
-            int compareResult = Left.CompareTo(other.Left);
-            if (compareResult != 0) return compareResult;
-            compareResult = Right.CompareTo(other.Right);
+            int compareResult = base.CompareTo(other);
             if (compareResult != 0) return compareResult;
             if (RefSeqID == null) return -1;
             if (other.RefSeqID == null) return 1;

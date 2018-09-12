@@ -48,7 +48,7 @@ namespace Genometric.GeUtilities.Intervals.Model
         public int CompareTo(IVariant other)
         {
             if (other == null) return 1;
-            int compareResult = Left.CompareTo(other.Left);
+            int compareResult = base.CompareTo(other);
             if (compareResult != 0) return compareResult;
             if (ID == null) return -1;
             if (other.ID == null) return 1;

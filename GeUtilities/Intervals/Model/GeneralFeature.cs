@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
-using System;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
@@ -46,17 +45,15 @@ namespace Genometric.GeUtilities.Intervals.Model
         public int CompareTo(IGeneralFeature other)
         {
             if (other == null) return 1;
+            int compareResult = base.CompareTo(other);
+            if (compareResult != 0) return compareResult;
             if (Source == null) return -1;
             if (other.Source == null) return 1;
-            int compareResult = Source.CompareTo(other.Source);
+            compareResult = Source.CompareTo(other.Source);
             if (compareResult != 0) return compareResult;
             if (Feature == null) return -1;
             if (other.Feature == null) return 1;
             compareResult = Feature.CompareTo(other.Feature);
-            if (compareResult != 0) return compareResult;
-            compareResult = Left.CompareTo(other.Left);
-            if (compareResult != 0) return compareResult;
-            compareResult = Right.CompareTo(other.Right);
             if (compareResult != 0) return compareResult;
             compareResult = Score.CompareTo(other.Score);
             if (compareResult != 0) return compareResult;
