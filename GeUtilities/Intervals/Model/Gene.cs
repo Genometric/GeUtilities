@@ -26,22 +26,14 @@ namespace Genometric.GeUtilities.Intervals.Model
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (GetType() != obj.GetType()) return false;
-            if (!base.Equals(obj)) return false;
-            var other = (Gene)obj;
-            return
-                RefSeqID == other.RefSeqID &&
-                GeneSymbol == other.GeneSymbol;
+            return CompareTo(obj) == 0;
         }
 
         public new int CompareTo(object obj)
         {
-            if (obj == null) return 1;
-            if (obj is Gene)
-                return CompareTo(obj as Gene);
-            else
-                throw new NotImplementedException("Comparison with other object types is not implemented.");
+            if (obj == null || GetType() != obj.GetType())
+                return 1;
+            return CompareTo((Gene)obj);
         }
 
         public int CompareTo(IRefSeq other)

@@ -28,23 +28,14 @@ namespace Genometric.GeUtilities.Intervals.Model
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (GetType() != obj.GetType()) return false;
-            if (!base.Equals(obj)) return false;
-            var other = (ChIPSeqPeak)obj;
-            return
-                Value == other.Value &&
-                Summit == other.Summit &&
-                Name == other.Name;
+            return CompareTo(obj) == 0;
         }
 
         public new int CompareTo(object obj)
         {
-            if (obj == null) return 1;
-            if (obj is ChIPSeqPeak)
-                return CompareTo(obj as ChIPSeqPeak);
-            else
-                throw new NotImplementedException("Comparison with other object types is not implemented.");
+            if (obj == null || GetType() != obj.GetType())
+                return 1;
+            return CompareTo((ChIPSeqPeak)obj);
         }
 
         public int CompareTo(IChIPSeqPeak other)
