@@ -19,6 +19,22 @@ namespace Genometric.GeUtilities.Intervals.Model
         public string RefSeqID { get; }
         public string GeneSymbol { get; }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (GetType() != obj.GetType()) return false;
+            if (!base.Equals(obj)) return false;
+            var other = (Gene)obj;
+            return
+                RefSeqID == other.RefSeqID &&
+                GeneSymbol == other.GeneSymbol;
+        }
+
         public new int CompareTo(object obj)
         {
             if (obj == null) return 1;
