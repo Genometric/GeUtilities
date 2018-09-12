@@ -47,6 +47,13 @@ namespace Genometric.GeUtilities.Intervals.Model
 
         public int CompareTo(IVariant other)
         {
+            if (ID == null ||
+                Info == null ||
+                Filter == null ||
+                RefBase == null ||
+                AltBase == null)
+                return -1;
+
             if (other == null ||
                 other.ID == null ||
                 other.Info == null ||
@@ -54,13 +61,6 @@ namespace Genometric.GeUtilities.Intervals.Model
                 other.RefBase == null ||
                 other.AltBase == null)
                 return 1;
-
-            if (ID == null ||
-                Info == null ||
-                Filter == null ||
-                RefBase == null ||
-                AltBase == null)
-                return -1;
 
             int compareResult = base.CompareTo(other);
             if (compareResult != 0) return compareResult;

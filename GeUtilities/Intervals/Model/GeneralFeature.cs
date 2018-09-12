@@ -44,25 +44,29 @@ namespace Genometric.GeUtilities.Intervals.Model
 
         public int CompareTo(IGeneralFeature other)
         {
-            if (other == null) return 1;
+            if (Frame == null ||
+                Source == null ||
+                Feature == null ||
+                Attribute == null)
+                return -1;
+
+            if (other == null ||
+                other.Frame == null ||
+                other.Source == null ||
+                other.Feature == null ||
+                other.Attribute == null)
+                return 1;
+
             int compareResult = base.CompareTo(other);
             if (compareResult != 0) return compareResult;
-            if (Source == null) return -1;
-            if (other.Source == null) return 1;
             compareResult = Source.CompareTo(other.Source);
             if (compareResult != 0) return compareResult;
-            if (Feature == null) return -1;
-            if (other.Feature == null) return 1;
             compareResult = Feature.CompareTo(other.Feature);
             if (compareResult != 0) return compareResult;
             compareResult = Score.CompareTo(other.Score);
             if (compareResult != 0) return compareResult;
-            if (Frame == null) return -1;
-            if (other.Frame == null) return 1;
             compareResult = Frame.CompareTo(other.Frame);
             if (compareResult != 0) return compareResult;
-            if (Attribute == null) return -1;
-            if (other.Attribute == null) return 1;
             return Attribute.CompareTo(other.Attribute);
         }
     }
