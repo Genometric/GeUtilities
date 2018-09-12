@@ -29,6 +29,26 @@ namespace Genometric.GeUtilities.Intervals.Model
         public string Filter { get; }
         public string Info { get; }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (GetType() != obj.GetType()) return false;
+            if (!base.Equals(obj)) return false;
+            var other = (Variant)obj;
+            return
+                ID == other.ID &&
+                (string.Join("", RefBase)).CompareTo(string.Join("", other.RefBase)) == 0 &&
+                (string.Join("", AltBase)).CompareTo(string.Join("", other.AltBase)) == 0 &&
+                Quality == other.Quality &&
+                Filter == other.Filter &&
+                Info == other.Info;
+        }
+
         public new int CompareTo(object obj)
         {
             if (obj == null) return 1;
