@@ -4,7 +4,6 @@
 
 using Genometric.GeUtilities.IGenomics;
 using Genometric.GeUtilities.Intervals.Model;
-using System;
 using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Model
