@@ -134,8 +134,8 @@ namespace Genometric.GeUtilities.Intervals.Parsers
             if (!((_summitColumn != -1 && _summitColumn < line.Length) && int.TryParse(line[_summitColumn], out int summit)))
                 summit = (int)Math.Round((left + right) / 2.0);
 
-            I rtv = (I)_constructor.Construct(left, right,
-                _nameColumn < line.Length ? line[_nameColumn]: null,
+            I rtv = _constructor.Construct(left, right,
+                _nameColumn < line.Length ? line[_nameColumn] : null,
                 summit, value, hashSeed);
 
             if (_valueColumn < line.Length && !double.IsNaN(value))
