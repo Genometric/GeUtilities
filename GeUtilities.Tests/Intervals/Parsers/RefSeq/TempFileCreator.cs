@@ -9,21 +9,20 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.RefSeq
 {
     public class TempFileCreator : IDisposable
     {
-        private readonly string _tempFilePath;
-        public string TempFilePath { get { return _tempFilePath; } }
+        public string TempFilePath { get; }
 
         public TempFileCreator(string line)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
-            FileStream stream = File.Create(_tempFilePath);
+            TempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
+            FileStream stream = File.Create(TempFilePath);
             using (StreamWriter writter = new StreamWriter(stream))
                 writter.WriteLine(line);
         }
 
         public TempFileCreator(RegionGenerator columns, int headerLineCount = 0, int genesCount = 1)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
-            FileStream stream = File.Create(_tempFilePath);
+            TempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".refSeq";
+            FileStream stream = File.Create(TempFilePath);
             using (StreamWriter writer = new StreamWriter(stream))
             {
                 while (headerLineCount-- > 0)
@@ -42,7 +41,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.RefSeq
 
         protected virtual void Dispose(bool disposing)
         {
-            File.Delete(_tempFilePath);
+            File.Delete(TempFilePath);
         }
     }
 }
