@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.Intervals.Functions;
 using Genometric.GeUtilities.ReferenceGenomes;
 using System;
 using System.Collections.Generic;
@@ -152,7 +153,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
             _data = data;
             _data.FilePath = Path.GetFullPath(_sourceFilePath);
             _data.FileName = Path.GetFileName(_sourceFilePath);
-            _data.FileHashKey = GetFileHashKey(_data.FilePath);
+            _data.FileHashKey = HashFunctions.FNVHashFunction(_data.FilePath);
             _excessChrs = new List<string>();
             _missingChrs = new List<string>();
             Messages = new List<string>();
@@ -281,33 +282,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
             foreach (KeyValuePair<string, int> entry in _assemblyData)
                 if (!_data.Chromosomes.ContainsKey(entry.Key.ToLower()))
                     _missingChrs.Add(entry.Key);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <returns></returns>
-        private uint GetFileHashKey(string filePath)
-        {
-            int l = filePath.Length;
-
-            uint hashKey = 0;
-            for (int i = 0; i < l; i++)
-            {
-                hashKey += filePath[i];
-                hashKey += (hashKey << 10);
-                hashKey ^= (hashKey >> 6);
-            }
-
-            hashKey += (hashKey << 3);
-            hashKey ^= (hashKey >> 11);
-            hashKey += (hashKey << 15);
-
-            return hashKey;
-        }
-
-        
+        }        
 
         protected void DropLine(string message)
         {
