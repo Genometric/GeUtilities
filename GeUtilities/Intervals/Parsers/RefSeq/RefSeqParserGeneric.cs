@@ -7,7 +7,7 @@ using Genometric.GeUtilities.IGenomics;
 namespace Genometric.GeUtilities.Intervals.Parsers.Model
 {
     public class RefSeqParser<I> : Parser<I, IntervalStats>
-        where I : IRefSeq
+        where I : IRefSeqGene
     {
         /// <summary>
         /// Gets and sets the column number of refseq ID.

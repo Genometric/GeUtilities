@@ -5,7 +5,7 @@
 namespace Genometric.GeUtilities.IGenomics
 {
     public interface IRefSeqConstructor<out I>
-        where I : IRefSeq
+        where I : IRefSeqGene
     {
         I Construct(int left, int right, string refSeqID, string geneSymbol, string hashSeed = "");
     }
