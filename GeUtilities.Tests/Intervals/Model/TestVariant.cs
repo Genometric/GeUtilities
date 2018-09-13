@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Model
 {
-    public class TestVCF
+    public class TestVariant
     {
         public enum Parameter { None, Left, Right, ID, RefBase, AltBase, Quality, Filter, Info};
 
