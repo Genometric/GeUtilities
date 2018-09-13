@@ -6,7 +6,7 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
-    public class ChIPSeqPeakConstructor : IChIPSeqPeakConstructor<Peak>
+    public class PeakConstructor : IChIPSeqPeakConstructor<Peak>
     {
         public Peak Construct(int left, int right, string name, int summit, double value, string hashSeed = "")
         {

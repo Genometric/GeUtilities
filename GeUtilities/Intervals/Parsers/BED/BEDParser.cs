@@ -12,7 +12,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers
         public BedParser() : this(new BedColumns())
         { }
 
-        public BedParser(BedColumns columns) : base(columns, new ChIPSeqPeakConstructor())
+        public BedParser(BedColumns columns) : base(columns, new PeakConstructor())
         { }
     }
 }
