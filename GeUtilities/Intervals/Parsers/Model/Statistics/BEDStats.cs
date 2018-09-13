@@ -43,7 +43,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
             // there is an issue initializing these classes.
             // Therefore, an "unsafe" casting might help  
             // spotting such issues with initializations.
-            IChIPSeqPeak peak = (IChIPSeqPeak)interval;
+            IPeak peak = (IPeak)interval;
 
             if (!double.IsNaN(peak.Value))
             {

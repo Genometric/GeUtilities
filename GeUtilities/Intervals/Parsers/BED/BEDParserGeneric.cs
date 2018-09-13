@@ -9,7 +9,7 @@ using System;
 namespace Genometric.GeUtilities.Intervals.Parsers
 {
     public class BedParser<I> : Parser<I, BEDStats>
-        where I : IChIPSeqPeak
+        where I : IPeak
     {
         /// <summary>
         /// Sets and gets the column number of peak name.

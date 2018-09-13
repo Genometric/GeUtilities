@@ -5,7 +5,7 @@
 namespace Genometric.GeUtilities.IGenomics
 {
     public interface IChIPSeqPeakConstructor<out I>
-        where I: IChIPSeqPeak
+        where I: IPeak
     {
         I Construct(int left, int right, string name, int summit, double value, string hashSeed = "");
     }

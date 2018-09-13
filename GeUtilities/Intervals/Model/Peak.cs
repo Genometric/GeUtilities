@@ -6,7 +6,7 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
-    public class Peak : Interval, IChIPSeqPeak
+    public class Peak : Interval, IPeak
     {
         public Peak(int left, int right, double value, int summit, string name, string hashSeed = "") :
             base(left, right, value.ToString() + summit.ToString() + name + hashSeed)
@@ -37,7 +37,7 @@ namespace Genometric.GeUtilities.Intervals.Model
             return CompareTo((Peak)obj);
         }
 
-        public int CompareTo(IChIPSeqPeak other)
+        public int CompareTo(IPeak other)
         {
             if (Name == null) return -1;
 

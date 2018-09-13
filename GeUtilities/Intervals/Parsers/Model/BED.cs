@@ -7,7 +7,7 @@ using Genometric.GeUtilities.IGenomics;
 namespace Genometric.GeUtilities.Intervals.Parsers.Model
 {
     public class Bed<I> : ParsedIntervals<I, BEDStats>
-        where I : IChIPSeqPeak
+        where I : IPeak
     {
         public I PValueMax { set; get; }
         public I PValueMin { set; get; }
