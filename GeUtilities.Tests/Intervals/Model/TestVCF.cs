@@ -92,7 +92,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
         {
             // Arrange
             var aVariant = GetVariant();
-            var aPeak = TestChIPSeqPeak.GetPeak();
+            var aPeak = TestPeak.GetPeak();
 
             // Act & Assert
             Assert.True(aVariant.CompareTo(aPeak) == 1);

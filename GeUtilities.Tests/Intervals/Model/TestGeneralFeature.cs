@@ -73,7 +73,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
         {
             // Arrange
             var aFeature = GetFeature();
-            var aPeak = TestChIPSeqPeak.GetPeak();
+            var aPeak = TestPeak.GetPeak();
 
             // Act & Assert
             Assert.True(aFeature.CompareTo(aPeak) == 1);

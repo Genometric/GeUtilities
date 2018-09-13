@@ -3,12 +3,11 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.Intervals.Model;
-using System;
 using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Model
 {
-    public class TestChIPSeqPeak
+    public class TestPeak
     {
         public enum Parameter { None, Left, Right, Value, Summit, Name };
 

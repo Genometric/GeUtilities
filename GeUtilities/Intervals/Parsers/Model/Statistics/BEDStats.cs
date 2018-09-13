@@ -38,7 +38,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
             base.Update(interval);
 
             // Can use `as` for safe casting as the following:
-            /// IChIPSeqPeak peak = interval as IChIPSeqPeak;
+            /// IPeak peak = interval as IPeak;
             // however, casting errors must not occur here unless
             // there is an issue initializing these classes.
             // Therefore, an "unsafe" casting might help  
