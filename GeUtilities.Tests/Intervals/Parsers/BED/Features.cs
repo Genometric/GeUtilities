@@ -11,9 +11,6 @@ using System.IO;
 using System.Linq;
 using Xunit;
 
-/// <summary>
-/// This namespace contains Tests for both base and BED parsers.
-/// </summary>
 namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
 {
     public class Features

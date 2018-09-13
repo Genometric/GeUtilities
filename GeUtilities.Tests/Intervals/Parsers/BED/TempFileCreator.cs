@@ -5,9 +5,6 @@
 using System;
 using System.IO;
 
-/// <summary>
-/// This namespace contains Tests for both base and BED parsers.
-/// </summary>
 namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
 {
     internal class TempFileCreator : IDisposable
