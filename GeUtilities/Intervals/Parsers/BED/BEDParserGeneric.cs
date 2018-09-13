@@ -30,7 +30,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers
         /// When read process is finished, this variable contains the number
         /// of regions that contained invalid p-value and replaced by default p-value. 
         /// </summary>
-        private UInt16 _defaultValueUtilizationCount;
+        private ushort _defaultValueUtilizationCount;
 
         /// <summary>
         /// Sets and gets the most stringent peak of the sample.
