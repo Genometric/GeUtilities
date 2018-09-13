@@ -9,21 +9,20 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.GTF
 {
     public class TempFileCreator : IDisposable
     {
-        private readonly string _tempFilePath;
-        public string TempFilePath { get { return _tempFilePath; } }
+        public string TempFilePath { get; }
 
         public TempFileCreator(string line)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
-            FileStream stream = File.Create(_tempFilePath);
+            TempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
+            FileStream stream = File.Create(TempFilePath);
             using (StreamWriter writer = new StreamWriter(stream))
                 writer.WriteLine(line);
         }
 
         public TempFileCreator(RegionGenerator columns, int headerLineCount = 0, int featuresCount = 1)
         {
-            _tempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
-            FileStream stream = File.Create(_tempFilePath);
+            TempFilePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".gtf";
+            FileStream stream = File.Create(TempFilePath);
             using (StreamWriter writer = new StreamWriter(stream))
             {
                 while (headerLineCount-- > 0)
@@ -49,7 +48,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.GTF
 
         protected virtual void Dispose(bool disposing)
         {
-            File.Delete(_tempFilePath);
+            File.Delete(TempFilePath);
         }
     }
 }
