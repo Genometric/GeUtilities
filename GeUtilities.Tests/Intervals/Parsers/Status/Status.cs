@@ -54,7 +54,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Status
         public void CompletedGeneralFeature()
         {
             // Arrange
-            using (var file = new GTF.TempFileCreator(new GTF.RegionGenerator()))
+            using (var file = new Gtf.TempFileCreator(new Gtf.RegionGenerator()))
             {
                 // Act
                 var parser = new BedParser();

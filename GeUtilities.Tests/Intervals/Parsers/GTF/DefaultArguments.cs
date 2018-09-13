@@ -5,7 +5,7 @@
 using Genometric.GeUtilities.Intervals.Parsers;
 using Xunit;
 
-namespace Genometric.GeUtilities.Tests.Intervals.Parsers.GTF
+namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
 {
     public class DefaultArguments
     {
