@@ -12,11 +12,11 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
 {
     public class BedStats
     {
-        private ChIPSeqPeak[] CreatePeaks(double[] pValues)
+        private Peak[] CreatePeaks(double[] pValues)
         {
-            var rtv = new ChIPSeqPeak[pValues.Length];
+            var rtv = new Peak[pValues.Length];
             for (int i = 0; i < pValues.Length; i++)
-                rtv[i] = new ChIPSeqPeak(
+                rtv[i] = new Peak(
                     left: 10 * i,
                     right: (10 * i) + 8,
                     value: pValues[i],

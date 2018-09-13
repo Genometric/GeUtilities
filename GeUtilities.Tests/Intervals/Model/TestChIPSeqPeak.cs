@@ -12,7 +12,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
     {
         public enum Parameter { None, Left, Right, Value, Summit, Name };
 
-        internal static ChIPSeqPeak GetPeak(Parameter param = Parameter.None, object value = null)
+        internal static Peak GetPeak(Parameter param = Parameter.None, object value = null)
         {
             int left = 10;
             int right = 20;
@@ -30,7 +30,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
                 default: break;
             }
 
-            return new ChIPSeqPeak(left, right, pValue, summit, name);
+            return new Peak(left, right, pValue, summit, name);
         }
 
         [Fact]

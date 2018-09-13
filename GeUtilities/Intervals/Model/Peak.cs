@@ -6,9 +6,9 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
-    public class ChIPSeqPeak : Interval, IChIPSeqPeak
+    public class Peak : Interval, IChIPSeqPeak
     {
-        public ChIPSeqPeak(int left, int right, double value, int summit, string name, string hashSeed = "") :
+        public Peak(int left, int right, double value, int summit, string name, string hashSeed = "") :
             base(left, right, value.ToString() + summit.ToString() + name + hashSeed)
         {
             Value = value;
@@ -34,7 +34,7 @@ namespace Genometric.GeUtilities.Intervals.Model
         {
             if (obj == null || GetType() != obj.GetType())
                 return 1;
-            return CompareTo((ChIPSeqPeak)obj);
+            return CompareTo((Peak)obj);
         }
 
         public int CompareTo(IChIPSeqPeak other)

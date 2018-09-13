@@ -294,7 +294,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                BedParser<ChIPSeqPeak> parser = new BedParser()
+                BedParser<Peak> parser = new BedParser()
                 {
                     Assembly = Assemblies.hg19,
                     ReadOnlyAssemblyChrs = false
@@ -361,7 +361,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
         public void TestMaxValue()
         {
             // Arrange
-            var p = new ChIPSeqPeak(30, 40, 0.1, 35, "GeUtilities_01"); ;
+            var p = new Peak(30, 40, 0.1, 35, "GeUtilities_01"); ;
             string[] peaks = new string[]
             {
                 "chr1\t10\t20\tGeUtilities_00\t0.01",
@@ -384,7 +384,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
         public void TestMinValue()
         {
             // Arrange
-            var p = new ChIPSeqPeak(30, 40, 0.0, 35, "GeUtilities_01");
+            var p = new Peak(30, 40, 0.0, 35, "GeUtilities_01");
             string[] peaks = new string[]
             {
                 "chr1\t10\t20\tGeUtilities_00\t0.1",

@@ -10,11 +10,11 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
 {
     public class IntervalStats
     {
-        private ChIPSeqPeak[] CreatePeaks(int[] intersCoord)
+        private Peak[] CreatePeaks(int[] intersCoord)
         {
-            var rtv = new ChIPSeqPeak[intersCoord.Length / 2];
+            var rtv = new Peak[intersCoord.Length / 2];
             for (int i = 0; i < intersCoord.Length; i += 2)
-                rtv[i / 2] = new ChIPSeqPeak(
+                rtv[i / 2] = new Peak(
                     left: intersCoord[i],
                     right: intersCoord[i + 1],
                     value: 100.0,

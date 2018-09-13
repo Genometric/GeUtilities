@@ -100,11 +100,11 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
 
         public char Strand { set; get; }
 
-        public ChIPSeqPeak Peak
+        public Peak Peak
         {
             get
             {
-                return new ChIPSeqPeak(Left, Right, Value, Summit, Name);
+                return new Peak(Left, Right, Value, Summit, Name);
             }
         }
 
