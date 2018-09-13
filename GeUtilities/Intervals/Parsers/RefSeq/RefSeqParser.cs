@@ -11,7 +11,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
         public RefSeqParser() : this(new RefSeqColumns())
         { }
 
-        public RefSeqParser(RefSeqColumns columns) : base(columns, new GeneConstructor())
+        public RefSeqParser(RefSeqColumns columns) : base(columns, new RefSeqGeneConstructor())
         { }
     }
 }
