@@ -12,14 +12,13 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
 {
     internal class TempFileCreator : IDisposable
     {
-        private readonly string _path;
-        public string Path { get { return _path; } }
+        public string Path { get; }
 
         public TempFileCreator() : this(new RegionGenerator()) { }
 
         public TempFileCreator(string peak)
         {
-            _path = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+            Path = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
             FileStream stream = File.Create(Path);
             using (StreamWriter writter = new StreamWriter(stream))
                 writter.WriteLine(peak);
@@ -27,7 +26,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
 
         public TempFileCreator(string[] peaks)
         {
-            _path = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+            Path = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
             FileStream stream = File.Create(Path);
             using (StreamWriter writer = new StreamWriter(stream))
                 foreach (var peak in peaks)
@@ -36,7 +35,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
 
         public TempFileCreator(RegionGenerator columns, int headerLineCount = 0, int peaksCount = 1)
         {
-            _path = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
+            Path = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".bed";
             FileStream stream = File.Create(Path);
             using (StreamWriter writer = new StreamWriter(stream))
             {
@@ -63,7 +62,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
 
         protected virtual void Dispose(bool disposing)
         {
-            File.Delete(_path);
+            File.Delete(Path);
         }
     }
 }
