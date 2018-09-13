@@ -12,7 +12,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
     {
         public enum Parameter { None, Left, Right, ID, Symbol };
 
-        internal static Gene GetGene(Parameter param = Parameter.None, object value = null)
+        internal static RefSeqGene GetGene(Parameter param = Parameter.None, object value = null)
         {
             int left = 10;
             int right = 20;
@@ -28,7 +28,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
                 default: break;
             }
 
-            return new Gene(left, right, id, symbol);
+            return new RefSeqGene(left, right, id, symbol);
         }
 
         [Fact]

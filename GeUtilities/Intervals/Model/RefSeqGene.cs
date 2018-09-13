@@ -6,9 +6,9 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
-    public class Gene : Interval, IRefSeqGene
+    public class RefSeqGene : Interval, IRefSeqGene
     {
-        public Gene(int left, int right, string refSeqID, string geneSymbol, string hashSeed = "") :
+        public RefSeqGene(int left, int right, string refSeqID, string geneSymbol, string hashSeed = "") :
             base(left, right, refSeqID + geneSymbol + hashSeed)
         {
             RefSeqID = refSeqID;
@@ -32,7 +32,7 @@ namespace Genometric.GeUtilities.Intervals.Model
         {
             if (obj == null || GetType() != obj.GetType())
                 return 1;
-            return CompareTo((Gene)obj);
+            return CompareTo((RefSeqGene)obj);
         }
 
         public int CompareTo(IRefSeqGene other)

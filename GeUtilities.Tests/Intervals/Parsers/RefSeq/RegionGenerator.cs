@@ -85,11 +85,11 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.RefSeq
 
         public char Strand { set; get; }
 
-        public Gene Gene
+        public RefSeqGene Gene
         {
             get
             {
-                return new Gene(Left, Right, RefSeqID, GeneSymbol);
+                return new RefSeqGene(Left, Right, RefSeqID, GeneSymbol);
             }
         }
 
