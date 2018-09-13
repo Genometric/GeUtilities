@@ -8,7 +8,7 @@ using System;
 
 namespace Genometric.GeUtilities.Intervals.Parsers
 {
-    public class BedParser<I> : Parser<I, BEDStats>
+    public class BedParser<I> : Parser<I, BedStats>
         where I : IPeak
     {
         /// <summary>

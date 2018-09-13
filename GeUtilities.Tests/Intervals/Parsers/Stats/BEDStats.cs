@@ -30,7 +30,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
         [InlineData(new double[] { 0.1, 0.01, 0.001, 0.0001 }, 0.1)]
         public void TestPValueHighest(double[] pValues, double pValueHighest)
         {
-            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BEDStats();
+            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BedStats();
             foreach (var peak in CreatePeaks(pValues))
                 stats.Update(peak);
 
@@ -42,7 +42,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
         [InlineData(new double[] { 0.1, 0.01, 0.001, 0.0001 }, 0.0001)]
         public void TestPValueLowest(double[] pValues, double pValueLowest)
         {
-            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BEDStats();
+            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BedStats();
             foreach (var peak in CreatePeaks(pValues))
                 stats.Update(peak);
 
@@ -54,7 +54,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
         [InlineData(new double[] { 0.1, 0.01, 0.001, 0.0001 }, 0.027775)]
         public void TestPValueMean(double[] pValues, double mean)
         {
-            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BEDStats();
+            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BedStats();
             foreach (var peak in CreatePeaks(pValues))
                 stats.Update(peak);
 
@@ -66,7 +66,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
         [InlineData(new double[] { 0.1, 0.01, 0.001, 0.0001 }, 0.041878418)]
         public void TestPValueSTDV(double[] pValues, double stdv)
         {
-            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BEDStats();
+            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BedStats();
             foreach (var peak in CreatePeaks(pValues))
                 stats.Update(peak);
 
