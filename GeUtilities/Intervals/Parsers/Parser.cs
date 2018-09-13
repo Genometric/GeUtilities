@@ -47,7 +47,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
         /// When read process is finished, this variable contains the number
         /// of dropped regions.
         /// </summary>
-        private UInt16 _dropedLinesCount;
+        private ushort _dropedLinesCount;
 
         /// <summary>
         /// Holds cached information of each chromosome's base pairs count. 
@@ -183,7 +183,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
             int left = 0;
             int right = 0;
             string line;
-            UInt32 lineCounter = 0;
+            uint lineCounter = 0;
 
             DropReadingPeak = false;
             byte readOffset = ReadOffset;
@@ -270,7 +270,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
         /// </summary>
         /// <param name="line">The spitted line read from input.</param>
         /// <returns>The interval this line delegates.</returns>
-        protected abstract I BuildInterval(int left, int right, string[] line, UInt32 lineCounter, string hashSeed);
+        protected abstract I BuildInterval(int left, int right, string[] line, uint lineCounter, string hashSeed);
 
         private void ReadMissingAndExcessChrs()
         {
@@ -288,11 +288,11 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        private UInt32 GetFileHashKey(string filePath)
+        private uint GetFileHashKey(string filePath)
         {
             int l = filePath.Length;
 
-            UInt32 hashKey = 0;
+            uint hashKey = 0;
             for (int i = 0; i < l; i++)
             {
                 hashKey += filePath[i];
