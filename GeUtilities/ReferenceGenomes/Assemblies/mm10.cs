@@ -9,7 +9,7 @@ namespace Genometric.GeUtilities.ReferenceGenomes
 {
     internal static class Mm10
     {
-        private static Dictionary<string, int> _data = new Dictionary<string, int>
+        private static readonly Dictionary<string, int> _data = new Dictionary<string, int>
             {
                 { "chr1", 195471971 },
                 { "chr2", 182113224 },

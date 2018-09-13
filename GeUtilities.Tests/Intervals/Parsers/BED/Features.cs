@@ -11,10 +11,7 @@ using System.IO;
 using System.Linq;
 using Xunit;
 
-/// <summary>
-/// This namespace contains Tests for both base and BED parsers.
-/// </summary>
-namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
+namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
 {
     public class Features
     {
@@ -29,7 +26,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
             Exception exception = Assert.Throws<FileNotFoundException>(() => parser.Parse(fileName));
 
             // Assert
-            Assert.False(String.IsNullOrEmpty(exception.Message));
+            Assert.False(string.IsNullOrEmpty(exception.Message));
             Assert.Equal(string.Format("The file `{0}` does not exist or is inaccessible.", fileName), exception.Message);
         }
 

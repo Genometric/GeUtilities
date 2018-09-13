@@ -5,7 +5,6 @@
 using Genometric.GeUtilities.IGenomics;
 using Genometric.GeUtilities.Intervals.Genome;
 using Genometric.GeUtilities.ReferenceGenomes;
-using System;
 using System.Collections.Generic;
 
 namespace Genometric.GeUtilities.Intervals.Parsers.Model
@@ -16,7 +15,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
     {
         public string FileName { set; get; }
         public string FilePath { set; get; }
-        public UInt32 FileHashKey { set; get; }
+        public uint FileHashKey { set; get; }
         public int IntervalsCount { set; get; }
         public List<string> Messages { set; get; }
         public Dictionary<string, Chromosome<I, S>> Chromosomes { set; get; }

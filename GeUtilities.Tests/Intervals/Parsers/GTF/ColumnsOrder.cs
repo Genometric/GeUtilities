@@ -5,7 +5,7 @@
 using Genometric.GeUtilities.Intervals.Parsers;
 using Xunit;
 
-namespace Genometric.GeUtilities.Tests.Intervals.Parsers.GTF
+namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
 {
     public class ColumnsOrder
     {
@@ -67,13 +67,15 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.GTF
         public void ColumnsSetters()
         {
             // Arrange
-            var rg = new RegionGenerator();
-            rg.ChrColumn = 2;
-            rg.LeftColumn = 2;
-            rg.RightColumn = 9;
-            rg.StrandColumn = -1;
-            rg.SourceColumn = 2;
-            rg.FeatureColumn = -1;
+            var rg = new RegionGenerator
+            {
+                ChrColumn = 2,
+                LeftColumn = 2,
+                RightColumn = 9,
+                StrandColumn = -1,
+                SourceColumn = 2,
+                FeatureColumn = -1
+            };
             rg.StrandColumn = 0;
             rg.StrandColumn = 19;
             rg.FeatureColumn = 8;

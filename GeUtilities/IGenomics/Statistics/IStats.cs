@@ -4,7 +4,7 @@
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IStats<C>
+    public interface IStats<in C>
     {
         void Update(IInterval<C> interval);
     }

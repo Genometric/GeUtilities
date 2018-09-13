@@ -5,7 +5,7 @@
 using Genometric.GeUtilities.Intervals.Parsers;
 using Xunit;
 
-namespace Genometric.GeUtilities.Tests.Intervals.Parsers.VCF
+namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Vcf
 {
     public class Features
     {

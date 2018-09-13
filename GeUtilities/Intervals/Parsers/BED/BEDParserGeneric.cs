@@ -30,7 +30,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers
         /// When read process is finished, this variable contains the number
         /// of regions that contained invalid p-value and replaced by default p-value. 
         /// </summary>
-        private UInt16 _defaultValueUtilizationCount;
+        private ushort _defaultValueUtilizationCount;
 
         /// <summary>
         /// Sets and gets the most stringent peak of the sample.
@@ -134,8 +134,8 @@ namespace Genometric.GeUtilities.Intervals.Parsers
             if (!((_summitColumn != -1 && _summitColumn < line.Length) && int.TryParse(line[_summitColumn], out int summit)))
                 summit = (int)Math.Round((left + right) / 2.0);
 
-            I rtv = (I)_constructor.Construct(left, right,
-                _nameColumn < line.Length ? line[_nameColumn]: null,
+            I rtv = _constructor.Construct(left, right,
+                _nameColumn < line.Length ? line[_nameColumn] : null,
                 summit, value, hashSeed);
 
             if (_valueColumn < line.Length && !double.IsNaN(value))
