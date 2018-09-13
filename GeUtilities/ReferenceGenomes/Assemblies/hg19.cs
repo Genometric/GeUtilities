@@ -9,7 +9,7 @@ namespace Genometric.GeUtilities.ReferenceGenomes
 {
     internal static class Hg19
     {
-        private static Dictionary<string, int> _data = new Dictionary<string, int>
+        private static readonly Dictionary<string, int> _data = new Dictionary<string, int>
             {
                 { "chr1", 249250621 },
                 { "chr2", 243199373 },
