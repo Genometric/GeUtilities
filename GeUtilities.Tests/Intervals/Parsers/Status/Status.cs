@@ -25,7 +25,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Status
         public void Initial()
         {
             // Arrange
-            using (var file = new BED.TempFileCreator(new BED.RegionGenerator()))
+            using (var file = new Bed.TempFileCreator(new Bed.RegionGenerator()))
             {
                 // Act
                 var parser = new BedParser();
@@ -39,7 +39,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Status
         public void CompletedBED()
         {
             // Arrange
-            using (var file = new BED.TempFileCreator(new BED.RegionGenerator()))
+            using (var file = new Bed.TempFileCreator(new Bed.RegionGenerator()))
             {
                 // Act
                 var parser = new BedParser();
@@ -100,7 +100,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Status
         {
             // Arrange
             _previousStatus = -1;
-            using (var file = new BED.TempFileCreator(new BED.RegionGenerator(), peaksCount: 50))
+            using (var file = new Bed.TempFileCreator(new Bed.RegionGenerator(), peaksCount: 50))
             {
                 // Act
                 var bedParser = new BedParser();

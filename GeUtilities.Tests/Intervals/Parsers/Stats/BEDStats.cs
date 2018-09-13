@@ -4,7 +4,7 @@
 
 using Genometric.GeUtilities.Intervals.Model;
 using Genometric.GeUtilities.Intervals.Parsers;
-using Genometric.GeUtilities.Tests.Intervals.Parsers.BED;
+using Genometric.GeUtilities.Tests.Intervals.Parsers.Bed;
 using System;
 using Xunit;
 

@@ -11,7 +11,7 @@ using System.IO;
 using System.Linq;
 using Xunit;
 
-namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
+namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
 {
     public class Features
     {

@@ -6,7 +6,7 @@ using Genometric.GeUtilities.Intervals.Parsers;
 using Genometric.GeUtilities.Intervals.Parsers.Model;
 using Xunit;
 
-namespace Genometric.GeUtilities.Tests.Intervals.Parsers.BED
+namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
 {
     public class DefaultArguments
     {
