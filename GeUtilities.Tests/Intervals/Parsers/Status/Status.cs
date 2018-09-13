@@ -84,7 +84,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Status
         public void CompletedVCF()
         {
             // Arrange
-            using (var file = new VCF.TempFileCreator(new VCF.RegionGenerator()))
+            using (var file = new Vcf.TempFileCreator(new Vcf.RegionGenerator()))
             {
                 // Act
                 var parser = new BedParser();

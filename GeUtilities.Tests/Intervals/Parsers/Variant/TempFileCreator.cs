@@ -5,7 +5,7 @@
 using System;
 using System.IO;
 
-namespace Genometric.GeUtilities.Tests.Intervals.Parsers.VCF
+namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Vcf
 {
     public class TempFileCreator : IDisposable
     {
