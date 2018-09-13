@@ -6,11 +6,11 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
-    public class GeneConstructor : IRefSeqConstructor<Gene>
+    public class RefSeqGeneConstructor : IRefSeqGeneConstructor<RefSeqGene>
     {
-        public Gene Construct(int left, int right, string refSeqID, string geneSymbol, string hashSeed = "")
+        public RefSeqGene Construct(int left, int right, string refSeqID, string geneSymbol, string hashSeed = "")
         {
-            return new Gene(left, right, refSeqID, geneSymbol, hashSeed);
+            return new RefSeqGene(left, right, refSeqID, geneSymbol, hashSeed);
         }
     }
 }

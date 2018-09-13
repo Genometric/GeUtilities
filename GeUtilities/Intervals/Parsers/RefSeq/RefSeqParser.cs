@@ -6,12 +6,12 @@ using Genometric.GeUtilities.Intervals.Model;
 
 namespace Genometric.GeUtilities.Intervals.Parsers.Model
 {
-    public class RefSeqParser : RefSeqParser<Gene>
+    public class RefSeqParser : RefSeqParser<RefSeqGene>
     {
         public RefSeqParser() : this(new RefSeqColumns())
         { }
 
-        public RefSeqParser(RefSeqColumns columns) : base(columns, new GeneConstructor())
+        public RefSeqParser(RefSeqColumns columns) : base(columns, new RefSeqGeneConstructor())
         { }
     }
 }

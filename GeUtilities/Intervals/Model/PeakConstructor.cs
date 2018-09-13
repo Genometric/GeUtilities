@@ -6,11 +6,11 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
-    public class ChIPSeqPeakConstructor : IChIPSeqPeakConstructor<ChIPSeqPeak>
+    public class PeakConstructor : IPeakConstructor<Peak>
     {
-        public ChIPSeqPeak Construct(int left, int right, string name, int summit, double value, string hashSeed = "")
+        public Peak Construct(int left, int right, string name, int summit, double value, string hashSeed = "")
         {
-            return new ChIPSeqPeak(left, right, value, summit, name, hashSeed);
+            return new Peak(left, right, value, summit, name, hashSeed);
         }
     }
 }

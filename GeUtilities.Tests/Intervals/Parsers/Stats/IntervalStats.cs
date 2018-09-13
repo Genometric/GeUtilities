@@ -10,11 +10,11 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
 {
     public class IntervalStats
     {
-        private ChIPSeqPeak[] CreatePeaks(int[] intersCoord)
+        private Peak[] CreatePeaks(int[] intersCoord)
         {
-            var rtv = new ChIPSeqPeak[intersCoord.Length / 2];
+            var rtv = new Peak[intersCoord.Length / 2];
             for (int i = 0; i < intersCoord.Length; i += 2)
-                rtv[i / 2] = new ChIPSeqPeak(
+                rtv[i / 2] = new Peak(
                     left: intersCoord[i],
                     right: intersCoord[i + 1],
                     value: 100.0,
@@ -30,7 +30,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 })]
         public void TestCount(int[] intersCoord)
         {
-            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BEDStats();
+            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BedStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 
@@ -44,7 +44,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 40)]
         public void TestWidthMax(int[] intersCoord, int maxWidth)
         {
-            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BEDStats();
+            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BedStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 
@@ -58,7 +58,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 2)]
         public void TestWidthMin(int[] intersCoord, uint minWidth)
         {
-            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BEDStats();
+            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BedStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 
@@ -72,7 +72,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 17.333)]
         public void TestWidthMean(int[] intersCoord, double mean)
         {
-            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BEDStats();
+            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BedStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 
@@ -86,7 +86,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Stats
         [InlineData(new int[] { 10, 20, 30, 32, 40, 80 }, 16.3571)]
         public void TestWidthPSTDV(int[] intersCoord, double pstdv)
         {
-            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BEDStats();
+            var stats = new Genometric.GeUtilities.Intervals.Parsers.Model.BedStats();
             foreach (var peak in CreatePeaks(intersCoord))
                 stats.Update(peak);
 

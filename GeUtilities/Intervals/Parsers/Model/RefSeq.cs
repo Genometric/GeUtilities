@@ -7,6 +7,6 @@ using Genometric.GeUtilities.IGenomics;
 namespace Genometric.GeUtilities.Intervals.Parsers.Model
 {
     public class RefSeq<I> : ParsedIntervals<I, IntervalStats>
-        where I : IRefSeq
+        where I : IRefSeqGene
     { }
 }

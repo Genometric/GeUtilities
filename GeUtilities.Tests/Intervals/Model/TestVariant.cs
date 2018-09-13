@@ -4,12 +4,11 @@
 
 using Genometric.GeUtilities.IGenomics;
 using Genometric.GeUtilities.Intervals.Model;
-using System;
 using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Model
 {
-    public class TestVCF
+    public class TestVariant
     {
         public enum Parameter { None, Left, Right, ID, RefBase, AltBase, Quality, Filter, Info};
 
@@ -92,7 +91,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
         {
             // Arrange
             var aVariant = GetVariant();
-            var aPeak = TestChIPSeqPeak.GetPeak();
+            var aPeak = TestPeak.GetPeak();
 
             // Act & Assert
             Assert.True(aVariant.CompareTo(aPeak) == 1);

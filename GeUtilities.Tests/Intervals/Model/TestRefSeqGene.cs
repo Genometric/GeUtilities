@@ -8,71 +8,69 @@ using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Model
 {
-    public class TestChIPSeqPeak
+    public class TestRefSeqGene
     {
-        public enum Parameter { None, Left, Right, Value, Summit, Name };
+        public enum Parameter { None, Left, Right, ID, Symbol };
 
-        internal static ChIPSeqPeak GetPeak(Parameter param = Parameter.None, object value = null)
+        internal static RefSeqGene GetGene(Parameter param = Parameter.None, object value = null)
         {
             int left = 10;
             int right = 20;
-            int summit = 15;
-            double pValue = 100.0;
-            string name = "GeUtilities";
+            string id = "RefSeqID";
+            string symbol = "GeneSymbol";
 
             switch (param)
             {
                 case Parameter.Left: left = (int)value; break;
                 case Parameter.Right: right = (int)value; break;
-                case Parameter.Value: pValue = (double)value; break;
-                case Parameter.Summit: summit = (int)value; break;
-                case Parameter.Name: name = (string)value; break;
+                case Parameter.ID: id = (string)value; break;
+                case Parameter.Symbol: symbol = (string)value; break;
                 default: break;
             }
 
-            return new ChIPSeqPeak(left, right, pValue, summit, name);
+            return new RefSeqGene(left, right, id, symbol);
         }
 
         [Fact]
         public void ComparisonTestWithNullObject()
         {
             // Arrange
-            var peak = GetPeak();
+            var gene = GetGene();
 
             // Act & Assert
-            Assert.True(peak.CompareTo(null) == 1);
+            Assert.True(gene.CompareTo(null) == 1);
         }
 
         [Fact]
         public void ComparisonTestWithNullObject2()
         {
             // Arrange
-            var peak = GetPeak();
+            var gene = GetGene();
 
             // Act & Assert
-            Assert.True(peak.CompareTo((object)null) == 1);
+            Assert.True(gene.CompareTo((object)null) == 1);
         }
 
         [Fact]
         public void ComparisonTestWithAPeakAsObject()
         {
             // Arrange
-            var aPeak = GetPeak();
-            var bPeak = GetPeak();
+            var aGene = GetGene();
+            var bGene = GetGene();
 
             // Act & Assert
-            Assert.True(aPeak.CompareTo((object)bPeak) == 0);
+            Assert.True(aGene.CompareTo((object)bGene) == 0);
         }
 
         [Fact]
         public void ThisProceedsDifferentType()
         {
             // Arrange
-            var aPeak = GetPeak();
-            var aGene = TestGene.GetGene();
+            var aGene = GetGene();
+            var aPeak = TestPeak.GetPeak();
 
             // Act & Assert
-            Assert.True(aPeak.CompareTo(aGene) == 1);
+            Assert.True(aGene.CompareTo(aPeak) == 1);
         }
 
         [Theory]
@@ -81,20 +79,21 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
         [InlineData(Parameter.Left, 8, 10, -1)]
         [InlineData(Parameter.Right, 20, 16, 1)]
         [InlineData(Parameter.Right, 16, 20, -1)]
-        [InlineData(Parameter.Value, 100.0, 90.0, 1)]
-        [InlineData(Parameter.Value, 90.0, 100.0, -1)]
-        [InlineData(Parameter.Summit, 15, 12, 1)]
-        [InlineData(Parameter.Summit, 12, 15, -1)]
-        [InlineData(Parameter.Name, "GU", "G", 1)]
-        [InlineData(Parameter.Name, "G", "GU", -1)]
-        [InlineData(Parameter.Name, "GU", null, 1)]
-        [InlineData(Parameter.Name, null, "GU", -1)]
-        [InlineData(Parameter.Name, null, null, -1)]
+        [InlineData(Parameter.Symbol, "GU", "G", 1)]
+        [InlineData(Parameter.Symbol, "G", "GU", -1)]
+        [InlineData(Parameter.Symbol, "GU", null, 1)]
+        [InlineData(Parameter.Symbol, null, "GU", -1)]
+        [InlineData(Parameter.Symbol, null, null, -1)]
+        [InlineData(Parameter.ID, "GU", "G", 1)]
+        [InlineData(Parameter.ID, "G", "GU", -1)]
+        [InlineData(Parameter.ID, "GU", null, 1)]
+        [InlineData(Parameter.ID, null, "GU", -1)]
+        [InlineData(Parameter.ID, null, null, -1)]
         public void CompareTo(Parameter param, object v1, object v2, int expected)
         {
             // Arrange
-            var a = GetPeak(param, v1);
-            var b = GetPeak(param, v2);
+            var a = GetGene(param, v1);
+            var b = GetGene(param, v2);
 
             // Act
             var actual = a.CompareTo(b);

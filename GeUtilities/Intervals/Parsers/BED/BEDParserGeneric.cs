@@ -8,8 +8,8 @@ using System;
 
 namespace Genometric.GeUtilities.Intervals.Parsers
 {
-    public class BedParser<I> : Parser<I, BEDStats>
-        where I : IChIPSeqPeak
+    public class BedParser<I> : Parser<I, BedStats>
+        where I : IPeak
     {
         /// <summary>
         /// Sets and gets the column number of peak name.
@@ -48,7 +48,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers
         /// </summary>
         private double _pValueSum;
 
-        private readonly IChIPSeqPeakConstructor<I> _constructor;
+        private readonly IPeakConstructor<I> _constructor;
 
         /// <summary>
         /// Sets and gets the default p-value that Will be used as a region's p-value if the 
@@ -78,7 +78,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers
         /// Parse standard Browser Extensible Data (BED) format.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name.</param>
-        public BedParser(BedColumns columns, IChIPSeqPeakConstructor<I> constructor) : base(columns)
+        public BedParser(BedColumns columns, IPeakConstructor<I> constructor) : base(columns)
         {
             _constructor = constructor;
             _nameColumn = columns.Name;

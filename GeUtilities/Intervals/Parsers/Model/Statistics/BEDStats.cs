@@ -7,7 +7,7 @@ using System;
 
 namespace Genometric.GeUtilities.Intervals.Parsers.Model
 {
-    public sealed class BEDStats : IntervalStats
+    public sealed class BedStats : IntervalStats
     {
         private double _sumPValue;
         private double _sumSqrdPValue;
@@ -28,7 +28,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
         /// </summary>
         public double PValuePSTDV { private set; get; }
 
-        public BEDStats() : base()
+        public BedStats() : base()
         {
             PValueLowest = 1;
         }
@@ -38,12 +38,12 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
             base.Update(interval);
 
             // Can use `as` for safe casting as the following:
-            /// IChIPSeqPeak peak = interval as IChIPSeqPeak;
+            /// IPeak peak = interval as IPeak;
             // however, casting errors must not occur here unless
             // there is an issue initializing these classes.
             // Therefore, an "unsafe" casting might help  
             // spotting such issues with initializations.
-            IChIPSeqPeak peak = (IChIPSeqPeak)interval;
+            IPeak peak = (IPeak)interval;
 
             if (!double.IsNaN(peak.Value))
             {
