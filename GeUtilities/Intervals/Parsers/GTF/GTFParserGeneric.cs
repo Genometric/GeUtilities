@@ -76,7 +76,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers
 
         public Gtf<I> Parse(string sourceFilePath)
         {
-            var parsedData = (Gtf<I>)base.Parse(sourceFilePath, new Gtf<I>());
+            var parsedData = (Gtf<I>)Parse(sourceFilePath, new Gtf<I>());
             parsedData.DeterminedFeatures = new Dictionary<string, int>(_features);
             Status = "100";
             return parsedData;
