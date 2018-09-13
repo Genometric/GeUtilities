@@ -19,13 +19,13 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
         /// </summary>
         private readonly byte _geneColumn;
 
-        private readonly IRefSeqConstructor<I> _constructor;
+        private readonly IRefSeqGeneConstructor<I> _constructor;
 
         /// <summary>
         /// Parse refseq genes presented in tab-delimited text file.
         /// </summary>
         /// <param name="sourceFilePath">Full path of source file name</param>
-        public RefSeqParser(RefSeqColumns columns, IRefSeqConstructor<I> constructor) : base(columns)
+        public RefSeqParser(RefSeqColumns columns, IRefSeqGeneConstructor<I> constructor) : base(columns)
         {
             _refSeqIDColumn = columns.RefSeqID;
             _geneColumn = columns.GeneSeymbol;

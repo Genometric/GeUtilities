@@ -6,7 +6,7 @@ using Genometric.GeUtilities.IGenomics;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
-    public class GeneConstructor : IRefSeqConstructor<Gene>
+    public class GeneConstructor : IRefSeqGeneConstructor<Gene>
     {
         public Gene Construct(int left, int right, string refSeqID, string geneSymbol, string hashSeed = "")
         {
