@@ -68,7 +68,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
         {
             // Arrange
             var aPeak = GetPeak();
-            var aGene = TestGene.GetGene();
+            var aGene = TestRefSeqGene.GetGene();
 
             // Act & Assert
             Assert.True(aPeak.CompareTo(aGene) == 1);

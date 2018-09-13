@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Model
 {
-    public class TestGene
+    public class TestRefSeqGene
     {
         public enum Parameter { None, Left, Right, ID, Symbol };
 
