@@ -4,14 +4,15 @@
 
 using System;
 
-namespace Genometric.GeUtilities.IGenomics
+namespace Genometric.GeUtilities.Intervals.Parsers.Model
 {
-    public interface IGeneralFeature : IInterval, IComparable<IGeneralFeature>
+    public class ParserEventArgs : EventArgs
     {
-        string Source { get; }
-        string Feature { get; }
-        double Score { get; }
-        string Frame { get; }
-        string Attribute { get; }
+        public string Value { get; set; }
+
+        public ParserEventArgs(string value)
+        {
+            Value = value;
+        }
     }
 }

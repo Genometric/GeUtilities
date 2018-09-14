@@ -6,21 +6,32 @@ using System;
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IInterval<C> : IComparable
+    public interface IInterval : IInterval<int> { }
+
+    public interface IInterval<out C> : IComparable
     {
         /// <summary>
         /// Sets and gets the left-end of the interval.
         /// </summary>
-        C Left { set; get; }
+        C Left { get; }
 
         /// <summary>
         /// Sets and gets the right-end of the interval.
         /// </summary>
-        C Right { set; get; }
+        C Right { get; }
 
         /// <summary>
-        /// Sets and gets the hashKey of the interval.
+        /// Gets the hashKey of the interval. 
+        /// 
+        /// <para>
+        /// The key must satisfy the following conditions:
+        /// (1) Any two different intervals, 
+        /// have different hash keys;
+        /// 
+        /// (2) Two equal hash keys imply the equality 
+        /// of the intervals.
+        /// </para>
         /// </summary>
-        uint HashKey { set; get; }
+        int GetHashCode();
     }
 }

@@ -6,12 +6,10 @@ using System;
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IGeneralFeature : IInterval, IComparable<IGeneralFeature>
+    public interface IPeak : IInterval, IComparable<IPeak>
     {
-        string Source { get; }
-        string Feature { get; }
-        double Score { get; }
-        string Frame { get; }
-        string Attribute { get; }
+        string Name { get; }
+        int Summit { get; }
+        double Value { get; }
     }
 }

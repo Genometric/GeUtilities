@@ -2,10 +2,7 @@
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
-namespace Genometric.GeUtilities.IGenomics
+namespace Genometric.GeUtilities.Intervals.Parsers
 {
-    public interface IStats<in C>
-    {
-        void Update(IInterval<C> interval);
-    }
+    public enum PValueFormats {SameAsInput, minus1_Log10_pValue, minus10_Log10_pValue, minus100_Log10_pValue };
 }

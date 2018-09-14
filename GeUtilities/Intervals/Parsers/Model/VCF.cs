@@ -2,16 +2,14 @@
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
-using System;
+using Genometric.GeUtilities.IGenomics;
 
-namespace Genometric.GeUtilities.IGenomics
+namespace Genometric.GeUtilities.Intervals.Parsers.Model
 {
-    public interface IGeneralFeature : IInterval, IComparable<IGeneralFeature>
+    public class Vcf<I> : ParsedIntervals<I, IntervalStats>
+        where I : IVariant
     {
-        string Source { get; }
-        string Feature { get; }
-        double Score { get; }
-        string Frame { get; }
-        string Attribute { get; }
+        public Vcf()
+        { }
     }
 }

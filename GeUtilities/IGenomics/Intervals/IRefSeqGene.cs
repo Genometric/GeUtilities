@@ -6,12 +6,9 @@ using System;
 
 namespace Genometric.GeUtilities.IGenomics
 {
-    public interface IGeneralFeature : IInterval, IComparable<IGeneralFeature>
+    public interface IRefSeqGene : IInterval, IComparable<IRefSeqGene>
     {
-        string Source { get; }
-        string Feature { get; }
-        double Score { get; }
-        string Frame { get; }
-        string Attribute { get; }
+        string RefSeqID { get; }
+        string GeneSymbol { get; }
     }
 }
