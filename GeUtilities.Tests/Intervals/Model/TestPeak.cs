@@ -29,7 +29,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
                 default: break;
             }
 
-            return new Peak(left, right, pValue, summit, name);
+            return new Peak(left, right, pValue, name, summit);
         }
 
         [Fact]

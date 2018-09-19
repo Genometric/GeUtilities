@@ -10,7 +10,7 @@ namespace Genometric.GeUtilities.Intervals.Model
     {
         public Peak Construct(int left, int right, string name, int summit, double value, string hashSeed = "")
         {
-            return new Peak(left, right, value, summit, name, hashSeed);
+            return new Peak(left, right, value, name, summit, hashSeed);
         }
     }
 }

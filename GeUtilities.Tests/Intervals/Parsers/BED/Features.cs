@@ -358,7 +358,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
         public void TestMaxValue()
         {
             // Arrange
-            var p = new Peak(30, 40, 0.1, 35, "GeUtilities_01"); ;
+            var p = new Peak(30, 40, 0.1, "GeUtilities_01", 35); ;
             string[] peaks = new string[]
             {
                 "chr1\t10\t20\tGeUtilities_00\t0.01",
@@ -381,7 +381,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
         public void TestMinValue()
         {
             // Arrange
-            var p = new Peak(30, 40, 0.0, 35, "GeUtilities_01");
+            var p = new Peak(30, 40, 0.0, "GeUtilities_01", 35);
             string[] peaks = new string[]
             {
                 "chr1\t10\t20\tGeUtilities_00\t0.1",

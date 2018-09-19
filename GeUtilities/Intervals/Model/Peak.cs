@@ -8,7 +8,7 @@ namespace Genometric.GeUtilities.Intervals.Model
 {
     public class Peak : Interval, IPeak
     {
-        public Peak(int left, int right, double value, int summit = -1, string name = null, string hashSeed = "") :
+        public Peak(int left, int right, double value, string name = null, int summit = -1, string hashSeed = "") :
             base(left, right, value.ToString() + summit.ToString() + name + hashSeed)
         {
             Value = value;
