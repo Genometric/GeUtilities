@@ -101,7 +101,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
         {
             get
             {
-                return new Peak(Left, Right, Value, Summit, Name);
+                return new Peak(Left, Right, Value, Name, Summit);
             }
         }
 
