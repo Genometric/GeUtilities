@@ -8,7 +8,7 @@ namespace Genometric.GeUtilities.Intervals.Model
 {
     public class PeakConstructor : IPeakConstructor<Peak>
     {
-        public Peak Construct(int left, int right, string name, int summit, double value, string hashSeed = "")
+        public Peak Construct(int left, int right, double value, string name = null, int summit = -1, string hashSeed = "")
         {
             return new Peak(left, right, value, name, summit, hashSeed);
         }

@@ -84,8 +84,8 @@ namespace Genometric.GeUtilities.Intervals.Parsers
             _nameColumn = columns.Name;
             _valueColumn = columns.Value;
             _summitColumn = columns.Summit;
-            _mostStringentPeak = _constructor.Construct(0, 2, "", 1, 1);
-            _mostPermissivePeak = _constructor.Construct(0, 2, "", 1, 0);
+            _mostStringentPeak = _constructor.Construct(0, 2, 1);
+            _mostPermissivePeak = _constructor.Construct(0, 2, 0);
             DefaultValue = 1E-8;
             DropPeakIfInvalidValue = true;
             ValidatePValue = true;
@@ -134,9 +134,13 @@ namespace Genometric.GeUtilities.Intervals.Parsers
             if (!((_summitColumn != -1 && _summitColumn < line.Length) && int.TryParse(line[_summitColumn], out int summit)))
                 summit = (int)Math.Round((left + right) / 2.0);
 
-            I rtv = _constructor.Construct(left, right,
+            I rtv = _constructor.Construct(
+                left, 
+                right,
+                value,
                 _nameColumn < line.Length ? line[_nameColumn] : null,
-                summit, value, hashSeed);
+                summit,
+                hashSeed);
 
             if (_valueColumn < line.Length && !double.IsNaN(value))
             {

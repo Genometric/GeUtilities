@@ -7,6 +7,6 @@ namespace Genometric.GeUtilities.IGenomics
     public interface IPeakConstructor<out I>
         where I: IPeak
     {
-        I Construct(int left, int right, string name, int summit, double value, string hashSeed = "");
+        I Construct(int left, int right, double value, string name = null, int summit = -1, string hashSeed = "");
     }
 }
