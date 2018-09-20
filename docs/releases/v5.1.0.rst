@@ -1,0 +1,5 @@
+v5.1.0 release notes
+===============================
+
+* Change `Peak` class signature (see https://github.com/Genometric/GeUtilities/pull/75);
+* Update files name to adhere with Pascal naming convention (see https://github.com/Genometric/GeUtilities/pull/76);
