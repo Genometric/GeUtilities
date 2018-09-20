@@ -39,18 +39,16 @@ namespace Genometric.GeUtilities.Intervals.Model
 
         public int CompareTo(IPeak other)
         {
-            if (Name == null) return -1;
-
-            if (other == null ||
-                other.Name == null)
-                return 1;
-
+            if (other == null) return 1;
             int compareResult = base.CompareTo(other);
             if (compareResult != 0) return compareResult;
             compareResult = Value.CompareTo(other.Value);
             if (compareResult != 0) return compareResult;
             compareResult = Summit.CompareTo(other.Summit);
             if (compareResult != 0) return compareResult;
+            if (Name == null && other.Name == null) return 0;
+            if (Name == null) return -1;
+            if (other.Name == null) return 1;
             return Name.CompareTo(other.Name);
         }
     }
