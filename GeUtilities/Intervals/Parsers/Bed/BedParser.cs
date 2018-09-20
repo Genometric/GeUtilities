@@ -1,4 +1,4 @@
-﻿// Licensed to the Genometric organization (https://github.com/Genometric) under one or more agreements.
+// Licensed to the Genometric organization (https://github.com/Genometric) under one or more agreements.
 // The Genometric organization licenses this file to you under the GNU General Public License v3.0 (GPLv3).
 // See the LICENSE file in the project root for more information.
 
@@ -7,12 +7,12 @@ using Genometric.GeUtilities.Intervals.Parsers.Model;
 
 namespace Genometric.GeUtilities.Intervals.Parsers
 {
-    public class GtfParser : GtfParser<GeneralFeature>
+    public class BedParser : BedParser<Peak>
     {
-        public GtfParser() : this(new GtfColumns())
+        public BedParser() : this(new BedColumns())
         { }
 
-        public GtfParser(GtfColumns columns) : base(columns, new GeneralFeatureConstructor())
+        public BedParser(BedColumns columns) : base(columns, new PeakConstructor())
         { }
     }
 }
