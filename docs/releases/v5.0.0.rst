@@ -1,0 +1,11 @@
+v5.0.0 release notes
+===============================
+
+* Make all default types immutable (see https://github.com/Genometric/GeUtilities/pull/65);
+* User cannot assign a hash value for a built-in type, and the value is auto-generated upon a built-in type is instantiated;
+* Fix issues null values of nullable properties can cause (see https://github.com/Genometric/GeUtilities/pull/66);
+* Implement concrete IInterval interface (see https://github.com/Genometric/GeUtilities/pull/67);
+* Reorganize the `IntervalParser` folder (see https://github.com/Genometric/GeUtilities/pull/68);
+* Check if a parsed value for a ChIP-seq peak is a valid p-value (see https://github.com/Genometric/GeUtilities/pull/69);
+* Override `Equals`, `CompareTo`, and `GetHashCode` for all built-in types (see https://github.com/Genometric/GeUtilities/pull/71);
+* Refactor built-in models (see https://github.com/Genometric/GeUtilities/pull/72);
