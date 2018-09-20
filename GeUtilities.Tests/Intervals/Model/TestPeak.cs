@@ -15,21 +15,19 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
         {
             int left = 10;
             int right = 20;
-            int summit = 15;
             double pValue = 100.0;
-            string name = "GeUtilities";
 
             switch (param)
             {
                 case Parameter.Left: left = (int)value; break;
                 case Parameter.Right: right = (int)value; break;
                 case Parameter.Value: pValue = (double)value; break;
-                case Parameter.Summit: summit = (int)value; break;
-                case Parameter.Name: name = (string)value; break;
+                case Parameter.Summit: return new Peak(left, right, pValue, summit: (int)value);
+                case Parameter.Name: return new Peak(left, right, pValue, name: (string)value);
                 default: break;
             }
 
-            return new Peak(left, right, pValue, name, summit);
+            return new Peak(left, right, pValue);
         }
 
         [Fact]
@@ -88,7 +86,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
         [InlineData(Parameter.Name, "G", "GU", -1)]
         [InlineData(Parameter.Name, "GU", null, 1)]
         [InlineData(Parameter.Name, null, "GU", -1)]
-        [InlineData(Parameter.Name, null, null, -1)]
+        [InlineData(Parameter.Name, null, null, 0)]
         public void CompareTo(Parameter param, object v1, object v2, int expected)
         {
             // Arrange
