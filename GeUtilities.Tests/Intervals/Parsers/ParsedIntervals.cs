@@ -5,6 +5,7 @@
 using Genometric.GeUtilities.Intervals.Parsers;
 using Genometric.GeUtilities.ReferenceGenomes;
 using Genometric.GeUtilities.Tests.Intervals.Parsers.Bed;
+using System;
 using System.IO;
 using Xunit;
 
@@ -58,6 +59,17 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers
                 // Assert
                 Assert.True(parsedBED.FilePath == Path.GetFullPath(file.Path));
             }
+        }
+
+        [Fact]
+        public void TestNullFilePath()
+        {
+            // Arrange
+            var parser = new BedParser();
+
+            // Act & Assert
+            var ex = Assert.Throws<ArgumentNullException>(() => parser.Parse(null));
+            Assert.Equal("sourceFilePath cannot be null.", ex.Message);
         }
 
         [Theory]
