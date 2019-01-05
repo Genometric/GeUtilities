@@ -142,7 +142,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers
                 summit,
                 hashSeed);
 
-            if (_valueColumn < line.Length && !double.IsNaN(value))
+            if (!double.IsNaN(value))
             {
                 _pValueSum += value;
 
