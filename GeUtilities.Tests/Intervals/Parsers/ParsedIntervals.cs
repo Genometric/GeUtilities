@@ -68,8 +68,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers
             var parser = new BedParser();
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentNullException>(() => parser.Parse(null));
-            Assert.Equal("sourceFilePath cannot be null.", ex.Message);
+            Assert.Throws<ArgumentNullException>(() => parser.Parse(null));
         }
 
         [Theory]
