@@ -378,7 +378,30 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
         }
 
         [Fact]
-        public void TestMaxValueWhenDefaultValueIsUsed()
+        public void TestMinValue()
+        {
+            // Arrange
+            var p = new Peak(30, 40, 0.0, "GeUtilities_01", 35);
+            string[] peaks = new string[]
+            {
+                "chr1\t10\t20\tGeUtilities_00\t0.1",
+                "chr2\t" + p.Left + "\t" + p.Right + "\t" + p.Name + "\t" + p.Value,
+                "chr3\t50\t60\tGeUtilities_02\t0.01",
+                "chr4\t70\t80\tGeUtilities_03\t0.001",
+            };
+            using (var file = new TempFileCreator(peaks))
+            {
+                // Act
+                var parser = new BedParser();
+                var parsedData = parser.Parse(file.Path);
+
+                // Assert
+                Assert.True(parsedData.PValueMin.CompareTo(p) == 0);
+            }
+        }
+
+        [Fact]
+        public void TestMinMaxValueWhenDefaultValueIsUsed()
         {
             // Arrange
             double defaultValue = 1e-8;
@@ -401,29 +424,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
 
                 // Assert
                 Assert.True(parsedData.PValueMax.Value == defaultValue);
-            }
-        }
-
-        [Fact]
-        public void TestMinValue()
-        {
-            // Arrange
-            var p = new Peak(30, 40, 0.0, "GeUtilities_01", 35);
-            string[] peaks = new string[]
-            {
-                "chr1\t10\t20\tGeUtilities_00\t0.1",
-                "chr2\t" + p.Left + "\t" + p.Right + "\t" + p.Name + "\t" + p.Value,
-                "chr3\t50\t60\tGeUtilities_02\t0.01",
-                "chr4\t70\t80\tGeUtilities_03\t0.001",
-            };
-            using (var file = new TempFileCreator(peaks))
-            {
-                // Act
-                var parser = new BedParser();
-                var parsedData = parser.Parse(file.Path);
-
-                // Assert
-                Assert.True(parsedData.PValueMin.CompareTo(p) == 0);
+                Assert.True(parsedData.PValueMin.Value == defaultValue);
             }
         }
 
