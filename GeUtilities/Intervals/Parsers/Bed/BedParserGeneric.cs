@@ -131,7 +131,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers
 
             #endregion
 
-            if (!((_summitColumn != -1 && _summitColumn < line.Length) && int.TryParse(line[_summitColumn], out int summit)))
+            if (!(_summitColumn != -1 && _summitColumn < line.Length && int.TryParse(line[_summitColumn], out int summit)))
                 summit = (int)Math.Round((left + right) / 2.0);
 
             I rtv = _constructor.Construct(

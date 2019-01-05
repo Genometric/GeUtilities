@@ -162,5 +162,24 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
                 Assert.False(parsedData.Chromosomes["chr1"].Strands.ContainsKey('#'));
             }
         }
+
+        [Fact]
+        public void DontFailIfGivenColumnNumberIsInvalid()
+        {
+            // Arrange
+            using (var file = new TempFileCreator("chr1\t10\t20"))
+            {
+                var parser = new BedParser(new BedColumns() { Chr = 0, Left = 1, Right = 2, Name = 3, Strand = 4, Summit = 5, Value = 6 })
+                {
+                    DropPeakIfInvalidValue = false,
+                };
+
+                // Act
+                var parsedPeak = parser.Parse(file.Path).Chromosomes["chr1"].Strands['*'].Intervals[0];
+
+                // Assert
+                Assert.True(parsedPeak.Left == 10 && parsedPeak.Right == 20);
+            }
+        }
     }
 }
