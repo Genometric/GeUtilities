@@ -378,6 +378,33 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
         }
 
         [Fact]
+        public void TestMaxValueWhenDefaultValueIsUsed()
+        {
+            // Arrange
+            double defaultValue = 1e-8;
+            string[] peaks = new string[]
+            {
+                "chr1\t10\t20",
+                "chr1\t30\t40",
+                "chr1\t50\t60",
+                "chr1\t70\t80",
+            };
+            using (var file = new TempFileCreator(peaks))
+            {
+                // Act
+                var parser = new BedParser()
+                {
+                    DropPeakIfInvalidValue = false,
+                    DefaultValue = defaultValue
+                };
+                var parsedData = parser.Parse(file.Path);
+
+                // Assert
+                Assert.True(parsedData.PValueMax.Value == defaultValue);
+            }
+        }
+
+        [Fact]
         public void TestMinValue()
         {
             // Arrange
