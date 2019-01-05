@@ -252,7 +252,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
                     }
 
                     strand = '*';
-                    if (_strandColumn != -1 && _strandColumn < line.Length &&
+                    if (_strandColumn != -1 && _strandColumn < splittedLine.Length &&
                        (char.TryParse(splittedLine[_strandColumn], out strand) && strand != '+' && strand != '-' && strand != '*'))
                         strand = '*';
 
