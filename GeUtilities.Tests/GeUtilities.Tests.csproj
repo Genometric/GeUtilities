@@ -16,7 +16,7 @@
     <PackageLicenseUrl>https://github.com/Genometric/GeUtilities/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Genometric/GeUtilities</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Genometric/GeUtilities</RepositoryUrl>
-    <Version>5.2.0</Version>
+    <Version>5.3.0</Version>
     <Description>Implements unit test functions for the GeUtilities.</Description>
     <PackageTags>genomics; genome analysis; building-blocks; parser; BED; VCF; GTF; RefSeq;</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
