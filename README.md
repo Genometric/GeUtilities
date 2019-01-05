@@ -1,6 +1,6 @@
 # GeUtilities 
 
-[![NuGet Badge](https://buildstats.info/nuget/Genometric.GeUtilities?vWidth=60&dWidth=60)](https://www.nuget.org/packages/Genometric.MSPC.Core)
+[![NuGet Badge](https://buildstats.info/nuget/Genometric.GeUtilities?vWidth=60&dWidth=60)](https://www.nuget.org/packages/Genometric.GeUtilities)
 
 Genome Utilities (GeUtilities) provides open-source building-blocks for genomic data analysis tools. The following components are currently implemented: 
 -	**IGenomics**: interfaces to build portable objects. For instance, ChIP-seq peaks, variations, or general features. 
