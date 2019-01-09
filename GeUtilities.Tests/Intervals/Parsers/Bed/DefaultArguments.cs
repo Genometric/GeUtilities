@@ -252,5 +252,15 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
             // Assert
             Assert.True(parser.Delimiter == '\t');
         }
+
+        [Fact]
+        public void DefaultUnspecifiedStrandChar()
+        {
+            // Arrange & Act
+            var parser = new BedParser();
+
+            // Assert
+            Assert.True(parser.UnspecifiedStrandChar == '.');
+        }
     }
 }
