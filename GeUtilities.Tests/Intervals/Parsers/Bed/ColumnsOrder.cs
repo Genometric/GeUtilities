@@ -120,7 +120,10 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser(rg.Columns);
+                var parser = new BedParser(rg.Columns)
+                {
+                    UnspecifiedStrandChar = strand
+                };
 
                 // Assert
                 Assert.True(parser.Parse(file.Path).Chromosomes[rg.Chr].Strands.ContainsKey(strand));
@@ -151,7 +154,8 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
                         Strand = 3,
                         Name = 4,
                         Value = 5
-                    });
+                    })
+                { UnspecifiedStrandChar = '*' };
 
                 var parsedData = parser.Parse(file.Path);
 
@@ -175,7 +179,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
                 };
 
                 // Act
-                var parsedPeak = parser.Parse(file.Path).Chromosomes["chr1"].Strands['*'].Intervals[0];
+                var parsedPeak = parser.Parse(file.Path).Chromosomes["chr1"].Strands['.'].Intervals[0];
 
                 // Assert
                 Assert.True(parsedPeak.Left == 10 && parsedPeak.Right == 20);

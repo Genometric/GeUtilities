@@ -64,7 +64,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes["chr1"].Strands['*'].Intervals[0].Value == defaultValue);
+                Assert.True(parsedData.Chromosomes["chr1"].Strands[parser.UnspecifiedStrandChar].Intervals[0].Value == defaultValue);
             }
         }
 
@@ -459,7 +459,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
         {
             // Arrange
             string chr = "chr1";
-            char strand = '*';
+            char strand = '.';
             var rg = new RegionGenerator { Chr = chr, Strand = strand };
             using (var file = new TempFileCreator(rg.GetSampleLine(delimiter)))
             {

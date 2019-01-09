@@ -66,8 +66,9 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.RefSeq
         }
 
         [Theory]
-        [InlineData('*')]
+        [InlineData('-')]
         [InlineData('+')]
+        [InlineData('.')]
         public void ReadStrand(char strand)
         {
             // Arrange

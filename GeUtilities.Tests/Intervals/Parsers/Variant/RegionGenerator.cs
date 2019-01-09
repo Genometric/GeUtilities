@@ -165,7 +165,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Vcf
             Quality = 654.321;
             Filter = "filter_001";
             Info = "info_001";
-            Strand = '*';
+            Strand = '.';
         }
 
         private void Swap(sbyte oldValue, sbyte newValue)

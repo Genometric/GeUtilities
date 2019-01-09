@@ -106,6 +106,12 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
         public uint MaxLinesToRead { set; get; }
 
         /// <summary>
+        /// Sets and gets the character to be used as strand,
+        /// when strand is not specified in the data.
+        /// </summary>
+        public char UnspecifiedStrandChar { set; get; }
+
+        /// <summary>
         /// Set and gets if the parser should read only regions whose 
         /// chromosome value is defined in the specified assembly. For instance, 
         /// if set to false, the parser will not read a peak with chr44 
@@ -145,6 +151,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
             _strandColumn = columns.Strand;
             MaxLinesToRead = uint.MaxValue;
             Delimiter = '\t';
+            UnspecifiedStrandChar = '.';
         }
 
         protected ParsedIntervals<I, S> Parse(string sourceFilePath, ParsedIntervals<I, S> data)
@@ -193,7 +200,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
             long fileSize = fileInfo.Length;
             int lineSize = 0;
             string chrName = "";
-            char strand = '*';
+            char strand = UnspecifiedStrandChar;
 
             using (StreamReader fileReader = new StreamReader(_sourceFilePath))
             {
@@ -251,10 +258,10 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
                         continue;
                     }
 
-                    strand = '*';
+                    strand = UnspecifiedStrandChar;
                     if (_strandColumn != -1 && _strandColumn < splittedLine.Length &&
-                       (char.TryParse(splittedLine[_strandColumn], out strand) && strand != '+' && strand != '-' && strand != '*'))
-                        strand = '*';
+                       (char.TryParse(splittedLine[_strandColumn], out strand) && strand != '+' && strand != '-' && strand != UnspecifiedStrandChar))
+                        strand = UnspecifiedStrandChar;
 
                     _data.Add(readingInterval, chrName, strand);
                     _data.IntervalsCount++;

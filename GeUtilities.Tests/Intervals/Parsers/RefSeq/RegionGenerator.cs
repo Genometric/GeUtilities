@@ -110,7 +110,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.RefSeq
             Right = 20;
             RefSeqID = "RefSeqID";
             GeneSymbol = "GeneSymbol";
-            Strand = '*';
+            Strand = '.';
         }
 
         private void Swap(sbyte oldValue, sbyte newValue)

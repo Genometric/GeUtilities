@@ -129,7 +129,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
             Summit = 15;
             Name = "GeUtilities_01";
             Value = 0.12345;
-            Strand = '*';
+            Strand = '.';
         }
 
         private void Swap(sbyte oldValue, sbyte newValue)

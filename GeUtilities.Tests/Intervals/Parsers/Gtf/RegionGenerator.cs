@@ -153,7 +153,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
             Left = 10;
             Right = 20;
             Score = 100.0;
-            Strand = '*';
+            Strand = '.';
             Frame = "Frame";
             Attribute = "att1=1;att2=v2";
         }
