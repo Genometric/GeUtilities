@@ -1,5 +1,5 @@
 # Common configuration for all branches
-version: '5.3.{build}'
+version: '5.4.{build}'
 image: Visual Studio 2017
 
 init:
