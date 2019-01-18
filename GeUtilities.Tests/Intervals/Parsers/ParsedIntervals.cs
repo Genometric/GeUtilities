@@ -7,6 +7,7 @@ using Genometric.GeUtilities.ReferenceGenomes;
 using Genometric.GeUtilities.Tests.Intervals.Parsers.Bed;
 using System;
 using System.IO;
+using System.Linq;
 using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Parsers
@@ -90,6 +91,40 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers
 
                 // Assert
                 Assert.True(parsedBED.Assembly == assembly);
+            }
+        }
+
+        [Fact]
+        public void CanTellIfStrandContainsAnInterval()
+        {
+            // Arrange
+            using (var file = new TempFileCreator())
+            {
+                // Act
+                var parser = new BedParser();
+                var parsedBED = parser.Parse(file.Path);
+                var interval = parsedBED.Chromosomes["chr1"].Strands['.'].Intervals.ToList()[0];
+
+                // Assert
+                Assert.True(parsedBED.Chromosomes["chr1"].Strands['.'].Contains(interval));
+            }
+        }
+
+        [Fact]
+        public void CanGetAnIntervalFromStrand()
+        {
+            // Arrange
+            using (var file = new TempFileCreator())
+            {
+                // Act
+                var parser = new BedParser();
+                var parsedBED = parser.Parse(file.Path);
+                var expected = parsedBED.Chromosomes["chr1"].Strands['.'].Intervals.ToList()[0];
+
+                // Assert
+                GeUtilities.Intervals.Model.Peak i;
+                Assert.True(parsedBED.Chromosomes["chr1"].Strands['.'].TryGet(expected.GetHashCode(), out i));
+                Assert.Equal(expected, i);
             }
         }
     }
