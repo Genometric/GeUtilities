@@ -26,6 +26,11 @@ namespace Genometric.GeUtilities.Intervals.Genome
             _intervals.Add(interval.GetHashCode(), interval);
         }
 
+        public bool TryGet(int hashkey, out I interval)
+        {
+            return _intervals.TryGetValue(hashkey, out interval);
+        }
+
         public bool Contains(I interval)
         {
             return _intervals.ContainsKey(interval.GetHashCode());
