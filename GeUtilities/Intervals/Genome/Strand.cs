@@ -4,27 +4,36 @@
 
 using Genometric.GeUtilities.IGenomics;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace Genometric.GeUtilities.Intervals.Genome
 {
     public class Strand<I>
         where I : IInterval<int>
     {
-        private readonly List<I> _intervals;
-        public ReadOnlyCollection<I> Intervals
+        private readonly Dictionary<int, I> _intervals;
+        public IReadOnlyCollection<I> Intervals
         {
-            get { return _intervals.AsReadOnly(); }
+            get { return _intervals.Values; }
         }
 
         public Strand()
         {
-            _intervals = new List<I>();
+            _intervals = new Dictionary<int, I>();
         }
 
         public void Add(I interval)
         {
-            _intervals.Add(interval);
+            _intervals.Add(interval.GetHashCode(), interval);
+        }
+
+        public bool TryGet(int hashkey, out I interval)
+        {
+            return _intervals.TryGetValue(hashkey, out interval);
+        }
+
+        public bool Contains(I interval)
+        {
+            return _intervals.ContainsKey(interval.GetHashCode());
         }
     }
 }

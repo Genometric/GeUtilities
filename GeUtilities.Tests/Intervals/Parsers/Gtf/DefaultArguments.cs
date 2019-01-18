@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.Intervals.Parsers;
+using System.Linq;
 using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
@@ -100,7 +101,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Left == rg.Left);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0].Left == rg.Left);
             }
         }
 
@@ -131,7 +132,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Right == rg.Right);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0].Right == rg.Right);
             }
         }
 
@@ -162,7 +163,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Source == rg.Source);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0].Source == rg.Source);
             }
         }
 
@@ -178,7 +179,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Feature == rg.Feature);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0].Feature == rg.Feature);
             }
         }
 
@@ -194,7 +195,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Score == rg.Score);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0].Score == rg.Score);
             }
         }
 
@@ -210,7 +211,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Attribute == rg.Attribute);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0].Attribute == rg.Attribute);
             }
         }
 
@@ -226,7 +227,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].GetHashCode() != 0);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0].GetHashCode() != 0);
             }
         }
     }

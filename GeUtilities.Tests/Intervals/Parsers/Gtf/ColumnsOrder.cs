@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.Intervals.Parsers;
+using System.Linq;
 using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
@@ -18,7 +19,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
             {
                 // Act
                 var parser = new GtfParser();
-                var parsedFeature = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedFeature = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0];
 
                 // Assert
                 Assert.True(parsedFeature.CompareTo(rg.GFeature) == 0);
@@ -56,7 +57,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
             {
                 // Act
                 var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
-                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0];
 
                 // Assert
                 Assert.True(parsedFeature.CompareTo(rg.GFeature) == 0);
@@ -84,7 +85,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
             {
                 // Act
                 var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
-                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0];
 
                 // Assert
                 Assert.True(parsedFeature.CompareTo(rg.GFeature) == 0);
@@ -111,7 +112,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
             {
                 // Act
                 var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
-                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0];
 
                 // Assert
                 Assert.True(parsedFeature.Source == source);
@@ -138,7 +139,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
             {
                 // Act
                 var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
-                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0];
 
                 // Assert
                 Assert.True(parsedFeature.Feature == feature);
@@ -185,7 +186,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
             {
                 // Act
                 var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
-                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0];
 
                 // Assert
                 Assert.True(double.IsNaN(score) ? double.IsNaN(parsedFeature.Score) : parsedFeature.Score == score);
@@ -212,7 +213,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
             {
                 // Act
                 var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
-                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0];
 
                 // Assert
                 Assert.True(parsedFeature.Frame == frame);
@@ -239,7 +240,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Gtf
             {
                 // Act
                 var parsedGTF = Features.ParseGTF(file.TempFilePath, rg);
-                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedFeature = parsedGTF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0];
 
                 // Assert
                 Assert.True(parsedFeature.Attribute == attribute);

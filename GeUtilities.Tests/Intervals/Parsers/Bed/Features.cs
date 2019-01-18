@@ -64,7 +64,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes["chr1"].Strands[parser.UnspecifiedStrandChar].Intervals[0].Value == defaultValue);
+                Assert.True(parsedData.Chromosomes["chr1"].Strands[parser.UnspecifiedStrandChar].Intervals.ToList()[0].Value == defaultValue);
             }
         }
 
@@ -125,7 +125,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Value == originalValue);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0].Value == originalValue);
             }
         }
 
@@ -213,7 +213,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].Name == null);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0].Name == null);
             }
         }
 
@@ -471,7 +471,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[chr].Strands[strand].Intervals[0].CompareTo(rg.Peak) == 0);
+                Assert.True(parsedData.Chromosomes[chr].Strands[strand].Intervals.ToList()[0].CompareTo(rg.Peak) == 0);
             }
         }
     }
