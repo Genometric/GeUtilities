@@ -25,7 +25,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
                 default: break;
             }
 
-            return new Genometric.GeUtilities.Intervals.Model.Interval(left, right, seed);
+            return new Interval(left, right, seed);
         }
 
         [Fact]
