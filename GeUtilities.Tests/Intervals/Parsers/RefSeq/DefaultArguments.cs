@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.Intervals.Parsers.Model;
+using System.Linq;
 using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Parsers.RefSeq
@@ -18,7 +19,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.RefSeq
             {
                 // Act
                 var parser = new RefSeqParser();
-                var parsedGene = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedGene = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0];
 
                 // Assert
                 Assert.True(parsedGene.CompareTo(rg.Gene) == 0);
@@ -100,7 +101,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.RefSeq
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].RefSeqID == rg.RefSeqID);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0].RefSeqID == rg.RefSeqID);
             }
         }
 
@@ -131,7 +132,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.RefSeq
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].GeneSymbol == rg.GeneSymbol);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0].GeneSymbol == rg.GeneSymbol);
             }
         }
 
@@ -185,7 +186,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.RefSeq
                 var parsedData = parser.Parse(file.TempFilePath);
 
                 // Assert
-                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0].GetHashCode() != 0);
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0].GetHashCode() != 0);
             }
         }
     }

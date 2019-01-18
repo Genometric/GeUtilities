@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.Intervals.Parsers.Model;
+using System.Linq;
 using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Parsers.RefSeq
@@ -41,7 +42,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.RefSeq
             {
                 // Act
                 var parser = new RefSeqParser(rg.Columns);
-                var parsedGene = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedGene = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0];
 
                 // Assert
                 Assert.True(parsedGene.CompareTo(rg.Gene) == 0);

@@ -5,6 +5,7 @@
 using Genometric.GeUtilities.Intervals.Model;
 using Genometric.GeUtilities.Intervals.Parsers;
 using Genometric.GeUtilities.Intervals.Parsers.Model;
+using System.Linq;
 using Xunit;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Vcf
@@ -26,7 +27,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Vcf
             {
                 // Act
                 var parser = new VcfParser();
-                var parsedVariant = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedVariant = parser.Parse(file.TempFilePath).Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0];
 
                 // Assert
                 Assert.True(parsedVariant.CompareTo(rg.Variant) == 0);
@@ -64,7 +65,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Vcf
             {
                 // Act
                 var parsedVCF = ParseVCF(file.TempFilePath, rg);
-                var parsedVariant = parsedVCF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedVariant = parsedVCF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0];
 
                 // Assert
                 Assert.True(parsedVariant.CompareTo(rg.Variant) == 0);
@@ -263,7 +264,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Vcf
             {
                 // Act
                 var parsedVCF = ParseVCF(file.TempFilePath, rg);
-                var parsedPeak = parsedVCF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals[0];
+                var parsedPeak = parsedVCF.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0];
 
                 // Assert
                 Assert.True(parsedPeak.CompareTo(rg.Variant) == 0);
