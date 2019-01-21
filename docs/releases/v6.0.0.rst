@@ -1,5 +1,5 @@
 v6.0.0 release notes
 ===============================
 
-- Change intervals collection in [Strand(https://github.com/Genometric/GeUtilities/blob/dev/GeUtilities/Intervals/Genome/Strand.cs) from list to dictionary.
+- Change intervals collection in [Strand](https://github.com/Genometric/GeUtilities/blob/dev/GeUtilities/Intervals/Genome/Strand.cs) from list to dictionary.
 - Add project logo.
