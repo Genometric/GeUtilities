@@ -4,6 +4,7 @@
 
 using Genometric.GeUtilities.Intervals.Parsers;
 using Genometric.GeUtilities.Intervals.Parsers.Model;
+using System.Globalization;
 using System.Linq;
 using Xunit;
 
@@ -202,6 +203,36 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
         {
             // Arrange
             var rg = new RegionGenerator();
+            using (var file = new TempFileCreator(rg))
+            {
+                // Act
+                var parser = new BedParser();
+                var parsedData = parser.Parse(file.Path);
+
+                // Assert
+                Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0].Value == rg.Value);
+            }
+        }
+
+        [Theory]
+        [InlineData(0.01, "fa-IR")]
+        [InlineData(0.02, "fr-FR")]
+        [InlineData(0.03, "en-US")]
+        [InlineData(0.04, "es-ES")]
+        [InlineData(0.05, "it-IT")]
+        [InlineData(0.06, "ii-CN")]
+        [InlineData(0.07, "ru-RU")]
+        [InlineData(0.08, "ja-JP")]
+        [InlineData(0.09, "zh-CN")]
+        public void ReadValueInvariantCulture(double value, string culture)
+        {
+            // Arrange
+            var rg = new RegionGenerator
+            {
+                Value = value,
+                Culture = culture
+            };
+
             using (var file = new TempFileCreator(rg))
             {
                 // Act

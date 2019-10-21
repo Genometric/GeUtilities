@@ -5,6 +5,7 @@
 using Genometric.GeUtilities.Intervals.Model;
 using Genometric.GeUtilities.Intervals.Parsers.Model;
 using System;
+using System.Globalization;
 using System.Text;
 
 namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
@@ -97,6 +98,8 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
 
         public char Strand { set; get; }
 
+        public string Culture { set; get; }
+
         public Peak Peak
         {
             get
@@ -110,7 +113,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
             // NOTE
             // The following default column indexes must match the
             // BED file type specifications. These specifications can 
-            // be obtained from various resources such as Ensembl: 
+            // be obtained from various resources such as Ensemble: 
             // https://uswest.ensembl.org/info/website/upload/bed.html
             Columns = new BedColumns()
             {
@@ -184,7 +187,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
                 else if (LeftColumn == i) lineBuilder.Append(Left + d);
                 else if (RightColumn == i) lineBuilder.Append(Right + d);
                 else if (NameColumn == i) lineBuilder.Append(Name + d);
-                else if (ValueColumn == i) lineBuilder.Append(Value + d);
+                else if (ValueColumn == i) lineBuilder.Append(Value.ToString(CultureInfo.CreateSpecificCulture(Culture)) + d);
                 else if (StrandColumn == i) lineBuilder.Append(Strand + d);
                 else if (SummitColumn == i) lineBuilder.Append(Summit + d);
                 else lineBuilder.Append("AbCd" + d);
