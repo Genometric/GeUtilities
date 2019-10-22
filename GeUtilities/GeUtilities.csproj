@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
 	<RuntimeFrameworkVersion>2.0.3</RuntimeFrameworkVersion>
     <Authors>https://github.com/Genometric/GeUtilities/graphs/contributors</Authors>
     <Company>Genometric</Company>
