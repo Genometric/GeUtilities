@@ -216,7 +216,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
         /// <returns>Returns parsed intervals.</returns>
         private void Parse()
         {
-            int left = 0;
+            int left;
             int right = 0;
             string line;
             uint lineCounter = 0;
