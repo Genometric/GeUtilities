@@ -8,7 +8,9 @@ using Genometric.GeUtilities.ReferenceGenomes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Genometric.GeUtilities.Intervals.Parsers.Model
@@ -143,6 +145,31 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
         /// </summary>
         public char Delimiter { set; get; }
 
+        /// <summary>
+        /// Sets and gets culture name. 
+        /// </summary>
+        public string Culture
+        {
+            set
+            {
+                if (!CultureInfo.GetCultures(CultureTypes.AllCultures).Any(x => x.Name == value))
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Invalid culture info.");
+                _culture = value;
+            }
+            get
+            {
+                return _culture;
+            }
+        }
+
+        public CultureInfo CultureInfo
+        {
+            set { Culture = value.Name; }
+            get { return CultureInfo.CreateSpecificCulture(Culture); }
+        }
+
+        private string _culture;
+
         protected Parser(BaseColumns columns)
         {
             _chrColumn = columns.Chr;
@@ -152,6 +179,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
             MaxLinesToRead = uint.MaxValue;
             Delimiter = '\t';
             UnspecifiedStrandChar = '.';
+            Culture = CultureInfo.CurrentCulture.Name;
         }
 
         protected ParsedIntervals<I, S> Parse(string sourceFilePath, ParsedIntervals<I, S> data)
