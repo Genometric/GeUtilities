@@ -224,7 +224,6 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
         [InlineData(0.06, "ii-CN")]
         [InlineData(0.07, "ru-RU")]
         [InlineData(0.08, "ja-JP")]
-        [InlineData(0.09, "zh-CN")]
         public void ReadValueInvariantCulture(double value, string culture)
         {
             // Arrange
