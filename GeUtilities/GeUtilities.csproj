@@ -10,16 +10,16 @@
     <PackageProjectUrl>https://github.com/Genometric/GeUtilities</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Genometric/GeUtilities</RepositoryUrl>
     <RootNamespace>Genometric.GeUtilities</RootNamespace>
-    <Version>6.0.0</Version>
+    <Version>6.1.0</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Genometric.GeUtilities</PackageId>
     <Description>Genome Utilities (GeUtilities) provides open-source building-blocks for genomic data analysis tools.</Description>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageTags>genomics; genome analysis; building-blocks; parser; BED; VCF; GTF; RefSeq;</PackageTags>
-    <AssemblyVersion>6.0.0.0</AssemblyVersion>
+    <AssemblyVersion>6.1.0.0</AssemblyVersion>
     <PackageIconUrl>https://raw.githubusercontent.com/Genometric/GeUtilities/dev/logo/logo.png</PackageIconUrl>
-    <FileVersion>6.0.0.0</FileVersion>
+    <FileVersion>6.1.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

@@ -1,5 +1,5 @@
 # Common configuration for all branches
-version: '6.0.{build}'
+version: '6.1.{build}'
 image: Visual Studio 2019
 
 init:
