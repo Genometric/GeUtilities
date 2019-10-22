@@ -6,19 +6,18 @@ init:
   # Good practice, because Windows line endings are different from Unix/Linux ones
   - cmd: git config --global core.autocrlf true
 install:
+  - nuget restore
   - dotnet restore
+  - choco install opencover.portable
+  - choco install codecov
 build:
   verbosity: minimal
 clone_depth: 1
 
 build_script:
-  - choco install "sonarscanner-msbuild-netcoreapp2.0" -y
-  - MSBuild.SonarQube.Runner.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.analysis.mode=preview"
   - MSBuild.exe /t:Rebuild
-  - MSBuild.SonarQube.Runner.exe end 
 
 test_script:
-  # restore packages for our unit tests
   - cmd: dotnet restore GeUtilities.Tests\GeUtilities.Tests.csproj --verbosity m
   - cmd: dotnet test GeUtilities.Tests\GeUtilities.Tests.csproj
   - ps: cd GeUtilities.Tests
@@ -45,28 +44,21 @@ for:
   configuration: Release
   
   environment:
-    sonartoken:
-      secure: 9VWCHMXxOqx9+jGz9YzVcPjuKDQWp2UrSGX2q3ZC1S4mhkqA3kRHf4RtgshQyrio
     codecovtoken:
       secure: grVzO2tsoeq7B3FFfRjyhirsmD11tXDcKoXOK6zjpqyOco2BSFbQ0J0T5qTZKsx7
   
   build_script:
-    - choco install "sonarscanner-msbuild-netcoreapp2.0" -y
-    - SonarScanner.MSBuild.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%"
     - MSBuild.exe /t:Rebuild
-    - SonarScanner.MSBuild.exe end /d:"sonar.login=%sonartoken%"
     
   after_test:
     - ps: |
         $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
         Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
         bash codecov.sh -f "GeUtilities.Tests/GeUtilities_coverage.xml" -t $env:codecovtoken
-    - SonarScanner.MSBuild.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%" /d:sonar.cs.opencover.reportsPaths="\GeUtilities.Tests\GeUtilities_coverage.xml"
     - MSBuild.exe /t:Rebuild
     - ps: cd GeUtilities.Tests
     - OpenCover.Console.exe -register:"user" -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"xunit -noshadow" -filter:"+[*]*" -oldStyle -output:"GeUtilities_coverage.xml"
     - ps: cd ..
-    - SonarScanner.MSBuild.exe end /d:"sonar.login=%sonartoken%"
   
   artifacts: 
     - path: GeUtilities/bin/Release/Genometric.GeUtilities*.nupkg  
@@ -88,16 +80,11 @@ for:
   configuration: Release
 
   environment:
-    sonartoken:
-      secure: 9VWCHMXxOqx9+jGz9YzVcPjuKDQWp2UrSGX2q3ZC1S4mhkqA3kRHf4RtgshQyrio
     codecovtoken:
       secure: grVzO2tsoeq7B3FFfRjyhirsmD11tXDcKoXOK6zjpqyOco2BSFbQ0J0T5qTZKsx7
 
   build_script:
-    - choco install "sonarscanner-msbuild-netcoreapp2.0" -y
-    - SonarScanner.MSBuild.exe begin /k:"geutilities" /o:"genometric" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=%sonartoken%"
     - MSBuild.exe /t:Rebuild
-    - SonarScanner.MSBuild.exe end /d:"sonar.login=%sonartoken%"
     
   after_test:
     - ps: |
