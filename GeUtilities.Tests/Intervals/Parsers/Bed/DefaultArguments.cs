@@ -4,7 +4,6 @@
 
 using Genometric.GeUtilities.Intervals.Parsers;
 using Genometric.GeUtilities.Intervals.Parsers.Model;
-using System.Globalization;
 using System.Linq;
 using Xunit;
 
@@ -236,7 +235,10 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
             using (var file = new TempFileCreator(rg))
             {
                 // Act
-                var parser = new BedParser();
+                var parser = new BedParser
+                {
+                    Culture = culture
+                };
                 var parsedData = parser.Parse(file.Path);
 
                 // Assert

@@ -133,6 +133,7 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
             Name = "GeUtilities_01";
             Value = 0.12345;
             Strand = '.';
+            Culture = CultureInfo.CurrentCulture.Name;
         }
 
         private void Swap(sbyte oldValue, sbyte newValue)

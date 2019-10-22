@@ -5,6 +5,7 @@
 using Genometric.GeUtilities.IGenomics;
 using Genometric.GeUtilities.Intervals.Parsers.Model;
 using System;
+using System.Globalization;
 
 namespace Genometric.GeUtilities.Intervals.Parsers
 {
@@ -99,7 +100,11 @@ namespace Genometric.GeUtilities.Intervals.Parsers
             double value = 0;
             if (_valueColumn < line.Length)
             {
-                if (double.TryParse(line[_valueColumn], out double pValue))
+                if (double.TryParse(
+                    line[_valueColumn], 
+                    NumberStyles.Any, 
+                    CultureInfo,
+                    out double pValue))
                 {
                     value = PValueConvertor(pValue);
                 }
