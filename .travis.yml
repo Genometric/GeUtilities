@@ -6,6 +6,13 @@ mono: none
 dotnet: 2.0.3
 install:
   - dotnet restore
+addons:
+  sonarcloud:
+    organization: "genometric"
+    token:
+      secure: "74ba7c93bb00eee584bf6aeb6ffe404e7af6d800"
+
 script:
 - dotnet build
 - dotnet test GeUtilities.Tests/GeUtilities.Tests.csproj
+- sonar-scanner
