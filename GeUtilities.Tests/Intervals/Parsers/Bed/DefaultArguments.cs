@@ -4,6 +4,8 @@
 
 using Genometric.GeUtilities.Intervals.Parsers;
 using Genometric.GeUtilities.Intervals.Parsers.Model;
+using System;
+using System.IO;
 using System.Linq;
 using Xunit;
 
@@ -244,6 +246,26 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers.Bed
                 // Assert
                 Assert.True(parsedData.Chromosomes[rg.Chr].Strands[rg.Strand].Intervals.ToList()[0].Value == rg.Value);
             }
+        }
+
+        [Fact]
+        public void ThrowExceptionForInvalidCultureInfo()
+        {
+            // Arrange
+            var rg = new RegionGenerator();
+            using (var file = new TempFileCreator(rg))
+            {
+                // Act
+                var exception = Assert.Throws<ArgumentOutOfRangeException>(
+                    () => new BedParser
+                    {
+                        Culture = "invalid_culture"
+                    });
+
+                // Assert
+                Assert.False(string.IsNullOrEmpty(exception.Message));
+                Assert.Contains("Invalid culture info", exception.Message);
+            }            
         }
 
         [Fact]
