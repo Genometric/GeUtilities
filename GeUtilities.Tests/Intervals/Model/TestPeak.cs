@@ -101,5 +101,39 @@ namespace Genometric.GeUtilities.Tests.Intervals.Model
             Assert.Equal(expected, actual);
             Assert.True(a.Equals(b) == equal);
         }
+
+        /// <summary>
+        /// The hash key of a peak should be computed considering 
+        /// its properties such as value, name, and summit, in 
+        /// addition to the interval properties (i.e,. left and right).
+        /// According, two peaks with same coordinates but different
+        /// properties should not have same hash key. 
+        /// </summary>
+        [Theory]
+        [InlineData(1, "a", 10, 1, "a", 10, true)]
+        [InlineData(1, "a", 10, 1, "b", 10, false)]
+        [InlineData(1, "a", 10, 1, "a", 99, false)]
+        [InlineData(1, "a", 10, 9, "a", 10, false)]
+        [InlineData(1, "a", 10, 1, "a", -1, false)]
+        [InlineData(2, "a", 10, 3, "a", 10, false)]
+        [InlineData(1, "a", -1, 1, "a", -1, true)]
+        [InlineData(1, null, -1, 1, null, -1, true)]
+        public void PeakHashKeyFuncOfPeakProperties(
+            double aValue, string aName, int aSummit, 
+            double bValue, string bName, int bSummit,
+            bool equalHashKey)
+        {
+            // Arrange
+            var peakA = new Peak(10, 20, aValue, aName, aSummit);
+            var peakB = new Peak(10, 20, bValue, bName, bSummit);
+
+            // Act
+            var peakAKey = peakA.GetHashCode();
+            var peakBKey = peakB.GetHashCode();
+            var equality = peakAKey == peakBKey;
+
+            // Assert
+            Assert.True(equality == equalHashKey);
+        }
     }
 }

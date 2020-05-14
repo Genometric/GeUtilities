@@ -127,5 +127,20 @@ namespace Genometric.GeUtilities.Tests.Intervals.Parsers
                 Assert.Equal(expected, i);
             }
         }
+
+        [Fact]
+        public void ReadTwoIntervalsWithExactSameInfo()
+        {
+            // Arrange
+            var peak = "chr1\t10\t20\tGeUtilities_00\t0.01";
+            using var file = new TempFileCreator(new string[] { peak, peak });
+
+            // Act
+            var parser = new BedParser();
+            var parsedBED = parser.Parse(file.Path);
+
+            // Assert
+            Assert.True(parsedBED.IntervalsCount == 2);
+        }
     }
 }

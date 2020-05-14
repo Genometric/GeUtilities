@@ -21,9 +21,9 @@ namespace Genometric.GeUtilities.Intervals.Genome
             _intervals = new Dictionary<int, I>();
         }
 
-        public void Add(I interval)
+        public bool TryAdd(I interval)
         {
-            _intervals.Add(interval.GetHashCode(), interval);
+            return _intervals.TryAdd(interval.GetHashCode(), interval);
         }
 
         public bool TryGet(int hashkey, out I interval)

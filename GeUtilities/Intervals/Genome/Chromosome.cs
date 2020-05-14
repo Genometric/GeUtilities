@@ -24,8 +24,8 @@ namespace Genometric.GeUtilities.Intervals.Genome
         {
             if (!Strands.ContainsKey(strand))
                 Strands.Add(strand, new Strand<I>());
-            Strands[strand].Add(interval);
-            Statistics.Update(interval);
+            if (Strands[strand].TryAdd(interval))
+                Statistics.Update(interval);
         }
     }
 }
