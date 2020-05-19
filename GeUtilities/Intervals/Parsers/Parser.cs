@@ -291,8 +291,13 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
                        (char.TryParse(splittedLine[_strandColumn], out strand) && strand != '+' && strand != '-' && strand != UnspecifiedStrandChar))
                         strand = UnspecifiedStrandChar;
 
-                    _data.Add(readingInterval, chrName, strand);
-                    _data.IntervalsCount++;
+                    if (_data.TryAdd(readingInterval, chrName, strand))
+                        _data.IntervalsCount++;
+                    else
+                    {
+                        DropLine("\tLine " + lineCounter.ToString() + "\t:\tPossibly Hash key collision.");
+                        continue;
+                    }
                 }
             }
         }

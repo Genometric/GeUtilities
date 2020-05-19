@@ -29,12 +29,19 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
             Statistics = new S();
         }
 
-        public void Add(I interval, string chr, char strand)
+        public bool TryAdd(I interval, string chr, char strand)
         {
             if (!Chromosomes.ContainsKey(chr))
                 Chromosomes.Add(chr, new Chromosome<I, S>());
-            Chromosomes[chr].Add(interval, strand);
-            Statistics.Update(interval);
+            if (Chromosomes[chr].TryAdd(interval, strand))
+            {
+                Statistics.Update(interval);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
