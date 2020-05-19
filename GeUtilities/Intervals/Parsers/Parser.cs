@@ -262,7 +262,7 @@ namespace Genometric.GeUtilities.Intervals.Parsers.Model
                         continue;
                     }
 
-                    I readingInterval = BuildInterval(left, right, splittedLine, lineCounter, _data.FileHashKey + lineCounter.ToString());
+                    I readingInterval = BuildInterval(left, right, splittedLine, lineCounter, HashFunctions.GetHashSeed(_data.FileHashKey.ToString(), lineCounter.ToString()));
                     if (DropReadingPeak)
                         continue;
 

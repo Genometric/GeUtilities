@@ -16,7 +16,7 @@ namespace Genometric.GeUtilities.Intervals.Model
 
             unchecked
             {
-                _hashKey = (int)HashFunctions.FNVHashFunction(left.ToString() + right.ToString() + hashSeed);
+                _hashKey = (int)HashFunctions.FNVHashFunction(HashFunctions.GetHashSeed(left.ToString(), right.ToString(), hashSeed));
             }
         }
 

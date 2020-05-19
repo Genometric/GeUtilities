@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.Intervals.Functions;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
@@ -10,8 +11,8 @@ namespace Genometric.GeUtilities.Intervals.Model
     {
         public Variant(int left, int right, string id, Base[] refBase, Base[] altBase, double quality,
             string filter, string info, string hashSeed = "") :
-            base(left, right, id + (refBase == null ? "" : refBase.ToString())
-                + (altBase == null ? "" : altBase.ToString()) + quality.ToString() + filter + info + hashSeed)
+            base(left, right, HashFunctions.GetHashSeed(id, (refBase == null ? "" : refBase.ToString()),
+                (altBase == null ? "" : altBase.ToString()), quality.ToString(), filter, info, hashSeed))
         {
             ID = id;
             RefBase = refBase;

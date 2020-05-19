@@ -9,6 +9,12 @@ namespace Genometric.GeUtilities.Intervals.Functions
         private const uint _FNVPrime_32 = 16777619;
         private const uint _FNVOffsetBasis_32 = 2166136261;
 
+        /// <summary>
+        /// Sets and gets a string used as a delimiter separating 
+        /// properties used as hash seed.
+        /// </summary>
+        public const string HashSeedDelimiter = ";;";
+
         public static uint FNVHashFunction(string bytes)
         {
             uint hash = _FNVOffsetBasis_32;
@@ -19,6 +25,11 @@ namespace Genometric.GeUtilities.Intervals.Functions
             }
 
             return hash;
+        }
+
+        public static string GetHashSeed(params string[] properties)
+        {
+            return string.Join(HashSeedDelimiter, properties);
         }
     }
 }
