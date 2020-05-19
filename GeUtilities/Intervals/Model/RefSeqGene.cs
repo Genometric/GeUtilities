@@ -3,13 +3,14 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.Intervals.Functions;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
     public class RefSeqGene : Interval, IRefSeqGene
     {
         public RefSeqGene(int left, int right, string refSeqID, string geneSymbol, string hashSeed = "") :
-            base(left, right, refSeqID + geneSymbol + hashSeed)
+            base(left, right, HashFunctions.GetHashSeed(refSeqID, geneSymbol, hashSeed))
         {
             RefSeqID = refSeqID;
             GeneSymbol = geneSymbol;

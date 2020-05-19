@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.Intervals.Functions;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
@@ -10,7 +11,7 @@ namespace Genometric.GeUtilities.Intervals.Model
     {
         public GeneralFeature(int left, int right, string source, string feature, double score,
             string frame, string attribute, string hashSeed = "") :
-            base(left, right, source + feature + score.ToString() + frame + attribute + hashSeed)
+            base(left, right, HashFunctions.GetHashSeed(source, feature, score.ToString(), frame, attribute, hashSeed))
         {
             Source = source;
             Feature = feature;

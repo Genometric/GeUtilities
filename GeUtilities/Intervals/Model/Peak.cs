@@ -3,13 +3,14 @@
 // See the LICENSE file in the project root for more information.
 
 using Genometric.GeUtilities.IGenomics;
+using Genometric.GeUtilities.Intervals.Functions;
 
 namespace Genometric.GeUtilities.Intervals.Model
 {
     public class Peak : Interval, IPeak
     {
         public Peak(int left, int right, double value, string name = null, int summit = -1, string hashSeed = "") :
-            base(left, right, value.ToString() + summit.ToString() + name + hashSeed)
+            base(left, right, HashFunctions.GetHashSeed(value.ToString(), summit.ToString(), name, hashSeed))
         {
             Value = value;
             Summit = summit != -1 ? summit : (right - left) / 2;

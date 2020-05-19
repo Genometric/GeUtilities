@@ -20,12 +20,20 @@ namespace Genometric.GeUtilities.Intervals.Genome
             Strands = new Dictionary<char, Strand<I>>();
         }
 
-        public void Add(I interval, char strand)
+        public bool TryAdd(I interval, char strand)
         {
             if (!Strands.ContainsKey(strand))
                 Strands.Add(strand, new Strand<I>());
+
             if (Strands[strand].TryAdd(interval))
+            {
                 Statistics.Update(interval);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
