@@ -1,12 +1,11 @@
 os:
-  - linux
-language: csharp
-solution: GeUtilities.sln
-mono: none
-dotnet: 3.0.0
-install:
-  - dotnet restore
-
-script:
-- dotnet build
-- dotnet test GeUtilities.Tests/GeUtilities.Tests.csproj
+    - linux
+matrix:
+    include:
+        -
+            dotnet: 3.0
+            install: ['dotnet restore']
+            language: csharp
+            mono: none
+            script: ['dotnet build', 'dotnet test GeUtilities.Tests/GeUtilities.Tests.csproj']
+            solution: GeUtilities.sln
